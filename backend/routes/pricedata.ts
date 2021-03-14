@@ -16,9 +16,9 @@ route.post(``, AdminAuthMiddleware, DownloadPricedata);
 //Show info about a Pricedata
 route.get(`/:id`, UserAuthMiddleware, GetSinglePricedataById);
 //Refresh a particular Pricedata
-route.put(`/:id`, AdminAuthMiddleware, RefreshAllPriceData);
+route.put(`/:id`, AdminAuthMiddleware, RefreshPriceDataById);
 //Refresh all Pricedata
-route.put(`/all`, AdminAuthMiddleware, RefreshPriceDataById);
+route.put(`/refresh/all`, AdminAuthMiddleware, RefreshAllPriceData);
 //Delete a particular Pricedata
 route.delete(`/:id`, AdminAuthMiddleware, DeleteSinglePriceDataById);
 

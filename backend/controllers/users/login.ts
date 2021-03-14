@@ -19,7 +19,6 @@ export default (req: Request, res: Response)=>{
         const sqlQuery = `SELECT groupname FROM LegoSorterDB.Users u
         LEFT JOIN Usergroups ug ON ug.id = u.usergroup
         WHERE username='${username}' AND password='${password}'`;
-        console.log(sqlQuery)
         connection.query(sqlQuery, (err, result:any) => {
             if(err) res.json({
                 code: 500,
