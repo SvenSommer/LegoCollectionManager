@@ -3,6 +3,7 @@ import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
+import { GetAndUpsertSetDataByNo } from '../setdata/helpers/upsertSetDataByNo';
 
 
 export default (req: Request, res: Response) => {
@@ -24,7 +25,7 @@ export default (req: Request, res: Response) => {
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const {username} = decoded;
                 const findUserInDB = `SELECT * FROM Users WHERE username='${username}'`;
-                connection.query(findUserInDB, (err, result: any) => {
+                connection.query(findUserInDB, (err, userResult: any) => {
                     if (err) res.json({
                         code: 500,
                         message: 'Some Error Occurred!',
@@ -32,7 +33,7 @@ export default (req: Request, res: Response) => {
                         errorMessage: process.env.DEBUG && err
                     });
                     else {
-                        const {id} = result[0];
+                        const {id: userid} = userResult[0];
                         const createRecognisedSet = `INSERT INTO Recognisedsets (
                                                   collection_id,
                                                   setNo,
@@ -50,7 +51,7 @@ export default (req: Request, res: Response) => {
                                                          '${condition}',
                                                           ${status},
                                                           NOW(),
-                                                          ${id}
+                                                          ${userid}
                                                         )`;
                         connection.query(createRecognisedSet, (err1, result1) => {
                             if (err1) res.json({
@@ -59,6 +60,7 @@ export default (req: Request, res: Response) => {
                                 errorMessage: process.env.DEBUG && err1
                             });
                             else {
+                                GetAndUpsertSetDataByNo(setnumber, res, userid);
                                 res.json({
                                     code: 201,
                                     message: 'Recognised set created!'

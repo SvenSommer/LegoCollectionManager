@@ -1,9 +1,10 @@
 import { Response } from 'express';
 import connection from "../../../database_connection";
+import { GetAndUpsertSubSetData } from '../../subsetdata/helpers/getAndUpsertSubSetData';
 import { GetAndInsertSetData } from './getAndInsertSetData';
 import { GetAndUpdateSetData } from './getAndUpdateSetData';
 
-export function UpsertSetDataByNo(setnumber: any, res: Response<any, Record<string, any>>, userid: number) {
+export function GetAndUpsertSetDataByNo(setnumber: any, res: Response<any, Record<string, any>>, userid: number) {
     const findSetDataInDB = `SELECT * FROM Sets WHERE no='${setnumber}'`;
 
     connection.query(findSetDataInDB, (err, setresult: any) => {
@@ -24,6 +25,7 @@ export function UpsertSetDataByNo(setnumber: any, res: Response<any, Record<stri
                 console.log(`Set not existend in Set Table yet setnumber: ${setnumber}, userid: ${userid}`)
                 GetAndInsertSetData(setnumber, userid, res);
             }
+            GetAndUpsertSubSetData(setnumber, userid, res);
         }
     });
 }

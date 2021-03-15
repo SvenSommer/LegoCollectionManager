@@ -4,7 +4,7 @@ import { PriceInfo } from "../../../models/model";
 import { UpsertPriceData } from '../../pricedata/helpers/upsertPriceData';
 const blApi = require("../../../config/bl.api.js");
 
-export function getAndInsertPartDataAndPriceData(type: any, partnumber: any, colorid: any, userid: any, res: Response<any, Record<string, any>>) {
+export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid: any, userid: any, res: Response<any, Record<string, any>>) {
     blApi.bricklinkClient.getCatalogItem(type, partnumber, colorid)
         .then(function (partinfo: any) {
             blApi.bricklinkClient.getPriceGuide(type, partnumber,
@@ -35,7 +35,6 @@ export function getAndInsertPartDataAndPriceData(type: any, partnumber: any, col
                                                     qty_avg_price_sold,
                                                     image_url,
                                                     thumbnail_url,
-                                                    created,
                                                     createdBy)
                                                     VALUES(
                                                     '${partinfo.no}',
@@ -51,7 +50,6 @@ export function getAndInsertPartDataAndPriceData(type: any, partnumber: any, col
                                                      ${priceinfoSold.qty_avg_price},
                                                     '${partinfo.image_url}',
                                                     '${partinfo.thumbnail_url}',
-                                                     NOW(),
                                                      ${userid}
                                                     )`;
                             connection.query(createPartData, (err) => {

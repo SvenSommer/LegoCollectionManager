@@ -30,7 +30,7 @@ export default (req: Request, res: Response) => {
                         colors.forEach(function(color:any){
                             colorsReplace.push([
                                 color.color_id,
-                                color.color_name.replace("'"," "),
+                                color.color_name.replace("'","`").replace("'","`"),
                                 color.color_code,
                                 color.color_type,
                                 id])

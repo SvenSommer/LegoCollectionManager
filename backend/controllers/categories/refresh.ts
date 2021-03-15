@@ -30,7 +30,7 @@ export default (req: Request, res: Response) => {
                         categories.forEach(function(category:any){
                             categoriesReplace.push([
                                 category.category_id,
-                                category.category_name.replace("'"," "),
+                                category.category_name.replace("'","`").replace("'","`"),
                                 category.parent_id,
                                 id])
                             });
@@ -45,12 +45,9 @@ export default (req: Request, res: Response) => {
                                      ON DUPLICATE KEY UPDATE id=id`; 
                                 connection.query(createCategories,[element], (err) => {
                                     if (err) {
-                                        console.log(err)
-                                        res.json({
-                                        code: 500,
-                                        message: 'Couldn\'t store downloaded Category.',
-                                        errorMessage: process.env.DEBUG && err
-                                    });}
+                                        console.log("ERROR while Inserting Categories: " + err)
+                                        console.log(createCategories)
+                                   ;}
                                 });
                             }) 
                     res.json({

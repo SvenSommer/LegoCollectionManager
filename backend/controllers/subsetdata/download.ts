@@ -3,7 +3,9 @@ import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
-import { UpsertSubsetData } from './helpers/upsertSubsetData';
+import {  GetAndUpsertSubSetData } from './helpers/getAndUpsertSubSetData';
+
+
 
 
 
@@ -28,7 +30,8 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         const {id: userid} = result[0];
-                        UpsertSubsetData(setnumber, res, userid);
+                        GetAndUpsertSubSetData(setnumber, userid, res);
+
                         res.json({
                             code: 201,
                             message: 'Subsetdata successfully downloaded!',

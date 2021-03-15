@@ -1002,7 +1002,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"collectionid\": 10,\r\n    \"setnumber\": \"9526\",\r\n    \"comments\": \"demo\",\r\n    \"instructions\": \"demo\",\r\n    \"condition\": \"demo\"\r\n}",
+							"raw": "{\r\n    \"collectionid\": 4,\r\n    \"setnumber\": \"7422\",\r\n    \"comments\": \"this a test set\",\r\n    \"instructions\": \"not available\",\r\n    \"condition\": \"used\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1603,14 +1603,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/runs/collectionid/99",
+							"raw": "{{URL}}/runs/collection/1",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"runs",
-								"collectionid",
-								"99"
+								"collection",
+								"1"
 							]
 						}
 					},
@@ -2046,7 +2046,7 @@
 			"name": "Subset Data",
 			"item": [
 				{
-					"name": "Download SubsetData",
+					"name": "Download or Update SubsetData",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -2089,7 +2089,7 @@
 					"response": []
 				},
 				{
-					"name": "Show all Parts By CollectionId",
+					"name": "Show Parts By CollectionId",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2109,7 +2109,7 @@
 					"response": []
 				},
 				{
-					"name": "Show all Minifigs By CollectionId Copy",
+					"name": "Show Minifigs By CollectionId",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -2129,6 +2129,15 @@
 					"response": []
 				},
 				{
+					"name": "Show SubSetData by Setno",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				},
+				{
 					"name": "Show single SubsetData",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -2139,33 +2148,6 @@
 						"body": {
 							"mode": "raw",
 							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/subsetdata/145",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subsetdata",
-								"145"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Refresh SubsetData",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"setid\":145\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
 						},
 						"url": {
 							"raw": "{{URL}}/subsetdata/145",

@@ -3,7 +3,7 @@ import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
-import { UpsertSetDataByNo } from './helpers/upsertSetDataByNo';
+import { GetAndUpsertSetDataByNo } from './helpers/upsertSetDataByNo';
 
 export default (req: Request, res: Response) => {
     try {
@@ -26,7 +26,8 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         const {id:userid} = result[0];
-                        UpsertSetDataByNo(setnumber, res, userid);
+                        GetAndUpsertSetDataByNo(setnumber, res, userid);
+
                         res.json({
                             code: 201,
                             message: 'Setdata successfully added or refreshed!',

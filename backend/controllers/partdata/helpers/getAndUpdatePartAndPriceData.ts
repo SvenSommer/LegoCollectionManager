@@ -3,7 +3,7 @@ import connection from "../../../database_connection";
 import { UpsertPriceData } from '../../pricedata/helpers/upsertPriceData';
 const blApi = require("../../../config/bl.api.js");
 
-export function getAndUpdatePartData(type: any, partnumber: any, colorid: any, userid: any, partid: any, res: Response<any, Record<string, any>>) {
+export function getAndUpdatePartAndPriceData(type: any, partnumber: any, colorid: any, userid: any, partid: any, res: Response<any, Record<string, any>>) {
     blApi.bricklinkClient.getCatalogItem(type, partnumber, colorid)
         .then(function (partinfo: any) {
             blApi.bricklinkClient.getPriceGuide(type, partnumber,
@@ -21,7 +21,7 @@ export function getAndUpdatePartData(type: any, partnumber: any, colorid: any, u
                             guide_type: 'sold'
                         }).then(function (priceinfosolddata: any) {
                             const updatePartData = `UPDATE Parts SET 
-                                                    name = '${partinfo.name}',
+                                                    name = '${partinfo.name.replace("'","`").replace("'","`")}',
                                                     category_id = '${partinfo.category_id}',
                                                     year = '${partinfo.year_released}',
                                                     weight_g = '${partinfo.weight}',
@@ -36,12 +36,11 @@ export function getAndUpdatePartData(type: any, partnumber: any, colorid: any, u
                                                     WHERE id = ${partid}
                                                     `;
                             connection.query(updatePartData, (err) => {
-                                if (err)
-                                    res.json({
-                                        code: 500,
-                                        message: 'Couldn\'t update Partdata',
-                                        errorMessage: process.env.DEBUG && err
-                                    });
+                                if (err){
+                                    console.log("ERROR while Inserting Parts" + err)
+                                    console.log(updatePartData)
+                                }
+
                                     UpsertPriceData(partnumber, colorid, type, 'U', 'europe', 'stock', res, userid);
                                     UpsertPriceData(partnumber, colorid, type, 'U', 'europe', 'sold', res, userid);
                             });
