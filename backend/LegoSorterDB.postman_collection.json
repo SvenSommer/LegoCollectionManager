@@ -160,7 +160,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Robert Test\",\r\n    \"weight_kg\": 12,\r\n    \"origin\": \"demo\",\r\n    \"origin_url\": \"demo\",\r\n    \"seller\": \"demo\",\r\n    \"description\": \"demo\",\r\n    \"purchase_date\": \"2020\",\r\n    \"cost\": 200,\r\n    \"porto\": 20,\r\n    \"thumbnail_url\": \"demo\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Robert Test3\",\r\n    \"weight_kg\": 12,\r\n    \"origin\": \"demo\",\r\n    \"origin_url\": \"demo\",\r\n    \"seller\": \"demo\",\r\n    \"description\": \"demo\",\r\n    \"purchase_date\": \"2020-12-01 12:00:00\",\r\n    \"cost\": 200,\r\n    \"porto\": 20,\r\n    \"thumbnail_url\": \"demo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -228,7 +228,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"id\": 15,\r\n        \"name\": \"demoModified\",\r\n        \"weight_kg\": \"12\",\r\n        \"origin\": \"demo667\",\r\n        \"origin_url\": \"demo\",\r\n        \"seller\": \"demo\",\r\n        \"description\": \"demo\",\r\n        \"cost\": \"200\",\r\n        \"porto\": \"20\",\r\n        \"thumbnail_url\": \"demo\",\r\n        \"status\": 10,\r\n        \"createdBy\": 2\r\n    }",
+							"raw": "{\r\n        \"id\": 15,\r\n        \"name\": \"demoModified\",\r\n        \"weight_kg\": \"12\",\r\n        \"origin\": \"demo667\",\r\n        \"origin_url\": \"demo\",\r\n        \"seller\": \"demo\",\r\n        \"description\": \"demo\",\r\n        \"purchase_date\": \"2020-12-01 12:00:00\",\r\n        \"cost\": \"200\",\r\n        \"porto\": \"20\",\r\n        \"thumbnail_url\": \"demo\",\r\n        \"status\": 10,\r\n        \"createdBy\": 2\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1816,7 +1816,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"TestSorter\",\r\n    \"lifter_status_url\": \"lifter_status_url\",\r\n    \"lifter_update_url\": \"lifter_update_url\",\r\n    \"lifter_alterspeed_url\": \"lifter_alterspeed_url\",\r\n    \"vfeeder_status_url\": \"vfeeder_status_url\",\r\n    \"vfeeder_update_url\": \"vfeeder_update_url\",\r\n    \"vfeeder_alterspeed_url\": \"vfeeder_alterspeed_url\",\r\n    \"conveyor_status_url\": \"conveyor_status_url\",\r\n    \"conveyor_update_url\": \"conveyor_update_url\",\r\n    \"conveyor_alterspeed_url\": \"conveyor_alterspeed_url\",\r\n    \"pusher_count\": 10,\r\n    \"pusher_status_baseurl\": \"pusher_status_baseurl\",\r\n    \"pusher_mode_baseurl\": \"pusher_mode_baseurl\",\r\n    \"status\": \"status\"\r\n}",
+							"raw": "{\r\n    \"name\":\"TestSorter\",\r\n    \"lifter_status_url\": \"lifter_status_url\",\r\n    \"lifter_update_url\": \"lifter_update_url\",\r\n    \"lifter_alterspeed_url\": \"lifter_alterspeed_url\",\r\n    \"vfeeder_status_url\": \"vfeeder_status_url\",\r\n    \"vfeeder_update_url\": \"vfeeder_update_url\",\r\n    \"vfeeder_alterspeed_url\": \"vfeeder_alterspeed_url\",\r\n    \"conveyor_status_url\": \"conveyor_status_url\",\r\n    \"conveyor_update_url\": \"conveyor_update_url\",\r\n    \"conveyor_alterspeed_url\": \"conveyor_alterspeed_url\",\r\n    \"status\": \"status\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1884,7 +1884,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 2,\r\n    \"name\":\"TestSorter3333\",\r\n    \"lifter_status_url\": \"lifter_status_url\",\r\n    \"lifter_update_url\": \"lifter_update_url\",\r\n    \"lifter_alterspeed_url\": \"lifter_alterspeed_url\",\r\n    \"vfeeder_status_url\": \"vfeeder_status_url\",\r\n    \"vfeeder_update_url\": \"vfeeder_update_url\",\r\n    \"vfeeder_alterspeed_url\": \"vfeeder_alterspeed_url\",\r\n    \"conveyor_status_url\": \"conveyor_status_url\",\r\n    \"conveyor_update_url\": \"conveyor_update_url\",\r\n    \"conveyor_alterspeed_url\": \"conveyor_alterspeed_url\",\r\n    \"pusher_count\": 10,\r\n    \"pusher_status_baseurl\": \"pusher_status_baseurl\",\r\n    \"pusher_mode_baseurl\": \"pusher_mode_baseurl\",\r\n    \"status\": \"status\"\r\n}",
+							"raw": "{\r\n    \"id\": 2,\r\n    \"name\":\"TestSorter3333\",\r\n    \"lifter_status_url\": \"lifter_status_url\",\r\n    \"lifter_update_url\": \"lifter_update_url\",\r\n    \"lifter_alterspeed_url\": \"lifter_alterspeed_url\",\r\n    \"vfeeder_status_url\": \"vfeeder_status_url\",\r\n    \"vfeeder_update_url\": \"vfeeder_update_url\",\r\n    \"vfeeder_alterspeed_url\": \"vfeeder_alterspeed_url\",\r\n    \"conveyor_status_url\": \"conveyor_status_url\",\r\n    \"conveyor_update_url\": \"conveyor_update_url\",\r\n    \"conveyor_alterspeed_url\": \"conveyor_alterspeed_url\",\r\n    \"status\": \"status\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1917,6 +1917,143 @@
 							"path": [
 								"sorters",
 								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pushers",
+			"item": [
+				{
+					"name": "Create Pusher",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sorterid\":1,\r\n    \"number\": 2,\r\n    \"ip\":\"192.168.178.100\",\r\n    \"distanceFromOrigin\": 679,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"updateurl\": \"/update?clientmode=Test1&ntp=1\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pushers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pushers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show all Pusher",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pushers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pushers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show all Pusher by Sorterid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pushers/sorter/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pushers",
+								"sorter",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show single Pusher",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/pushers/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pushers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Pusher",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"sorterid\":1,\r\n    \"number\": 1,\r\n    \"ip\":\"192.168.178.86\",\r\n    \"distanceFromOrigin\": 359,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"updateurl\": \"/update?clientmode={{Clientmode}}&ntp={{1}}\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pushers/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pushers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete single Pusher",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pushers/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pushers",
+								"1"
 							]
 						}
 					},
