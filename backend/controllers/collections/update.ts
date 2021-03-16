@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+//@ts-ignore
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
@@ -14,6 +15,7 @@ export default (req: Request, res: Response) => {
             origin_url,
             seller,
             description,
+            purchase_date,
             cost,
             porto,
             thumbnail_url,
@@ -27,6 +29,7 @@ export default (req: Request, res: Response) => {
             origin_url &&
             seller &&
             description &&
+            purchase_date &&
             cost &&
             porto) {
             //@ts-ignore
@@ -37,9 +40,9 @@ export default (req: Request, res: Response) => {
                                             origin_url = '${origin_url}',
                                             seller = '${seller}',
                                             description = '${description}',
-                                            purchase_date = CURDATE(),
+                                            purchase_date = '${purchase_date}',
                                             cost = ${cost},
-                                            porto = ${cost},
+                                            porto = ${porto},
                                             thumbnail_url = '${thumbnail_url}',
                                             status = ${status},
                                             WHERE id=${id}`;
