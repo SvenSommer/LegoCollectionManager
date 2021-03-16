@@ -33,11 +33,24 @@ import types from "./routes/types";
 import usergroups from "./routes/usergroups";
 
 
+const corsOpts = {
+    origin: 'http://localhost:4200',
+    credentials: true,
+    methods: [
+        'GET',
+        'POST',
+    ],
+
+    allowedHeaders: [
+        'Content-Type',
+    ],
+};
+
 /*
 * Initializing Middlewares
 */
 dotenv.config();
-app.use(cors());
+app.use(cors(corsOpts));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());

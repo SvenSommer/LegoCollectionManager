@@ -17,6 +17,7 @@ export default (req: Request, res: Response) => {
             origin_url,
             seller,
             description,
+            purchase_date,
             cost,
             porto,
             thumbnail_url,
@@ -29,6 +30,7 @@ export default (req: Request, res: Response) => {
             origin_url &&
             seller &&
             description &&
+            purchase_date &&
             cost &&
             porto) {
             //@ts-ignore
@@ -64,7 +66,7 @@ export default (req: Request, res: Response) => {
                                                          '${origin_url}',
                                                          '${seller}',
                                                          '${description}',
-                                                          CURDATE(),
+                                                         '${purchase_date}',
                                                           ${cost},
                                                           ${porto},
                                                          '${thumbnail_url}',
