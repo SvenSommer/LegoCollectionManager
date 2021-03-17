@@ -1,5 +1,6 @@
 import { Console } from 'console';
 import {Request, Response} from 'express';
+//@ts-ignore
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
@@ -11,7 +12,7 @@ export default (req: Request, res: Response) => {
     try {
         const {token} = req.cookies;
 
-        //@ts-ignore
+//@ts-ignore
         jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
             const {username} = decoded;
             const findUserInDB = `SELECT * FROM Users WHERE username='${username}'`;
@@ -19,7 +20,6 @@ export default (req: Request, res: Response) => {
                 if (err) res.json({
                     code: 500,
                     message: 'Some Error Occurred!',
-                    //@ts-ignore
                     errorMessage: process.env.DEBUG && err
                 });
                 else {

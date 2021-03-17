@@ -1,5 +1,6 @@
 import CreateStatus from '../controllers/status/create';
 import ShowAllStatus from '../controllers/status/show';
+import ShowAllStatusByTypeid from '../controllers/status/showByTypeid';
 import UpdateStatusById from '../controllers/status/update';
 import GetSingleStatusById from '../controllers/status/single';
 import DeleteSingleStatusById from '../controllers/status/delete';
@@ -10,6 +11,8 @@ const route = Router();
 
 //List all Status
 route.get(``, UserAuthMiddleware, ShowAllStatus);
+//List all Status by Typeid
+route.get(`/type/:typeid`, UserAuthMiddleware, ShowAllStatusByTypeid);
 //Create a new Status
 route.post(``, AdminAuthMiddleware, CreateStatus);
 //Show info about a specific Status

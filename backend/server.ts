@@ -32,6 +32,8 @@ import suggestedset from "./routes/suggestedset";
 import supersetdata from "./routes/supersetdata";
 import types from "./routes/types";
 import usergroups from "./routes/usergroups";
+import sortedsets from "./routes/sortedsets";
+import sortedparts from "./routes/sortedparts";
 
 
 const corsOpts = {
@@ -82,6 +84,8 @@ app.use('/suggestedsets', suggestedset);
 app.use('/supersetdata', supersetdata);
 app.use('/types', types);
 app.use('/usergroups', usergroups);
+app.use('/sortedsets', sortedsets);
+app.use('/sortedparts', sortedparts);
 
 
 const PORT = process.env.PORT || 4000;

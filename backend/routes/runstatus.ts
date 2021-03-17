@@ -1,6 +1,7 @@
 
 import CreateRunStatus from '../controllers/runstatus/create';
 import ShowAllRunStatus from '../controllers/runstatus/show';
+import ShowAllRunStatusForRunid from '../controllers/runstatus/showByRunid';
 import UpdateRunStatusById from '../controllers/runstatus/update';
 import GetSingleRunStatusById from '../controllers/runstatus/single';
 import DeleteSingleRunStatusById from '../controllers/runstatus/delete';
@@ -11,6 +12,8 @@ const route = Router();
 
 //List all RunStatus
 route.get(``, UserAuthMiddleware, ShowAllRunStatus);
+//List all RunStatus for runid
+route.get(`/run/:runid`, UserAuthMiddleware, ShowAllRunStatusForRunid);
 //Create a new RunStatus
 route.post(``, AdminAuthMiddleware, CreateRunStatus);
 //Show info about a specific RunStatus

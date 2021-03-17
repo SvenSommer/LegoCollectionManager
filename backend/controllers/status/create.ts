@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+//@ts-ignore
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
@@ -50,7 +51,10 @@ export default (req: Request, res: Response) => {
                                 errorMessage: process.env.DEBUG && err
                             });
                             else {
-                                
+                                   res.json({
+                                    code: 201,
+                                    message: 'New Status successfully created!',
+                                });
                             }
                         })
                     }

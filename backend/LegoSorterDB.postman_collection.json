@@ -6,152 +6,275 @@
 	},
 	"item": [
 		{
-			"name": "User",
+			"name": "Authenticarion",
 			"item": [
 				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"adminpass\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "User",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"adminpass\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/users/login",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										"login"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/users/login",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create User",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"testadmin\",\r\n    \"password\": \"adminpass\",\r\n    \"full_name\": \"Test Administrator\",\r\n    \"usergroup\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"testadmin\",\r\n    \"password\": \"adminpass\",\r\n    \"full_name\": \"Test Administrator\",\r\n    \"usergroup\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/users",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/users",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Users",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/users",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single User",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/users/2",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update User",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":3,\r\n    \"username\": \"testuser\",\r\n    \"password\": \"userpass\",\r\n    \"full_name\": \"Test User\",\r\n    \"usergroup\": 2\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show all Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/users/3",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"3"
-							]
+						{
+							"name": "Show single User",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/users/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update User",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":3,\r\n    \"username\": \"testuser\",\r\n    \"password\": \"userpass\",\r\n    \"full_name\": \"Test User\",\r\n    \"usergroup\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/users/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single User",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/users/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"users",
+										"3"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Delete single User",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/users/3",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"users",
-								"3"
-							]
+					"name": "Usergroups",
+					"item": [
+						{
+							"name": "Create Type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"groupname\": \"collector\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/usergroups",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"usergroups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Types",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/usergroups",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"usergroups"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Type",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/usergroups/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"usergroups",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Type",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":3,\r\n    \"groupname\":\"collector\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/usergroups/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"usergroups",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single Type",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/usergroups/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"usergroups",
+										"3"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
 		{
-			"name": "Collection",
+			"name": "Collections",
 			"item": [
 				{
 					"name": "Create Collection",
@@ -209,13 +332,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}/collections/1",
+							"raw": "{{URL}}/collections/19",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"collections",
-								"1"
+								"19"
 							]
 						}
 					},
@@ -273,1542 +396,1720 @@
 			]
 		},
 		{
-			"name": "Set Data",
+			"name": "Sets",
 			"item": [
 				{
-					"name": "Download SetData",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"setnumber\": \"8884\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/setdata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"setdata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all SetData",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/setdata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"setdata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single SetData",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/setdata/47",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"setdata",
-								"47"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Refresh SetData",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"setid\":145\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/setdata/145",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"setdata",
-								"145"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete SetData",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/setdata/145",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"setdata",
-								"145"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Part Data",
-			"item": [
-				{
-					"name": "Download PartData",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"partnumber\": \"2637\",\r\n    \"colorid\":\"5\",\r\n    \"type\":\"PART\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/partdata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partdata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Partdata",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/partdata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partdata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single PartData",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/partdata/24241",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partdata",
-								"24241"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Refresh PartData",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"partid\":3\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/partdata/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partdata",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete PartData",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/partdata/24427",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partdata",
-								"24427"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Category Data",
-			"item": [
-				{
-					"name": "Refresh Category",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/categories",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Categories",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/categories",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Category",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/categories/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"categories",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Color Data",
-			"item": [
-				{
-					"name": "Refresh Colors",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/colors",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"colors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Colors",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/colors",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"colors"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Color",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":100\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/colors/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"colors",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Partimages",
-			"item": [
-				{
-					"name": "Create Partimage",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"run_id\": 99,\r\n    \"path\": \"partimages/collection1/run99/1_1_2020-06-17_20_47_52_x718_y0.jpg\",\r\n    \"size_kb\": 3770,\r\n    \"x\": 736,\r\n    \"y\": 38,\r\n    \"w\": 114,\r\n    \"h\": 80,\r\n    \"blue\": 200,\r\n    \"green\": 20,\r\n    \"red\": 100,\r\n    \"color\": \"undefined\",\r\n    \"camera\" : \"brio\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/partimages",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partimages"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show Partimages",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/partimages",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partimages"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show Partimages By RunId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/partimages/runid/12",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partimages",
-								"runid",
-								"12"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Partimage",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/partimages/53391",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partimages",
-								"53391"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Partimage",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\": 53391,\r\n    \"run_id\": 99,\r\n    \"path\": \"partimages/collection1/run99/1_1_2020-06-17_20_47_52_x718_y0.jpg\",\r\n    \"size_kb\": 13770,\r\n    \"x\": 736,\r\n    \"y\": 38,\r\n    \"w\": 114,\r\n    \"h\": 80,\r\n    \"blue\": 200,\r\n    \"green\": 20,\r\n    \"red\": 100,\r\n    \"color\": \"undefined\",\r\n    \"camera\" : \"brio\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/partimages/53391",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partimages",
-								"53391"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete single Partimage",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/partimages/53391",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partimages",
-								"53391"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Mark as Deleted single Partimage",
-					"request": {
-						"method": "LOCK",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/partimages/53391",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"partimages",
-								"53391"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Price Data",
-			"item": [
-				{
-					"name": "Downlaod Prices",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"partnumber\": \"2637\",\r\n    \"colorid\":\"12\",\r\n    \"type\":\"PART\",\r\n    \"condition\":\"U\",\r\n    \"region\":\"europe\",\r\n    \"guide_type\": \"stock\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/pricedata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pricedata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Prices",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/pricedata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pricedata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Price",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/pricedata/24241",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pricedata",
-								"24241"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Refresh Price",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"priceid\":48892\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/pricedata/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pricedata",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Prices",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/pricedata/24427",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pricedata",
-								"24427"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Refresh all Prices",
-					"event": [
+					"name": "Set Data",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"batchsize\": 200\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "Download SetData",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"setnumber\": \"7423\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/setdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"setdata"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/pricedata/refresh/all",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pricedata",
-								"refresh",
-								"all"
-							]
+						{
+							"name": "Show all SetData",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/setdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"setdata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single SetData",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/setdata/47",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"setdata",
+										"47"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh SetData",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"setid\":145\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/setdata/145",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"setdata",
+										"145"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete SetData",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/setdata/145",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"setdata",
+										"145"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Superset Data",
+					"item": [
+						{
+							"name": "Download Superset Data",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"partnumber\": \"3009\",\r\n    \"colorid\" : \"3\",\r\n    \"refresh\" : 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/supersetdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Superset Data",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/supersetdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Sets By PartId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/supersetdata/part/3961",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata",
+										"part",
+										"3961"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Superset Data",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/supersetdata/145",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata",
+										"145"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Superset Data",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/supersetdata/516240",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata",
+										"516240"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Suggested Set",
+					"item": [
+						{
+							"name": "Show Sugget Sets by CollectionId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/suggestedsets/collection/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"suggestedsets",
+										"collection",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Recognised Set",
+					"item": [
+						{
+							"name": "Create RecognisedSet",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"collectionid\": 4,\r\n    \"setnumber\": \"7422\",\r\n    \"comments\": \"this a test set\",\r\n    \"instructions\": \"not available\",\r\n    \"condition\": \"used\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedsets",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedsets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all RecognisedSets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/recognisedsets",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedsets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single RecognisedSet",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedsets/113",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedsets",
+										"113"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show RecognisedSets By CollectionId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/recognisedsets/collection/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedsets",
+										"collection",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update RecognisedSet",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":113,\r\n    \"collectionid\": 10,\r\n    \"setnumber\": \"9526\",\r\n    \"comments\": \"demo\",\r\n    \"instructions\": \"demo\",\r\n    \"condition\": \"Update\",\r\n    \"status\":10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedsets/113",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedsets",
+										"113"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single RecognisedSet",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedsets/112",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedsets",
+										"112"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show RecognisedSetInfo by",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedsets/113",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedsets",
+										"113"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sorted Sets",
+					"item": [
+						{
+							"name": "Create SortedSet",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"run_id\":2,\r\n    \"recognisedset_id\": 19,\r\n    \"pusher_id\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/sortedsets",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedsets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all SortedSet",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedsets",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedsets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show SortedSets for Collectionid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedsets/collection/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedsets",
+										"collection",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show SortedSets for Runid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedsets/run/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedsets",
+										"run",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single SortedSet",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/sortedsets/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedsets",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update SortedSet",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 1,\r\n    \"run_id\":1,\r\n    \"recognisedset_id\": 1,\r\n    \"pusher_id\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/sortedsets/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedsets",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single SortedSet",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedsets/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedsets",
+										"16"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
 		{
-			"name": "Recognised Set",
+			"name": "Parts",
 			"item": [
 				{
-					"name": "Create RecognisedSet",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"collectionid\": 4,\r\n    \"setnumber\": \"7422\",\r\n    \"comments\": \"this a test set\",\r\n    \"instructions\": \"not available\",\r\n    \"condition\": \"used\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Part Data",
+					"item": [
+						{
+							"name": "Download PartData",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"partnumber\": \"10288\",\r\n    \"colorid\":\"120\",\r\n    \"type\":\"PART\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/partdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partdata"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedsets",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedsets"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all RecognisedSets",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/recognisedsets",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedsets"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single RecognisedSet",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/recognisedsets/113",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedsets",
-								"113"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show RecognisedSets By CollectionId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/recognisedsets/collection/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedsets",
-								"collection",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update RecognisedSet",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":113,\r\n    \"collectionid\": 10,\r\n    \"setnumber\": \"9526\",\r\n    \"comments\": \"demo\",\r\n    \"instructions\": \"demo\",\r\n    \"condition\": \"Update\",\r\n    \"status\":10\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show all Partdata",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/partdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partdata"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedsets/113",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedsets",
-								"113"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete single RecognisedSet",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/recognisedsets/112",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedsets",
-								"112"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show RecognisedSetInfo by",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/recognisedsets/113",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedsets",
-								"113"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Suggested Set",
-			"item": [
-				{
-					"name": "Show Sugget Sets by CollectionId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/suggestedsets/collection/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"suggestedsets",
-								"collection",
-								"1"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Recognised Images",
-			"item": [
-				{
-					"name": "Create RecognisedImage",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"image_id\": 10,\r\n    \"part_id\": 9526,\r\n    \"score\": 100\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show single PartData",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/partdata/24241",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partdata",
+										"24241"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedimages",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedimages"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all RecognisedImage",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/recognisedimages",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedimages"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single RecognisedImage",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/recognisedimages/113",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedimages",
-								"113"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show RecognisedImage by runId",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "javascript"
+						{
+							"name": "Refresh PartData",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"partid\":3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/partdata/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partdata",
+										"1"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedimages/runid/12",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedimages",
-								"runid",
-								"12"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show RecognisedImage by partId",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "javascript"
+						{
+							"name": "Delete PartData",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/partdata/24427",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partdata",
+										"24427"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/recognisedimages/partid/6239",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedimages",
-								"partid",
-								"6239"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Update RecognisedImage",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":3,\r\n    \"image_id\": 3,\r\n    \"part_id\": 1,\r\n    \"score\": 100\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Partimages",
+					"item": [
+						{
+							"name": "Create Partimage",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"run_id\": 99,\r\n    \"path\": \"partimages/collection1/run99/1_1_2020-06-17_20_47_52_x718_y0.jpg\",\r\n    \"size_kb\": 3770,\r\n    \"x\": 736,\r\n    \"y\": 38,\r\n    \"w\": 114,\r\n    \"h\": 80,\r\n    \"blue\": 200,\r\n    \"green\": 20,\r\n    \"red\": 100,\r\n    \"color\": \"undefined\",\r\n    \"camera\" : \"brio\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/partimages",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partimages"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedimages/113",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedimages",
-								"113"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete single RecognisedImage",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/recognisedimages/112",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedimages",
-								"112"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Recognised Parts",
-			"item": [
-				{
-					"name": "Create RecognisedParts",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"run_id\": 99,\r\n    \"no\": 87745,\r\n    \"color_id\": 12,\r\n    \"score\" : 100,\r\n    \"identifier\" : \"human\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show Partimages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/partimages",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partimages"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedparts",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedparts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all RecognisedParts",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/recognisedparts",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedparts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single RecognisedParts",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/recognisedparts/6239",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedparts",
-								"6239"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show RecognisedParts by runId",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "javascript"
+						{
+							"name": "Show Partimages By RunId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/partimages/runid/12",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partimages",
+										"runid",
+										"12"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedparts/run/12",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedparts",
-								"run",
-								"12"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show Unsetted Parts by collectionid",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "javascript"
+						{
+							"name": "Show single Partimage",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/partimages/53391",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partimages",
+										"53391"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedparts/collection/1/unsetted",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedparts",
-								"collection",
-								"1",
-								"unsetted"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update RecognisedPart",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":6240,\r\n    \"run_id\": 100,\r\n    \"no\": 87745,\r\n    \"color_id\": 99,\r\n    \"score\" : 100,\r\n    \"identifier\" : \"human\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Update Partimage",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 53391,\r\n    \"run_id\": 99,\r\n    \"path\": \"partimages/collection1/run99/1_1_2020-06-17_20_47_52_x718_y0.jpg\",\r\n    \"size_kb\": 13770,\r\n    \"x\": 736,\r\n    \"y\": 38,\r\n    \"w\": 114,\r\n    \"h\": 80,\r\n    \"blue\": 200,\r\n    \"green\": 20,\r\n    \"red\": 100,\r\n    \"color\": \"undefined\",\r\n    \"camera\" : \"brio\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/partimages/53391",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partimages",
+										"53391"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/recognisedparts/6240",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedparts",
-								"6240"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete single RecognisedPart",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/recognisedparts/6240",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"recognisedparts",
-								"6240"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Run",
-			"item": [
-				{
-					"name": "Create Run",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"no\":1,\r\n    \"collection_id\": 99,\r\n    \"sorter_id\": 1,\r\n    \"imagefolder\": \"testfolder\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Delete single Partimage",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/partimages/53391",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partimages",
+										"53391"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/runs",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Runs",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/runs",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Runs by collectionid",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/runs/collection/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runs",
-								"collection",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Run",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/runs/16",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runs",
-								"16"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Run",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":16,\r\n    \"no\":2,\r\n    \"collection_id\": 99,\r\n    \"sorter_id\": 1,\r\n    \"imagefolder\": \"testfolder2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Mark as Deleted single Partimage",
+							"request": {
+								"method": "LOCK",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/partimages/53391",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"partimages",
+										"53391"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/runs/3",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runs",
-								"3"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Delete single Run",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/runs/16",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runs",
-								"16"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "RunStatus",
-			"item": [
-				{
-					"name": "Create RunStatus",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"run_id\":99,\r\n    \"status\": 99,\r\n    \"reason\": \"test\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Recognised Partimages",
+					"item": [
+						{
+							"name": "Create RecognisedImage",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"image_id\": 10,\r\n    \"part_id\": 9526,\r\n    \"score\": 100\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedimages",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedimages"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/runstatus",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runstatus"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all RunStatus",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/runstatus",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runstatus"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single RunStatus",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/runstatus/16",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runstatus",
-								"16"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update RunStatus",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":16,\r\n    \"run_id\":99,\r\n    \"status\": 99,\r\n    \"reason\": \"test2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show all RecognisedImage",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/recognisedimages",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedimages"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/runstatus/16",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runstatus",
-								"16"
-							]
+						{
+							"name": "Show single RecognisedImage",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedimages/113",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedimages",
+										"113"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show RecognisedImage by runId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedimages/runid/12",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedimages",
+										"runid",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show RecognisedImage by partId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedimages/partid/6239",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedimages",
+										"partid",
+										"6239"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update RecognisedImage",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":3,\r\n    \"image_id\": 3,\r\n    \"part_id\": 1,\r\n    \"score\": 100\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedimages/113",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedimages",
+										"113"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single RecognisedImage",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedimages/112",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedimages",
+										"112"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Delete single RunStatus",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/runstatus/16",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"runstatus",
-								"16"
-							]
+					"name": "Subset Data",
+					"item": [
+						{
+							"name": "Download or Update SubsetData",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"setnumber\": \"75257\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/subsetdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all SubsetData",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Parts By CollectionId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata/collection/1/parts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"collection",
+										"1",
+										"parts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Minifigs By CollectionId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata/collection/1/minifigs",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"collection",
+										"1",
+										"minifigs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show SubSetData by Setno",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata/setno/8880",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"setno",
+										"8880"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single SubsetData",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/subsetdata/145",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"145"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete SubsetData",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/subsetdata/145",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"145"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Recognised Parts",
+					"item": [
+						{
+							"name": "Create RecognisedParts",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"run_id\": 99,\r\n    \"no\": 87745,\r\n    \"color_id\": 12,\r\n    \"score\" : 100,\r\n    \"identifier\" : \"human\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedparts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedparts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all RecognisedParts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/recognisedparts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedparts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single RecognisedParts",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedparts/6239",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedparts",
+										"6239"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show RecognisedParts by runId",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedparts/run/12",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedparts",
+										"run",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Unsetted Parts by collectionid",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedparts/collection/1/unsetted",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedparts",
+										"collection",
+										"1",
+										"unsetted"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update RecognisedPart",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":6240,\r\n    \"run_id\": 100,\r\n    \"no\": 87745,\r\n    \"color_id\": 99,\r\n    \"score\" : 100,\r\n    \"identifier\" : \"human\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedparts/6240",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedparts",
+										"6240"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single RecognisedPart",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedparts/6240",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedparts",
+										"6240"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sorted Parts",
+					"item": [
+						{
+							"name": "Create  SortedPart",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"recognisedpartid\":100,\r\n    \"sortedsetid\": 1,\r\n    \"detected\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/sortedparts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedparts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Sortedpart",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedparts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedparts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Sortedpart By Runid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedparts/sortedset/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedparts",
+										"sortedset",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Sortedpart By SortedSetId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedparts/sortedset/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedparts",
+										"sortedset",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show SortedParts By CollectionId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedparts/sortedset/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedparts",
+										"sortedset",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single SortedPart",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/sortedparts/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedparts",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Sortedpart",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":1,\r\n    \"recognisedpartid\":100,\r\n    \"sortedsetid\": 1,\r\n    \"detected\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/sortedparts/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedparts",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single SortedPart",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/sortedparts/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"sortedparts",
+										"16"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
 		{
 			"name": "Sorters",
 			"item": [
+				{
+					"name": "Pushers",
+					"item": [
+						{
+							"name": "Create Pusher",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"sorterid\":1,\r\n    \"number\": 2,\r\n    \"ip\":\"192.168.178.100\",\r\n    \"distanceFromOrigin\": 679,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"updateurl\": \"/update?clientmode=Test1&ntp=1\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/pushers",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pushers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Pusher",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/pushers",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pushers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Pusher by Sorterid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/pushers/sorter/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pushers",
+										"sorter",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Pusher",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/pushers/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pushers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Pusher",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":1,\r\n    \"sorterid\":1,\r\n    \"number\": 1,\r\n    \"ip\":\"192.168.178.86\",\r\n    \"distanceFromOrigin\": 359,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"updateurl\": \"/update?clientmode={{Clientmode}}&ntp={{1}}\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/pushers/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pushers",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single Pusher",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/pushers/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pushers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "Create Sorter",
 					"request": {
@@ -1925,139 +2226,281 @@
 			]
 		},
 		{
-			"name": "Pushers",
+			"name": "Runs",
 			"item": [
 				{
-					"name": "Create Pusher",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"sorterid\":1,\r\n    \"number\": 2,\r\n    \"ip\":\"192.168.178.100\",\r\n    \"distanceFromOrigin\": 679,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"updateurl\": \"/update?clientmode=Test1&ntp=1\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Run",
+					"item": [
+						{
+							"name": "Create Run",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"no\":1,\r\n    \"collection_id\": 99,\r\n    \"sorter_id\": 1,\r\n    \"imagefolder\": \"testfolder\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/runs",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runs"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/pushers",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pushers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Pusher",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/pushers",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pushers"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Pusher by Sorterid",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/pushers/sorter/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pushers",
-								"sorter",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Pusher",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/pushers/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pushers",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Pusher",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":1,\r\n    \"sorterid\":1,\r\n    \"number\": 1,\r\n    \"ip\":\"192.168.178.86\",\r\n    \"distanceFromOrigin\": 359,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"updateurl\": \"/update?clientmode={{Clientmode}}&ntp={{1}}\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show all Runs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/runs",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runs"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/pushers/2",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pushers",
-								"2"
-							]
+						{
+							"name": "Show all Runs by collectionid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/runs/collection/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runs",
+										"collection",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Run",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/runs/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runs",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Run",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":16,\r\n    \"no\":2,\r\n    \"collection_id\": 99,\r\n    \"sorter_id\": 1,\r\n    \"imagefolder\": \"testfolder2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/runs/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runs",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single Run",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/runs/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runs",
+										"16"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Delete single Pusher",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/pushers/1",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"pushers",
-								"1"
-							]
+					"name": "RunStatus",
+					"item": [
+						{
+							"name": "Create RunStatus",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"run_id\":1,\r\n    \"status\": 30,\r\n    \"reason\": \"sleeping time\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/runstatus",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runstatus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all RunStatus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/runstatus",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runstatus"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Runstatus for RunId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/runstatus/run/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runstatus",
+										"run",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single RunStatus",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/runstatus/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runstatus",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update RunStatus",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":17,\r\n    \"run_id\":1,\r\n    \"status\": 20,\r\n    \"reason\": \"let's start!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/runstatus/17",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runstatus",
+										"17"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single RunStatus",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/runstatus/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runstatus",
+										"16"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -2065,13 +2508,131 @@
 			"name": "Status",
 			"item": [
 				{
+					"name": "Types",
+					"item": [
+						{
+							"name": "Create Type",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Collection\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/types",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"types"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Types",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/types",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"types"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Type",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/types/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"types",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Type",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":5,\r\n    \"name\":\"Collection2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/types/5",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"types",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single Type",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/types/16",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"types",
+										"16"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Create Status",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"code\": 10,\r\n    \"name\":\"TestSorter\",\r\n    \"typeid\": 1,\r\n    \"description\": \"testdescription\"\r\n}",
+							"raw": "{\r\n    \"code\": 41,\r\n    \"name\":\"canceled\",\r\n    \"typeid\": 4,\r\n    \"description\": \"Run has been canceled\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2102,6 +2663,25 @@
 							],
 							"path": [
 								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show all Status by TypeId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/status/type/4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"status",
+								"type",
+								"4"
 							]
 						}
 					},
@@ -2165,13 +2745,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/status/3",
+							"raw": "{{URL}}/status/7",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"status",
-								"3"
+								"7"
 							]
 						}
 					},
@@ -2180,506 +2760,320 @@
 			]
 		},
 		{
-			"name": "Subset Data",
+			"name": "Bricklink Data",
 			"item": [
 				{
-					"name": "Download or Update SubsetData",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"setnumber\": \"30579\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Category Data",
+					"item": [
+						{
+							"name": "Refresh Category",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/categories",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/subsetdata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subsetdata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all SubsetData",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/subsetdata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subsetdata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show Parts By CollectionId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/subsetdata/collection/1/parts",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subsetdata",
-								"collection",
-								"1",
-								"parts"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show Minifigs By CollectionId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/subsetdata/collection/1/minifigs",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subsetdata",
-								"collection",
-								"1",
-								"minifigs"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show SubSetData by Setno",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/subsetdata/setno/8880",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subsetdata",
-								"setno",
-								"8880"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single SubsetData",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/subsetdata/145",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subsetdata",
-								"145"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete SubsetData",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/subsetdata/145",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"subsetdata",
-								"145"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Superset Data",
-			"item": [
-				{
-					"name": "Download Superset Data",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"partnumber\": \"3009\",\r\n    \"colorid\" : \"3\",\r\n    \"refresh\" : 1\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show all Categories",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/categories",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/supersetdata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"supersetdata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Superset Data",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/supersetdata",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"supersetdata"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Sets By PartId",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/supersetdata/part/3961",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"supersetdata",
-								"part",
-								"3961"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Superset Data",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/supersetdata/145",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"supersetdata",
-								"145"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Superset Data",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/supersetdata/516240",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"supersetdata",
-								"516240"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Types",
-			"item": [
-				{
-					"name": "Create Type",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Collection\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show single Category",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/categories/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"categories",
+										"1"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/types",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"types"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Show all Types",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/types",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"types"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Type",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/types/16",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"types",
-								"16"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Type",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":5,\r\n    \"name\":\"Collection2\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Color Data",
+					"item": [
+						{
+							"name": "Refresh Colors",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/colors",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"colors"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/types/5",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"types",
-								"5"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete single Type",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/types/16",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"types",
-								"16"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Usergroups",
-			"item": [
-				{
-					"name": "Create Type",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"groupname\": \"collector\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show all Colors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/colors",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"colors"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}/usergroups",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"usergroups"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show all Types",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/usergroups",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"usergroups"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Show single Type",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{URL}}/usergroups/3",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"usergroups",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Type",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\":3,\r\n    \"groupname\":\"collector\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Show single Color",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":100\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/colors/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"colors",
+										"1"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}/usergroups/3",
-							"host": [
-								"{{URL}}"
-							],
-							"path": [
-								"usergroups",
-								"3"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Delete single Type",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{URL}}/usergroups/3",
-							"host": [
-								"{{URL}}"
+					"name": "Price Data",
+					"item": [
+						{
+							"name": "Downlaod Prices",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"partnumber\": \"2637\",\r\n    \"colorid\":\"12\",\r\n    \"type\":\"PART\",\r\n    \"condition\":\"U\",\r\n    \"region\":\"europe\",\r\n    \"guide_type\": \"stock\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/pricedata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pricedata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Prices",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/pricedata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pricedata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Price",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/pricedata/24241",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pricedata",
+										"24241"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh Price",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"priceid\":48892\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/pricedata/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pricedata",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Prices",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/pricedata/24427",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pricedata",
+										"24427"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh all Prices",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"usergroups",
-								"3"
-							]
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"batchsize\": 200\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/pricedata/refresh/all",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"pricedata",
+										"refresh",
+										"all"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		}

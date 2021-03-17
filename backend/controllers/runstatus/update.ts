@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+ //@ts-ignore
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
@@ -21,7 +22,7 @@ export default (req: Request, res: Response) => {
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const updateRun = `UPDATE RunStatus SET run_id = ${run_id},
                                             status = ${status},
-                                            reason = '${reason}'
+                                            reason = '${reason.replace("'","`")}'
                                             WHERE id=${id}`;
                 connection.query(updateRun, (err, result) => {
                     if (err) res.json({
