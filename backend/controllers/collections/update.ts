@@ -32,7 +32,10 @@ export default (req: Request, res: Response) => {
             purchase_date &&
             cost &&
             porto) {
+               
+                console.log(purchase_date);
             //@ts-ignore
+
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const updateCollection = `UPDATE Collections SET name = '${name}',
                                             weight_kg = ${weight_kg},
@@ -44,7 +47,7 @@ export default (req: Request, res: Response) => {
                                             cost = ${cost},
                                             porto = ${porto},
                                             thumbnail_url = '${thumbnail_url}',
-                                            status = ${status},
+                                            status = ${status}
                                             WHERE id=${id}`;
                 connection.query(updateCollection, (err, result) => {
                     if (err) res.json({
