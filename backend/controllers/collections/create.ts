@@ -1,11 +1,8 @@
 import {Request, Response} from 'express';
+//@ts-ignore
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
-
-//JS to MYSQL date
-//new Date().toISOString().slice(0, 19).replace('T', ' ');
-//OUTPUT => 2012-06-22 05:40:06
 
 export default (req: Request, res: Response) => {
     try {

@@ -1,4 +1,5 @@
 import {Request, Response} from 'express';
+//@ts-ignore
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
@@ -17,9 +18,6 @@ export default (req: Request, res: Response) => {
             conveyor_status_url,
             conveyor_update_url,
             conveyor_alterspeed_url,
-            pusher_count,
-            pusher_status_baseurl,
-            pusher_mode_baseurl,
             status
         } = req.body;
 
@@ -33,9 +31,6 @@ export default (req: Request, res: Response) => {
             conveyor_status_url &&
             conveyor_update_url &&
             conveyor_alterspeed_url &&
-            pusher_count &&
-            pusher_status_baseurl &&
-            pusher_mode_baseurl && 
             status
              ) {
             //@ts-ignore
@@ -61,9 +56,6 @@ export default (req: Request, res: Response) => {
                                                   conveyor_status_url,
                                                   conveyor_update_url,
                                                   conveyor_alterspeed_url,
-                                                  pusher_count,
-                                                  pusher_status_baseurl,
-                                                  pusher_mode_baseurl,
                                                   status,
                                                   createdBy)
                                                   VALUES(
@@ -77,17 +69,14 @@ export default (req: Request, res: Response) => {
                                                          '${conveyor_status_url}',
                                                          '${conveyor_update_url}',
                                                          '${conveyor_alterspeed_url}',
-                                                          ${pusher_count},
-                                                         '${pusher_status_baseurl}',
-                                                         '${pusher_mode_baseurl}',
                                                           ${status},
                                                           ${id}
                                                         )`;
-                        connection.query(createUser, (err1, result) => {
-                            if (err1) res.json({
+                        connection.query(createUser, (err) => {
+                            if (err) res.json({
                                 code: 500,
                                 message: 'Couldn\'t create new Sorter',
-                                errorMessage: process.env.DEBUG && err1
+                                errorMessage: process.env.DEBUG && err
                             });
                             else {
                                 res.json({
