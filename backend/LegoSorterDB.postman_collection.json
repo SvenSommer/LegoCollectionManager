@@ -160,7 +160,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Robert Test3\",\r\n    \"weight_kg\": 12,\r\n    \"origin\": \"demo\",\r\n    \"origin_url\": \"demo\",\r\n    \"seller\": \"demo\",\r\n    \"description\": \"demo\",\r\n    \"purchase_date\": \"2020-12-01 12:00:00\",\r\n    \"cost\": 200,\r\n    \"porto\": 20,\r\n    \"thumbnail_url\": \"demo\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Robert Test500\",\r\n    \"weight_kg\": 12,\r\n    \"origin\": \"demo\",\r\n    \"origin_url\": \"demo\",\r\n    \"seller\": \"demo\",\r\n    \"description\": \"demo\",\r\n    \"purchase_date\": \"2020-04-09 07:33:19\",\r\n    \"cost\": 200,\r\n    \"porto\": 20,\r\n    \"thumbnail_url\": \"demo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -228,7 +228,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"id\": 15,\r\n        \"name\": \"demoModified\",\r\n        \"weight_kg\": \"12\",\r\n        \"origin\": \"demo667\",\r\n        \"origin_url\": \"demo\",\r\n        \"seller\": \"demo\",\r\n        \"description\": \"demo\",\r\n        \"purchase_date\": \"2020-12-01 12:00:00\",\r\n        \"cost\": \"200\",\r\n        \"porto\": \"20\",\r\n        \"thumbnail_url\": \"demo\",\r\n        \"status\": 10,\r\n        \"createdBy\": 2\r\n    }",
+							"raw": "{\r\n        \"id\": 19,\r\n        \"name\": \"demoModified\",\r\n        \"weight_kg\": \"12\",\r\n        \"origin\": \"demo667\",\r\n        \"origin_url\": \"demo\",\r\n        \"seller\": \"demo\",\r\n        \"description\": \"demo\",\r\n        \"purchase_date\": \"2020-04-09 07:33:19\",\r\n        \"cost\": \"200\",\r\n        \"porto\": \"20\",\r\n        \"thumbnail_url\": \"demo\",\r\n        \"status\": 10,\r\n        \"createdBy\": 2\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -236,13 +236,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/collections/15",
+							"raw": "{{URL}}/collections/19",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"collections",
-								"15"
+								"19"
 							]
 						}
 					},
@@ -2270,7 +2270,17 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": {
+							"raw": "{{URL}}/subsetdata/setno/8880",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"subsetdata",
+								"setno",
+								"8880"
+							]
+						}
 					},
 					"response": []
 				},

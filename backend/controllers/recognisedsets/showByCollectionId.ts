@@ -3,8 +3,7 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {collectionid} = req.params;
-    const showRecognisedSetsByCollectionId = `SELECT *
-                                FROM Recognisedsets WHERE collection_id = ${collectionid} `
+    const showRecognisedSetsByCollectionId = `SELECT * FROM LegoSorterDB.sets_overview WHERE collection_id = ${collectionid} `
     connection.query(showRecognisedSetsByCollectionId, (err, setsResult) => {
         if (err) res.json({
             code: 500,

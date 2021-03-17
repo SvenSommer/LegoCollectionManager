@@ -20,8 +20,7 @@ export default (req: Request, res: Response) => {
         } = req.body;
 
         if (collectionid && 
-            setnumber &&
-            instructions) {
+            setnumber ) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const {username} = decoded;
@@ -52,13 +51,12 @@ export default (req: Request, res: Response) => {
                                                          '${condition}',
                                                           ${status},
                                                           NOW(),
-                                                          ${userid}
-                                                        )`;
-                        connection.query(createRecognisedSet, (err1, result1) => {
-                            if (err1) res.json({
+                                                          ${userid})`;
+                        connection.query(createRecognisedSet, (err) => {
+                            if (err) res.json({
                                 code: 500,
                                 message: 'Couldn\'t create the recognised set',
-                                errorMessage: process.env.DEBUG && err1
+                                errorMessage: process.env.DEBUG && err
                             });
                             else {
                                 GetAndUpsertSetDataByNo(setnumber, res, userid);
