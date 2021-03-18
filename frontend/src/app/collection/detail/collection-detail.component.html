@@ -1,0 +1,321 @@
+<div class="row" *ngIf="collectionDetails">
+    <div class="col-sm-12">
+        <h2>{{collectionDetails.name}}</h2>
+    </div>
+    <div class="col-sm-12">
+        <div style="border: 1px solid silver;text-align: center;">
+            <img width="300px" height="200px" [src]="collectionDetails.thumbnail_url" />
+        </div>
+    </div>
+</div>
+<div class="row pt-2">
+    <div class="col-sm-4">
+        <div style="background-color: #f5f5f5;">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h3>Properties</h3>
+                </div>
+                <div class="col-sm-3 float-right pt-2">
+                    <a class="primary p-0" title="edit" (click)="onEditClick()">
+                        <i class="font-medium-3" ngClass="fas fa-edit"></i>
+                    </a>
+                    <a class="pl-1 text-danger" title="Delete">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            </div>
+            <table *ngIf="collectionDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                <tr>
+                    <td>
+                        Weight
+                    </td>
+                    <td>
+                        {{collectionDetails.weight_kg}} kg
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Origin
+                    </td>
+                    <td>
+                        {{collectionDetails.origin}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Seller
+                    </td>
+                    <td>
+                        {{collectionDetails.seller}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cost
+                    </td>
+                    <td>
+                        {{collectionDetails.cost}}&#8364; ( Incl. porto {{collectionDetails.porto}}&#8364; )
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Sets Identified
+                    </td>
+                    <td>
+                        {{collectionSummary.allSetsCount }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Sum Parts Weight
+                    </td>
+                    <td>
+                        {{collectionSummary.allSetsSumWeight}} kg
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Sum Parts Count
+                    </td>
+                    <td>
+                        {{collectionSummary.allSetsSumPartCount}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Sum Unique Parts Count
+                    </td>
+                    <td>
+                        {{uniqueDetails.allSetsUniquePartCount}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Sum Minifigs Count
+                    </td>
+                    <td>
+                        {{collectionSummary.allSetsSumMinifigsCount}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        All Sets Price
+                    </td>
+                    <td>
+                        min {{collectionSummary.allSetsSumMinPrice}}&#8364;
+                        <br>
+                        avg {{collectionSummary.allSetsSumAvgPrice }}&#8364;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Purchased
+                    </td>
+                    <td>
+                        {{collectionDetails.purchase_date | date:'dd.MM.yyyy' }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Created
+                    </td>
+                    <td>
+                        {{collectionDetails.created | date:'dd.MM.yyyy' }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div style="background-color: #f5f5f5;">
+            <div class="row">
+                <div class="col-sm-9">
+                    <h3>Runs</h3>
+                </div>
+                <div class="col-sm-3 float-right pt-2">
+                    <button type="button" class="btn btn-sm float-right btn-primary">
+                        <i class="fa fa-plus"></i> Add Run
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12" *ngIf="runsData && runsColumns">
+                    <ng-table [isActionVisible]="false" [columns]="runsColumns" [data]="runsData.runs">
+                    </ng-table>
+                </div>
+                <div class="col-sm-6" *ngIf="runsData && runsData.summarized && runsData.unique">
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label">Parts Identified:</label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control-plaintext"
+                                [value]="runsData.summarized[0].allRunsPartsIdentified">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label">Parts Unidentified:</label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control-plaintext"
+                                [value]="runsData.summarized[0].allRunsPartsUnidentified">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label">Parts Deleted:</label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control-plaintext"
+                                [value]="runsData.summarized[0].allRunsPartsDeleted">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6" *ngIf="runsData && runsData.summarized && runsData.unique">
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label">Parts Identified By Human:</label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control-plaintext"
+                                [value]="runsData.summarized[0].allRunsPartsIdentifiedByHuman">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label">Parts Identified By Cnn:</label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control-plaintext"
+                                [value]="runsData.summarized[0].allRunsPartsIdentifiedByCnn">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-sm-6 col-form-label">Unique Parts Identified:</label>
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control-plaintext"
+                                [value]="runsData.unique[0].allRunsUniquePartIdentifedCount">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pt-2">
+    <div class="row">
+        <div class="col-sm-12" style="background-color: #f5f5f5;">
+            <div class="dropdown btn-group pr-2">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Sets
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="getExpectedSets()">Expected</a>
+                    <a class="dropdown-item" (click)="getSuggestedSets()">Suggested</a>
+                    <a class="dropdown-item">Incomplete</a>
+                    <a class="dropdown-item">Complete</a>
+                    <a class="dropdown-item">Inserated</a>
+                    <a class="dropdown-item">Sold</a>
+                </div>
+            </div>
+            <div class="dropdown  btn-group pr-2">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Parts
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="getExpectedParts()">Expected</a>
+                    <a class="dropdown-item">Identified</a>
+                    <a class="dropdown-item" (click)="getUnsettedParts()">Unsetted</a>
+                </div>
+            </div>
+            <div class="dropdown  btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    Minifigs
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" (click)="getExpectedMinifigs()">Expected</a>
+                    <a class="dropdown-item">Identified</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div style="background-color: #f5f5f5;">
+            <h3>{{currentTab}}</h3>
+            <div *ngIf="currentTab == 'Expected Sets'">
+                <form (ngSubmit)="onSubmitAddSets(addSetsForm)" #addSetsForm="ngForm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="row m-0 pb-3">
+                                <span class="col-sm-1 input-group-text"
+                                    (click)="isMoreFieldOpenForSet = !isMoreFieldOpenForSet">
+                                    <i class="fa"
+                                        [ngClass]="{'fa-angle-double-right': !isMoreFieldOpenForSet, 'fa-angle-double-down':isMoreFieldOpenForSet }"></i>
+                                </span>
+                                <input type="text" required class="form-control col-sm" id="exampleInputEmail1"
+                                    #setNum="ngModel" name="setNumber" [(ngModel)]="newSetDetails.setnumber"
+                                    placeholder="Enter set number">
+                            </div>
+                            <div class="row m-0">
+                                <div class="col-sm-1"></div>
+                                <div *ngIf="setNum.invalid && (setNum.dirty || setNum.touched || isSetFormSubmitted)"
+                                    class="alert alert-danger col-sm">
+                                    <div *ngIf="setNum.errors.required">
+                                        set number is required.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row m-0" *ngIf="isMoreFieldOpenForSet">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm m-0 p-0">
+                                    <input type="text" [(ngModel)]="newSetDetails.comments" name="comments"
+                                        class="form-group form-control" id="exampleInputEmail1"
+                                        placeholder="Enter comments">
+                                    <input type="text" [(ngModel)]="newSetDetails.instructions" name="instructions"
+                                        class="form-group form-control" id="exampleInputEmail1"
+                                        placeholder="Enter instructions">
+                                    <input type="text" [(ngModel)]="newSetDetails.condition" name="condition"
+                                        class="form-group form-control" id="exampleInputEmail1"
+                                        placeholder="Enter set conditions">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary">
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
+
+        <div style="background-color: #f5f5f5;">
+            <ng-table [isActionVisible]="false" [columns]="expSetsColumns" [data]="expectedSets">
+            </ng-table>
+        </div>
+
+    </div>
+    <div class="col-sm-12" *ngIf="suggestedSets && suggSetsColumns && currentTab == 'Suggested Sets'">
+        <div style="background-color: #f5f5f5;">
+            <ng-table [isActionVisible]="false" [columns]="suggSetsColumns" [data]="suggestedSets">
+            </ng-table>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="expectedParts && ExpPartsColumns && currentTab == 'Expected Parts'">
+        <div style="background-color: #f5f5f5;">
+            <ng-table [isActionVisible]="false" [columns]="ExpPartsColumns" [data]="expectedParts">
+            </ng-table>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="unsettedParts && UnsettedPartsColumns && currentTab == 'Unsetted Parts'">
+        <div style="background-color: #f5f5f5;">
+            <ng-table [isActionVisible]="false" [columns]="UnsettedPartsColumns" [data]="unsettedParts">
+            </ng-table>
+        </div>
+    </div>
+    <div class="col-sm-12" *ngIf="expectedMinifigs && ExpMinifigsColumns && currentTab == 'Expected Minifigs'">
+        <div style="background-color: #f5f5f5;">
+            <ng-table [isActionVisible]="false" [columns]="ExpMinifigsColumns" [data]="expectedMinifigs">
+            </ng-table>
+        </div>
+    </div>
+</div>
+
+<app-collection-edit (collectionAdded)="addNewCollection($event)" #collectionEdit></app-collection-edit>
