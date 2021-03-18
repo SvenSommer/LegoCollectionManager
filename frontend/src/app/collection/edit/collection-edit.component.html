@@ -1,0 +1,173 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(collectionForm)" #collectionForm="ngForm">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" required #name="ngModel" [(ngModel)]="collection.name" class="form-control"
+                        id="collectionName" name="collectionName">
+                    <div *ngIf="name.invalid && (name.dirty || name.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="name.errors.required">
+                            name is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Weight (kg)</label>
+                    <div class="input-group">
+                        <input type="number" required #weight_kg="ngModel" [(ngModel)]="collection.weight_kg"
+                            class="form-control" id="Weight" name="Weight">
+                        <span class="input-group-text">kg</span>
+
+                    </div>
+                    <div *ngIf="weight_kg.invalid && (weight_kg.dirty || weight_kg.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="weight_kg.errors.required">
+                            weight is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Origin</label>
+                    <input type="text" required #origin="ngModel" [(ngModel)]="collection.origin" class="form-control"
+                        id="Origin" name="Origin">
+                    <div *ngIf="origin.invalid && (origin.dirty || origin.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="origin.errors.required">
+                            origin is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Origin URL</label>
+                    <input type="text" #origin_url="ngModel" required [(ngModel)]="collection.origin_url"
+                        class="form-control" id="OriginURL" name="OriginURL">
+                    <div *ngIf="origin_url.invalid && (origin_url.dirty || origin_url.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="origin_url.errors.required">
+                            origin url is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Seller</label>
+                    <input type="text" #seller="ngModel" required [(ngModel)]="collection.seller" class="form-control"
+                        id="Seller" name="Seller">
+                    <div *ngIf="seller.invalid && (seller.dirty || seller.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="seller.errors.required">
+                            seller is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Purchase Date</label>
+                    <div class="input-group">
+                        <input class="form-control" tabindex="-1" readonly required placeholder="yyyy-mm-dd"
+                            [(ngModel)]="pickerDate" name="dp" ngbDatepicker #date="ngModel"
+                            #purchaseDate="ngbDatepicker">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary fa fa-calendar" (click)="purchaseDate.toggle()"
+                                type="button"></button>
+                        </div>
+                    </div>
+                    <div *ngIf="date.invalid && (date.dirty || date.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="date.errors.required">
+                            purchase date is required.
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Thumbnail URL</label>
+                    <input type="text" #thumbnail_url="ngModel" required [(ngModel)]="collection.thumbnail_url"
+                        name="thumbnail_url" class="form-control" id="ThumbnailURL" name="ThumbnailURL">
+                    <div *ngIf="thumbnail_url.invalid && (thumbnail_url.dirty || thumbnail_url.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="thumbnail_url.errors.required">
+                            thumbnail url is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Cost</label>
+                            <div class="input-group">
+                                <input type="number" #cost="ngModel" required [(ngModel)]="collection.cost"
+                                    class="form-control" id="Cost" name="Cost">
+                                <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
+                            </div>
+                            <div *ngIf="cost.invalid && (cost.dirty || cost.touched || isFormSubmitted)"
+                                class="alert alert-danger">
+                                <div *ngIf="cost.errors.required">
+                                    cost is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Porto</label>
+                            <div class="input-group">
+                                <input type="number" #porto="ngModel" required [(ngModel)]="collection.porto"
+                                    class="form-control" id="Porto" name="Porto">
+                                <span class="input-group-text"><i class="fas fa-euro-sign"></i></span>
+                            </div>
+                            <div *ngIf="porto.invalid && (porto.dirty || porto.touched || isFormSubmitted)"
+                                class="alert alert-danger">
+                                <div *ngIf="porto.errors.required">
+                                    porto is required.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea rows="3" type="text" #description="ngModel" required [(ngModel)]="collection.description"
+                        class="form-control" id="Description" name="Description"></textarea>
+                    <div *ngIf="description.invalid && (description.dirty || description.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="description.errors.required">
+                            description is required.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

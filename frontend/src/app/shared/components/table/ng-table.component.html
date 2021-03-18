@@ -1,0 +1,71 @@
+<div class="wrapper2" >
+  <table id="div22" class="div2 table table-hover table-sm datatable" role="grid" style="width:100%;"
+    *ngIf="visibleWhenData ? rows !=null && rows.length > 0 : true" [class.mb-0]="!config.paging">
+    <thead *ngIf="isHeaderVisible">
+      <tr role="row">
+        <th [ngStyle]="{'width': column.size}" [style.min-width.px]="column.minSize"
+          [style.text-align]="column.alignText" *ngFor="let column of columns"
+          [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
+          {{column.title}}
+        </th>
+        <!--<th style="width:106px; min-width:106px;" *ngIf="isActionVisible">Action</th>-->
+        <th [ngStyle]="{'min-width':ActionWidth ? ActionWidth: ''}" *ngIf="isActionVisible">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of rows;let i = index;">
+        <ng-container *ngFor="let column of columns">
+          <ng-container [ngSwitch]="column?.datatype?.type">
+            <td *ngSwitchCase="'image'"
+              [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
+              <img *ngIf="getData(row,column,i)" [style.width.px]="column.minSize" [style.height.px]="column.minSize"
+                [src]="getData(row,column,i)" />
+            </td>
+            <td *ngSwitchDefault [ngStyle]="{'width' : column.size, 'word-break': column.wordbreak}"
+              [style.min-width.px]="column.minSize" [style.text-align]="column.alignText"
+              [innerHtml]=getData(row,column,i)
+              [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
+            </td>
+          </ng-container>
+
+        </ng-container>
+
+        <td *ngIf="isActionVisible">
+          <a class="primary p-0" [title]="editButtonText" (click)="onRowEditClick(row)" *ngIf="isEditVisible">
+            <i class="font-medium-3" [ngClass]="editClass"></i>
+          </a>
+          <a *ngIf="isDeleteVisible" class="pl-1 text-danger" title="Change status" popoverTitle="Confirm?">
+            <i class="fas fa-trash-alt"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="row" *ngIf="config.paging">
+  <div class="col-sm">
+    <ngb-pagination *ngIf="config.paging" [collectionSize]="length" [(page)]="page" [pageSize]="itemsPerPage"
+      [rotate]="true" [boundaryLinks]="false" [directionLinks]="false" [maxSize]="maxPaginationSize"
+      (pageChange)="onPageNoClick($event);onChangeTable(config)" aria-label="Default pagination">
+    </ngb-pagination>
+
+  </div>
+
+  <div class="col-sm-auto pt-1" *ngIf="rows && rows.length > 0">
+    {{ (page * itemsPerPage) - itemsPerPage + 1 }} to
+    {{ (page * itemsPerPage) > length ? length : (page * itemsPerPage) }} of <span
+      class="text-bold-700">{{length}}</span>
+  </div>
+  <div class="col-sm-auto" *ngIf="config.paging && IsPageSizeChangeAllow">
+    <select [(ngModel)]="itemsPerPage" (change)="onChangeTable(config)" [id]="'cz-sidebar-width'"
+      class="form-control custom-select cz-sidebar-width pull-right">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+      <option value="50">50</option>
+      <option value="70">70</option>
+      <option value="100">100</option>
+    </select>
+  </div>
+</div>

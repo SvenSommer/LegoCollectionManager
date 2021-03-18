@@ -1,0 +1,33 @@
+<div class="form-signin">
+    <form (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm">
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-3 col-form-label">User Name</label>
+            <div class="col-sm-9">
+                <input #userNameValidation="ngModel" required name="username" [(ngModel)]="userName"
+                    class="form-control" id="userName">
+                <div *ngIf="userNameValidation.invalid && (userNameValidation.dirty || userNameValidation.touched)"
+                    class="alert alert-danger">
+
+                    <div *ngIf="userNameValidation.errors.required">
+                        User Name is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPassword3" class="col-sm-3 col-form-label">Password</label>
+            <div class="col-sm-9">
+                <input type="password" #passwordValidation="ngModel" required [(ngModel)]="password"
+                    class="form-control" name="password" id="password">
+                <div *ngIf="passwordValidation.invalid && (passwordValidation.dirty || passwordValidation.touched)"
+                    class="alert alert-danger">
+                    <div *ngIf="passwordValidation.errors.required">
+                        Password is required.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button [disabled]="!signupForm.form.valid" type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+</div>
