@@ -71,9 +71,14 @@ export class CollectionDetailComponent implements OnInit {
   ];
 
   public UnsettedPartsColumns = [
+    { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
     { title: 'No', name: 'partNo', size: '25%', minSize: '30' },
     { title: 'Color Id', name: 'color_id', size: '25%', minSize: '90' },
     { title: 'Appears in sets', name: 'super_set_count', size: '25%', minSize: '90' },
+    { title: 'Downloaded Sets', name: 'downloaded_sets', size: '25%', minSize: '90' },
+    { title: 'Part in Sets', name: 'part_in_sets_of_collection', size: '90', minSize: '90' },
+    { title: 'Super Set Count', name: 'super_set_count', size: '90', minSize: '90' },
+
 
   ];
 
@@ -84,7 +89,7 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'Total Quantity', name: 'total_quantity', size: '25', minSize: '25' },
     { title: 'Description', name: 'name', size: '35%', minSize: '90' },
     { title: 'Status Name', name: 'status_name', size: '25%', minSize: '90' },
-    { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '50', minSize: '90' },
+    { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '50', minSize: '90', datatype: { type: 'price' }  },
   ];
 
   public runsData: any;
