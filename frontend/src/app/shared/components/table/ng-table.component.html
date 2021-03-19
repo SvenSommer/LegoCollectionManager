@@ -18,10 +18,10 @@
           <ng-container [ngSwitch]="column?.datatype?.type">
             <td *ngSwitchCase="'image'"
               [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
-              <img *ngIf="getData(row,column,i)" [style.width.px]="column.minSize" [style.height.px]="column.minSize"
+              <img (click)="onImgClick(row,column)" *ngIf="getData(row,column,i)" [style.width.px]="column.minSize" [style.height.px]="column.minSize"
                 [src]="getData(row,column,i)" />
             </td>
-            <td *ngSwitchDefault [ngStyle]="{'width' : column.size, 'word-break': column.wordbreak}"
+            <td (click)="rowCellClick.emit(row)" *ngSwitchDefault [ngStyle]="{'width' : column.size, 'word-break': column.wordbreak}"
               [style.min-width.px]="column.minSize" [style.text-align]="column.alignText"
               [innerHtml]=getData(row,column,i)
               [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
@@ -34,7 +34,7 @@
           <a class="primary p-0" [title]="editButtonText" (click)="onRowEditClick(row)" *ngIf="isEditVisible">
             <i class="font-medium-3" [ngClass]="editClass"></i>
           </a>
-          <a *ngIf="isDeleteVisible" class="pl-1 text-danger" title="Change status" popoverTitle="Confirm?">
+          <a *ngIf="isDeleteVisible" (click)="rowDeleteClick.emit(row)" class="pl-1 text-danger" title="Change status" popoverTitle="Confirm?">
             <i class="fas fa-trash-alt"></i>
           </a>
         </td>
@@ -69,3 +69,7 @@
     </select>
   </div>
 </div>
+
+<app-modal-popup size="md" (closeEvent)="onImgPopupClose()" #imagePopup>
+  <img height="400px" width="360px" [src]="imgPopupURL" />
+</app-modal-popup>

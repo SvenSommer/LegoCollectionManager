@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnChanges, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ModalPopupComponent } from '../popup/modal-popup/modal-popup.component';
 declare var $: any;
 
 @Component({
@@ -31,7 +32,7 @@ export class NgTableComponent implements OnInit, OnChanges {
   @Input() public isEditVisible = true;
   @Input() public editButtonText = 'Edit';
   @Input() public editClass = 'fas fa-edit';
-  
+
   //1-Page Complete
   @Input() public isDeleteVisible = false;
   @Input() public isActionVisible = false;
@@ -42,6 +43,12 @@ export class NgTableComponent implements OnInit, OnChanges {
 
   // Outputs (Events)
   @Output() public rowEditClick: EventEmitter<any> = new EventEmitter();
+  @Output() public rowCellClick: EventEmitter<any> = new EventEmitter();
+  @Output() public rowDeleteClick: EventEmitter<any> = new EventEmitter();
+
+  public imgPopupURL = '';
+  @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
+
   @Input()
   public set columns(values: Array<any>) {
     values.forEach((value: any) => {
@@ -84,6 +91,11 @@ export class NgTableComponent implements OnInit, OnChanges {
 
   }
 
+  public onImgClick(row, column) {
+    this.imgPopupURL = row.image_url ?? row.thumbnail_url;
+    this.imagePopup.open();
+  }
+
   public getData(row: any, column: any, index: number): any {
     var cellData = column.name.split('.').reduce((prev: any, curr: string) => prev[curr], row);
     if (column.datatype == undefined || column.datatype == null || column.datatype.type == undefined || column.datatype.type == null) {
@@ -121,5 +133,9 @@ export class NgTableComponent implements OnInit, OnChanges {
 
   public onRowEditClick(event: any): void {
     this.rowEditClick.emit(event);
+  }
+
+  public onImgPopupClose() {
+    this.imgPopupURL = '';
   }
 }

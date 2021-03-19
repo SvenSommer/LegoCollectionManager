@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
+import { ToastrService } from 'ngx-toastr';
 import { CollectionModel } from '../models/collection-model';
 import { CollectionService } from '../services/collection.service';
 import { CollectionEditComponent } from './edit/collection-edit.component';
@@ -13,7 +15,8 @@ import { CollectionEditComponent } from './edit/collection-edit.component';
 export class CollectionComponent implements OnInit {
 
   constructor(private collectionService: CollectionService,
-    private router: Router) { }
+    private router: Router, private toastr: ToastrService,
+    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   public columns = [
     { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
@@ -57,6 +60,38 @@ export class CollectionComponent implements OnInit {
 
   onEditClick(data) {
     this.router.navigateByUrl("/collectiondetail/" + data.id).then((bool) => { }).catch()
+  }
+
+  onRowDeleteClick(model) {
+    let options = {
+      title: 'Are you sure you want to delete this?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel'
+    }
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+        console.log('Okay');
+        this.collectionService.deleteCollection(model.id).subscribe(
+          (data) => {
+            if (data) {
+              if (data.body && data.body.code == 200) {
+               // Message should be data.body.message
+               this.toastr.success("Record Deleted Successfully.");
+               this.bindData();
+              }
+              else if (data.body && data.body.code == 403) {
+                this.router.navigateByUrl("/login");
+              }
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+      } else {
+        console.log('Cancel');
+      }
+    });
   }
 
   addNewCollection(newData: CollectionModel) {

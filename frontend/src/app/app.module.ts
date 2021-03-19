@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalPopupComponent } from './shared/components/popup/modal-popup/modal-popup.component';
 import { CollectionEditComponent } from './collection/edit/collection-edit.component';
 import { CollectionDetailComponent } from './collection/detail/collection-detail.component';
+import { NgxBootstrapConfirmModule } from 'ngx-bootstrap-confirm';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CollectionDetailComponent } from './collection/detail/collection-detail
     NgbTooltipModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    NgxBootstrapConfirmModule
   ],
   providers: [AuthGuardService,CollectionService],
   bootstrap: [AppComponent]

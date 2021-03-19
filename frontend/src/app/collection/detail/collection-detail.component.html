@@ -4,7 +4,7 @@
     </div>
     <div class="col-sm-12">
         <div style="border: 1px solid silver;text-align: center;">
-            <img width="300px" height="200px" [src]="collectionDetails.thumbnail_url" />
+            <img (click)="onImgClick(collectionDetails)" width="300px" height="200px" [src]="collectionDetails.thumbnail_url" />
         </div>
     </div>
 </div>
@@ -38,7 +38,9 @@
                         Origin
                     </td>
                     <td>
-                        {{collectionDetails.origin}}
+                        <a [href]="collectionDetails.origin_url" target="_blank">
+                            {{collectionDetails.origin}}
+                        </a>
                     </td>
                 </tr>
                 <tr>
@@ -142,6 +144,10 @@
                 <div class="col-sm-12" *ngIf="runsData && runsColumns">
                     <ng-table [isActionVisible]="false" [columns]="runsColumns" [data]="runsData.runs">
                     </ng-table>
+                </div>
+                <div class="col-sm-12">
+                    <h4>Total</h4>
+                    <hr />
                 </div>
                 <div class="col-sm-6" *ngIf="runsData && runsData.summarized && runsData.unique">
                     <div class="row">
@@ -317,5 +323,9 @@
         </div>
     </div>
 </div>
+
+<app-modal-popup size="md" (closeEvent)="onImgPopupClose()" #imagePopup>
+    <img height="400px" width="360px" [src]="imgPopupURL" />
+  </app-modal-popup>
 
 <app-collection-edit (collectionAdded)="addNewCollection($event)" #collectionEdit></app-collection-edit>
