@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -12,6 +12,9 @@ export class ModalPopupComponent implements OnInit {
 
   @ViewChild('mymodal') modal: any
   @Input('title') title = '';
+  @Input('size') size = 'lg';
+  @Output() public closeEvent: EventEmitter<any> = new EventEmitter();
+
 
   ngOnInit(): void {
   }
@@ -21,13 +24,16 @@ export class ModalPopupComponent implements OnInit {
   }
 
   display() {
-    this.modalService.open(this.modal, { ariaLabelledBy: 'modal-basic-title', size: 'lg' }).result.then((result) => {
+    this.modalService.open(this.modal, { ariaLabelledBy: 'modal-basic-title', size: this.size }).result.then((result) => {
     }, (reason) => {
     });
   }
 
   close() {
     this.modalService.dismissAll();
+    if (this.closeEvent) {
+      this.closeEvent.emit();
+    }
   }
 
 }

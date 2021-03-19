@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CollectionModel } from 'src/app/models/collection-model';
 import { CollectionService } from 'src/app/services/collection.service';
+import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 import { CollectionEditComponent } from '../edit/collection-edit.component';
 
 @Component({
@@ -13,6 +14,9 @@ import { CollectionEditComponent } from '../edit/collection-edit.component';
   styleUrls: ['./collection-detail.component.css']
 })
 export class CollectionDetailComponent implements OnInit {
+
+  public imgPopupURL = '';
+  @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
 
   @ViewChild('collectionEdit') collectionEdit: CollectionEditComponent;
 
@@ -38,7 +42,7 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'year', name: 'year', size: '25', minSize: '25' },
     { title: 'weight(g)', name: 'weight_g', size: '25', minSize: '25' },
     { title: 'parts', name: 'parts_existing', size: '25', minSize: '25' },
-    { title: 'Complete', name: 'complete_percentage', size: '25', minSize: '25' },
+    { title: 'Complete(%)', name: 'complete_percentage', size: '25', minSize: '25' },
     { title: 'Minifigs', name: 'complete_minifigs_count', size: '25', minSize: '25' },
     { title: 'Min price(€)', name: 'min_price', size: '35', minSize: '35', datatype: { type: 'price' } },
     { title: 'Avg price(€)', name: 'avg_price', size: '35', minSize: '35', datatype: { type: 'price' } },
@@ -109,6 +113,7 @@ export class CollectionDetailComponent implements OnInit {
   };
   public isSetFormSubmitted = false;
 
+
   constructor(private activatedRoute: ActivatedRoute,
     private collectionService: CollectionService,
     private router: Router, private toastr: ToastrService) { }
@@ -175,7 +180,7 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   getExpectedSets() {
-    this.currentTab = '';
+    // this.currentTab = '';
 
     this.collectionService.getExpectedSets(this.id).subscribe(
       (data) => {
@@ -196,7 +201,6 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   getSuggestedSets() {
-    this.currentTab = '';
     this.collectionService.getSuggestedSets(this.id).subscribe(
       (data) => {
         if (data) {
@@ -216,7 +220,6 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   getExpectedParts() {
-    this.currentTab = '';
 
     this.collectionService.getExpectedParts(this.id).subscribe(
       (data) => {
@@ -237,7 +240,6 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   getUnsettedParts() {
-    this.currentTab = '';
 
     this.collectionService.getUnsettedParts(this.id).subscribe(
       (data) => {
@@ -259,7 +261,6 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   getExpectedMinifigs() {
-    this.currentTab = '';
 
     this.collectionService.getExpectedMinifigs(this.id).subscribe(
       (data) => {
@@ -298,6 +299,7 @@ export class CollectionDetailComponent implements OnInit {
             };
             this.isSetFormSubmitted = false;
             form.reset();
+            this.getExpectedSets();
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -310,4 +312,14 @@ export class CollectionDetailComponent implements OnInit {
     );
 
   }
+
+  public onImgPopupClose() {
+    this.imgPopupURL = '';
+  }
+
+  public onImgClick(row) {
+    this.imgPopupURL = row.image_url ?? row.thumbnail_url;
+    this.imagePopup.open();
+  }
+  
 }

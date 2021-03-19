@@ -69,7 +69,7 @@ export class CollectionService {
   getExpectedMinifigs(id) {
     let httpHeader = new HttpHeaders();
     httpHeader.set("Access-Control-Allow-Origin", "*");
-    return this.http.get<any>(`${environment.baseUrl}subsetdata/collection/` + id+'/minifigs', { withCredentials: true, headers: httpHeader, observe: 'response' });
+    return this.http.get<any>(`${environment.baseUrl}subsetdata/collection/` + id + '/minifigs', { withCredentials: true, headers: httpHeader, observe: 'response' });
   }
 
   saveNewSets(model): Observable<any> {
@@ -77,5 +77,12 @@ export class CollectionService {
       'Content-Type': 'application/json',
     })
     return this.http.post<CollectionModel>(`${environment.baseUrl}recognisedsets`, model, { withCredentials: true, headers: headers, observe: 'response' });
+  }
+
+  deleteCollection(id): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+    return this.http.delete<any>(`${environment.baseUrl}collections/` + id, { withCredentials: true, headers: headers, observe: 'response' });
   }
 }

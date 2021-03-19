@@ -2,14 +2,14 @@
     <div class="col-sm-12">
         <button type="button" class="btn float-right btn-primary m-2" (click)="editCollection(0)">
             <i class="fa fa-plus"></i> Add Collection
-          </button>
+        </button>
     </div>
 </div>
 
 <div class="row">
     <div class="col-sm-12" *ngIf="data && columns">
-        <ng-table editClass="fas fa-eye" editButtonText="Show" (rowEditClick)="onEditClick($event)" [isActionVisible]="true" [isDeleteVisible]="true"  [columns]="columns" [data]="data">
-
+        <ng-table (rowCellClick)="onEditClick($event)" [isActionVisible]="true" [isEditVisible]="false"
+            [isDeleteVisible]="true" [columns]="columns" [data]="data" (rowDeleteClick)="onRowDeleteClick($event)">
         </ng-table>
     </div>
 </div>
