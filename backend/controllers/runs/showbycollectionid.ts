@@ -35,7 +35,7 @@ export default (req: Request, res: Response) => {
     SUM(IF(rp.deleted IS NULL AND rp.no IS NOT NULL AND rp.identifier != 'human',1,0)) as parts_identified_by_cnn
     FROM LegoSorterDB.Recognisedparts rp
     LEFT JOIN LegoSorterDB.Runs r ON r.id = rp.run_id
-    LEFT JOIN LegoSorterDB.RunStatus rs ON r.id = rs.run_id
+    LEFT JOIN LegoSorterDB.RunStatus rs ON r.id = rs.run_id AND rs.created = (SELECT max(created) FROM LegoSorterDB.RunStatus where run_id = rs.run_id)
     LEFT JOIN LegoSorterDB.Status st ON rs.status = st.code AND st.typeid = 4 
     where r.collection_id = ${collectionid}
     GROUP BY r.id, status_name,status_description,created) As allparts_specific
