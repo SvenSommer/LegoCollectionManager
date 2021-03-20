@@ -21,6 +21,12 @@ import { ModalPopupComponent } from './shared/components/popup/modal-popup/modal
 import { CollectionEditComponent } from './collection/edit/collection-edit.component';
 import { CollectionDetailComponent } from './collection/detail/collection-detail.component';
 import { NgxBootstrapConfirmModule } from 'ngx-bootstrap-confirm';
+import { SetdataComponent } from './setdata/setdata.component';
+import { PartdataComponent } from './partdata/partdata.component';
+import { RunComponent } from './run/run.component';
+import { SorterComponent } from './sorter/sorter.component';
+import { SorterEditComponent } from './sorter/edit/sorter-edit.component';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +40,12 @@ import { NgxBootstrapConfirmModule } from 'ngx-bootstrap-confirm';
     HeaderComponent,
     ModalPopupComponent,
     CollectionEditComponent,
-    CollectionDetailComponent
+    CollectionDetailComponent,
+    SetdataComponent,
+    PartdataComponent,
+    RunComponent,
+    SorterComponent,
+    SorterEditComponent
   ],
   imports: [
     BrowserModule,

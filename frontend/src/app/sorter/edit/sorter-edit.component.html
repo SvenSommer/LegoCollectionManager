@@ -1,0 +1,116 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(sorterForm)" #sorterForm="ngForm">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" required #name="ngModel" [(ngModel)]="sorter.name" class="form-control"
+                        id="sorterName" name="sorterName">
+                    <div *ngIf="name.invalid && (name.dirty || name.touched || isFormSubmitted)"
+                        class="alert alert-danger">
+                        <div *ngIf="name.errors.required">
+                            name is required.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>URL Lifter Status</label>
+                    <div class="input-group">
+                        <input type="url" #lifter_status_url="ngModel" [(ngModel)]="sorter.lifter_status_url"
+                            class="form-control" id="lifter_status_url" name="lifter_status_url">
+                        
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>URL Lifter Update</label>
+                    <div class="input-group">
+                        <input type="url" #lifter_update_url="ngModel" [(ngModel)]="sorter.lifter_update_url"
+                            class="form-control" id="lifter_update_url" name="lifter_update_url">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>URL Lifter AlterSpeed</label>
+                    <div class="input-group">
+                        <input type="url" #lifter_alterspeed_url="ngModel" [(ngModel)]="sorter.lifter_alterspeed_url"
+                            class="form-control" id="lifter_alterspeed_url" name="lifter_alterspeed_url">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Url Feeder Status</label>
+                    <div class="input-group">
+                        <input type="url" #vfeeder_status_url="ngModel" [(ngModel)]="sorter.vfeeder_status_url"
+                            class="form-control" id="vfeeder_status_url" name="vfeeder_status_url">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Url Feeder Update</label>
+                    <div class="input-group">
+                        <input type="url" #vfeeder_update_url="ngModel" [(ngModel)]="sorter.vfeeder_update_url"
+                            class="form-control" id="vfeeder_update_url" name="vfeeder_update_url">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Url Feeder AlterSpeed</label>
+                    <div class="input-group">
+                        <input type="url" #vfeeder_alterspeed_url="ngModel" [(ngModel)]="sorter.vfeeder_alterspeed_url"
+                            class="form-control" id="vfeeder_alterspeed_url" name="vfeeder_alterspeed_url">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Url Conveyor Status</label>
+                    <div class="input-group">
+                        <input type="url" #conveyor_status_url="ngModel" [(ngModel)]="sorter.conveyor_status_url"
+                            class="form-control" id="conveyor_status_url" name="conveyor_status_url">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Url Conveyor Update</label>
+                    <div class="input-group">
+                        <input type="url" #conveyor_update_url="ngModel" [(ngModel)]="sorter.conveyor_update_url"
+                            class="form-control" id="conveyor_update_url" name="conveyor_update_url">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Url Conveyor AlterSpeed</label>
+                    <div class="input-group">
+                        <input type="url" #conveyor_alterspeed_url="ngModel" [(ngModel)]="sorter.conveyor_alterspeed_url"
+                            class="form-control" id="conveyor_alterspeed_url" name="conveyor_alterspeed_url">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Status</label>
+                    <div class="input-group">
+                        <input type="text" #status="ngModel" [(ngModel)]="sorter.status"
+                            class="form-control" id="status" name="status">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

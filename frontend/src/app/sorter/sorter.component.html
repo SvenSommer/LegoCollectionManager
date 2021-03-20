@@ -1,0 +1,20 @@
+<div class="pt-2">
+    <div class="row">
+        <div class="col-sm-9">
+                <h2>Sorter</h2>
+        </div>
+        <div class="col-sm-3 float-right">
+            <button type="button" class="btn float-right btn-primary " (click)="editSorter(0)">
+                <i class="fa fa-plus"></i> Add Sorter
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" *ngIf="data && columns">
+        <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="columns" [data]="data" (rowDeleteClick)="onRowEditClick($event)">
+        </ng-table>
+    </div>
+</div>
+
+<app-sorter-edit (sorterAdded)="addNewSorter($event)" #sorterEdit></app-sorter-edit>
