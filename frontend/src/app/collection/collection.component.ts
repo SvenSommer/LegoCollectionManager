@@ -19,7 +19,7 @@ export class CollectionComponent implements OnInit {
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   public columns = [
-    { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
+    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
     { title: 'Name', name: 'name', size: '35%', minSize: '120' },
     { title: 'Weight(kg)', name: 'weight_kg', size: '25', minSize: '25', datatype: { type: 'number' } },
     { title: 'Origin', name: 'origin', size: '50', minSize: '50' },

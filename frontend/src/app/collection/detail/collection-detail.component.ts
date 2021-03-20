@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { ToastrService } from 'ngx-toastr';
 import { CollectionModel } from 'src/app/models/collection-model';
 import { CollectionService } from 'src/app/services/collection.service';
@@ -35,7 +36,7 @@ export class CollectionDetailComponent implements OnInit {
   ];
 
   public expSetsColumns = [
-    { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
+    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
     { title: 'setNo', name: 'no', size: '30', minSize: '30' },
     { title: 'Category', name: 'category_name', size: '30%', minSize: '50' },
     { title: 'Name', name: 'name', size: '70%', minSize: '90' },
@@ -50,7 +51,7 @@ export class CollectionDetailComponent implements OnInit {
   ];
 
   public suggSetsColumns = [
-    { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
+    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
     { title: 'Set No', name: 'setNo', size: '30', minSize: '30' },
     { title: 'Category', name: 'category_name', size: '50', minSize: '50' },
     { title: 'Name', name: 'name', size: '25%', minSize: '90' },
@@ -64,7 +65,7 @@ export class CollectionDetailComponent implements OnInit {
   ];
 
   public ExpPartsColumns = [
-    { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
+    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
     { title: 'Part No', name: 'part_no', size: '30', minSize: '30' },
     { title: 'name', name: 'name', size: '25%', minSize: '90' },
     { title: 'Set No', name: 'setNos', size: '30', minSize: '30' },
@@ -75,7 +76,7 @@ export class CollectionDetailComponent implements OnInit {
   ];
 
   public UnsettedPartsColumns = [
-    { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
+    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
     { title: 'No', name: 'partNo', size: '25%', minSize: '30' },
     { title: 'Color Id', name: 'color_id', size: '25%', minSize: '90' },
     { title: 'Appears in sets', name: 'super_set_count', size: '25%', minSize: '90' },
@@ -88,12 +89,12 @@ export class CollectionDetailComponent implements OnInit {
 
   public ExpMinifigsColumns = [
     { title: 'Part No', name: 'part_no', size: '35', minSize: '35' },
-    { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
+    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
     { title: 'Sets No', name: 'setNos', size: '35', minSize: '35' },
     { title: 'Total Quantity', name: 'total_quantity', size: '25', minSize: '25' },
     { title: 'Description', name: 'name', size: '35%', minSize: '90' },
     { title: 'Status Name', name: 'status_name', size: '25%', minSize: '90' },
-    { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '50', minSize: '90', datatype: { type: 'price' }  },
+    { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '50', minSize: '90', datatype: { type: 'price' } },
   ];
 
   public runsData: any;
@@ -116,7 +117,8 @@ export class CollectionDetailComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private collectionService: CollectionService,
-    private router: Router, private toastr: ToastrService) { }
+    private router: Router, private toastr: ToastrService,
+    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   public id = 0;
   ngOnInit(): void {
@@ -321,5 +323,49 @@ export class CollectionDetailComponent implements OnInit {
     this.imgPopupURL = row.image_url ?? row.thumbnail_url;
     this.imagePopup.open();
   }
+
+  public onExternalClick(data) {
+    if(data && data.origin_url)
+    {
+      let url: string = '';
+      if (!/^http[s]?:\/\//.test(data.origin_url)) {
+        url += 'http://';
+      }
   
+      url += data.origin_url;
+      window.open(url, '_blank');
+    }
+  }
+
+  public onDeleteClick(){
+    let options = {
+      title: 'Are you sure you want to delete this?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel'
+    }
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+        console.log('Okay');
+        this.collectionService.deleteCollection(this.id).subscribe(
+          (data) => {
+            if (data) {
+              if (data.body && data.body.code == 200) {
+               // Message should be data.body.message
+               this.toastr.success("Record Deleted Successfully.");
+               this.router.navigateByUrl("/collection");
+              }
+              else if (data.body && data.body.code == 403) {
+                this.router.navigateByUrl("/login");
+              }
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+      } else {
+        console.log('Cancel');
+      }
+    });
+  }
 }

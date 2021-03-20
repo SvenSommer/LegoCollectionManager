@@ -18,7 +18,7 @@
           <ng-container [ngSwitch]="column?.datatype?.type">
             <td *ngSwitchCase="'image'"
               [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
-              <img (click)="onImgClick(row,column)" *ngIf="getData(row,column,i)" [style.width.px]="column.minSize" [style.height.px]="column.minSize"
+              <img (click)="onImgClick(row,column)" *ngIf="getData(row,column,i)" [style.width.px]="column.minSize"
                 [src]="getData(row,column,i)" />
             </td>
             <td (click)="rowCellClick.emit(row)" *ngSwitchDefault [ngStyle]="{'width' : column.size, 'word-break': column.wordbreak}"
@@ -70,6 +70,6 @@
   </div>
 </div>
 
-<app-modal-popup size="md" (closeEvent)="onImgPopupClose()" #imagePopup>
-  <img height="400px" width="360px" [src]="imgPopupURL" />
+<app-modal-popup size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
+  <img [src]="imgPopupURL" />
 </app-modal-popup>
