@@ -3,7 +3,7 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {id} = req.params;
-    const showOne = `SELECT * FROM partdata_basis WHERE id=${id};`
+    const showOne = `SELECT * FROM Parts WHERE id=${id};`
     connection.query(showOne, (err, result) => {
         if (err) res.json({
             code: 500,
