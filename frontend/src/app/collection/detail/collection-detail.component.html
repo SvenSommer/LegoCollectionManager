@@ -19,7 +19,7 @@
                     <a class="primary p-0" title="edit" (click)="onEditClick()">
                         <i class="font-medium-3" ngClass="fas fa-edit"></i>
                     </a>
-                    <a class="pl-1 text-danger" title="Delete">
+                    <a class="pl-1 text-danger" title="Delete" (click)="onDeleteClick()">
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </div>
@@ -38,7 +38,7 @@
                         Origin
                     </td>
                     <td>
-                        <a [href]="collectionDetails.origin_url" target="_blank">
+                        <a href="javascript:void(0);" (click)="onExternalClick(collectionDetails)">
                             {{collectionDetails.origin}}
                         </a>
                     </td>
@@ -324,8 +324,8 @@
     </div>
 </div>
 
-<app-modal-popup size="md" (closeEvent)="onImgPopupClose()" #imagePopup>
-    <img height="400px" width="360px" [src]="imgPopupURL" />
+<app-modal-popup size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
+    <img [src]="imgPopupURL" />
   </app-modal-popup>
 
 <app-collection-edit (collectionAdded)="addNewCollection($event)" #collectionEdit></app-collection-edit>
