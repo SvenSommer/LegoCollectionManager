@@ -45,7 +45,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"testadmin\",\r\n    \"password\": \"adminpass\",\r\n    \"full_name\": \"Test Administrator\",\r\n    \"usergroup\": 1\r\n}",
+									"raw": "{\r\n    \"username\": \"testadmin2\",\r\n    \"password\": \"adminpass\",\r\n    \"full_name\": \"Test Administrator\",\r\n    \"usergroup\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -283,7 +283,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Robert Test500\",\r\n    \"weight_kg\": 12,\r\n    \"origin\": \"demo\",\r\n    \"origin_url\": \"demo\",\r\n    \"seller\": \"demo\",\r\n    \"description\": \"demo\",\r\n    \"purchase_date\": \"2020-04-09 07:33:19\",\r\n    \"cost\": 200,\r\n    \"porto\": 20,\r\n    \"thumbnail_url\": \"demo\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Robert Test505\",\r\n    \"weight_kg\": 12,\r\n    \"origin\": \"demo\",\r\n    \"origin_url\": \"demo\",\r\n    \"seller\": \"demo\",\r\n    \"description\": \"demo\",\r\n    \"purchase_date\": \"2020-04-09 07:33:19\",\r\n    \"cost\": 200,\r\n    \"porto\": 20,\r\n    \"thumbnail_url\": \"demo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -668,7 +668,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"collectionid\": 4,\r\n    \"setnumber\": \"7422\",\r\n    \"comments\": \"this a test set\",\r\n    \"instructions\": \"not available\",\r\n    \"condition\": \"used\"\r\n}",
+									"raw": "{\r\n    \"collectionid\": 17,\r\n    \"setnumber\": \"7422\",\r\n    \"comments\": \"this a test set\",\r\n    \"instructions\": \"not available\",\r\n    \"condition\": \"used\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1667,13 +1667,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedparts/6239",
+									"raw": "{{URL}}/recognisedparts/600",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"recognisedparts",
-										"6239"
+										"600"
 									]
 								}
 							},
@@ -1803,7 +1803,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"recognisedpartid\":100,\r\n    \"sortedsetid\": 1,\r\n    \"detected\": 1\r\n}",
+									"raw": "{\r\n    \"recognisedpart_id\":103,\r\n    \"sortedset_id\": 1,\r\n    \"detected\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1909,13 +1909,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/sortedparts/16",
+									"raw": "{{URL}}/sortedparts/1",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"sortedparts",
-										"16"
+										"1"
 									]
 								}
 							},
@@ -1928,7 +1928,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\":1,\r\n    \"recognisedpartid\":100,\r\n    \"sortedsetid\": 1,\r\n    \"detected\": 1\r\n}",
+									"raw": "{\r\n    \"id\":1,\r\n    \"recognisedpart_id\":131,\r\n    \"sortedset_id\": 1,\r\n    \"detected\": 1\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1954,13 +1954,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/sortedparts/16",
+									"raw": "{{URL}}/sortedparts/2",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"sortedparts",
-										"16"
+										"2"
 									]
 								}
 							},
@@ -1974,6 +1974,280 @@
 			"name": "Sorters",
 			"item": [
 				{
+					"name": "Valves",
+					"item": [
+						{
+							"name": "Create Valve",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"sorterid\":1,\r\n    \"number\": 1,\r\n    \"name\": \"ValveController1\",\r\n    \"ip\":\"192.168.178.86\",\r\n    \"valvesCount\": 8,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"updateurl\": \"/update\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/valves",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"valves"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all ValveController",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/valves",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"valves"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all ValveController by Sorterid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/valves/sorter/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"valves",
+										"sorter",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single ValveController",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/valves/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"valves",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update ValveController",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"sorterid\":1,\r\n    \"number\": 1,\r\n    \"name\": \"ValveController1\",\r\n    \"ip\":\"192.168.178.86\",\r\n    \"valvesCount\": 8,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"updateurl\": \"/update\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/valves/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"valves",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single ValveController",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/valves/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"valves",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Scales",
+					"item": [
+						{
+							"name": "Create Scale",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"ip\":\"192.168.178.87\",\r\n    \"sorterid\":1,\r\n    \"number\": 2,\r\n    \"name\":\"Scale2\",\r\n    \"statusurl\": \"/getstatus\",\r\n    \"initializeurl\": \"/initialize\",\r\n    \"tareurl\": \"/tare\",\r\n    \"reseturl\": \"/reset\",\r\n    \"expectBrickurl\": \"/expectBrick\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/scales",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"scales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Scales",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/scales",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"scales"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Scales by Sorterid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/scales/sorter/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"scales",
+										"sorter",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Scale",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/scales/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"scales",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Scale",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":1,\r\n    \"ip\":\"192.168.178.98\",\r\n    \"sorterid\":1,\r\n    \"number\": 3,\r\n    \"name\":\"Scale3\",\r\n    \"statusurl\": \"/getstatus\",\r\n    \"initializeurl\": \"/initialize\",\r\n    \"tareurl\": \"/tare\",\r\n    \"reseturl\": \"/reset\",\r\n    \"expectBrickurl\": \"/expectBrick\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/scales/2",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"scales",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single Scale",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/scales/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"scales",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Pushers",
 					"item": [
 						{
@@ -1983,7 +2257,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"sorterid\":1,\r\n    \"number\": 2,\r\n    \"ip\":\"192.168.178.100\",\r\n    \"distanceFromOrigin\": 679,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"updateurl\": \"/update?clientmode=Test1&ntp=1\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+									"raw": "{\r\n    \"scaleid\":1,\r\n    \"valveid\":2,\r\n    \"number\": 2,\r\n    \"distanceFromOrigin_mm\": 679,\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"status\": 10\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2051,13 +2325,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/pushers/1",
+									"raw": "{{URL}}/pushers/2",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"pushers",
-										"1"
+										"2"
 									]
 								}
 							},
@@ -2070,7 +2344,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\":1,\r\n    \"sorterid\":1,\r\n    \"number\": 1,\r\n    \"ip\":\"192.168.178.86\",\r\n    \"distanceFromOrigin\": 359,\r\n    \"statusurl\": \"/getstatus\",\r\n    \"pressureurl\": \"/getpressure\",\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"updateurl\": \"/update?clientmode={{Clientmode}}&ntp={{1}}\",\r\n    \"status\": 10,\r\n    \"createdBy\": 1\r\n}",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"scaleid\":1,\r\n    \"valveid\": 2,\r\n    \"number\": 2,\r\n    \"distanceFromOrigin_mm\": 679,\r\n    \"pushurl\": \"/pushBrick?bucket={{BucketNumber}}&duration={{Duration}}&time={{Time}}\",\r\n    \"status\": 10\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2096,13 +2370,13 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/pushers/1",
+									"raw": "{{URL}}/pushers/5",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"pushers",
-										"1"
+										"5"
 									]
 								}
 							},
@@ -2166,13 +2440,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}/sorters/2",
+							"raw": "{{URL}}/sorters/1",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"sorters",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -2280,14 +2554,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/runs/collection/1",
+									"raw": "{{URL}}/runs/collection/4",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"runs",
 										"collection",
-										"1"
+										"4"
 									]
 								}
 							},
@@ -2375,7 +2649,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"run_id\":1,\r\n    \"status\": 30,\r\n    \"reason\": \"sleeping time\"\r\n}",
+									"raw": "{\r\n    \"run_id\":12,\r\n    \"status\": 41,\r\n    \"reason\": \"no available sorter\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

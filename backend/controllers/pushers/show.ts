@@ -2,7 +2,7 @@ import {Request, Response} from 'express';
 import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
-    const showAll = `SELECT * FROM Pushers;`
+    const showAll = `SELECT * FROM LegoSorterDB.pushers_basis;`
     connection.query(showAll, (err, result) => {
         if (err) res.json({
             code: 500,

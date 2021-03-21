@@ -43,7 +43,7 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'year', name: 'year', size: '25', minSize: '25' },
     { title: 'weight(g)', name: 'weight_g', size: '25', minSize: '25' },
     { title: 'parts', name: 'parts_existing', size: '25', minSize: '25' },
-    { title: 'Complete(%)', name: 'complete_percentage', size: '25', minSize: '25' },
+    { title: 'Parts Identified(%)', name: 'partsidentified_percentage', size: '25', minSize: '25' },
     { title: 'Minifigs', name: 'complete_minifigs_count', size: '25', minSize: '25' },
     { title: 'Min price(€)', name: 'min_price', size: '35', minSize: '35', datatype: { type: 'price' } },
     { title: 'Avg price(€)', name: 'avg_price', size: '35', minSize: '35', datatype: { type: 'price' } },

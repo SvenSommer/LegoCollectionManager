@@ -3,7 +3,10 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {sorterid} = req.params;
-    const showAll = `SELECT * FROM Pushers Where sorterid = ${sorterid};`
+  //  const showAll = `SELECT * FROM Pushers p LEFT JOIN Valves v ON v.id = p.valveid
+  //  WHERE sorterid = ${sorterid};`
+      const showAll = `SELECT * FROM pushers_basis
+    WHERE sorterid = ${sorterid};`
     connection.query(showAll, (err, result) => {
         if (err) res.json({
             code: 500,

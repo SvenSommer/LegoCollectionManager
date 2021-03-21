@@ -8,6 +8,7 @@ import { PartdataComponent } from './partdata/partdata.component';
 import { SetdataComponent } from './setdata/setdata.component';
 import { RunComponent } from './run/run.component';
 import { SorterComponent } from './sorter/sorter.component';
+import { SorterDetailComponent } from './sorter/detail/sorter-detail.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:'partdata',component:PartdataComponent,canActivate:[AuthenticationGuard]},
   {path:'run',component:RunComponent,canActivate:[AuthenticationGuard]},
   {path:'sorters',component:SorterComponent,canActivate:[AuthenticationGuard]},
+  {path:'sortersdetail/:id',component:SorterDetailComponent,canActivate:[AuthenticationGuard]},
 ];
 
 @NgModule({

@@ -1,0 +1,318 @@
+<div class="container-fluid" *ngIf="sorterDetails">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4 pt-2">
+        <h3 class="text-dark mb-0">{{sorterDetails.name}}</h3>
+    </div>
+</div>
+<div class="row" *ngIf="sorterDetails">
+    <div class="col-md-2 mb-4">
+        <div class="card shadow boarder-left-primary py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
+                            <span>Status</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            <span>{{sorterDetails.status_name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4" >
+        <div class="card shadow boarder-left-secondary py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-secondary font-weight-bold text-xs mb-1">
+                            <span>Pusher (Total)</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            <span>{{sorterDetails.pusher_total}}</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4">
+        <div class="card shadow boarder-left-success py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
+                            <span>Pusher (Ready)</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            <span>{{sorterDetails.pusher_ready}}</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4">
+        <div class="card shadow boarder-left-info py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                            <span>Pusher (Planned)</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            <span>{{sorterDetails.pusher_planned}}</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4">
+        <div class="card shadow boarder-left-danger py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-danger font-weight-bold text-xs mb-1">
+                            <span>Pusher (Damaged)</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            <span>{{sorterDetails.pusher_damaged}} </span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4">
+        <div class="card shadow boarder-left-danger py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-danger font-weight-bold text-xs mb-1">
+                            <span>Pusher (Removed)</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            <span>{{sorterDetails.pusher_removed}}</span>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="text-primary font-weight-bold m-0">Transport Components</h6>
+                <div class="dropdown no-arrow">
+                    <a class="btn btzn-link btn-sm" title="edit" aria-expanded="false"  type="button" (click)="onEditSorterClick()">
+                        <i class="fas fa-edit text-gray-400"></i>
+                    </a>
+                    <a class="pl-1 text-danger" title="Delete" (click)="onDeleteSorterClick()">
+                        <i class="fas fa-trash-alt  text-gray-400"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Litfer</h4>
+                        <table *ngIf="sorterDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                            <tr>
+                                <td>
+                                    Status
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.lifter_status_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Update
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.lifter_update_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Speed Change 
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.lifter_alterspeed_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Feeder</h4>
+                        <table *ngIf="sorterDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                            <tr>
+                                <td>
+                                    Status
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.vfeeder_status_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Update
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.vfeeder_update_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Speed Change 
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.vfeeder_alterspeed_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Conveyor</h4>
+                        <table *ngIf="sorterDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                            <tr>
+                                <td>
+                                    Status
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.conveyor_status_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Update
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.conveyor_update_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                   Speed Change 
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);">
+                                        {{sorterDetails.conveyor_alterspeed_url}}
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="row"></div>
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Pusher</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editPusher(0)">
+                            <i class="fas fa-plus text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="pushersData && pushersColumns">
+                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="pushersColumns" [data]="pushersData.result" (rowEditClick)="onEditPusherClick($event)">
+                            </ng-table>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"></div>
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">ValveController</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editValve(0)">
+                            <i class="fas fa-plus text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="valvesData && valvesColumns">
+                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="valvesColumns" [data]="valvesData.result" (rowEditClick)="onEditValveClick($event)">
+                            </ng-table>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="row"></div>
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Scales</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editScale(0)">
+                            <i class="fas fa-plus text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="scalesData && scalesColumns">
+                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="scalesColumns" [data]="scalesData.result" (rowEditClick)="onEditScaleClick($event)">
+                            </ng-table>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<app-sorter-edit (sorterAdded)="addNewSorter($event)" #sorterEdit></app-sorter-edit>
+<app-pusher-edit (pusherAdded)="addNewPusher($event)" #pusherEdit></app-pusher-edit>
+<app-valve-edit (valveAdded)="addNewValve($event)" #pusherEdit></app-valve-edit>
+<app-scale-edit (scaleAdded)="addNewScale($event)" #scaleEdit></app-scale-edit>

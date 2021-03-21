@@ -12,8 +12,9 @@
 </div>
 <div class="row">
     <div class="col-sm-12" *ngIf="data && columns">
-        <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="columns" [data]="data" (rowDeleteClick)="onRowEditClick($event)">
-        </ng-table>
+        <ng-table (rowCellClick)="onEditClick($event)" [isActionVisible]="true" [isEditVisible]="false"
+        [isDeleteVisible]="true" [columns]="columns" [data]="data" (rowDeleteClick)="onRowDeleteClick($event)">
+    </ng-table>
     </div>
 </div>
 

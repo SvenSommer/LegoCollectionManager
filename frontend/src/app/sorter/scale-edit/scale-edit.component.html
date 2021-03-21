@@ -1,0 +1,99 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(scaleForm)" #scaleForm="ngForm">
+        <div class="row">
+            <div class="col-md-5  mb-4" >
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">General</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Sorterid</label>
+                            <div class="input-group">
+                                <input type="number" required #name="ngModel" [(ngModel)]="scale.sorterid" class="form-control"
+                                    id="sorterid" name="sorterid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Number</label>
+                            <div class="input-group">
+                                <input type="number" required #name="ngModel" [(ngModel)]="scale.number" class="form-control"
+                                    id="number" name="number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <div class="input-group">
+                                <input type="text" #status="ngModel" [(ngModel)]="scale.name"
+                                    class="form-control" id="Name" name="Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5  mb-4" >
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Connection</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Ip</label>
+                            <div class="input-group">
+                                <input type="ip" #status="ngModel" [(ngModel)]="scale.ip"
+                                    class="form-control" id="ip" name="ip">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status url</label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="scale.statusurl"
+                                    class="form-control" id="statusurl" name="statusurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Initialize url</label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="scale.initializeurl"
+                                    class="form-control" id="initializeurl" name="initializeurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Tare url</label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="scale.tareurl"
+                                    class="form-control" id="tareurl" name="tareurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Reset url</label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="scale.reseturl"
+                                    class="form-control" id="reseturl" name="reseturl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Expect Brick url </label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="scale.expectBrickurl"
+                                    class="form-control" id="expectBrickurl" name="expectBrickurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div class="input-group">
+                                <input type="text" #status="ngModel" [(ngModel)]="scale.status"
+                                    class="form-control" id="status" name="status">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { SorterModel } from '../models/sorter-model';
 import { SorterService } from '../services/sorter.service';
 import { SorterEditComponent } from './edit/sorter-edit.component';
+import { ToastrService } from 'ngx-toastr';
+import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 
 @Component({
   selector: 'app-sorter',
@@ -12,8 +14,9 @@ import { SorterEditComponent } from './edit/sorter-edit.component';
 })
 export class SorterComponent implements OnInit {
 
-  constructor(private runService: SorterService,
-    private router: Router) {} 
+  constructor(private sorterService: SorterService,
+    private router: Router, private toastr: ToastrService,
+    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) {} 
 
     public columns = [
       { title: '#', name: 'id', size: '5%', minSize: '50'},
@@ -34,7 +37,7 @@ export class SorterComponent implements OnInit {
     }
     
     bindData() {
-      this.runService.getSorters().subscribe(
+      this.sorterService.getSorters().subscribe(
         (data) => {
           if (data) {
             if (data.body && data.body.code == 200) {
@@ -53,6 +56,42 @@ export class SorterComponent implements OnInit {
 
     editSorter(id) {
       this.sorterEdit.open();
+    }
+
+    onEditClick(data) {
+      this.router.navigateByUrl("/sortersdetail/" + data.id).then((bool) => { }).catch()
+    }
+
+    onRowDeleteClick(model) {
+      let options = {
+        title: 'Are you sure you want to delete this?',
+        confirmLabel: 'Okay',
+        declineLabel: 'Cancel'
+      }
+      this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+        if (res) {
+          console.log('Okay');
+          this.sorterService.deleteSorter(model.id).subscribe(
+            (data) => {
+              if (data) {
+                if (data.body && data.body.code == 200) {
+                 // Message should be data.body.message
+                 this.toastr.success("Record Deleted Successfully.");
+                 this.bindData();
+                }
+                else if (data.body && data.body.code == 403) {
+                  this.router.navigateByUrl("/login");
+                }
+              }
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.name + ' ' + error.message);
+            }
+          );
+        } else {
+          console.log('Cancel');
+        }
+      });
     }
 
     addNewSorter(newData: SorterModel) {

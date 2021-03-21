@@ -8,28 +8,21 @@ export default (req: Request, res: Response) => {
     try {
         const {token} = req.cookies;
         const {
-            sorterid,
+            scaleid,
+            valveid,
             number,
-            ip,
-            distanceFromOrigin,
-            statusurl,
-            pressureurl,
+            name,
+            distanceFromOrigin_mm,
             pushurl,
-            updateurl,
-            status,
-            createdBy
+            status
         } = req.body;
 
-        if (sorterid &&
+        if (scaleid &&
+            valveid &&
             number &&
-            ip &&
-            distanceFromOrigin &&
-            statusurl &&
-            pressureurl &&
+            name &&
             pushurl &&
-            updateurl &&
-            status &&
-            createdBy) {
+            status) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const {username:currentusernme} = decoded;
@@ -44,25 +37,21 @@ export default (req: Request, res: Response) => {
                     else {
                         const {id: userid} = result[0];
                         const createPusher = `INSERT INTO Pushers(
-                        sorterid,
-                        number,
-                        ip,
-                        distanceFromOrigin,
-                        statusurl,
-                        pressureurl,
-                        pushurl,
-                        updateurl,
-                        status,            
-                        createdBy)
-                        VALUES(
-                             ${sorterid},
-                             ${number}, 
-                            '${ip}',
-                             ${distanceFromOrigin},
-                            '${statusurl}',
-                            '${pressureurl}',
+                            scaleid,
+                            valveid,
+                            number,
+                            name,
+                            distanceFromOrigin_mm,
+                            pushurl,
+                            status,            
+                            createdBy)
+                            VALUES(
+                             ${scaleid},
+                             ${valveid}, 
+                             ${number},
+                            '${name}',
+                             ${distanceFromOrigin_mm},
                             '${pushurl}',
-                            '${updateurl}',
                              ${status},
                              ${userid}
                             )`;
@@ -89,7 +78,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'sorterid, number, ip, statusurl, pressureurl, pushurl, updateurl, status and createdBy are required!'
+                message: 'scaleid, valveid, number, name, pushurl and status are required!'
             });
         }
     } catch (e) {

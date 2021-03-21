@@ -18,9 +18,6 @@ export default (req: Request, res: Response) => {
             conveyor_status_url,
             conveyor_update_url,
             conveyor_alterspeed_url,
-            pusher_count,
-            pusher_status_baseurl,
-            pusher_mode_baseurl,
             status
         } = req.body;
 
@@ -35,9 +32,6 @@ export default (req: Request, res: Response) => {
             conveyor_status_url &&
             conveyor_update_url &&
             conveyor_alterspeed_url &&
-            pusher_count &&
-            pusher_status_baseurl &&
-            pusher_mode_baseurl && 
             status) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
@@ -51,17 +45,18 @@ export default (req: Request, res: Response) => {
                                             conveyor_status_url = '${conveyor_status_url}',
                                             conveyor_update_url = '${conveyor_update_url}',
                                             conveyor_alterspeed_url = '${conveyor_alterspeed_url}',
-                                            pusher_count = ${pusher_count},
-                                            pusher_status_baseurl = '${pusher_status_baseurl}',
-                                            pusher_mode_baseurl = '${pusher_mode_baseurl}',
                                             status = ${status}
                                             WHERE id=${id}`;
                 connection.query(updateUser, (err, result) => {
-                    if (err) res.json({
+                    if (err) {
+                        console.log("Couldn\'t update Sorter" + err)
+                        res.json({
                         code: 500,
-                        message: 'Couldn\'t update user',
+                        message: 'Couldn\'t update Sorter',
                         error: process.env.DEBUG && err
-                    });
+                      
+                        });
+                    }
                     else {
                         res.json({
                             code: 200,

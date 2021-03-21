@@ -9,34 +9,31 @@ export default (req: Request, res: Response) => {
         const {token} = req.cookies;
         const {
             id,
-            sorterid,
+            scaleid,
+            valveid,
             number,
-            ip,
-            statusurl,
-            pressureurl,
+            name,
+            distanceFromOrigin_mm,
             pushurl,
-            updateurl,
             status
         } = req.body;
 
         if (id &&
-            sorterid &&
+            scaleid &&
+            valveid &&
             number &&
-            ip &&
-            statusurl &&
-            pressureurl &&
+            name &&
+            distanceFromOrigin_mm &&
             pushurl &&
-            updateurl &&
             status) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const updatePusher = `UPDATE Pushers SET sorterid = ${sorterid},
+                const updatePusher = `UPDATE Pushers SET scaleid = ${scaleid},
+                                            valveid = ${valveid},
                                             number = ${number},
-                                            ip = '${ip}',
-                                            statusurl = '${statusurl}',
-                                            pressureurl = '${pressureurl}',
+                                            name = '${name}',
+                                            distanceFromOrigin_mm = ${distanceFromOrigin_mm},
                                             pushurl = '${pushurl}',
-                                            updateurl = '${updateurl}',
                                             status = ${status}
                                             WHERE id=${id}`;
                 connection.query(updatePusher, (err) => {
@@ -60,7 +57,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'all fields are required!'
+                message: 'id, scaleid, valveid, number, name, distanceFromOrigin_mm, pushurl an status are required!'
             });
         }
     } catch (e) {

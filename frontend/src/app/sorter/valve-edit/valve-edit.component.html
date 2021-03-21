@@ -1,0 +1,93 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(valveForm)" #valveForm="ngForm">
+        <div class="row">
+            <div class="col-md-5  mb-4" >
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">General</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Sorterid</label>
+                            <div class="input-group">
+                                <input type="number" required #name="ngModel" [(ngModel)]="valve.sorterid" class="form-control"
+                                    id="sorterid" name="sorterid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Number</label>
+                            <div class="input-group">
+                                <input type="number" required #name="ngModel" [(ngModel)]="valve.number" class="form-control"
+                                    id="number" name="number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <div class="input-group">
+                                <input type="text" #status="ngModel" [(ngModel)]="valve.name"
+                                    class="form-control" id="Name" name="Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>valvesCount</label>
+                            <div class="input-group">
+                                <input type="number" #status="ngModel" [(ngModel)]="valve.valvesCount"
+                                    class="form-control" id="valvesCount" name="valvesCount">
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5  mb-4" >
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Connection</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Ip</label>
+                            <div class="input-group">
+                                <input type="ip" #status="ngModel" [(ngModel)]="valve.ip"
+                                    class="form-control" id="ip" name="ip">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status url</label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="valve.statusurl"
+                                    class="form-control" id="statusurl" name="statusurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Pressure url</label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="valve.pressureurl"
+                                    class="form-control" id="pressureurl" name="pressureurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Update url</label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="valve.updateurl"
+                                    class="form-control" id="updateurl" name="updateurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div class="input-group">
+                                <input type="text" #status="ngModel" [(ngModel)]="valve.status"
+                                    class="form-control" id="status" name="status">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

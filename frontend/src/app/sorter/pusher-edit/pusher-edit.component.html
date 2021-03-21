@@ -1,0 +1,78 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(pusherForm)" #pusherForm="ngForm">
+        <div class="row">
+            <div class="col-md-5  mb-4" >
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">General</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Valveid</label>
+                            <div class="input-group">
+                                <input type="number" required #name="ngModel" [(ngModel)]="pusher.valveid" class="form-control"
+                                    id="valveid" name="valveid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Scaleid</label>
+                            <div class="input-group">
+                                <input type="number" required #name="ngModel" [(ngModel)]="pusher.scaleid" class="form-control"
+                                    id="Scaleid" name="Scaleid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Number</label>
+                            <div class="input-group">
+                                <input type="number" #status="ngModel" [(ngModel)]="pusher.number"
+                                    class="form-control" id="Number" name="Number">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <div class="input-group">
+                                <input type="text" #status="ngModel" [(ngModel)]="pusher.name"
+                                    class="form-control" id="Name" name="Name">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5  mb-4" >
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Preferences</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Push Url</label>
+                            <div class="input-group">
+                                <input type="url" #status="ngModel" [(ngModel)]="pusher.pushurl"
+                                    class="form-control" id="pushurl" name="pushurl">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Distance From Origin (mm)</label>
+                            <div class="input-group">
+                                <input type="number" #status="ngModel" [(ngModel)]="pusher.distanceFromOrigin_mm"
+                                    class="form-control" id="distanceFromOrigin_mm" name="distanceFromOrigin_mm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <div class="input-group">
+                                <input type="text" #status="ngModel" [(ngModel)]="pusher.status"
+                                    class="form-control" id="status" name="status">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

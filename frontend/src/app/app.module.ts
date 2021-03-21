@@ -26,6 +26,10 @@ import { PartdataComponent } from './partdata/partdata.component';
 import { RunComponent } from './run/run.component';
 import { SorterComponent } from './sorter/sorter.component';
 import { SorterEditComponent } from './sorter/edit/sorter-edit.component';
+import { SorterDetailComponent } from './sorter/detail/sorter-detail.component';
+import { PusherEditComponent } from './sorter/pusher-edit/pusher-edit.component';
+import { ValveEditComponent } from './sorter/valve-edit/valve-edit.component';
+import { ScaleEditComponent } from './sorter/scale-edit/scale-edit.component';
 
 
 @NgModule({
@@ -45,7 +49,11 @@ import { SorterEditComponent } from './sorter/edit/sorter-edit.component';
     PartdataComponent,
     RunComponent,
     SorterComponent,
-    SorterEditComponent
+    SorterEditComponent,
+    SorterDetailComponent,
+    PusherEditComponent,
+    ValveEditComponent,
+    ScaleEditComponent
   ],
   imports: [
     BrowserModule,
