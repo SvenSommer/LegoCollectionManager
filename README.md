@@ -31,6 +31,11 @@ LegoCollectionManager/frontend/npm install
 
 ## Usage
 
+Postman file for backend service
+```bash
+LegoCollectionManager/backend/LegoSorterDB.postman_collection.json
+```
+
 Start the backend
 ```bash
 LegoCollectionManager/backend/npm start
