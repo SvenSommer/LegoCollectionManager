@@ -11,7 +11,13 @@ declare var $: any;
   .wrapper1, .wrapper2 { width: 100%;overflow-x: auto!important ; overflow-y: hidden; }
   .wrapper1 { height: 20px; }
   .div1  { height: 20px; }
-  .div2  { overflow: none}  `]
+  .div2  { overflow: none}
+  .table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #858796;
+  }`]
+
 })
 
 export class NgTableComponent implements OnInit, OnChanges {
@@ -105,7 +111,7 @@ export class NgTableComponent implements OnInit, OnChanges {
       return Number(cellData);
     }
     else if (column.datatype.type == 'price') {
-      return cellData + '€';
+      return cellData.replace('.',',') + ' €';
     }
     else if (column.datatype.type == 'date' && cellData) {
       // return this.datePipe.transform(new Date(cellData), this.sharedService.variables.dateFormat);
@@ -114,7 +120,10 @@ export class NgTableComponent implements OnInit, OnChanges {
     else if (column.datatype.type == 'datetime' && cellData) {
       return this.datePipe.transform(new Date(cellData), 'dd.MM.yyyy HH:mm');
     }
-
+    else if (column.datatype.type == 'images') {
+     // let object =  JSON.parse(cellData);
+      return cellData
+    }
     else {
       return cellData;
     }

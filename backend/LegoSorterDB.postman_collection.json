@@ -895,14 +895,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/sortedsets/run/2",
+									"raw": "{{URL}}/sortedsets/run/1",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"sortedsets",
 										"run",
-										"2"
+										"1"
 									]
 								}
 							},

@@ -1,0 +1,46 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(runForm)" #runForm="ngForm">
+        <div class="col-md-5  mb-4" >
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">General</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>No</label>
+                        <div class="input-group">
+                            <input type="number" required #name="ngModel" [(ngModel)]="run.no" class="form-control"
+                                id="No" name="No">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Collection id</label>
+                        <div class="input-group">
+                            <input type="number" #status="ngModel" [(ngModel)]="run.collection_id"
+                                class="form-control" id="collection_id" name="collection_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Sorter id</label>
+                        <div class="input-group">
+                            <input type="number" #status="ngModel" [(ngModel)]="run.sorter_id"
+                                class="form-control" id="sorter_id" name="sorter_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagefolder</label>
+                        <div class="input-group">
+                            <input type="text" #status="ngModel" [(ngModel)]="run.imagefolder"
+                                class="form-control" id="imagefolder" name="imagefolder">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

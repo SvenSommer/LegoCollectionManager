@@ -19,7 +19,6 @@ import { ScaleEditComponent } from '../scale-edit/scale-edit.component';
 })
 export class SorterDetailComponent implements OnInit {
 
-  
   public imgPopupURL = '';
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
 
@@ -35,10 +34,6 @@ export class SorterDetailComponent implements OnInit {
 
   public pushersColumns = [
     { title: '#', name: 'number', size: '30', minSize: '30' },
-    { title: 'Collection', name: 'collection_name', size: '30', minSize: '30' },
-    { title: 'Set Image', name: 'thumbnail_url', size: '30', minSize: '30', datatype: { type: 'image' } },
-    { title: 'Set Number', name: 'set_no', size: '30', minSize: '30' },
-    { title: 'Set Name', name: 'set_name', size: '30', minSize: '30' },
     { title: 'Valve', name: 'valve_name', size: '60', minSize: '60' },
     { title: 'Scale', name: 'scale_name', size: '60', minSize: '60' },
     { title: 'Distance From Origin (mm)', name: 'distanceFromOrigin_mm', size: '25', minSize: '25', datatype:{ type: 'number' } },

@@ -1,0 +1,217 @@
+<div class="container-fluid" *ngIf="runDetails">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4 pt-2">
+        <h3 class="text-dark mb-0">{{runDetails.collection_name}} - Run Number {{runDetails.no}}</h3>
+    </div>
+</div>
+<div class="row" *ngIf="runDetails">
+    <div class="col-md-2 mb-4">
+        <div class="card shadow boarder-left-success py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
+                            <span>Parts Identified</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            <span>{{runDetails.parts_identified}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4" >
+        <div class="card shadow boarder-left-info py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                            <span>Identified By Cnn</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            {{runDetails.parts_identified_by_cnn}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4" >
+        <div class="card shadow boarder-left-primary py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
+                            <span>Identified By Human</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            {{runDetails.parts_identified_by_human}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4" >
+        <div class="card shadow boarder-left-secondary py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-secondary font-weight-bold text-xs mb-1">
+                            <span>Parts Unidentified</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            {{runDetails.parts_unidentified}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4" >
+        <div class="card shadow boarder-left-secondary py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-dark font-weight-bold text-xs mb-1">
+                            <span>Unique Identified</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            {{runDetails.parts_uniquepartsidentified}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4" >
+        <div class="card shadow boarder-left-danger py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-danger font-weight-bold text-xs mb-1">
+                            <span>Parts Deleted</span>
+                        </div>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            {{runDetails.parts_deleted}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="text-primary font-weight-bold m-0">General</h6>
+                <div class="dropdown no-arrow">
+                    <a class="btn btzn-link btn-sm" title="edit" aria-expanded="false"  type="button" (click)="onEditRunClick()">
+                        <i class="fas fa-edit text-gray-400"></i>
+                    </a>
+                    <a class="pl-1 text-danger" title="Delete" (click)="onDeleteRunClick()">
+                        <i class="fas fa-trash-alt  text-gray-400"></i>
+                    </a>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <h4>Overview</h4>
+                        <table *ngIf="runDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                            <tr>
+                                <td>
+                                    Collection
+                                </td>
+                                <td>
+                                        {{runDetails.collection_name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Sorter 
+                                </td>
+                                <td>     
+                                        {{runDetails.sorter_name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Status
+                                </td>
+                                <td>
+                                        {{runDetails.status_name}}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="row">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Sorted Sets</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editSortedset(0)">
+                            <i class="fas fa-plus text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="sortedsetsData && sortedsetsColumns">
+                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="sortedsetsColumns" [data]="sortedsetsData" (rowEditClick)="editSortedset(0)">
+                            </ng-table>
+                        </div>
+                </div>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Recognised Parts</h6>
+                        <div class="dropdown no-arrow">
+                            <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editSortedset(0)">
+                                <i class="fas fa-plus text-gray-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12" *ngIf="recognisedpartsData && recognisedpartsColumns">
+                                <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="recognisedpartsColumns" [data]="recognisedpartsData" (rowEditClick)="editSortedset(0)">
+                                </ng-table>
+                            </div>
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-run-edit (runAdded)="addNewRun($event)" #runEdit></app-run-edit>
+<app-sortedset-edit (sortedsetAdded)="addNewSortedset($event)" #sortedsetEdit></app-sortedset-edit>

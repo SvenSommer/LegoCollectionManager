@@ -3,10 +3,8 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {runid: runid} = req.params;
-    const showRecognisedPartsByRunId = `SELECT * FROM Recognisedparts rp
-                                            LEFT JOIN Recognisedimages ri ON ri.part_id = rp.id
-                                            LEFT JOIN Partimages pi ON ri.image_id = pi.id
-                                            WHERE pi.run_id =  ${runid} `
+    const showRecognisedPartsByRunId = `SELECT * FROM LegoSorterDB.recognisedparts_basis
+                                            WHERE run_id =  ${runid} `
     connection.query(showRecognisedPartsByRunId, (err, result) => {
         if (err) res.json({
             code: 500,

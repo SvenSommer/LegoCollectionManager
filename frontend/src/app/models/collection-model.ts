@@ -13,7 +13,9 @@ export class CollectionModel {
     public status: any;
 
     constructor(data = null) {
+        
         if (data) {
+            
             this.id = data.id;
             this.name = data.name;
             this.weight_kg = data.weight_kg;

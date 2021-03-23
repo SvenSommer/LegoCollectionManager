@@ -9,6 +9,7 @@ import { SetdataComponent } from './setdata/setdata.component';
 import { RunComponent } from './run/run.component';
 import { SorterComponent } from './sorter/sorter.component';
 import { SorterDetailComponent } from './sorter/detail/sorter-detail.component';
+import { RunDetailComponent } from './run/run-detail/run-detail.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'setdata',component:SetdataComponent,canActivate:[AuthenticationGuard]},
   {path:'partdata',component:PartdataComponent,canActivate:[AuthenticationGuard]},
   {path:'run',component:RunComponent,canActivate:[AuthenticationGuard]},
-  {path:'sorters',component:SorterComponent,canActivate:[AuthenticationGuard]},
+  {path:'rundetail/:id',component:RunDetailComponent,canActivate:[AuthenticationGuard]},
+  {path:'hardware',component:SorterComponent,canActivate:[AuthenticationGuard]},
   {path:'sortersdetail/:id',component:SorterDetailComponent,canActivate:[AuthenticationGuard]},
 ];
 

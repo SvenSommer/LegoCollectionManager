@@ -1,7 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { RunModel } from '../models/run-model';
 import { RunService } from '../services/run.service';
+import { RunEditComponent } from './run-edit/run-edit.component';
+import { ToastrService } from 'ngx-toastr';
+import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 
 @Component({
   selector: 'app-run',
@@ -11,7 +15,8 @@ import { RunService } from '../services/run.service';
 export class RunComponent implements OnInit {
 
   constructor(private runService: RunService,
-    private router: Router) {} 
+    private router: Router, private toastr: ToastrService,
+    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) {} 
 
   public columns = [
   { title: 'Run #', name: 'no', size: '5%', minSize: '50'},
@@ -28,6 +33,7 @@ export class RunComponent implements OnInit {
 ]
 public data: any;
 
+@ViewChild('runEdit') runEdit: RunEditComponent;
 ngOnInit(): void {
   this.bindData();
 }
@@ -48,6 +54,55 @@ bindData() {
       console.log(error.name + ' ' + error.message);
     }
   );
+}
+
+editRun(id) {
+  this.runEdit.open();
+}
+
+onEditClick(data) {
+  console.log(data)
+  this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
+}
+
+onRowDeleteClick(model) {
+  let options = {
+    title: 'Are you sure you want to delete this?',
+    confirmLabel: 'Okay',
+    declineLabel: 'Cancel'
+  }
+  this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+    if (res) {
+      console.log('Okay');
+      this.runService.deleteRun(model.id).subscribe(
+        (data) => {
+          if (data) {
+            if (data.body && data.body.code == 200) {
+             // Message should be data.body.message
+             this.toastr.success("Record Deleted Successfully.");
+             this.bindData();
+            }
+            else if (data.body && data.body.code == 403) {
+              this.router.navigateByUrl("/login");
+            }
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + ' ' + error.message);
+        }
+      );
+    } else {
+      console.log('Cancel');
+    }
+  });
+}
+
+addNewRun(newData: RunModel) {
+  this.bindData();
+}
+
+onRowEditClick(data) {
+  this.runEdit.open();
 }
 
 }

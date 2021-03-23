@@ -41,6 +41,7 @@ export default (req: Request, res: Response) => {
                                                           ${recognisedset_id},
                                                           ${pusher_id},
                                                           ${userid})`;
+                                                          console.log(createSortedSet)
                         connection.query(createSortedSet, (err) => {
                             if (err) res.json({
                                 code: 500,

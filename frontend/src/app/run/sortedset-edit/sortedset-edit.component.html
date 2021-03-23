@@ -1,0 +1,39 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(sortedsetForm)" #sortedsetForm="ngForm">
+        <div class="col-md-5  mb-4" >
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">General</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Run_id</label>
+                        <div class="input-group">
+                            <input type="number" required #name="ngModel" [(ngModel)]="sortedset.run_id" class="form-control"
+                                id="Run_id" name="Run_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Recognisedset id</label>
+                        <div class="input-group">
+                            <input type="number" #status="ngModel" [(ngModel)]="sortedset.recognisedset_id"
+                                class="form-control" id="recognisedset_id" name="recognisedset_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pusher id</label>
+                        <div class="input-group">
+                            <input type="number" #status="ngModel" [(ngModel)]="sortedset.pusher_id"
+                                class="form-control" id="pusher_id" name="pusher_id">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

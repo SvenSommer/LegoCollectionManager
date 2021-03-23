@@ -1,7 +1,6 @@
 import CreateRecognisedPart from '../controllers/recognisedparts/create';
 import ShowAllRecognisedParts from '../controllers/recognisedparts/show';
 import ShowAllRecognisedPartsByRunId from '../controllers/recognisedparts/showByRunId';
-import ShowAllRecognisedPartsByPartId from '../controllers/recognisedparts/showByPartId';
 import ShowAllUnsettedRecognisedPartsByCollectionId from '../controllers/recognisedparts/showUnsettedByCollectionId';
 
 import UpdateRecognisedPartById from '../controllers/recognisedparts/update';
@@ -15,9 +14,7 @@ const route = Router();
 //List all RecognisedParts
 route.get(``, UserAuthMiddleware, ShowAllRecognisedParts);
 //List all RecognisedParts by RunId
-route.get(`/runid/:runid`, UserAuthMiddleware, ShowAllRecognisedPartsByRunId);
-//List all RecognisedParts by PartId
-route.get(`/part/:partid`, UserAuthMiddleware, ShowAllRecognisedPartsByPartId);
+route.get(`/run/:runid`, UserAuthMiddleware, ShowAllRecognisedPartsByRunId);
 
 route.get(`/collection/:collectionid/unsetted`, UserAuthMiddleware, ShowAllUnsettedRecognisedPartsByCollectionId);
 //Create a new RecognisedPart

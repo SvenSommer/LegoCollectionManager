@@ -26,7 +26,7 @@ export class CollectionDetailComponent implements OnInit {
   public uniqueDetails;
 
   public runsColumns = [
-    { title: 'Run #', name: 'run_id', size: '30', minSize: '30' },
+    { title: 'Run #', name: 'no', size: '30', minSize: '30' },
     { title: 'Status', name: 'status_name', size: '25%', minSize: '90' },
     { title: 'Parts unidentified', name: 'parts_unidentified', size: '25', minSize: '25' },
     { title: 'Parts deleted', name: 'parts_deleted', size: '50', minSize: '50' },
