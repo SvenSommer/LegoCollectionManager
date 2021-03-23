@@ -169,31 +169,10 @@
     </div>
     <div class="col-lg-8">
         <div class="row">
-            <div class="card shadow mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary font-weight-bold m-0">Sorted Sets</h6>
-                    <div class="dropdown no-arrow">
-                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editSortedset(0)">
-                            <i class="fas fa-plus text-gray-400"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-12" *ngIf="sortedsetsData && sortedsetsColumns">
-                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="sortedsetsColumns" [data]="sortedsetsData" (rowEditClick)="editSortedset(0)">
-                            </ng-table>
-                        </div>
-                </div>
-                </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="row">
+            <div class="col-lg-12">
                 <div class="card shadow mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="text-primary font-weight-bold m-0">Recognised Parts</h6>
+                        <h6 class="text-primary font-weight-bold m-0">Sorted Sets</h6>
                         <div class="dropdown no-arrow">
                             <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editSortedset(0)">
                                 <i class="fas fa-plus text-gray-400"></i>
@@ -202,8 +181,31 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-sm-12" *ngIf="sortedsetsData && sortedsetsColumns">
+                                <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="sortedsetsColumns" [data]="sortedsetsData" (rowEditClick)="onEditSortedsetClick($event)">
+                                </ng-table>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Recognised Parts</h6>
+                        <div class="dropdown no-arrow">
+                            <button class="btn btn-sm btn-primary" aria-expanded="false"  type="button" (click)="labelparts(runDetails.id)">
+                                Label Parts
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
                             <div class="col-sm-12" *ngIf="recognisedpartsData && recognisedpartsColumns">
-                                <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="recognisedpartsColumns" [data]="recognisedpartsData" (rowEditClick)="editSortedset(0)">
+                                <ng-table (rowCellClick)="onEditRecognisedpartClick($event)"  [isActionVisible]="true" [isEditVisible]="true" [isDeleteVisible]="true" [columns]="recognisedpartsColumns" [data]="recognisedpartsData" (rowDeleteClick)="onRowRecognisedpartDeleteClick($event)">
                                 </ng-table>
                             </div>
                     </div>
@@ -215,3 +217,4 @@
 
 <app-run-edit (runAdded)="addNewRun($event)" #runEdit></app-run-edit>
 <app-sortedset-edit (sortedsetAdded)="addNewSortedset($event)" #sortedsetEdit></app-sortedset-edit>
+<app-recognisedpart-edit (recognisedpartAdded)="addNewRecognisedpart($event)" #recognisedpartEdit></app-recognisedpart-edit>

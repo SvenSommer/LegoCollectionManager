@@ -181,13 +181,56 @@ export class RunDetailComponent implements OnInit {
     );
   }
 
-  editRecognisedparts(id) {
-    this.sortedsetEdit.open();
+  editRecognisedpart(id) {
+    this.recognisedpartEdit.open();
+  }  
+  
+  labelparts(id) {
+    console.log("label Parts for run id: " + id)
+    this.recognisedpartEdit.open();
   }
 
-  onEditRecognisedpartsClick(data) {
-    this.sortedsetEdit.open(data);
+  addNewRecognisedpart(newData: SortedSetModel) {
+    this.bindData();
+    this.getAllRecognisedparts();
   }
+
+  onEditRecognisedpartClick(data) {
+    this.recognisedpartEdit.open(data);
+  }
+
+  onRowRecognisedpartDeleteClick(model) {
+    let options = {
+      title: 'Are you sure you want to delete this?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel'
+    }
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+        console.log('Okay');
+        this.runService.deletetRecognisedpart(model.id).subscribe(
+          (data) => {
+            if (data) {
+              if (data.body && data.body.code == 200) {
+               // Message should be data.body.message
+               this.toastr.success("Record Deleted Successfully.");
+               this.bindData();
+              }
+              else if (data.body && data.body.code == 403) {
+                this.router.navigateByUrl("/login");
+              }
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+      } else {
+        console.log('Cancel');
+      }
+    });
+  }
+
 
   public onImgPopupClose() {
     this.imgPopupURL = '';

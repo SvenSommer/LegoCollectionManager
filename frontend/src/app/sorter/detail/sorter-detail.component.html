@@ -283,7 +283,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12" *ngIf="valvesData && valvesColumns">
-                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="valvesColumns" [data]="valvesData.result" (rowEditClick)="onEditValveClick($event)">
+                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="valvesColumns" [data]="valvesData" (rowEditClick)="onEditValveClick($event)">
                             </ng-table>
                         </div>
                 </div>
@@ -302,7 +302,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12" *ngIf="scalesData && scalesColumns">
-                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="scalesColumns" [data]="scalesData.result" (rowEditClick)="onEditScaleClick($event)">
+                            <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="scalesColumns" [data]="scalesData" (rowEditClick)="onEditScaleClick($event)">
                             </ng-table>
                         </div>
                 </div>
@@ -314,5 +314,5 @@
 
 <app-sorter-edit (sorterAdded)="addNewSorter($event)" #sorterEdit></app-sorter-edit>
 <app-pusher-edit (pusherAdded)="addNewPusher($event)" #pusherEdit></app-pusher-edit>
-<app-valve-edit (valveAdded)="addNewValve($event)" #pusherEdit></app-valve-edit>
+<app-valve-edit (valveAdded)="addNewValve($event)" #valveEdit></app-valve-edit>
 <app-scale-edit (scaleAdded)="addNewScale($event)" #scaleEdit></app-scale-edit>

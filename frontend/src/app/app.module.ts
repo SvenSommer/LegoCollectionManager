@@ -34,6 +34,9 @@ import { ScaleEditComponent } from './sorter/scale-edit/scale-edit.component';
 import { RunDetailComponent } from './run/run-detail/run-detail.component';
 import { SortedsetEditComponent } from './run/sortedset-edit/sortedset-edit.component';
 import { RecognisedpartEditComponent } from './run/recognisedpart-edit/recognisedpart-edit.component';
+import { PreferencesComponent } from './preferences/preferences.component';
+import { UserComponent } from './preferences/user/user.component';
+import { UserEditComponent } from './preferences/user/user-edit/user-edit.component';
 
 
 
@@ -62,7 +65,10 @@ import { RecognisedpartEditComponent } from './run/recognisedpart-edit/recognise
     ScaleEditComponent,
     RunDetailComponent,
     SortedsetEditComponent,
-    RecognisedpartEditComponent
+    RecognisedpartEditComponent,
+    PreferencesComponent,
+    UserComponent,
+    UserEditComponent
 
   ],
   imports: [

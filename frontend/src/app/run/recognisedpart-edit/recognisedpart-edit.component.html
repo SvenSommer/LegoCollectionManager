@@ -1,1 +1,50 @@
-<p>recognisedpart-edit works!</p>
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(recognisedpartForm)" #recognisedpartForm="ngForm">
+        <div class="col-md-5  mb-4" >
+            <div>{{recognisedpart.partimages}}</div>
+        </div>
+        <div class="col-md-5  mb-4" >
+            
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">General</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>No</label>
+                        <div class="input-group">
+                            <input type="number" required #name="ngModel" [(ngModel)]="recognisedpart.no" class="form-control"
+                                id="no" name="no">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Color id</label>
+                        <div class="input-group">
+                            <input type="number" #status="ngModel" [(ngModel)]="recognisedpart.color_id"
+                                class="form-control" id="color_id" name="color_id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Score</label>
+                        <div class="input-group">
+                            <input type="number" #status="ngModel" [(ngModel)]="recognisedpart.score"
+                                class="form-control" id="score" name="score">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Identifier</label>
+                        <div class="input-group">
+                            <input type="number" #status="ngModel" [(ngModel)]="recognisedpart.identifier"
+                                class="form-control" id="identifier" name="identifier">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

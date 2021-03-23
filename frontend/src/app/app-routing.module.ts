@@ -10,6 +10,7 @@ import { RunComponent } from './run/run.component';
 import { SorterComponent } from './sorter/sorter.component';
 import { SorterDetailComponent } from './sorter/detail/sorter-detail.component';
 import { RunDetailComponent } from './run/run-detail/run-detail.component';
+import { PreferencesComponent } from './preferences/preferences.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path:'rundetail/:id',component:RunDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'hardware',component:SorterComponent,canActivate:[AuthenticationGuard]},
   {path:'sortersdetail/:id',component:SorterDetailComponent,canActivate:[AuthenticationGuard]},
+  {path:'preferences',component:PreferencesComponent,canActivate:[AuthenticationGuard]}
 ];
 
 @NgModule({
