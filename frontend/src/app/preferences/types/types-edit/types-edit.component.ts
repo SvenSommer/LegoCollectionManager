@@ -4,35 +4,34 @@ import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PreferencesService } from 'src/app/services/preferences.service';
-import { UserModel } from 'src/app/models/user-model';
+import { TypeModel } from 'src/app/models/type-model';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+  selector: 'app-types-edit',
+  templateUrl: './types-edit.component.html',
+  styleUrls: ['./types-edit.component.css']
 })
-export class UserEditComponent implements OnInit {
+export class TypesEditComponent implements OnInit {
 
-
-  constructor(private runSer: PreferencesService, private toastr: ToastrService) { }
+  constructor(private prefservice: PreferencesService, private toastr: ToastrService) { }
 
   @ViewChild('modalPopup') modal: ModalPopupComponent;
 
-  public user:UserModel = new UserModel();
-  @Output() userAdded = new EventEmitter<UserModel>();
-
+  public type:TypeModel = new TypeModel();
+  @Output() typeAdded = new EventEmitter<TypeModel>();
   public isFormSubmitted = false;
   public isForEdit = false;
-  public pageTitle = 'Add User';
+  public pageTitle = 'Add Type';
 
   ngOnInit(): void {
   }
 
   open(data = null) {
     if (data) {
-      this.pageTitle = 'Edit User';
+      console.log(data)
+      this.pageTitle = 'Edit Type';
       this.isForEdit = true;
-      this.user = new UserModel(data);
+      this.type = new TypeModel(data);
     }
     else {
       this.isForEdit = false;
@@ -40,20 +39,20 @@ export class UserEditComponent implements OnInit {
     this.modal.open();
   }
 
-  onSubmit(userForm: NgForm) {
+  onSubmit(typesForm: NgForm) {
     this.isFormSubmitted = true;
-    if (!userForm.valid) {
+    if (!typesForm.valid) {
       return;
     }
-    var method = "saveUser";
+    var method = "saveType";
     if (this.isForEdit) {
-      method = "updateUser";
+      method = "updateType";
     }
-    this.runSer[method](this.user).subscribe(
+    this.prefservice[method](this.type).subscribe(
       (data) => {
         if (data.body.code == 201 || data.body.code == 200) {
           this.toastr.success(data.body.message);
-          this.userAdded.emit(this.user);
+          this.typeAdded.emit(this.type);
           this.modal.close();
         }
         else {

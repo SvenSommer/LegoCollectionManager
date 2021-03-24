@@ -37,6 +37,15 @@ import { RecognisedpartEditComponent } from './run/recognisedpart-edit/recognise
 import { PreferencesComponent } from './preferences/preferences.component';
 import { UserComponent } from './preferences/user/user.component';
 import { UserEditComponent } from './preferences/user/user-edit/user-edit.component';
+import { UsergroupComponent } from './preferences/usergroup/usergroup.component';
+import { UsergroupEditComponent } from './preferences/usergroup/usergroup-edit/usergroup-edit.component';
+import { StatusComponent } from './preferences/status/status.component';
+import { StatusEditComponent } from './preferences/status/status-edit/status-edit.component';
+import { TypesComponent } from './preferences/types/types.component';
+import { TypesEditComponent } from './preferences/types/types-edit/types-edit.component';
+import { ColorsComponent } from './colors/colors.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { PricesComponent } from './prices/prices.component';
 
 
 
@@ -68,7 +77,16 @@ import { UserEditComponent } from './preferences/user/user-edit/user-edit.compon
     RecognisedpartEditComponent,
     PreferencesComponent,
     UserComponent,
-    UserEditComponent
+    UserEditComponent,
+    UsergroupComponent,
+    UsergroupEditComponent,
+    StatusComponent,
+    StatusEditComponent,
+    TypesComponent,
+    TypesEditComponent,
+    ColorsComponent,
+    CategoriesComponent,
+    PricesComponent
 
   ],
   imports: [

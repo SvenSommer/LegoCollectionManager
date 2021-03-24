@@ -1,23 +1,95 @@
 <div class="container-fluid">
     <h3 class="text-dark mb-4 pt-2">Preferences</h3>
-    <div class="card shadow mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h6 class="text-primary font-weight-bold m-0">User</h6>
-            <div class="dropdown no-arrow">
-                <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editUser(0)">
-                    <i class="fas fa-plus text-gray-400"></i>
-                </button>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">User</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editUser(0)">
+                            <i class="fas fa-plus text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="userdata && userColums">
+                            <ng-table (rowCellClick)="onEditUserClick($event)" [isActionVisible]="true" [isEditVisible]="false"
+                            [isDeleteVisible]="true" [columns]="userColums" [data]="userdata" (rowDeleteClick)="onRowDeleteUserClick($event)">
+                        </ng-table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-12" *ngIf="userdata && userColums">
-                    <ng-table (rowCellClick)="onEditUserClick($event)" [isActionVisible]="true" [isEditVisible]="false"
-                    [isDeleteVisible]="true" [columns]="userColums" [data]="userdata" (rowDeleteClick)="onRowDeleteUserClick($event)">
-                </ng-table>
+        <div class="col-lg-4">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">User Groups</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editUsergroup(0)">
+                            <i class="fas fa-plus text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="usergroupdata && usergroupcolumns">
+                            <ng-table (rowCellClick)="onEditUsergroupClick($event)" [isActionVisible]="true" [isEditVisible]="false"
+                            [isDeleteVisible]="true" [columns]="usergroupcolumns" [data]="usergroupdata" (rowDeleteClick)="onRowDeleteUsergroupClick($event)">
+                        </ng-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Status</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editStatus(0)">
+                            <i class="fas fa-plus text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="statusdata && statusColumns">
+                            <ng-table (rowCellClick)="onEditStatusClick($event)" [isActionVisible]="true" [isEditVisible]="false"
+                            [isDeleteVisible]="true" [columns]="statusColumns" [data]="statusdata" (rowDeleteClick)="onRowDeleteStatusClick($event)">
+                        </ng-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Status Types</h6>
+                    <div class="dropdown no-arrow">
+                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editType(0)">
+                            <i class="fas fa-plus text-gray-400"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="typedata && typeColumns">
+                            <ng-table (rowCellClick)="onEditTypeClick($event)" [isActionVisible]="true" [isEditVisible]="false"
+                            [isDeleteVisible]="true" [columns]="typeColumns" [data]="typedata" (rowDeleteClick)="onRowDeleteTypeClick($event)">
+                        </ng-table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <app-user-edit (userAdded)="addNewUser($event)" #userEdit></app-user-edit>
+<app-usergroup-edit (usergroupAdded)="addNewUsergroup($event)" #usergroupEdit></app-usergroup-edit>
+<app-status-edit (statusAdded)="addNewStatus($event)" #statusEdit></app-status-edit>
+<app-types-edit (typeAdded)="addNewType($event)" #typeEdit></app-types-edit>

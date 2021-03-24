@@ -1,5 +1,5 @@
 export class RecognisedPartModel {
-    public id: string;
+    public id: number;
     public run_id: number;
     public no : number;
     public color_id : number;

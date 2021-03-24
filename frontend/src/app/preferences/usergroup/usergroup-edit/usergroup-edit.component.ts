@@ -4,35 +4,34 @@ import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PreferencesService } from 'src/app/services/preferences.service';
-import { UserModel } from 'src/app/models/user-model';
+import { UsergroupModel } from 'src/app/models/usergroup-model';
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+  selector: 'app-usergroup-edit',
+  templateUrl: './usergroup-edit.component.html',
+  styleUrls: ['./usergroup-edit.component.css']
 })
-export class UserEditComponent implements OnInit {
+export class UsergroupEditComponent implements OnInit {
 
-
-  constructor(private runSer: PreferencesService, private toastr: ToastrService) { }
+  constructor(private preferencesSer: PreferencesService, private toastr: ToastrService) { }
 
   @ViewChild('modalPopup') modal: ModalPopupComponent;
 
-  public user:UserModel = new UserModel();
-  @Output() userAdded = new EventEmitter<UserModel>();
+  public usergroup:UsergroupModel = new UsergroupModel();
+  @Output() usergroupAdded = new EventEmitter<UsergroupModel>();
 
   public isFormSubmitted = false;
   public isForEdit = false;
-  public pageTitle = 'Add User';
+  public pageTitle = 'Add User Group';
 
   ngOnInit(): void {
   }
 
   open(data = null) {
     if (data) {
-      this.pageTitle = 'Edit User';
+      this.pageTitle = 'Edit User Group';
       this.isForEdit = true;
-      this.user = new UserModel(data);
+      this.usergroup = new UsergroupModel(data);
     }
     else {
       this.isForEdit = false;
@@ -40,20 +39,20 @@ export class UserEditComponent implements OnInit {
     this.modal.open();
   }
 
-  onSubmit(userForm: NgForm) {
+  onSubmit(usergroupForm: NgForm) {
     this.isFormSubmitted = true;
-    if (!userForm.valid) {
+    if (!usergroupForm.valid) {
       return;
     }
-    var method = "saveUser";
+    var method = "saveUsergroup";
     if (this.isForEdit) {
-      method = "updateUser";
+      method = "updateUsergroup";
     }
-    this.runSer[method](this.user).subscribe(
+    this.preferencesSer[method](this.usergroup).subscribe(
       (data) => {
         if (data.body.code == 201 || data.body.code == 200) {
           this.toastr.success(data.body.message);
-          this.userAdded.emit(this.user);
+          this.usergroupAdded.emit(this.usergroup);
           this.modal.close();
         }
         else {

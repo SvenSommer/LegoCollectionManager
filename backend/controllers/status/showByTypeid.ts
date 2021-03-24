@@ -3,7 +3,7 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {typeid: typeid} = req.params;
-    const showAll = `SELECT * FROM Status Where typeid = ${typeid};`
+    const showAll = `SELECT * FROM LegoSorterDB.status_basis Where typeid = ${typeid};`
     connection.query(showAll, (err, result) => {
         if (err) res.json({
             code: 500,

@@ -1,5 +1,5 @@
 export class ScaleModel {
-    public id: string;
+    public id: number;
     public sorterid: number;
     public number : number;
     public name : string;
