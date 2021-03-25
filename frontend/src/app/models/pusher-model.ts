@@ -1,5 +1,5 @@
 export class PusherModel {
-    public id: string;
+    public id: number;
     public scaleid: number;
     public valveid: number;
     public number : number;

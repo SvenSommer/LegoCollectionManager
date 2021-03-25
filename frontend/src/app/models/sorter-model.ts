@@ -1,5 +1,5 @@
 export class SorterModel {
-    public id: string;
+    public id: number;
     public name: string;
     public lifter_status_url: string;
     public lifter_update_url: string;

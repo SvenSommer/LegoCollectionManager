@@ -1,0 +1,32 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(typesForm)" #typesForm="ngForm">
+        <div class="col-md-7  mb-4" >
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">General</h6>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Id</label>
+                        <div class="input-group">
+                            <input type="number" required #name="ngModel" [(ngModel)]="type.id" class="form-control"
+                                id="Id" name="Id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <div class="input-group">
+                            <input type="text" required #name="ngModel" [(ngModel)]="type.name" class="form-control"
+                                id="Name" name="Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

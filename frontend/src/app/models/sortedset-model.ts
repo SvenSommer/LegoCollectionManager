@@ -1,5 +1,5 @@
 export class SortedSetModel {
-    public id: string;
+    public id: number;
     public run_id: number;
     public recognisedset_id: number;
     public pusher_id : number;

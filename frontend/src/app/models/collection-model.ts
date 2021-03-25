@@ -1,5 +1,5 @@
 export class CollectionModel {
-    public id: string;
+    public id: number;
     public name: string;
     public weight_kg: string;
     public origin: string;
