@@ -2140,6 +2140,27 @@
 							"response": []
 						},
 						{
+							"name": "Show Info for Scale by sorderid and scaleNo",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/scales/sorter/1/scale/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"scales",
+										"sorter",
+										"1",
+										"scale",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Show all Scales",
 							"request": {
 								"method": "GET",
