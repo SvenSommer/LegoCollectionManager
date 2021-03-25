@@ -22,13 +22,12 @@ export class CollectionComponent implements OnInit {
     { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' }},
     { title: 'Name', name: 'name', size: '20%', minSize: '120' },
     { title: 'Description', name: 'description', size: '20%', minSize: '120' },
-    { title: 'Weight(kg)', name: 'weight_kg', size: '25', minSize: '25', datatype: { type: 'price' } },
+    { title: 'Weight(kg)', name: 'weight_kg', size: '25', minSize: '25', datatype: { type: 'number' } },
     { title: 'Cost', name: 'cost', size: '40', minSize: '40', datatype: { type: 'price' } },
     { title: 'Cost per Kilo', name: 'cost_per_kilo', size: '40', minSize: '40', datatype: { type: 'price' } },
     { title: 'Origin', name: 'origin', size: '50', minSize: '50' },
     { title: 'Seller', name: 'seller', size: '80', minSize: '80' },
     { title: 'Purchase Date', name: 'purchase_date', size: '100', minSize: '100', datatype: { type: 'date' } },
-
   ];
 
   public data: any;

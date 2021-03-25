@@ -36,9 +36,10 @@ export class RunDetailComponent implements OnInit {
     { title: 'Set Name', name: 'set_Name', size: '30', minSize: '30' },
     { title: 'Comments', name: 'recognisedset_comments', size: '30', minSize: '30' },
     { title: 'Parts', name: 'set_completed_part_count', size: '30', minSize: '30', datatype:{ type: 'number' } },
- //   { title: 'identified', name: 'set_completed_part_count', size: '30', minSize: '30', datatype:{ type: 'number' } },
- //   { title: 'sorted', name: 'set_completed_part_count', size: '30', minSize: '30', datatype:{ type: 'number' } },
-    { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } },
+    { title: 'identified', name: 'identified_parts', size: '30', minSize: '30', datatype:{ type: 'number' } },
+    { title: 'sorted (detected)', name: 'sorted_detected_parts', size: '30', minSize: '30', datatype:{ type: 'number' } },
+    { title: 'undetected', name: 'sorted_undetected_parts', size: '30', minSize: '30', datatype:{ type: 'number' } },
+    { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
   ];
 
   public recognisedpartsColumns = [
@@ -48,9 +49,7 @@ export class RunDetailComponent implements OnInit {
     { title: 'Name', name: 'name', size: '30', minSize: '30' },
     { title: 'Image', name: 'thumbnail_url', size: '30', minSize: '30' , datatype:{ type: 'image' }},
     { title: 'Identifier', name: 'identifier', size: '30', minSize: '30' },
- //   { title: 'identified', name: 'set_completed_part_count', size: '30', minSize: '30', datatype:{ type: 'number' } },
- //   { title: 'sorted', name: 'set_completed_part_count', size: '30', minSize: '30', datatype:{ type: 'number' } },
-    { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } },
+    { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' }},
   ];
 
   public sortedsetsData: any;

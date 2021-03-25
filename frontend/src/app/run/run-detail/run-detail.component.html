@@ -12,8 +12,9 @@
                         <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
                             <span>Parts Identified</span>
                         </div>
+                        <ngb-progressbar type="success" [value]="runDetails.percentage_identified" [animated]="true">{{runDetails.percentage_identified}} % </ngb-progressbar>
                         <div class="text-dark font-weight-bold h5 mb-0">
-                            <span>{{runDetails.parts_identified}}</span>
+                            <span>{{runDetails.parts_identified}} of {{runDetails.allSetsSumPartCount}}</span>
                         </div>
                     </div>
                 </div>
@@ -26,10 +27,11 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
                         <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
-                            <span>Identified By Cnn</span>
+                            <span>Parts sorted</span>
                         </div>
+                        <ngb-progressbar type="info" [value]="runDetails.percentage_sorted_parts_total" [animated]="true">{{runDetails.percentage_sorted_parts_total}} % </ngb-progressbar>
                         <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.parts_identified_by_cnn}}
+                            {{runDetails.sorted_parts_total}} of {{runDetails.allSetsSumPartCount}}
                         </div>
                     </div>
                     <div class="col-auto">
@@ -47,6 +49,7 @@
                         <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
                             <span>Identified By Human</span>
                         </div>
+
                         <div class="text-dark font-weight-bold h5 mb-0">
                             {{runDetails.parts_identified_by_human}}
                         </div>
@@ -64,10 +67,10 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
                         <div class="text-uppercase text-secondary font-weight-bold text-xs mb-1">
-                            <span>Parts Unidentified</span>
+                            <span>Parts / colors to label</span>
                         </div>
                         <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.parts_unidentified}}
+                            {{runDetails.partno_not_yet_identified}} / {{runDetails.colorid_not_yet_identified}}
                         </div>
                     </div>
                     <div class="col-auto">
@@ -158,6 +161,22 @@
                                 </td>
                                 <td>
                                         {{runDetails.status_name}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Parts identified By Cnn
+                                </td>
+                                <td>
+                                        {{runDetails.parts_identified_by_cnn}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Parts identified By Human
+                                </td>
+                                <td>
+                                        {{runDetails.parts_identified_by_human}}
                                 </td>
                             </tr>
                         </table>
