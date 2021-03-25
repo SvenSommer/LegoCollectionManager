@@ -2,8 +2,8 @@
   <!-- <input class="form-control ml-2" type="text" name="searchTerm" /> -->
 
   <form>
-    <div class="form-group form-inline flex-right">
-        <input class="form-control" type="text" name="searchTerm" [(ngModel)]="searchTerm"/>
+    <div *ngIf="!allowSearch" class="form-group form-inline flex-right">
+        <input class="form-control" type="text" name="searchTerm" (keyup)='search(rows,$event.target.value)'/>
     </div>
 
   <table id="div22" class="div2 table table-hover table-sm datatable" role="grid" style="width:100%;"
@@ -21,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of rows | ngFilter: searchTerm;let i = index;">
+      <tr *ngFor="let row of rows;let i = index;">
         <ng-container *ngFor="let column of columns">
           <ng-container [ngSwitch]="column?.datatype?.type">
             <td *ngSwitchCase="'image'"

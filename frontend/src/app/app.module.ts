@@ -106,7 +106,7 @@ import { PricesComponent } from './prices/prices.component';
     ToastrModule.forRoot(),
     NgxBootstrapConfirmModule
   ],
-  providers: [AuthGuardService,CollectionService],
+  providers: [AuthGuardService,CollectionService, NgFilterPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

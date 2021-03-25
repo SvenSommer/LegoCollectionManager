@@ -1,3 +1,4 @@
+import { NgFilterPipe } from './ng-filter.pipe';
 import { Component, EventEmitter, Input, Output, OnInit, OnChanges, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ModalPopupComponent } from '../popup/modal-popup/modal-popup.component';
@@ -22,7 +23,7 @@ declare var $: any;
 })
 
 export class NgTableComponent implements OnInit, OnChanges {
-  constructor(private datePipe: DatePipe) { }
+  constructor(private datePipe: DatePipe, private ngFilterPipe: NgFilterPipe) { }
   public page = 1;
   //   @Input() public itemsPerPage = UserConfigurationService.PageSize;
   @Input() public itemsPerPage = 10;
@@ -30,10 +31,12 @@ export class NgTableComponent implements OnInit, OnChanges {
   public numPages = 1;
   public length = 0;
   public searchTerm:string;
+  private resultData: Array<any> = [];
 
   //Table values
   public rows: Array<any> = [];
   @Input() public data: any = [];
+  @Input() public allowSearch: boolean;
   @Input() public allowPaging = true;
   @Input() public isHeaderVisible = true;
   @Input() public visibleWhenData = false;
@@ -81,6 +84,8 @@ export class NgTableComponent implements OnInit, OnChanges {
   };
 
   public ngOnInit(): void {
+    this.resultData = this.data;
+    this.allowSearch = !this.allowSearch ? this.allowSearch : true;
     this.onChangeTable(this.config);
   }
 
@@ -153,17 +158,19 @@ export class NgTableComponent implements OnInit, OnChanges {
     this.imgPopupURL = '';
   }
 
-  onSort({column, direction}: SortEvent, columnType: any) {
+  public onSort({column, direction}: SortEvent, columnType: any) {
     this.headers.forEach(header => {
       if (header.sortable !== column) {
         header.direction = '';
       }
     });
     this.rows = this.sort(this.data,column,direction,columnType);
+    this.data = this.rows;
+    this.onChangeTable(this.config);
   }
 
 
-  compare(a: any,b: any, columnType: any){
+  private compare(a: any,b: any, columnType: any){
     if(columnType && columnType.datatype && columnType.datatype.type == 'date'){
         let date1 = new Date(a);
         let date2 = new Date(b);
@@ -183,9 +190,9 @@ export class NgTableComponent implements OnInit, OnChanges {
         return (a < b ? -1 : (a > b ? 1 : 0));
       }
     }
- }
+  }
 
-  sort(rows: any, column: SortColumn, direction: string, columnType: any): any {
+  private sort(rows: any, column: SortColumn, direction: string, columnType: any): any {
     if (direction === '' || column === '') {
       return rows;
     } else {
@@ -194,6 +201,18 @@ export class NgTableComponent implements OnInit, OnChanges {
         return direction === 'asc' ? res : -res;
       });
     }
+  }
+
+  public search(rows: any, searchText: any): any{
+    this.onSort({} as SortEvent, '');
+    if(searchText){
+      this.rows = this.ngFilterPipe.transform(rows,searchText,this.resultData);
+      this.data = this.rows;
+    }
+    else{
+      this.data = this.resultData;
+    }
+    this.onChangeTable(this.config);
   }
 
 }
