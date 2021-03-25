@@ -24,7 +24,7 @@ export class SorterDetailComponent implements OnInit {
 
   @ViewChild('sorterEdit') sorterEdit: SorterEditComponent;
   @ViewChild('pusherEdit') pusherEdit: PusherEditComponent;
-  @ViewChild('valveEdit') valveEdit: ValveEditComponent; 
+  @ViewChild('valveEdit') valveEdit: ValveEditComponent;
   @ViewChild('scaleEdit') scaleEdit: ScaleEditComponent;
 
   public sorterDetails;
@@ -142,7 +142,7 @@ export class SorterDetailComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.valvesData = data.body;
+            this.valvesData = data.body.result;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -173,7 +173,7 @@ export class SorterDetailComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.scalesData = data.body;
+            this.scalesData = data.body.result;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -199,7 +199,7 @@ export class SorterDetailComponent implements OnInit {
     this.scaleEdit.open(data);
   }
 
-  
+
   public onDeleteSorterClick(){
     let options = {
       title: 'Are you sure you want to delete this?',

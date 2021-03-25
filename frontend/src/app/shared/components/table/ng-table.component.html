@@ -1,10 +1,18 @@
 <div class="wrapper2" >
+  <!-- <input class="form-control ml-2" type="text" name="searchTerm" /> -->
+
+  <form>
+    <div class="form-group form-inline flex-right">
+        <input class="form-control" type="text" name="searchTerm" [(ngModel)]="searchTerm"/>
+    </div>
+
   <table id="div22" class="div2 table table-hover table-sm datatable" role="grid" style="width:100%;"
     *ngIf="visibleWhenData ? rows !=null && rows.length > 0 : true" [class.mb-0]="!config.paging">
     <thead *ngIf="isHeaderVisible">
       <tr role="row">
         <th [ngStyle]="{'width': column.size}" [style.min-width.px]="column.minSize"
           [style.text-align]="column.alignText" *ngFor="let column of columns"
+          sortable="column.name" [sortable]="column.name" (sort)="onSort($event, column)"
           [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
           {{column.title}}
         </th>
@@ -13,7 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of rows;let i = index;">
+      <tr *ngFor="let row of rows | ngFilter: searchTerm;let i = index;">
         <ng-container *ngFor="let column of columns">
           <ng-container [ngSwitch]="column?.datatype?.type">
             <td *ngSwitchCase="'image'"
@@ -41,6 +49,7 @@
       </tr>
     </tbody>
   </table>
+</form>
 </div>
 <div class="row" *ngIf="config.paging">
   <div class="col-sm">

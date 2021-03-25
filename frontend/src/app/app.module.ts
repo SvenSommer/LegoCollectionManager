@@ -37,6 +37,8 @@ import { RecognisedpartEditComponent } from './run/recognisedpart-edit/recognise
 import { PreferencesComponent } from './preferences/preferences.component';
 import { UserComponent } from './preferences/user/user.component';
 import { UserEditComponent } from './preferences/user/user-edit/user-edit.component';
+import { NgbdSortableHeader } from './shared/components/table/sortable.directive';
+import { NgFilterPipe } from './shared/components/table/ng-filter.pipe';
 
 
 
@@ -49,6 +51,7 @@ import { UserEditComponent } from './preferences/user/user-edit/user-edit.compon
     NgTableFilteringDirective,
     NgTablePagingDirective,
     NgTableSortingDirective,
+    NgbdSortableHeader,
     HeaderComponent,
     ModalPopupComponent,
     CollectionEditComponent,
@@ -68,7 +71,8 @@ import { UserEditComponent } from './preferences/user/user-edit/user-edit.compon
     RecognisedpartEditComponent,
     PreferencesComponent,
     UserComponent,
-    UserEditComponent
+    UserEditComponent,
+    NgFilterPipe
 
   ],
   imports: [

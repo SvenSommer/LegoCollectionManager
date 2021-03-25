@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnChanges, ViewChild, ViewChildren, QueryList } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ModalPopupComponent } from '../popup/modal-popup/modal-popup.component';
+import { NgbdSortableHeader, SortColumn, SortEvent } from './sortable.directive';
 declare var $: any;
 
 @Component({
@@ -28,6 +29,7 @@ export class NgTableComponent implements OnInit, OnChanges {
   public maxSize = 5;
   public numPages = 1;
   public length = 0;
+  public searchTerm:string;
 
   //Table values
   public rows: Array<any> = [];
@@ -54,6 +56,9 @@ export class NgTableComponent implements OnInit, OnChanges {
 
   public imgPopupURL = '';
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
+
+  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+
 
   @Input()
   public set columns(values: Array<any>) {
@@ -147,4 +152,48 @@ export class NgTableComponent implements OnInit, OnChanges {
   public onImgPopupClose() {
     this.imgPopupURL = '';
   }
+
+  onSort({column, direction}: SortEvent, columnType: any) {
+    this.headers.forEach(header => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+    this.rows = this.sort(this.data,column,direction,columnType);
+  }
+
+
+  compare(a: any,b: any, columnType: any){
+    if(columnType && columnType.datatype && columnType.datatype.type == 'date'){
+        let date1 = new Date(a);
+        let date2 = new Date(b);
+        if (date1 > date2) { return 1; }
+        else if (date1 < date2) { return -1; }
+        else { return 0; }
+    }
+    else{
+      if(!isNaN(parseFloat(a))){
+        if (a==b){
+          return (b-a);
+        } else {
+          return (a-b);
+        }
+      }
+      else{
+        return (a < b ? -1 : (a > b ? 1 : 0));
+      }
+    }
+ }
+
+  sort(rows: any, column: SortColumn, direction: string, columnType: any): any {
+    if (direction === '' || column === '') {
+      return rows;
+    } else {
+      return [...rows].sort((a, b) => {
+        const res = this.compare(a[column], b[column],columnType);
+        return direction === 'asc' ? res : -res;
+      });
+    }
+  }
+
 }
