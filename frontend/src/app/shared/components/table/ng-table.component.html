@@ -21,6 +21,11 @@
               <img (click)="onImgClick(row,column)" *ngIf="getData(row,column,i)" [style.width.px]="column.minSize"
                 [src]="getData(row,column,i)" />
             </td>
+          <td *ngSwitchCase="'percentage'" 
+            [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
+            <ngb-progressbar [type]="column.datatype.style" [value]="getData(row,column,i)" [animated]="true" >{{getData(row,column,i)}}</ngb-progressbar>
+            <span class="d-flex" [innerHtml]="getValue(row,column,i)"></span>
+          </td>
             <td (click)="rowCellClick.emit(row)" *ngSwitchDefault [ngStyle]="{'width' : column.size, 'word-break': column.wordbreak}"
               [style.min-width.px]="column.minSize" [style.text-align]="column.alignText"
               [innerHtml]=getData(row,column,i)

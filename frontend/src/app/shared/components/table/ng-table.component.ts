@@ -104,6 +104,10 @@ export class NgTableComponent implements OnInit, OnChanges {
     this.imagePopup.open();
   }
 
+  public getValue(row: any, column: any, index: number): any {
+    var cellData = column.label.split('.').reduce((prev: any, curr: string) => prev[curr], row);
+    return cellData;
+  }
   public getData(row: any, column: any, index: number): any {
     var cellData = column.name.split('.').reduce((prev: any, curr: string) => prev[curr], row);
     if (column.datatype == undefined || column.datatype == null || column.datatype.type == undefined || column.datatype.type == null) {
@@ -126,6 +130,10 @@ export class NgTableComponent implements OnInit, OnChanges {
      // let object =  JSON.parse(cellData);
       return cellData
     }
+    else if (column.datatype.type == 'percentage') {
+      // let object =  JSON.parse(cellData);
+       return cellData
+     }
     else {
       return cellData;
     }

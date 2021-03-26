@@ -21,11 +21,12 @@ export class SorterComponent implements OnInit {
     public columns = [
       { title: '#', name: 'id', size: '5%', minSize: '50'},
       { title: 'Name', name: 'name', size: '50', minSize: '50'},
-      { title: 'Pusher Total Count', name: 'pusher_total', size: '50', minSize: '50'},
-      { title: 'Pusher Planned', name: 'pusher_planned', size: '50', minSize: '50'},
-      { title: 'Pusher Planned', name: 'pusher_ready', size: '50', minSize: '50'},
-      { title: 'Pusher Planned', name: 'pusher_damaged', size: '50', minSize: '50'},
-      { title: 'Pusher Planned', name: 'pusher_removed', size: '50', minSize: '50'},
+      { title: 'Current Run', name: 'current_run_name', size: '50', minSize: '50'},
+      { title: 'Pusher Total Count', name: 'pusher_total', size: '50', minSize: '50', datatype: { type: 'number' } },
+      { title: 'Pusher Planned', name: 'pusher_planned', size: '50', minSize: '50', datatype: { type: 'number' }},
+      { title: 'Pusher Ready', name: 'pusher_ready', size: '50', minSize: '50', datatype: { type: 'number' }},
+      { title: 'Pusher damaged', name: 'pusher_damaged', size: '50', minSize: '50', datatype: { type: 'number' }},
+      { title: 'Pusher removed', name: 'pusher_removed', size: '50', minSize: '50', datatype: { type: 'number' }},
       { title: 'Status', name: 'status', size: '50', minSize: '50'},
       { title: 'Created', name: 'created', size: '50', minSize: '50', datatype: { type: 'date' } }
     ]
