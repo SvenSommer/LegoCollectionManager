@@ -2,10 +2,22 @@
   <!-- <input class="form-control ml-2" type="text" name="searchTerm" /> -->
 
   <form>
-    <div *ngIf="!allowSearch" class="form-group form-inline flex-right">
-        <input class="form-control" type="text" name="searchTerm" (keyup)='search(rows,$event.target.value)'/>
-    </div>
-
+    <div class="row">
+      <div class="col-md-6 align-self-center"  *ngIf="config.paging">
+        <p aria-live="polite" *ngIf="rows && rows.length > 0">
+          Showing {{ (page * itemsPerPage) - itemsPerPage + 1 }} to
+          {{ (page * itemsPerPage) > length ? length : (page * itemsPerPage) }} of <span
+            class="text-bold-700">{{length}}</span>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <div id="dataTable_filter" class="text-md-right dataTable_filter">
+          <label *ngIf="!allowSearch">
+            <input class="form-control form-control-sm" type="search" name="searchTerm" (keyup)='search(rows,$event.target.value)' aria-controls="dataTable" placeholder="Search"/>
+          </label>
+        </div>
+      </div>
+  </div>
   <table id="div22" class="div2 table table-hover table-sm datatable" role="grid" style="width:100%;"
     *ngIf="visibleWhenData ? rows !=null && rows.length > 0 : true" [class.mb-0]="!config.paging">
     <thead *ngIf="isHeaderVisible">
@@ -57,30 +69,27 @@
 </form>
 </div>
 <div class="row" *ngIf="config.paging">
-  <div class="col-sm">
-    <ngb-pagination *ngIf="config.paging" [collectionSize]="length" [(page)]="page" [pageSize]="itemsPerPage"
-      [rotate]="true" [boundaryLinks]="false" [directionLinks]="false" [maxSize]="maxPaginationSize"
-      (pageChange)="onPageNoClick($event);onChangeTable(config)" aria-label="Default pagination">
-    </ngb-pagination>
-
+  <div class="col-md-6 text-nowrap" >
+    <div id="dataTable_filter" class="dataTable_filter">
+      <label>
+        Show
+        <select class="form-control  form-control-sm custom-select custom-select-sm" [(ngModel)]="itemsPerPage" (change)="onChangeTable(config)" [id]="'cz-sidebar-width'">
+          <option value="10">10</option>
+          <option value="20">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+      </label>
+    </div>
+   
   </div>
-
-  <div class="col-sm-auto pt-1" *ngIf="rows && rows.length > 0">
-    {{ (page * itemsPerPage) - itemsPerPage + 1 }} to
-    {{ (page * itemsPerPage) > length ? length : (page * itemsPerPage) }} of <span
-      class="text-bold-700">{{length}}</span>
-  </div>
-  <div class="col-sm-auto" *ngIf="config.paging && IsPageSizeChangeAllow">
-    <select [(ngModel)]="itemsPerPage" (change)="onChangeTable(config)" [id]="'cz-sidebar-width'"
-      class="form-control custom-select cz-sidebar-width pull-right">
-      <option value="5">5</option>
-      <option value="10">10</option>
-      <option value="20">20</option>
-      <option value="30">30</option>
-      <option value="50">50</option>
-      <option value="70">70</option>
-      <option value="100">100</option>
-    </select>
+  <div class="col-md-6" *ngIf="config.paging && IsPageSizeChangeAllow">
+    <div id="dataTable_filter" class="d-lg-flex justify-content-lg-end paging_simple_numbers">
+      <ngb-pagination *ngIf="config.paging" [collectionSize]="length" [(page)]="page" [pageSize]="itemsPerPage"
+        [rotate]="true" [boundaryLinks]="false" [directionLinks]="true" [maxSize]="maxPaginationSize"
+        (pageChange)="onPageNoClick($event);onChangeTable(config)" aria-label="Default pagination">
+      </ngb-pagination>
+    </div>
   </div>
 </div>
 
