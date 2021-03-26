@@ -39,3 +39,34 @@
     display: flex !important;
     flex-direction: row-reverse;
   }
+
+  .status-type {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    right: 0;
+    top: 28px;
+    border-radius: 50%;
+    border: 2px var(--white) solid;
+  }
+
+  .border-left-primary {
+    border-left: .25rem solid #4e73df!important;
+  }
+
+  .border-left-info {
+    border-left: .25rem solid #36b9cc!important;
+  }
+
+  .border-left-success {
+    border-left: .25rem solid #1cc88a!important;
+  }
+
+  .border-left-danger {
+    border-left: .25rem solid #dc3545!important;
+  }
+
+  .border-left-secondary {
+    border-left: .25rem solid #6c757d!important;
+  }
+
