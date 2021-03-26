@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { ToastrService } from 'ngx-toastr';
 import { CollectionModel } from 'src/app/models/collection-model';
+import { RunEditComponent } from 'src/app/run/run-edit/run-edit.component';
 import { CollectionService } from 'src/app/services/collection.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 import { CollectionEditComponent } from '../edit/collection-edit.component';
@@ -21,6 +22,7 @@ export class CollectionDetailComponent implements OnInit {
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
 
   @ViewChild('collectionEdit') collectionEdit: CollectionEditComponent;
+  @ViewChild('runEdit') runEdit: RunEditComponent;
 
   public collectionDetails;
   public collectionSummary;
@@ -113,6 +115,13 @@ export class CollectionDetailComponent implements OnInit {
     "instructions": "",
     "condition": ""
   };
+  public newRunDetail = {
+    "id":0,
+    "no":500,
+    "collection_id": 0,
+    "sorter_id": 1,
+    "imagefolder": "/partimages/collection1/run500/"
+  }
   public isSetFormSubmitted = false;
 
 
@@ -127,7 +136,7 @@ export class CollectionDetailComponent implements OnInit {
       this.id = params['id'];
       if (this.id > 0) {
         this.newSetDetails.collectionid = this.id;
-
+        this.newRunDetail.collection_id = this.id;
         this.bindData();
         this.getAllRuns();
         this.getExpectedSets();
@@ -181,6 +190,26 @@ export class CollectionDetailComponent implements OnInit {
         console.log(error.name + ' ' + error.message);
       }
     );
+  }
+
+  onCreateNewRunClick() {
+      this.collectionService.getRunsNextnoByCollectionid(this.id).subscribe(
+        (data) => {
+          if (data) {
+            if(data.body && data.body.code == 200){
+              console.log(data.body)
+              this.newRunDetail.no = data.body.result[0].next_runno;
+              this.runEdit.open(this.newRunDetail);
+            }
+          }
+        }
+      );
+  }
+
+
+  onRunCellClick(data){
+    console.log(data)
+    this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
   }
 
   getExpectedSets() {

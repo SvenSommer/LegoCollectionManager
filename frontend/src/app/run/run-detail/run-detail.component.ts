@@ -52,9 +52,10 @@ export class RunDetailComponent implements OnInit {
   ];
 
   public newSortedSetDetail = {
+    "id":0,
     "run_id":0,
-    "recognisedset_id":0,
-    "pusher_id":0
+    "recognisedset_id":1,
+    "pusher_id":1
   }
   public sortedsetsData: any;
   public recognisedpartsData: any;

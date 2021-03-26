@@ -332,13 +332,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}/collections/19",
+							"raw": "{{URL}}/collections/1",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"collections",
-								"19"
+								"1"
 							]
 						}
 					},
@@ -521,16 +521,16 @@
 					]
 				},
 				{
-					"name": "Superset Data",
+					"name": "Subset Data",
 					"item": [
 						{
-							"name": "Download Superset Data",
+							"name": "Download or Update SubsetData",
 							"request": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"partnumber\": \"3009\",\r\n    \"colorid\" : \"3\",\r\n    \"refresh\" : 1\r\n}",
+									"raw": "{\r\n    \"setnumber\": \"75257\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -538,55 +538,155 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/supersetdata",
+									"raw": "{{URL}}/subsetdata",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"supersetdata"
+										"subsetdata"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Show all Superset Data",
+							"name": "Show all SubsetData",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/supersetdata",
+									"raw": "{{URL}}/subsetdata",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"supersetdata"
+										"subsetdata"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Show all Sets By PartId",
+							"name": "Show Minifigs by Setid",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/supersetdata/part/3961",
+									"raw": "{{URL}}/subsetdata/setid/146/minifigs",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"supersetdata",
-										"part",
-										"3961"
+										"subsetdata",
+										"setid",
+										"146",
+										"minifigs"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Show single Superset Data",
+							"name": "Show Minifigs by Setno",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata/setno/8880/minifigs",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"setno",
+										"8880",
+										"minifigs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Minifigs By CollectionId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata/collection/1/minifigs",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"collection",
+										"1",
+										"minifigs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Parts by Setno",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata/setno/8880",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"setno",
+										"8880"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Parts by Setid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata/setid/146/parts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"setid",
+										"146",
+										"parts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Parts By CollectionId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/subsetdata/collection/1/parts",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"subsetdata",
+										"collection",
+										"1",
+										"parts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single SubsetData",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -598,12 +698,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/supersetdata/145",
+									"raw": "{{URL}}/subsetdata/145",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"supersetdata",
+										"subsetdata",
 										"145"
 									]
 								}
@@ -611,7 +711,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Superset Data",
+							"name": "Delete SubsetData",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -620,13 +720,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/supersetdata/516240",
+									"raw": "{{URL}}/subsetdata/145",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"supersetdata",
-										"516240"
+										"subsetdata",
+										"145"
 									]
 								}
 							},
@@ -1455,160 +1555,6 @@
 					]
 				},
 				{
-					"name": "Subset Data",
-					"item": [
-						{
-							"name": "Download or Update SubsetData",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"setnumber\": \"75257\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{URL}}/subsetdata",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"subsetdata"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Show all SubsetData",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL}}/subsetdata",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"subsetdata"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Show Parts By CollectionId",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL}}/subsetdata/collection/1/parts",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"subsetdata",
-										"collection",
-										"1",
-										"parts"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Show Minifigs By CollectionId",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL}}/subsetdata/collection/1/minifigs",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"subsetdata",
-										"collection",
-										"1",
-										"minifigs"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Show SubSetData by Setno",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL}}/subsetdata/setno/8880",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"subsetdata",
-										"setno",
-										"8880"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Show single SubsetData",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{URL}}/subsetdata/145",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"subsetdata",
-										"145"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete SubsetData",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{URL}}/subsetdata/145",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"subsetdata",
-										"145"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Recognised Parts",
 					"item": [
 						{
@@ -1786,6 +1732,120 @@
 									"path": [
 										"recognisedparts",
 										"6240"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Superset Data",
+					"item": [
+						{
+							"name": "Download Superset Data",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"partnumber\": \"3009\",\r\n    \"colorid\" : \"3\",\r\n    \"refresh\" : 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/supersetdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Superset Data",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/supersetdata",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Sets By PartId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/supersetdata/part/3961",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata",
+										"part",
+										"3961"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Superset Data",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/supersetdata/145",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata",
+										"145"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Superset Data",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/supersetdata/516240",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"supersetdata",
+										"516240"
 									]
 								}
 							},
@@ -2145,7 +2205,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/scales/sorter/1/scale/1",
+									"raw": "{{URL}}/scales/sorter/1/scaleno/1",
 									"host": [
 										"{{URL}}"
 									],
@@ -2153,7 +2213,7 @@
 										"scales",
 										"sorter",
 										"1",
-										"scale",
+										"scaleno",
 										"1"
 									]
 								}
@@ -2571,6 +2631,25 @@
 						},
 						{
 							"name": "Show all Runs by collectionid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/runs/collection/4",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"runs",
+										"collection",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show next run No for collectionid",
 							"request": {
 								"method": "GET",
 								"header": [],

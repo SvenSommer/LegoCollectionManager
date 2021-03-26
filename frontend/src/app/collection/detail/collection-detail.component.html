@@ -155,7 +155,7 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h6 class="text-primary font-weight-bold m-0">Runs</h6>
                         <div class="dropdown no-arrow">
-                            <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" >
+                            <button class="btn btzn-link btn-sm " title="Create new Run" aria-expanded="false"  type="button" (click)="onCreateNewRunClick()" >
                                 <i class="fas fa-plus text-gray-400"></i>
                             </button>
                         </div>
@@ -282,7 +282,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12" *ngIf="runsData && runsColumns">
-                                <ng-table [isActionVisible]="false" [columns]="runsColumns" [data]="runsData.runs">
+                                <ng-table (rowCellClick)="onRunCellClick($event)" [isActionVisible]="false" [columns]="runsColumns" [data]="runsData.runs">
                                 </ng-table>
                             </div>
                         </div>
@@ -432,3 +432,4 @@
   </app-modal-popup>
 
 <app-collection-edit (collectionAdded)="addNewCollection($event)" #collectionEdit></app-collection-edit>
+<app-run-edit (runAdded)="onCreateNewRunClick()" #runEdit></app-run-edit>

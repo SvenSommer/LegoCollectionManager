@@ -22,18 +22,23 @@ export class RunEditComponent implements OnInit {
 
   public isFormSubmitted = false;
   public isForEdit = false;
-  public pageTitle = 'Add Run';
+  public isFromCollection = false;
+  public pageTitle = 'Add new Run';
 
   ngOnInit(): void {
   }
 
   open(data = null) {
-    if (data) {
+    this.run = new RunModel(data);
+    if (data && data.id != 0) {
       this.pageTitle = 'Edit Run';
       this.isForEdit = true;
-      this.run = new RunModel(data);
+
     }
-    else {
+    else if(data && data.id == 0) {
+      this.isForEdit = false;
+      this.isFromCollection = true;
+    }else {
       this.isForEdit = false;
     }
     this.modal.open();

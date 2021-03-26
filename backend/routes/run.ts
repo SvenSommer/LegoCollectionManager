@@ -2,6 +2,7 @@
 import CreateRun from '../controllers/runs/create';
 import ShowAllRuns from '../controllers/runs/show';
 import ShowAllRunsByCollectionId from '../controllers/runs/showbycollectionid';
+import ShowNextRunNoByCollectionId from '../controllers/runs/nextrunforcollectionid';
 import UpdateRunsById from '../controllers/runs/update';
 import GetSingleRunById from '../controllers/runs/single';
 import DeleteSingleRunById from '../controllers/runs/delete';
@@ -14,6 +15,8 @@ const route = Router();
 route.get(``, UserAuthMiddleware, ShowAllRuns);
 //List all Runs by collectionid
 route.get(`/collection/:collectionid`, UserAuthMiddleware, ShowAllRunsByCollectionId);
+//List next run no for collectionid
+route.get(`/collection/:collectionid/nextno`, UserAuthMiddleware, ShowNextRunNoByCollectionId);
 //Create a new Run
 route.post(``, AdminAuthMiddleware, CreateRun);
 //Show info about a specific Run

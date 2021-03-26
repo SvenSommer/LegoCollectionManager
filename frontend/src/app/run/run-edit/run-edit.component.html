@@ -6,19 +6,38 @@
                     <h6 class="text-primary font-weight-bold m-0">General</h6>
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <label>No</label>
-                        <div class="input-group">
-                            <input type="number" required #name="ngModel" [(ngModel)]="run.no" class="form-control"
-                                id="No" name="No">
+                    <div *ngIf="isFromCollection==false">
+                        <div class="form-group">
+                            <label>Collection id</label>
+                            <div class="input-group">
+                                <input type="number" #status="ngModel" [(ngModel)]="run.collection_id"
+                                    class="form-control" id="collection_id" name="collection_id">
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label>No</label>
+                            <div class="input-group">
+                                <input type="number" required #name="ngModel" [(ngModel)]="run.no" class="form-control"
+                                    id="No" name="No">
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>Collection id</label>
-                        <div class="input-group">
-                            <input type="number" #status="ngModel" [(ngModel)]="run.collection_id"
-                                class="form-control" id="collection_id" name="collection_id">
+                    <div *ngIf="isFromCollection==true">
+                        <div class="form-group">
+                            <label>Collection id</label>
+                            <div class="input-group">
+                                <input disabled type="number" #status="ngModel" [(ngModel)]="run.collection_id"
+                                    class="form-control" id="collection_id" name="collection_id">
+                            </div>
                         </div>
+                        <div class="form-group" >
+                            <label>No</label>
+                            <div class="input-group">
+                                <input disabled type="number" required #name="ngModel" [(ngModel)]="run.no" class="form-control"
+                                    id="No" name="No">
+                            </div>
+                        </div>
+                        
                     </div>
                     <div class="form-group">
                         <label>Sorter id</label>
