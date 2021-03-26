@@ -10,11 +10,11 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
                         <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
-                            <span>Status</span>
+                            <span>Current Run</span>
                         </div>
-                        <div class="text-dark font-weight-bold h5 mb-0">
-                            <span>{{sorterDetails.status_name}}</span>
-                        </div>
+
+                            <a class="text-dark font-weight-bold h5 mb-0" title="edit" (click)="onShowCurrentRunClick()"><span>{{sorterDetails.current_run_name}}</span></a>
+
                     </div>
                 </div>
             </div>

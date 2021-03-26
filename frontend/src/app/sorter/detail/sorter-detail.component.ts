@@ -68,6 +68,7 @@ export class SorterDetailComponent implements OnInit {
   private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   public id = 0;
+  public current_run_id = 0;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
@@ -86,6 +87,7 @@ export class SorterDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.sorterDetails = data.body.result[0];
+            this.current_run_id = data.body.result[0].current_run_id;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -122,6 +124,10 @@ export class SorterDetailComponent implements OnInit {
         console.log(error.name + ' ' + error.message);
       }
     );
+  }
+
+  onShowCurrentRunClick(){
+    this.router.navigateByUrl("/rundetail/" + this.current_run_id).then((bool) => { }).catch()
   }
 
   editPusher(id) {

@@ -35,10 +35,9 @@ export class RunDetailComponent implements OnInit {
     { title: 'Set No', name: 'no', size: '30', minSize: '30' , datatype:{ type: 'number' }},
     { title: 'Set Name', name: 'name', size: '30', minSize: '30' },
     { title: 'Comments', name: 'recognisedset_comments', size: '30', minSize: '30' },
-    { title: 'Parts', name: 'set_completed_part_count', size: '30', minSize: '30', datatype:{ type: 'number' } },
-    { title: 'identified', name: 'identified_parts', size: '30', minSize: '30', datatype:{ type: 'number' } },
-    { title: 'sorted (detected)', name: 'sorted_detected_parts', size: '30', minSize: '30', datatype:{ type: 'number' } },
-    { title: 'undetected', name: 'sorted_undetected_parts', size: '30', minSize: '30', datatype:{ type: 'number' } },
+    { title: 'Identified', name: 'percentage_identified', label: 'label_identified_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'info' }},
+    { title: 'Sorted (detected)', name: 'percentage_sorted_detected', label: 'label_sorted_detected_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'success'} },
+    { title: 'Sorted (undetected)', name: 'percentage_sorted_undetected',  label: 'label_sorted_undetected_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'danger'} },
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
   ];
 
@@ -52,6 +51,11 @@ export class RunDetailComponent implements OnInit {
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' }},
   ];
 
+  public newSortedSetDetail = {
+    "run_id":0,
+    "recognisedset_id":0,
+    "puhser_id":0
+  }
   public sortedsetsData: any;
   public recognisedpartsData: any;
   constructor(private activatedRoute: ActivatedRoute,
@@ -63,7 +67,9 @@ export class RunDetailComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
+
       if (this.id > 0) {
+        this.newSortedSetDetail.run_id = this.id;
         this.bindData();
         this.getAllSortedsets();
         this.getAllRecognisedparts();
@@ -149,7 +155,7 @@ export class RunDetailComponent implements OnInit {
   }
 
   editSortedset(id) {
-    this.sortedsetEdit.open();
+    this.sortedsetEdit.open(this.newSortedSetDetail);
   }
 
   addNewSortedset(newData: SortedSetModel) {

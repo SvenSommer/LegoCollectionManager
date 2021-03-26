@@ -5,14 +5,14 @@
 </div>
 <div class="row" *ngIf="runDetails">
     <div class="col-md-2 mb-4">
-        <div class="card shadow boarder-left-success py-2">
+        <div class="card shadow boarder-left-info py-2">
             <div class="card-body">
                 <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
-                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
+                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
                             <span>Parts Identified</span>
                         </div>
-                        <ngb-progressbar type="success" [value]="runDetails.percentage_identified" [animated]="true">{{runDetails.percentage_identified}} % </ngb-progressbar>
+                        <ngb-progressbar type="info" [value]="runDetails.percentage_identified" [animated]="true">{{runDetails.percentage_identified}} % </ngb-progressbar>
                         <div class="text-dark font-weight-bold h5 mb-0">
                             <span>{{runDetails.parts_identified}} of {{runDetails.allSetsSumPartCount}}</span>
                         </div>
@@ -22,16 +22,36 @@
         </div>
     </div>
     <div class="col-md-2  mb-4" >
-        <div class="card shadow boarder-left-info py-2">
+        <div class="card shadow boarder-left-success py-2">
             <div class="card-body">
                 <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
-                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
-                            <span>Parts sorted</span>
+                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
+                            <span>Parts sorted of identified</span>
                         </div>
-                        <ngb-progressbar type="info" [value]="runDetails.percentage_sorted_parts_total" [animated]="true">{{runDetails.percentage_sorted_parts_total}} % </ngb-progressbar>
+                        <ngb-progressbar type="success" [value]="runDetails.percentage_sorted_parts_total" [animated]="true">{{runDetails.percentage_sorted_parts_total}} % </ngb-progressbar>
                         <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.sorted_parts_total}} of {{runDetails.allSetsSumPartCount}}
+                            {{runDetails.sorted_parts_total}} of {{runDetails.parts_identified}}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calender fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2  mb-4" >
+        <div class="card shadow boarder-left-danger py-2">
+            <div class="card-body">
+                <div class="row align-items-center no-gutters">
+                    <div class="col mr-2">
+                        <div class="text-uppercase text-danger font-weight-bold text-xs mb-1">
+                            <span>Sorted (undetected)</span>
+                        </div>
+                        <ngb-progressbar type="danger" [value]="runDetails.percentage_sorted_undetected_parts" [animated]="true">{{runDetails.percentage_sorted_undetected_parts}} % </ngb-progressbar>
+                        <div class="text-dark font-weight-bold h5 mb-0">
+                            {{runDetails.sorted_undetected_parts}} of {{runDetails.parts_identified}}
                         </div>
                     </div>
                     <div class="col-auto">
@@ -47,11 +67,11 @@
                 <div class="row align-items-center no-gutters">
                     <div class="col mr-2">
                         <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
-                            <span>Identified By Human</span>
+                            <span>Identified By CNN</span>
                         </div>
-
+                        <ngb-progressbar type="primary" [value]="runDetails.percentage_identified_by_cnn" [animated]="true">{{runDetails.percentage_identified_by_cnn}} % </ngb-progressbar>
                         <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.parts_identified_by_human}}
+                            {{runDetails.parts_identified_by_cnn}} of {{runDetails.parts_identified}}
                         </div>
                     </div>
                     <div class="col-auto">
@@ -80,44 +100,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2  mb-4" >
-        <div class="card shadow boarder-left-secondary py-2">
-            <div class="card-body">
-                <div class="row align-items-center no-gutters">
-                    <div class="col mr-2">
-                        <div class="text-uppercase text-dark font-weight-bold text-xs mb-1">
-                            <span>Unique Identified</span>
-                        </div>
-                        <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.parts_uniquepartsidentified}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calender fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-2  mb-4" >
-        <div class="card shadow boarder-left-danger py-2">
-            <div class="card-body">
-                <div class="row align-items-center no-gutters">
-                    <div class="col mr-2">
-                        <div class="text-uppercase text-danger font-weight-bold text-xs mb-1">
-                            <span>Parts Deleted</span>
-                        </div>
-                        <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.parts_deleted}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calender fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 <div class="row">
     <div class="col-lg-3">
