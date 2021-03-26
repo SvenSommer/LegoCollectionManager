@@ -28,10 +28,11 @@ export class SortedsetEditComponent implements OnInit {
   }
 
   open(data = null) {
-    if (data) {
+    console.log(data)
+    this.sortedset = new SortedSetModel(data);
+    if (data && data.id != 0) {
       this.pageTitle = 'Edit Sorted Set';
-      this.isForEdit = true;
-      this.sortedset = new SortedSetModel(data);
+      this.isForEdit = true; 
     }
     else {
       this.isForEdit = false;
@@ -44,6 +45,7 @@ export class SortedsetEditComponent implements OnInit {
     if (!sortedsetform.valid) {
       return;
     }
+    console.log(sortedsetform)
     var method = "saveSortedset";
     if (this.isForEdit) {
       method = "updateSortedset";

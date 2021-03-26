@@ -38,10 +38,16 @@ export class CollectionService {
     return this.http.put<CollectionModel>(`${environment.baseUrl}collections/` + model.id, model, { withCredentials: true, headers: headers, observe: 'response' });
   }
 
-  getRuns(id) {
+  getRuns(collectionid) {
     let httpHeader = new HttpHeaders();
     httpHeader.set("Access-Control-Allow-Origin", "*");
-    return this.http.get<any>(`${environment.baseUrl}runs/collection/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    return this.http.get<any>(`${environment.baseUrl}runs/collection/` + collectionid, { withCredentials: true, headers: httpHeader, observe: 'response' });
+  }
+
+  getRunsNextnoByCollectionid(collectionid) {
+    let httpHeader = new HttpHeaders();
+    httpHeader.set("Access-Control-Allow-Origin", "*");
+    return this.http.get<any>(`${environment.baseUrl}runs/collection/` + collectionid + '/nextno', { withCredentials: true, headers: httpHeader, observe: 'response' });
   }
 
   getExpectedSets(id) {
