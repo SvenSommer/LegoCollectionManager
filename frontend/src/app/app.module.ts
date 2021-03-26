@@ -48,6 +48,7 @@ import { TypesEditComponent } from './preferences/types/types-edit/types-edit.co
 import { ColorsComponent } from './colors/colors.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
+import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
 
 
 
@@ -90,7 +91,8 @@ import { PricesComponent } from './prices/prices.component';
     TypesEditComponent,
     ColorsComponent,
     CategoriesComponent,
-    PricesComponent
+    PricesComponent,
+    SetDetailComponent
 
   ],
   imports: [

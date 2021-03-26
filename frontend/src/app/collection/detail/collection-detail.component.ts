@@ -17,6 +17,7 @@ import { CollectionEditComponent } from '../edit/collection-edit.component';
 export class CollectionDetailComponent implements OnInit {
 
   public imgPopupURL = '';
+  public imgPopupName = '';
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
 
   @ViewChild('collectionEdit') collectionEdit: CollectionEditComponent;
@@ -65,7 +66,7 @@ export class CollectionDetailComponent implements OnInit {
   ];
 
   public ExpPartsColumns = [
-    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
+    { title: 'Image', name: 'color_thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
     { title: 'Part No', name: 'part_no', size: '30', minSize: '30' },
     { title: 'name', name: 'name', size: '25%', minSize: '90' },
     { title: 'Set No', name: 'setNos', size: '30', minSize: '30' },
@@ -126,6 +127,7 @@ export class CollectionDetailComponent implements OnInit {
       this.id = params['id'];
       if (this.id > 0) {
         this.newSetDetails.collectionid = this.id;
+
         this.bindData();
         this.getAllRuns();
         this.getExpectedSets();
@@ -317,10 +319,13 @@ export class CollectionDetailComponent implements OnInit {
 
   public onImgPopupClose() {
     this.imgPopupURL = '';
+    this.imgPopupName = '';
+   
   }
 
   public onImgClick(row) {
     this.imgPopupURL = row.image_url ?? row.thumbnail_url;
+    this.imgPopupName = [row?.no, row?.name, row?.color_name].join(' - ');
     this.imagePopup.open();
   }
 

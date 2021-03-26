@@ -14,6 +14,7 @@ import { PreferencesComponent } from './preferences/preferences.component';
 import { ColorsComponent } from './colors/colors.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
+import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
 
 const routes: Routes = [
 
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path:'collection',component:CollectionComponent,canActivate:[AuthenticationGuard]},
   {path:'collectiondetail/:id',component:CollectionDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'setdata',component:SetdataComponent,canActivate:[AuthenticationGuard]},
+  {path:'setdetail/:id',component:SetDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'partdata',component:PartdataComponent,canActivate:[AuthenticationGuard]},
   {path:'run',component:RunComponent,canActivate:[AuthenticationGuard]},
   {path:'rundetail/:id',component:RunDetailComponent,canActivate:[AuthenticationGuard]},

@@ -224,7 +224,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12" *ngIf="recognisedpartsData && recognisedpartsColumns">
-                                <ng-table (rowCellClick)="onEditRecognisedpartClick($event)"  [isActionVisible]="true" [isEditVisible]="true" [isDeleteVisible]="true" [columns]="recognisedpartsColumns" [data]="recognisedpartsData" (rowDeleteClick)="onRowRecognisedpartDeleteClick($event)">
+                                <ng-table (rowCellClick)="onEditRecognisedpartClick($event)"  [isActionVisible]="true" [isEditVisible]="false" [isDeleteVisible]="true" [columns]="recognisedpartsColumns" [data]="recognisedpartsData" (rowDeleteClick)="onRowRecognisedpartDeleteClick($event)">
                                 </ng-table>
                             </div>
                     </div>

@@ -31,9 +31,9 @@ export class RunDetailComponent implements OnInit {
 
   public sortedsetsColumns = [
     { title: 'Pusher', name: 'pusher_number', size: '60', minSize: '60' },
-    { title: 'Image', name: 'set_thumbnail_url', size: '25', minSize: '25', datatype:{ type: 'image' } },
-    { title: 'Set No', name: 'set_No', size: '30', minSize: '30' , datatype:{ type: 'number' }},
-    { title: 'Set Name', name: 'set_Name', size: '30', minSize: '30' },
+    { title: 'Image', name: 'image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
+    { title: 'Set No', name: 'no', size: '30', minSize: '30' , datatype:{ type: 'number' }},
+    { title: 'Set Name', name: 'name', size: '30', minSize: '30' },
     { title: 'Comments', name: 'recognisedset_comments', size: '30', minSize: '30' },
     { title: 'Parts', name: 'set_completed_part_count', size: '30', minSize: '30', datatype:{ type: 'number' } },
     { title: 'identified', name: 'identified_parts', size: '30', minSize: '30', datatype:{ type: 'number' } },
@@ -43,11 +43,11 @@ export class RunDetailComponent implements OnInit {
   ];
 
   public recognisedpartsColumns = [
-    { title: 'Images', name: 'partimages', size: '60', minSize: '60', datatype:{ type: 'images' } },
-    { title: 'Number', name: 'no', size: '25', minSize: '25' },
-    { title: 'Color id', name: 'color_id', size: '30', minSize: '30' , datatype:{ type: 'number' }},
-    { title: 'Name', name: 'name', size: '30', minSize: '30' },
-    { title: 'Image', name: 'thumbnail_url', size: '30', minSize: '30' , datatype:{ type: 'image' }},
+    { title: 'Part Images Recorded', name: 'partimages', size: '65', minSize: '65', maxSize: '30%', datatype:{ type: 'images' } },
+    { title: 'Image', name: 'thumbnail_url', size: '65', minSize: '65' , datatype:{ type: 'image' }},
+    { title: 'Partno - Color Id', name: 'partnocolid', size: '80', minSize: '80' },
+    { title: 'Color', name: 'color_name', size: '30', minSize: '30' },
+    { title: 'Name', name: 'name', size: '120', minSize: '80' },
     { title: 'Identifier', name: 'identifier', size: '30', minSize: '30' },
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' }},
   ];
@@ -213,7 +213,7 @@ export class RunDetailComponent implements OnInit {
               if (data.body && data.body.code == 200) {
                // Message should be data.body.message
                this.toastr.success("Record Deleted Successfully.");
-               this.bindData();
+               this.getAllRecognisedparts();
               }
               else if (data.body && data.body.code == 403) {
                 this.router.navigateByUrl("/login");
@@ -236,8 +236,11 @@ export class RunDetailComponent implements OnInit {
   }
 
   public onImgClick(row) {
-    this.imgPopupURL = row.image_url ?? row.thumbnail_url;
+    this.imgPopupURL = row.thumbnail_url;
     this.imagePopup.open();
   }
-
+//https://www.bricklink.com/PL/970c00.jpg?0
+//https://www.bricklink.com/PL/3001.jpg?2PP
+//https://www.bricklink.com/TL/13917.jpg?0
+//https://www.bricklink.com/PL/30389c.jpg?0
 }

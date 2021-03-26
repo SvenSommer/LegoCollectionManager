@@ -14,7 +14,7 @@ export class SetdataComponent implements OnInit {
     private router: Router) { }
 
   public columns = [
-    { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
+    { title: 'Image', name: 'thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
     { title: 'Number', name: 'no', size: '5%', minSize: '50'},
     { title: 'Name', name: 'name', size: '30%', minSize: '120' },
     { title: 'Category', name: 'category_name', size: '30', minSize: '120' },
@@ -54,6 +54,11 @@ export class SetdataComponent implements OnInit {
       }
     );
   }
+
+  onRowClick(data) {
+    this.router.navigateByUrl("/setdetail/" + data.id).then((bool) => { }).catch()
+  }
+
 
 
 }

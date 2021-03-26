@@ -15,7 +15,7 @@ export class PartdataComponent implements OnInit {
 
 
     public columns = [
-      { title: 'Image', name: 'thumbnail_url', size: '50', minSize: '50', datatype: { type: 'image' } },
+      { title: 'Image', name: 'thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
       { title: 'Number', name: 'no', size: '5%', minSize: '50'},
       { title: 'Colorid', name: 'color_id', size: '5%', minSize: '50'},
       { title: 'Type', name: 'type', size: '5%', minSize: '50'},
