@@ -19,7 +19,7 @@ export class CollectionComponent implements OnInit {
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   public columns = [
-    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' }},
+    { title: 'Image', name: 'thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' }},
     { title: 'Name', name: 'name', size: '20%', minSize: '120' },
     { title: 'Description', name: 'description', size: '20%', minSize: '120' },
     { title: 'Weight(kg)', name: 'weight_kg', size: '25', minSize: '25', datatype: { type: 'number' } },
@@ -64,7 +64,7 @@ export class CollectionComponent implements OnInit {
     this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
   }
 
-  onEditClick(data) {
+  onRowClick(data) {
     this.router.navigateByUrl("/collectiondetail/" + data.id).then((bool) => { }).catch()
   }
 

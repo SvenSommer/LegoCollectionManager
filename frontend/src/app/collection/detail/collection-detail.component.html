@@ -150,262 +150,266 @@
 
     <div class="col-lg-8">
         <div class="row">
-            <div class="card shadow mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h6 class="text-primary font-weight-bold m-0">Runs</h6>
-                    <div class="dropdown no-arrow">
-                        <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" >
-                            <i class="fas fa-plus text-gray-400"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row" *ngIf="runsData && runsData.summarized && runsData.unique">
-                        <div class="col-md-2 mb-4">
-                            <div class="card shadow boarder-left-success py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
-                                                <span>Parts Identified</span>
-                                            </div>
-                                            <div class="text-dark font-weight-bold h5 mb-0">
-                                                <span><input type="text" readonly class="form-control-plaintext"
-                                                    [value]="runsData.summarized[0].allRunsPartsIdentified"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2  mb-4" >
-                            <div class="card shadow boarder-left-info py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
-                                                <span>Identified By Cnn</span>
-                                            </div>
-                                            <div class="text-dark font-weight-bold h5 mb-0">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                [value]="runsData.summarized[0].allRunsPartsIdentifiedByCnn">
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calender fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2  mb-4" >
-                            <div class="card shadow boarder-left-primary py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
-                                                <span>Identified By Human</span>
-                                            </div>
-                                            <div class="text-dark font-weight-bold h5 mb-0">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                [value]="runsData.summarized[0].allRunsPartsIdentifiedByHuman">
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calender fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2  mb-4" >
-                            <div class="card shadow boarder-left-secondary py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-secondary font-weight-bold text-xs mb-1">
-                                                <span>Parts Unidentified</span>
-                                            </div>
-                                            <div class="text-dark font-weight-bold h5 mb-0">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                    [value]="runsData.summarized[0].allRunsPartsUnidentified">
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calender fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2  mb-4" >
-                            <div class="card shadow boarder-left-secondary py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-dark font-weight-bold text-xs mb-1">
-                                                <span>Unique Identified</span>
-                                            </div>
-                                            <div class="text-dark font-weight-bold h5 mb-0">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                    [value]="runsData.unique[0].allRunsUniquePartIdentifedCount">
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calender fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2  mb-4" >
-                            <div class="card shadow boarder-left-danger py-2">
-                                <div class="card-body">
-                                    <div class="row align-items-center no-gutters">
-                                        <div class="col mr-2">
-                                            <div class="text-uppercase text-danger font-weight-bold text-xs mb-1">
-                                                <span>Parts Deleted</span>
-                                            </div>
-                                            <div class="text-dark font-weight-bold h5 mb-0">
-                                                <input type="text" readonly class="form-control-plaintext"
-                                                [value]="runsData.summarized[0].allRunsPartsDeleted">
-                                            </div>
-                                        </div>
-                                        <div class="col-auto">
-                                            <i class="fas fa-calender fa-2x text-gray-300"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="col-lg-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Runs</h6>
+                        <div class="dropdown no-arrow">
+                            <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" >
+                                <i class="fas fa-plus text-gray-400"></i>
+                            </button>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-12" *ngIf="runsData && runsColumns">
-                            <ng-table [isActionVisible]="false" [columns]="runsColumns" [data]="runsData.runs">
-                            </ng-table>
+                    <div class="card-body">
+                        <div class="row" *ngIf="runsData && runsData.summarized && runsData.unique">
+                            <div class="col-md-2 mb-4">
+                                <div class="card shadow boarder-left-success py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
+                                                    <span>Parts Identified</span>
+                                                </div>
+                                                <div class="text-dark font-weight-bold h5 mb-0">
+                                                    <span><input type="text" readonly class="form-control-plaintext"
+                                                        [value]="runsData.summarized[0].allRunsPartsIdentified"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2  mb-4" >
+                                <div class="card shadow boarder-left-info py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
+                                                    <span>Identified By Cnn</span>
+                                                </div>
+                                                <div class="text-dark font-weight-bold h5 mb-0">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                    [value]="runsData.summarized[0].allRunsPartsIdentifiedByCnn">
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calender fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2  mb-4" >
+                                <div class="card shadow boarder-left-primary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
+                                                    <span>Identified By Human</span>
+                                                </div>
+                                                <div class="text-dark font-weight-bold h5 mb-0">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                    [value]="runsData.summarized[0].allRunsPartsIdentifiedByHuman">
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calender fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2  mb-4" >
+                                <div class="card shadow boarder-left-secondary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-secondary font-weight-bold text-xs mb-1">
+                                                    <span>Parts Unidentified</span>
+                                                </div>
+                                                <div class="text-dark font-weight-bold h5 mb-0">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                        [value]="runsData.summarized[0].allRunsPartsUnidentified">
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calender fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2  mb-4" >
+                                <div class="card shadow boarder-left-secondary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-dark font-weight-bold text-xs mb-1">
+                                                    <span>Unique Identified</span>
+                                                </div>
+                                                <div class="text-dark font-weight-bold h5 mb-0">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                        [value]="runsData.unique[0].allRunsUniquePartIdentifedCount">
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calender fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2  mb-4" >
+                                <div class="card shadow boarder-left-danger py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col mr-2">
+                                                <div class="text-uppercase text-danger font-weight-bold text-xs mb-1">
+                                                    <span>Parts Deleted</span>
+                                                </div>
+                                                <div class="text-dark font-weight-bold h5 mb-0">
+                                                    <input type="text" readonly class="form-control-plaintext"
+                                                    [value]="runsData.summarized[0].allRunsPartsDeleted">
+                                                </div>
+                                            </div>
+                                            <div class="col-auto">
+                                                <i class="fas fa-calender fa-2x text-gray-300"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" *ngIf="runsData && runsColumns">
+                                <ng-table [isActionVisible]="false" [columns]="runsColumns" [data]="runsData.runs">
+                                </ng-table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="card shoadow mb-4">
-                <div class="card-header d-flex align-items-center">
-                    <div class="dropdown btn-group pr-2">
-                        <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
-                            Sets
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" (click)="getExpectedSets()">Expected</a>
-                                    <a class="dropdown-item" (click)="getSuggestedSets()">Suggested</a>
-                                    <a class="dropdown-item">Incomplete</a>
-                                    <a class="dropdown-item">Complete</a>
-                                    <a class="dropdown-item">Inserated</a>
-                                    <a class="dropdown-item">Sold</a>
-                        </div>
-                    </div>
-                    <div class="dropdown btn-group pr-2">
-                        <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
-                            Parts
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" (click)="getExpectedParts()">Expected</a>
-                            <a class="dropdown-item">Identified</a>
-                            <a class="dropdown-item" (click)="getUnsettedParts()">Unsetted</a>
-                        </div>
-                    </div>
-                    <div class="dropdown btn-group">
-                        <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
-                            Minifigs
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" (click)="getExpectedMinifigs()">Expected</a>
-                            <a class="dropdown-item">Identified</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="text-uppercase text-secondary font-weight-bold text-xs justify-content-between align-items-center mb-4 pt-2 m-0">
-                                <span>{{currentTab}}</span>
+            <div class="row">
+                <div class="col-lg-12">    
+                    <div class="card shoadow mb-4">
+                        <div class="card-header d-flex align-items-center">
+                            <div class="dropdown btn-group pr-2">
+                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
+                                    Sets
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" (click)="getExpectedSets()">Expected</a>
+                                            <a class="dropdown-item" (click)="getSuggestedSets()">Suggested</a>
+                                            <a class="dropdown-item">Incomplete</a>
+                                            <a class="dropdown-item">Complete</a>
+                                            <a class="dropdown-item">Inserated</a>
+                                            <a class="dropdown-item">Sold</a>
+                                </div>
                             </div>
-                            <div *ngIf="currentTab == 'Expected Sets'">
-                                <form (ngSubmit)="onSubmitAddSets(addSetsForm)" #addSetsForm="ngForm">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="row m-0 pb-3">
-                                                <span class="col-sm-1 input-group-text"
-                                                    (click)="isMoreFieldOpenForSet = !isMoreFieldOpenForSet">
-                                                    <i class="fa"
-                                                        [ngClass]="{'fa-angle-double-right': !isMoreFieldOpenForSet, 'fa-angle-double-down':isMoreFieldOpenForSet }"></i>
-                                                </span>
-                                                <input type="text" required class="form-control col-sm" id="exampleInputEmail1"
-                                                    #setNum="ngModel" name="setNumber" [(ngModel)]="newSetDetails.setnumber"
-                                                    placeholder="Enter set number">
-                                            </div>
-                                            <div class="row m-0">
-                                                <div class="col-sm-1"></div>
-                                                <div *ngIf="setNum.invalid && (setNum.dirty || setNum.touched || isSetFormSubmitted)"
-                                                    class="alert alert-danger col-sm">
-                                                    <div *ngIf="setNum.errors.required">
-                                                        set number is required.
+                            <div class="dropdown btn-group pr-2">
+                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
+                                    Parts
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" (click)="getExpectedParts()">Expected</a>
+                                    <a class="dropdown-item">Identified</a>
+                                    <a class="dropdown-item" (click)="getUnsettedParts()">Unsetted</a>
+                                </div>
+                            </div>
+                            <div class="dropdown btn-group">
+                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
+                                    Minifigs
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" (click)="getExpectedMinifigs()">Expected</a>
+                                    <a class="dropdown-item">Identified</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="text-uppercase text-secondary font-weight-bold text-xs justify-content-between align-items-center mb-4 pt-2 m-0">
+                                        <span>{{currentTab}}</span>
+                                    </div>
+                                    <div *ngIf="currentTab == 'Expected Sets'">
+                                        <form (ngSubmit)="onSubmitAddSets(addSetsForm)" #addSetsForm="ngForm">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="row m-0 pb-3">
+                                                        <span class="col-sm-1 input-group-text"
+                                                            (click)="isMoreFieldOpenForSet = !isMoreFieldOpenForSet">
+                                                            <i class="fa"
+                                                                [ngClass]="{'fa-angle-double-right': !isMoreFieldOpenForSet, 'fa-angle-double-down':isMoreFieldOpenForSet }"></i>
+                                                        </span>
+                                                        <input type="text" required class="form-control col-sm" id="exampleInputEmail1"
+                                                            #setNum="ngModel" name="setNumber" [(ngModel)]="newSetDetails.setnumber"
+                                                            placeholder="Enter set number">
+                                                    </div>
+                                                    <div class="row m-0">
+                                                        <div class="col-sm-1"></div>
+                                                        <div *ngIf="setNum.invalid && (setNum.dirty || setNum.touched || isSetFormSubmitted)"
+                                                            class="alert alert-danger col-sm">
+                                                            <div *ngIf="setNum.errors.required">
+                                                                set number is required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row m-0" *ngIf="isMoreFieldOpenForSet">
+                                                        <div class="col-sm-1"></div>
+                                                        <div class="col-sm m-0 p-0">
+                                                            <input type="text" [(ngModel)]="newSetDetails.comments" name="comments"
+                                                                class="form-group form-control" id="exampleInputEmail1"
+                                                                placeholder="Enter comments">
+                                                            <input type="text" [(ngModel)]="newSetDetails.instructions" name="instructions"
+                                                                class="form-group form-control" id="exampleInputEmail1"
+                                                                placeholder="Enter instructions">
+                                                            <input type="text" [(ngModel)]="newSetDetails.condition" name="condition"
+                                                                class="form-group form-control" id="exampleInputEmail1"
+                                                                placeholder="Enter set conditions">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row m-0" *ngIf="isMoreFieldOpenForSet">
-                                                <div class="col-sm-1"></div>
-                                                <div class="col-sm m-0 p-0">
-                                                    <input type="text" [(ngModel)]="newSetDetails.comments" name="comments"
-                                                        class="form-group form-control" id="exampleInputEmail1"
-                                                        placeholder="Enter comments">
-                                                    <input type="text" [(ngModel)]="newSetDetails.instructions" name="instructions"
-                                                        class="form-group form-control" id="exampleInputEmail1"
-                                                        placeholder="Enter instructions">
-                                                    <input type="text" [(ngModel)]="newSetDetails.condition" name="condition"
-                                                        class="form-group form-control" id="exampleInputEmail1"
-                                                        placeholder="Enter set conditions">
+                                                <div class="col-sm-2">
+                                                    <button type="submit" class="btn btn-success">
+                                                        Add
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <button type="submit" class="btn btn-success">
-                                                Add
-                                            </button>
-                                        </div>
+                                        </form>
+                                    
                                     </div>
-                                </form>
-                            
-                            </div>
-                        </div>
-                        <div class="col-sm-12" *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
-                            <div>
-                                <ng-table [isActionVisible]="false" [columns]="expSetsColumns" [data]="expectedSets">
-                                </ng-table>
-                            </div>
-                        </div>
-                        <div class="col-sm-12" *ngIf="suggestedSets && suggSetsColumns && currentTab == 'Suggested Sets'">
-                            <div >
-                                <ng-table [isActionVisible]="false" [columns]="suggSetsColumns" [data]="suggestedSets">
-                                </ng-table>
-                            </div>
-                        </div>
-                        <div class="col-sm-12" *ngIf="expectedParts && ExpPartsColumns && currentTab == 'Expected Parts'">
-                            <div >
-                                <ng-table [isActionVisible]="false" [columns]="ExpPartsColumns" [data]="expectedParts">
-                                </ng-table>
-                            </div>
-                        </div>
-                        <div class="col-sm-12" *ngIf="unsettedParts && UnsettedPartsColumns && currentTab == 'Unsetted Parts'">
-                            <div >
-                                <ng-table [isActionVisible]="false" [columns]="UnsettedPartsColumns" [data]="unsettedParts">
-                                </ng-table>
-                            </div>
-                        </div>
-                        <div class="col-sm-12" *ngIf="expectedMinifigs && ExpMinifigsColumns && currentTab == 'Expected Minifigs'">
-                            <div >
-                                <ng-table [isActionVisible]="false" [columns]="ExpMinifigsColumns" [data]="expectedMinifigs">
-                                </ng-table>
+                                </div>
+                                <div class="col-sm-12" *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
+                                    <div>
+                                        <ng-table [isActionVisible]="false" [columns]="expSetsColumns" [data]="expectedSets">
+                                        </ng-table>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" *ngIf="suggestedSets && suggSetsColumns && currentTab == 'Suggested Sets'">
+                                    <div >
+                                        <ng-table [isActionVisible]="false" [columns]="suggSetsColumns" [data]="suggestedSets">
+                                        </ng-table>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" *ngIf="expectedParts && ExpPartsColumns && currentTab == 'Expected Parts'">
+                                    <div >
+                                        <ng-table [isActionVisible]="false" [columns]="ExpPartsColumns" [data]="expectedParts">
+                                        </ng-table>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" *ngIf="unsettedParts && UnsettedPartsColumns && currentTab == 'Unsetted Parts'">
+                                    <div >
+                                        <ng-table [isActionVisible]="false" [columns]="UnsettedPartsColumns" [data]="unsettedParts">
+                                        </ng-table>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" *ngIf="expectedMinifigs && ExpMinifigsColumns && currentTab == 'Expected Minifigs'">
+                                    <div >
+                                        <ng-table [isActionVisible]="false" [columns]="ExpMinifigsColumns" [data]="expectedMinifigs">
+                                        </ng-table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

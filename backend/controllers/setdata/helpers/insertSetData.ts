@@ -21,7 +21,7 @@ export function InsertSetData(setnumber: any, setinfo: any, priceinfo: any, id: 
                                             createdBy)
                                             VALUES(
                                             '${setnumber}',
-                                            '${setinfo.name}',
+                                            '${setinfo.name.replace("'","`").replace("'","`")}',
                                              ${setinfo.category_id},
                                             '${setinfo.year_released}',
                                              ${setinfo.weight},
@@ -38,11 +38,9 @@ export function InsertSetData(setnumber: any, setinfo: any, priceinfo: any, id: 
                                              ${id}
                                             )`;
     connection.query(createSetData, (err) => {
-        if (err)
-            res.json({
-                code: 500,
-                message: 'Couldn\'t store downloaded Setdata.',
-                errorMessage: process.env.DEBUG && err
-            });
+        if (err) {
+            console.log(createSetData)
+            console.log(err);
+    }
     });
 }

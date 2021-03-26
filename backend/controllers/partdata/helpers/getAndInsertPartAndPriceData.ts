@@ -38,7 +38,7 @@ export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid
                                                     createdBy)
                                                     VALUES(
                                                     '${partinfo.no}',
-                                                    '${partinfo.name}',
+                                                    '${partinfo.name.replace("'","`").replace("'","`")}',
                                                     '${type}',
                                                      ${partinfo.category_id},
                                                      ${colorid},

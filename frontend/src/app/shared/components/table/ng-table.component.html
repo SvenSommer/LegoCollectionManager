@@ -70,6 +70,6 @@
   </div>
 </div>
 
-<app-modal-popup size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
-  <img [src]="imgPopupURL" />
+<app-modal-popup size="lg"   [title]="imgPopupName" (closeEvent)="onImgPopupClose()" #imagePopup>
+  <img [src]="imgPopupURL" width="100%"/> 
 </app-modal-popup>

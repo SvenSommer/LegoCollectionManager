@@ -8,7 +8,7 @@ export function GetAndUpdateSetData(no: any, userid: any, setid: any, res: Respo
             blApi.bricklinkClient.getPriceGuide(blApi.ItemType.Set, no + '-1', { new_or_used: blApi.Condition.Used, region: 'europe', guide_type: 'stock' })
                 .then(function (priceinfo: any) {
                     const updateSetData = `UPDATE Sets SET 
-                                            name = '${setinfo.name}',
+                                            name = '${setinfo.name.replace("'","`").replace("'","`")}',
                                             category_id = '${setinfo.category_id}',
                                             year = '${setinfo.year_released}',
                                             weight_g = '${setinfo.weight}',

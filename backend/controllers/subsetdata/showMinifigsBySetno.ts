@@ -5,7 +5,7 @@ export default (req: Request, res: Response) => {
     const {setnumber: setnumber} = req.params;
     const showAll = `SELECT * FROM LegoSorterDB.subsets_basis
     WHERE setno = '${setnumber}' 
-    AND type != 'MINIFIG'
+    AND type = 'MINIFIG'
     ORDER BY CONCAT (color_name, ' ',name)`
     console.log(showAll)
     connection.query(showAll, (err, result) => {

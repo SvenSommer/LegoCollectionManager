@@ -53,6 +53,7 @@ export class NgTableComponent implements OnInit, OnChanges {
   @Output() public rowDeleteClick: EventEmitter<any> = new EventEmitter();
 
   public imgPopupURL = '';
+  public imgPopupName = '';
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
 
   @Input()
@@ -99,6 +100,7 @@ export class NgTableComponent implements OnInit, OnChanges {
 
   public onImgClick(row, column) {
     this.imgPopupURL = row.image_url ?? row.thumbnail_url;
+    this.imgPopupName = [row?.no, row?.name, row?.color_name].join(' - ');
     this.imagePopup.open();
   }
 
@@ -146,5 +148,6 @@ export class NgTableComponent implements OnInit, OnChanges {
 
   public onImgPopupClose() {
     this.imgPopupURL = '';
+    this.imgPopupName = '';
   }
 }
