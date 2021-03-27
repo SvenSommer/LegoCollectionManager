@@ -149,6 +149,10 @@ export class NgTableComponent implements OnInit, OnChanges {
     }
   }
 
+  public getRes(cellData){
+    let object =  JSON.parse(cellData);
+    return cellData
+  }
 
   public changePage(page: any, data: Array<any> = this.data): Array<any> {
     const start = (page - 1) * this.itemsPerPage;
@@ -205,7 +209,7 @@ export class NgTableComponent implements OnInit, OnChanges {
 
   private sort(rows: any, column: SortColumn, direction: string, columnType: any): any {
     if (direction === '' || column === '') {
-      return rows;
+      return this.resultData;
     } else {
       return [...rows].sort((a, b) => {
         const res = this.compare(a[column], b[column],columnType);
