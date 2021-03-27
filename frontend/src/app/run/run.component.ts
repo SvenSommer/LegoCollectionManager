@@ -61,7 +61,6 @@ editRun(id) {
 }
 
 onEditClick(data) {
-  console.log(data)
   this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
 }
 

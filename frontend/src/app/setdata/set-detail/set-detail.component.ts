@@ -106,7 +106,6 @@ export class SetDetailComponent implements OnInit {
     this.setdataService.getPartdataBySetid(this.id).subscribe(
       (data) => {
         if (data) {
-          console.log(data)
           if (data.body && data.body.code == 200) {
             this.partData = data.body.result;
           }
@@ -125,7 +124,6 @@ export class SetDetailComponent implements OnInit {
     this.setdataService.getMinifigdataBySetid(this.id).subscribe(
       (data) => {
         if (data) {
-          console.log(data)
           if (data.body && data.body.code == 200 && data.body.result.length > 0) {
             this.minifigData = data.body.result;
           }

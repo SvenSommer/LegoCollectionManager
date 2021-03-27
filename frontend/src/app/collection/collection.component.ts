@@ -60,7 +60,6 @@ export class CollectionComponent implements OnInit {
   }
 
   onRunEditClick(data) {
-    console.log(data)
     this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
   }
 

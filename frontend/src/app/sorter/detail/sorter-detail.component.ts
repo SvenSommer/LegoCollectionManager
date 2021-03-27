@@ -146,7 +146,6 @@ export class SorterDetailComponent implements OnInit {
   getAllValves() {
     this.sorterService.getValves(this.id).subscribe(
       (data) => {
-        console.log(data)
         if (data) {
           if (data.body && data.body.code == 200) {
             this.valvesData = data.body.result;

@@ -6,6 +6,7 @@ import ShowAllUnsettedRecognisedPartsByCollectionId from '../controllers/recogni
 import UpdateRecognisedPartById from '../controllers/recognisedparts/update';
 import GetSingleRecognisedPartById from '../controllers/recognisedparts/single';
 import DeleteSingleRecognisedPartById from '../controllers/recognisedparts/delete';
+import MarkAsDeletedRecognisedPartById from '../controllers/recognisedparts/markasdeleted';
 import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
 import UserAuthMiddleware from '../controllers/middleware/UserAuth.middleware';
 import {Router} from "express";
@@ -15,7 +16,7 @@ const route = Router();
 route.get(``, UserAuthMiddleware, ShowAllRecognisedParts);
 //List all RecognisedParts by RunId
 route.get(`/run/:runid`, UserAuthMiddleware, ShowAllRecognisedPartsByRunId);
-
+//Show unsetted RecognisedParts od collectionid
 route.get(`/collection/:collectionid/unsetted`, UserAuthMiddleware, ShowAllUnsettedRecognisedPartsByCollectionId);
 //Create a new RecognisedPart
 route.post(``, AdminAuthMiddleware, CreateRecognisedPart);
@@ -24,6 +25,8 @@ route.get(`/:id`, UserAuthMiddleware, GetSingleRecognisedPartById);
 //Update a particular RecognisedPart
 route.put(`/:id`, AdminAuthMiddleware, UpdateRecognisedPartById);
 //Delete a particular RecognisedPart
-route.delete(`/:id`, AdminAuthMiddleware, DeleteSingleRecognisedPartById);
-
+//route.delete(`/:id`, AdminAuthMiddleware, DeleteSingleRecognisedPartById);
+//Mark RecognisedPart as deleted
+route.patch(`/:id`, AdminAuthMiddleware, MarkAsDeletedRecognisedPartById);
+route.delete(`/:id`, AdminAuthMiddleware, MarkAsDeletedRecognisedPartById);
 export default route;

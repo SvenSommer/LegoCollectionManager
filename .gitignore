@@ -1,5 +1,6 @@
 /frontend/src/environments/environment.prod.ts
 /frontend/src/environments/environment.ts
+partimages/*
 
 .DS_STORE
 

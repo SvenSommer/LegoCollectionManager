@@ -90,7 +90,6 @@ export class PreferencesComponent implements OnInit {
   }
   
   onEditUserClick(data) {
-    console.log(data)
     this.userEdit.open(data);
   }
   
@@ -219,7 +218,6 @@ export class PreferencesComponent implements OnInit {
   }
   
   onEditStatusClick(data) {
-    console.log(data)
     this.statusEdit.open(data);
   }
   
@@ -282,7 +280,6 @@ export class PreferencesComponent implements OnInit {
   }
   
   onEditTypeClick(data) {
-    console.log(data)
     this.typeEdit.open(data);
   }
   

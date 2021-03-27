@@ -83,38 +83,4 @@ export class RunService {
         })
         return this.http.delete<any>(`${environment.baseUrl}sortedsets/` + id, { withCredentials: true, headers: headers, observe: 'response' });
     }
-
-    getRecognisedpartByRunid(id): Observable<any> {
-
-        let httpHeader = new HttpHeaders();
-        httpHeader.set("Access-Control-Allow-Origin", "*");
-        return this.http.get<any>(`${environment.baseUrl}recognisedparts/run/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
-    }
-
-    getRecognisedpartById(id): Observable<any> {
-        let httpHeader = new HttpHeaders();
-        httpHeader.set("Access-Control-Allow-Origin", "*");
-        return this.http.get<any>(`${environment.baseUrl}recognisedparts/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
-    }
-
-    saveRecognisedpart(model: RunModel): Observable<any> {
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        })
-        return this.http.post<RunModel>(`${environment.baseUrl}recognisedparts`, model, { withCredentials: true, headers: headers, observe: 'response' });
-    }
-  
-    updatetRecognisedpart(model: RunModel): Observable<any> {
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-        })
-        return this.http.put<RunModel>(`${environment.baseUrl}recognisedparts/` + model.id, model, { withCredentials: true, headers: headers, observe: 'response' });
-    }
-  
-    deletetRecognisedpart(id): Observable<any> {
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        })
-        return this.http.delete<any>(`${environment.baseUrl}recognisedparts/` + id, { withCredentials: true, headers: headers, observe: 'response' });
-    }
 }

@@ -21,12 +21,14 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/partimages"
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css",
               "src/style.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
