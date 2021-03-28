@@ -1,4 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
+//@ts-ignore
 import jwt from 'jsonwebtoken';
 import {Token_encodeInterface} from "./token_encode.interface";
 

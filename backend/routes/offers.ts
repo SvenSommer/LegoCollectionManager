@@ -1,0 +1,22 @@
+import CreateOffer from '../controllers/offers/create';
+import ShowAllOffers from '../controllers/offers/show';
+import UpdateOfferById from '../controllers/offers/update';
+import GetSingleOfferById from '../controllers/offers/single';
+import DeleteSingleOfferById from '../controllers/offers/delete';
+import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
+import UserAuthMiddleware from '../controllers/middleware/UserAuth.middleware';
+import {Router} from "express";
+const route = Router();
+
+//List all offers
+route.get(``, UserAuthMiddleware, ShowAllOffers);
+//Create a new offer
+route.post(``, AdminAuthMiddleware, CreateOffer);
+//Show info about a specific offer
+route.get(`/:id`, UserAuthMiddleware, GetSingleOfferById);
+//Update a particular offer
+route.put(`/:id`, AdminAuthMiddleware, UpdateOfferById);
+//Delete a particular offer
+route.delete(`/:id`, AdminAuthMiddleware, DeleteSingleOfferById);
+
+export default route;

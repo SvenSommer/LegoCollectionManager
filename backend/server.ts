@@ -36,6 +36,13 @@ import types from "./routes/types";
 import usergroups from "./routes/usergroups";
 import sortedsets from "./routes/sortedsets";
 import sortedparts from "./routes/sortedparts";
+import offers from "./routes/offers";
+import offers_images from "./routes/offers_images";
+import offers_preferences from "./routes/offers_preferences";
+import offers_searchterms from "./routes/offers_searchterms";
+import offers_users from "./routes/offers_users";
+import offers_views from "./routes/offers_views";
+import offers_status from "./routes/offers_status";
 
 
 const corsOpts = {
@@ -83,7 +90,6 @@ app.use('/sorters', sorter);
 app.use('/valves', valve);
 app.use('/scales', scale);
 app.use('/pushers', pushers);
-
 app.use('/status', status);
 app.use('/subsetdata', subsetdata);
 app.use('/suggestedsets', suggestedset);
@@ -92,6 +98,13 @@ app.use('/types', types);
 app.use('/usergroups', usergroups);
 app.use('/sortedsets', sortedsets);
 app.use('/sortedparts', sortedparts);
+app.use('/offers', offers);
+app.use('/offers_images', offers_images);
+app.use('/offers_preferences', offers_preferences);
+app.use('/offers_searchterms', offers_searchterms);
+app.use('/offers_users', offers_users);
+app.use('/offers_views', offers_views);
+app.use('/offers_status', offers_status);
 
 
 const PORT = process.env.PORT || 4000;
