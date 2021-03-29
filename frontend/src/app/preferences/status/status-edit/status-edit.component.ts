@@ -28,7 +28,6 @@ export class StatusEditComponent implements OnInit {
 
   open(data = null) {
     if (data) {
-      console.log(data)
       this.pageTitle = 'Edit Status';
       this.isForEdit = true;
       this.status = new StatusModel(data);

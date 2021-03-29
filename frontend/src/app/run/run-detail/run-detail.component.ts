@@ -10,6 +10,7 @@ import { RunModel } from 'src/app/models/run-model';
 import { SortedsetEditComponent } from '../sortedset-edit/sortedset-edit.component';
 import { SortedSetModel } from 'src/app/models/sortedset-model';
 import { RecognisedpartEditComponent } from '../recognisedpart-edit/recognisedpart-edit.component';
+import { RecognisedpartsService } from 'src/app/services/recognisedpart.service';
 
 @Component({
   selector: 'app-run-detail',
@@ -43,10 +44,11 @@ export class RunDetailComponent implements OnInit {
 
   public recognisedpartsColumns = [
     { title: 'Part Images Recorded', name: 'partimages', size: '65', minSize: '65', maxSize: '30%', datatype:{ type: 'images' } },
-    { title: 'Image', name: 'thumbnail_url', size: '65', minSize: '65' , datatype:{ type: 'image' }},
-    { title: 'Partno - Color Id', name: 'partnocolid', size: '80', minSize: '80' },
+    { title: 'Recignised Part', name: 'thumbnail_url', size: '65', minSize: '65' , datatype:{ type: 'image' }},
     { title: 'Color', name: 'color_name', size: '30', minSize: '30' },
     { title: 'Name', name: 'name', size: '120', minSize: '80' },
+    { title: 'Color Id', name: 'color_id', size: '80', minSize: '80' },
+    { title: 'Partno', name: 'no', size: '80', minSize: '80' },
     { title: 'Identifier', name: 'identifier', size: '30', minSize: '30' },
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' }},
   ];
@@ -61,6 +63,7 @@ export class RunDetailComponent implements OnInit {
   public recognisedpartsData: any;
   constructor(private activatedRoute: ActivatedRoute,
     private runService: RunService,
+    private recognisedpartsService: RecognisedpartsService,
     private router: Router, private toastr: ToastrService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
@@ -170,7 +173,7 @@ export class RunDetailComponent implements OnInit {
 
   getAllRecognisedparts() {
 
-    this.runService.getRecognisedpartByRunid(this.id).subscribe(
+    this.recognisedpartsService.getRecognisedpartByRunid(this.id).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -193,7 +196,7 @@ export class RunDetailComponent implements OnInit {
   
   labelparts(id) {
     console.log("label Parts for run id: " + id)
-    this.recognisedpartEdit.open();
+    this.router.navigateByUrl("/labelparts/" + id).then((bool) => { }).catch()
   }
 
   addNewRecognisedpart(newData: SortedSetModel) {
@@ -214,7 +217,7 @@ export class RunDetailComponent implements OnInit {
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
         console.log('Okay');
-        this.runService.deletetRecognisedpart(model.id).subscribe(
+        this.recognisedpartsService.markRecognisedpartAsDeletedById(model.id).subscribe(
           (data) => {
             if (data) {
               if (data.body && data.body.code == 200) {
@@ -246,8 +249,4 @@ export class RunDetailComponent implements OnInit {
     this.imgPopupURL = row.thumbnail_url;
     this.imagePopup.open();
   }
-//https://www.bricklink.com/PL/970c00.jpg?0
-//https://www.bricklink.com/PL/3001.jpg?2PP
-//https://www.bricklink.com/TL/13917.jpg?0
-//https://www.bricklink.com/PL/30389c.jpg?0
 }

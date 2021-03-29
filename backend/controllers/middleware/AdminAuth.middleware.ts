@@ -1,4 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
+//@ts-ignore
 import jwt from 'jsonwebtoken';
 import {Token_encodeInterface} from "./token_encode.interface";
 
@@ -13,12 +14,12 @@ export default (req: Request, res: Response, next: NextFunction)=>{
                     message: 'Invalid Token'
                 });
             } else {
-                if(decoded.type == "admin") {
+                if(decoded.type == "admin" || decoded.type == "script") {
                     next();
                 } else {
                     res.json({
                         code: 403,
-                        message: 'This token was not signed for admin.'
+                        message: 'This token was not signed for this type of user.'
                     });
                 }
             }

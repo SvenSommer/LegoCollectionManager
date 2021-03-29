@@ -50,6 +50,7 @@ import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
 import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
 import { CardComponent } from './shared/card/card.component';
+import { LabelpartsComponent } from './labelparts/labelparts.component';
 
 
 
@@ -94,7 +95,8 @@ import { CardComponent } from './shared/card/card.component';
     CategoriesComponent,
     PricesComponent,
     SetDetailComponent,
-    CardComponent
+    CardComponent,
+    LabelpartsComponent
 
   ],
   imports: [

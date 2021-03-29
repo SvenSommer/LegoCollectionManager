@@ -1,0 +1,59 @@
+<div class="container-fluid">
+    <h3 class="text-dark mb-4 pt-2">Label Parts</h3>
+    <div class="row" >
+        <div class="col-lg-6">
+            <div class="row">
+                <div class="col-ms-12 card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Recorded Images of Part {{current_partid}}</h6>
+                        <div class="dropdown no-arrow">
+                            <a class="btn btzn-link btn-sm" title="edit" aria-expanded="false"  type="button" (click)="onToogleAllDeleted(recognisedpartsData[currentpart_of_run])">
+                                <i class="fas fa-exchange-alt"></i>
+                            </a>
+                            <a class="pl-1 text-danger" title="Delete" (click)="onDeleteRecognisedPartClick(current_partid)">
+                                <i class="far fa-trash-alt text-gray-400"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <ng-container *ngFor='let index of [1,2,3,4,5,6,7,9,10]'>
+                                <img class="img-thumbnail rounded float-left" [style.height.px]="50"
+                                [src]="recognisedpartsData[currentpart_of_run+index].partimages[0].path" 
+                                [ngStyle]="styleImage(recognisedpartsData[currentpart_of_run+index].partimages[0].path)"
+                                
+                                />
+                            </ng-container> 
+                        </div>
+                        <hr>    
+                        <div class="row">
+                            <ng-container *ngFor="let partimage of recognisedpartsData[currentpart_of_run].partimages">
+                                <img class="img-thumbnail rounded float-left" [style.height.px]="150"
+                                [src]="partimage.path" (click)="onToggleDeleted(partimage)"
+                                [ngStyle]="styleImage(partimage)"
+                                
+                                />
+                            </ng-container> 
+                        </div>    
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="col-ms-12 card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Label</h6>
+                </div>
+                <div class="card-body">
+                    <button  *ngIf="currentpart_of_run!=0" class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="onPrevoiusPartClick()">
+                        <i class="fas fa-arrow-left text-gray-400"></i>
+                    </button>
+                    <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="onNextPartClick()">
+                        <i class="fas fa-arrow-right text-gray-400"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

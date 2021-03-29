@@ -41,13 +41,13 @@
               <img (click)="onImgClick(row,column)" *ngIf="getData(row,column,i)" [style.width.px]="column.minSize"
                 [src]="getData(row,column,i)" />
             </td>
-            <td *ngSwitchCase="'images'">
-              <!-- <ng-container *ngFor="let partimage of row.partimages">
-                <img [style.width.px]="column.minSize"
+            <td *ngSwitchCase="'images'" (click)="rowCellClick.emit(row)">
+               <ng-container *ngFor="let partimage of row.partimages">
+                <img *ngIf="partimage.deleted==null" [style.width.px]="column.minSize"
                   [src]="partimage.path" />
-              </ng-container> -->
+              </ng-container> 
             </td>
-            <td *ngSwitchCase="'percentage'"
+            <td *ngSwitchCase="'percentage'" (click)="rowCellClick.emit(row)"
               [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
               <ngb-progressbar [type]="column.datatype.style" [value]="getData(row,column,i)" [animated]="true" >{{getData(row,column,i)}}</ngb-progressbar>
               <span class="d-flex" [innerHtml]="getValue(row,column,i)"></span>
@@ -58,7 +58,6 @@
                 [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
             </td>
           </ng-container>
-
         </ng-container>
 
         <td *ngIf="isActionVisible">

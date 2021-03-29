@@ -18,7 +18,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"adminpass\"\r\n}",
+									"raw": "{\r\n    \"username\": \"scraper\",\r\n    \"password\": \"pw\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -270,6 +270,564 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Offers",
+			"item": [
+				{
+					"name": "Images",
+					"item": [
+						{
+							"name": "Create Image",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"offer_id\": 3,\r\n    \"imageurl\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n    \"downloadedpath\": \"offerimages/3/image1.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_images",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_images"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Images",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_images",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_images"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Preferences",
+					"item": [
+						{
+							"name": "Create Preferences",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"test\",\r\n    \"value\": \"true\"\r\n   \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_preferences",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_preferences"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Preferences",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_preferences",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_preferences"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Preference",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/offers_preferences/7",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_preferences",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Preference",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\r\n{\r\n    \"id\":11,\r\n    \"name\": \"test2\",\r\n    \"value\": \"true\"\r\n   \r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_preferences/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_preferences",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single Preference",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/offers_preferences/11",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_preferences",
+										"11"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Searchterms",
+					"item": [
+						{
+							"name": "Create Searchterm",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"searchterm\": \"lego\",\r\n    \"location\": \"Berlin\",\r\n    \"active\": 1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_searchterms",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_searchterms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Searchterms",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_searchterms",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_searchterms"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Searchterm",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/offers_searchterms/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_searchterms",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Searchterm",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":2,\r\n    \"searchterm\": \"lego\",\r\n    \"location\": \"Berlin\",\r\n    \"active\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_searchterms/4",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_searchterms",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single Searchterm",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/offers_searchterms/4",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_searchterms",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Views",
+					"item": [
+						{
+							"name": "Create Views",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"offer_id\": 3,\r\n    \"viewcount\": 20\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_views",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_views"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Views",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_views",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_views"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\": 11376516,\r\n    \"name\": \"Patrick Technau\",\r\n    \"type\": \"Privater Nutzer\",\r\n    \"offerscount\": 12,\r\n    \"friendliness\":\"Freundlich\",\r\n    \"satisfaction\":\"OK\",\r\n    \"accountcreated\": \"2012-08-30 00:00:00\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_users",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_users",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Status",
+					"item": [
+						{
+							"name": "Create Status",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"offer_id\": 3,\r\n    \"imageurl\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n    \"downloadedpath\": \"offerimages/3/image1.jpg\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_status",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Status",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_views",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_views"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Offer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"external_id\": 1714327303,\r\n    \"url\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n    \"searchterm_id\": 1,\r\n    \"title\": \"Lego 35-45 Kilo Konvolut (Star Wars, Feuerwehr, Weltraum...)\",\r\n    \"price\": 500,\r\n    \"pricetype\" : \"VB\",\r\n    \"currency\": \"€\",\r\n    \"locationgroup\": \"Prenzlauer Berg\",\r\n    \"locality\": \"Prenzlauer Berg\",\r\n    \"zipcode\" : \"10405\",\r\n    \"datecreated\": \"2021-03-28 07:33:19\",\r\n    \"type\": \"LEGO & Duplo\",\r\n    \"shipping\": \"Nur Abholung\",\r\n    \"userid\": 11376516,\r\n    \"description\": \"Ich verkaufe 3 Kisten mit unsortiertem Lego. Pro Kiste sind es etwa 10-15 Kilo an Inhalt also etwa 35-45 Kilo. Darin zu finden sind verschiedene Themen von Lego. Hauptsächlich Star Wars, Feuerwehr, Weltraum und andere. Die Kisten dürfen mitgenommen werde., Abzuholen im Prenzlauer Berg. Dies ist ein Privatverkauf. Daher ist jegliche Gewährleistung und Rücknahme ausgeschlossen.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/offers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"offers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show all Offers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/offers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"offers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show single Offer",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/offers/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"offers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Offer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n \"id\": 3,\r\n            \"external_id\": 1714327303,\r\n            \"url\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n            \"searchterm\": \"lego konvolut\",\r\n            \"title\": \"Lego 35-45 Kilo Konvolut (Star Wars, Feuerwehr, Weltraum...)\",\r\n            \"pricetype\": \"Festpreis\",\r\n            \"price\": 100,\r\n            \"currency\": \"€\",\r\n            \"locationgroup\": \"Prenzlauer Berg\",\r\n            \"locality\": \"Prenzlauer Berg\",\r\n            \"zipcode\": \"10405\",\r\n            \"datecreated\": \"2021-03-28 07:33:19\",\r\n            \"type\": \"LEGO\",\r\n            \"shipping\": \"Nur Abholung\",\r\n            \"userid\": 11376516,\r\n            \"description\": \"Ich verkaufe 3 Kisten mit unsortiertem Lego. Pro Kiste sind es etwa 10-15 Kilo an Inhalt also etwa 35-45 Kilo. Darin zu finden sind verschiedene Themen von Lego. Hauptsächlich Star Wars, Feuerwehr, Weltraum und andere. Die Kisten dürfen mitgenommen werde., Abzuholen im Prenzlauer Berg. Dies ist ein Privatverkauf. Daher ist jegliche Gewährleistung und Rücknahme ausgeschlossen.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/offers/3",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"offers",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete single Offer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/offers/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"offers",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1349,7 +1907,7 @@
 						{
 							"name": "Mark as Deleted single Partimage",
 							"request": {
-								"method": "LOCK",
+								"method": "PATCH",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -1732,6 +2290,28 @@
 									"path": [
 										"recognisedparts",
 										"6240"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mark RecognisedPart as Deleted",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/recognisedparts/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"recognisedparts",
+										"1"
 									]
 								}
 							},

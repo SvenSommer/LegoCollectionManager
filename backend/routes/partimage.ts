@@ -5,6 +5,7 @@ import UpdatePartimageById from '../controllers/partimages/update';
 import GetSinglePartimageById from '../controllers/partimages/single';
 import DeleteSinglePartimageById from '../controllers/partimages/delete';
 import MarkAsDeletedSinglePartimageById from '../controllers/partimages/markasdeleted';
+import MarkAsNotDeletedSinglePartimageById from '../controllers/partimages/markasundeleted';
 import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
 import UserAuthMiddleware from '../controllers/middleware/UserAuth.middleware';
 import {Router} from "express";
@@ -21,7 +22,10 @@ route.get(`/:id`, UserAuthMiddleware, GetSinglePartimageById);
 //Update a particular Partimage
 route.put(`/:id`, AdminAuthMiddleware, UpdatePartimageById);
 //Delete a particular Partimage
-route.delete(`/:id`, AdminAuthMiddleware, DeleteSinglePartimageById);
-route.lock(`/:id`, AdminAuthMiddleware, MarkAsDeletedSinglePartimageById);
+//route.delete(`/:id`, AdminAuthMiddleware, DeleteSinglePartimageById);
+//Mark as deleted
+route.delete(`/:id`, AdminAuthMiddleware, MarkAsDeletedSinglePartimageById);
+route.delete(`/:id/undelete`, AdminAuthMiddleware, MarkAsNotDeletedSinglePartimageById);
+route.patch(`/:id`, AdminAuthMiddleware, MarkAsDeletedSinglePartimageById);
 
 export default route;

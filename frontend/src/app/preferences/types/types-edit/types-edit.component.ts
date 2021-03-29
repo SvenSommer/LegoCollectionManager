@@ -28,7 +28,6 @@ export class TypesEditComponent implements OnInit {
 
   open(data = null) {
     if (data) {
-      console.log(data)
       this.pageTitle = 'Edit Type';
       this.isForEdit = true;
       this.type = new TypeModel(data);

@@ -28,7 +28,6 @@ export class SortedsetEditComponent implements OnInit {
   }
 
   open(data = null) {
-    console.log(data)
     this.sortedset = new SortedSetModel(data);
     if (data && data.id != 0) {
       this.pageTitle = 'Edit Sorted Set';

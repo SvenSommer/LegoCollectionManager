@@ -197,7 +197,6 @@ export class CollectionDetailComponent implements OnInit {
         (data) => {
           if (data) {
             if(data.body && data.body.code == 200){
-              console.log(data.body)
               this.newRunDetail.no = data.body.result[0].next_runno;
               this.runEdit.open(this.newRunDetail);
             }
@@ -208,7 +207,6 @@ export class CollectionDetailComponent implements OnInit {
 
 
   onRunCellClick(data){
-    console.log(data)
     this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
   }
 
