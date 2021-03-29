@@ -1,6 +1,5 @@
 import CreateImageOffer from '../controllers/offers/images/create';
 import ShowAllImageOffer from '../controllers/offers/images/show';
-import UpdateImageOfferById from '../controllers/offers/images/update';
 import GetSingleImageOfferById from '../controllers/offers/images/single';
 import DeleteSingleImageOfferById from '../controllers/offers/images/delete';
 import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
@@ -14,9 +13,8 @@ route.get(``, UserAuthMiddleware, ShowAllImageOffer);
 route.post(``, AdminAuthMiddleware, CreateImageOffer);
 //Show info about a specific image of offer
 route.get(`/:id`, UserAuthMiddleware, GetSingleImageOfferById);
-//Update a particular image of offer
-route.put(`/:id`, AdminAuthMiddleware, UpdateImageOfferById);
 //Delete a particular image of offer
 route.delete(`/:id`, AdminAuthMiddleware, DeleteSingleImageOfferById);
 
 export default route;
+

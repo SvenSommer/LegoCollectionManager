@@ -28,6 +28,7 @@ export class SetdataComponent implements OnInit {
     { title: 'Avg Price', name: 'avg_price', size: '40', minSize: '40', datatype: { type: 'price' } },
     { title: 'Unit Quantitiy', name: 'unit_quantity', size: '40', minSize: '40' },
     { title: 'Total Quantitiy', name: 'total_quantity', size: '40', minSize: '40' },
+    { title: 'Updated', name: 'created', size: '40', minSize: '40', datatype: { type: 'date' } },
   ]
 
 
@@ -59,6 +60,7 @@ export class SetdataComponent implements OnInit {
     this.router.navigateByUrl("/setdetail/" + data.id).then((bool) => { }).catch()
   }
 
+  
 
 
 }
