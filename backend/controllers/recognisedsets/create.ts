@@ -1,4 +1,3 @@
-import { Console } from 'console';
 import {Request, Response} from 'express';
 //@ts-ignore
 import jwt from 'jsonwebtoken';

@@ -39,10 +39,12 @@ import sortedparts from "./routes/sortedparts";
 import offers from "./routes/offers";
 import offers_images from "./routes/offers_images";
 import offers_preferences from "./routes/offers_preferences";
-import offers_searchterms from "./routes/offers_searchterms";
+import offers_searchproperties from "./routes/offers_searchproperties";
 import offers_users from "./routes/offers_users";
 import offers_views from "./routes/offers_views";
 import offers_status from "./routes/offers_status";
+import offers_possiblesets from "./routes/offers_possiblesets";
+import offers_properties from "./routes/offers_properties";
 
 
 const corsOpts = {
@@ -101,10 +103,12 @@ app.use('/sortedparts', sortedparts);
 app.use('/offers', offers);
 app.use('/offers_images', offers_images);
 app.use('/offers_preferences', offers_preferences);
-app.use('/offers_searchterms', offers_searchterms);
+app.use('/offers_searchproperties', offers_searchproperties);
 app.use('/offers_users', offers_users);
 app.use('/offers_views', offers_views);
 app.use('/offers_status', offers_status);
+app.use('/offers_possiblesets', offers_possiblesets);
+app.use('/offers_properties', offers_properties);
 
 
 const PORT = process.env.PORT || 4000;

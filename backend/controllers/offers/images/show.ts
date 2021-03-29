@@ -3,7 +3,7 @@ import connection from "../../../database_connection";
 
 export default (req: Request, res: Response) => {
     const showAllCollections = `SELECT *
-                                FROM LegoSorterDB.Offers;`
+                                FROM LegoSorterDB.Offers_Images;`
     connection.query(showAllCollections, (err, result) => {
         if (err) res.json({
             code: 500,

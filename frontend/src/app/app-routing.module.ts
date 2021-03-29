@@ -16,6 +16,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
 import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
 import { LabelpartsComponent } from './labelparts/labelparts.component';
+import { OfferComponent } from './offer/offer.component';
+import { OfferDetailComponent } from './offer/offer-detail/offer-detail.component';
 
 const routes: Routes = [
 
@@ -35,6 +37,8 @@ const routes: Routes = [
   {path:'categories',component:CategoriesComponent,canActivate:[AuthenticationGuard]},
   {path:'prices',component:PricesComponent,canActivate:[AuthenticationGuard]},
   {path:'labelparts/:runid',component:LabelpartsComponent,canActivate:[AuthenticationGuard]},
+  {path:'offer',component:OfferComponent,canActivate:[AuthenticationGuard]},
+  {path:'offerdetail/:id',component:OfferDetailComponent,canActivate:[AuthenticationGuard]},
 ];
 
 @NgModule({
