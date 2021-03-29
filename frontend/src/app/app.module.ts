@@ -49,6 +49,7 @@ import { ColorsComponent } from './colors/colors.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
 import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
+import { CardComponent } from './shared/card/card.component';
 
 
 
@@ -92,7 +93,8 @@ import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
     ColorsComponent,
     CategoriesComponent,
     PricesComponent,
-    SetDetailComponent
+    SetDetailComponent,
+    CardComponent
 
   ],
   imports: [
