@@ -49,7 +49,7 @@ import { ColorsComponent } from './colors/colors.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
 import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
-import { CardComponent } from './shared/card/card.component';
+import { CardComponent } from './shared/components/card/card.component';
 import { LabelpartsComponent } from './labelparts/labelparts.component';
 import { OfferComponent } from './offer/offer.component';
 import { OfferDetailComponent } from './offer/offer-detail/offer-detail.component';

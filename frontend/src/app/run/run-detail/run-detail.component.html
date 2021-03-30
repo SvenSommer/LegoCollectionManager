@@ -21,7 +21,7 @@
             </div>
         </div> -->
         <app-card [title]="'Parts Identified'" [showProgressbar]="true"
-        [data]="{color: 'info',identified: runDetails.parts_identified, total: runDetails.allSetsSumPartCount, percentage: runDetails.percentage_identified}"></app-card>
+        [data]="{color: 'info',current: runDetails.parts_identified, total: runDetails.allSetsSumPartCount, percentage: runDetails.percentage_identified}"></app-card>
     </div>
     <div class="col-md  mb-4" >
         <!-- <div class="card shadow border-left-success py-2">
@@ -43,7 +43,7 @@
             </div>
         </div> -->
         <app-card [title]="'Parts sorted of identified'" [showProgressbar]="true"
-        [data]="{color: 'success',identified: runDetails.sorted_parts_total, total: runDetails.parts_identified, percentage: runDetails.percentage_sorted_parts_total}">
+        [data]="{color: 'success',current: runDetails.sorted_parts_total, total: runDetails.parts_identified, percentage: runDetails.percentage_sorted_parts_total}">
       </app-card>
     </div>
     <div class="col-md  mb-4" >
@@ -66,7 +66,7 @@
             </div>
         </div> -->
         <app-card [title]="'Sorted (undetected)'" [showProgressbar]="true"
-        [data]="{color: 'danger',identified: runDetails.sorted_undetected_parts, total: runDetails.parts_identified, percentage: runDetails.percentage_sorted_undetected_parts}">
+        [data]="{color: 'danger',current: runDetails.sorted_undetected_parts, total: runDetails.parts_identified, percentage: runDetails.percentage_sorted_undetected_parts}">
         </app-card>
     </div>
     <div class="col-md  mb-4" >
@@ -89,7 +89,7 @@
             </div>
         </div> -->
         <app-card [title]="'Identified By CNN'" [showProgressbar]="true"
-        [data]="{color: 'primary',identified: runDetails.parts_identified_by_cnn, total: runDetails.parts_identified, percentage: runDetails.percentage_identified_by_cnn}">
+        [data]="{color: 'primary',current: runDetails.parts_identified_by_cnn, total: runDetails.parts_identified, percentage: runDetails.percentage_identified_by_cnn}">
         </app-card>
     </div>
     <div class="col-md  mb-4" >
@@ -111,7 +111,7 @@
             </div>
         </div> -->
         <app-card [title]="'Parts / colors to label'" [showProgressbar]="false"
-        [data]="{color: 'secondary',identified: runDetails.partno_not_yet_identified, total: runDetails.colorid_not_yet_identified, percentage: runDetails.percentage_identified_by_cnn}">
+        [data]="{color: 'secondary',current: runDetails.partno_not_yet_identified, total: runDetails.colorid_not_yet_identified, percentage: runDetails.percentage_identified_by_cnn}">
         </app-card>
     </div>
 </div>
