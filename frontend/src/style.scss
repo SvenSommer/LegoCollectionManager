@@ -102,14 +102,17 @@ label {
   .text-nowrap {
     white-space: nowrap!important;
   }
-  
+
   .pagination {
     display: flex;
     padding-left: 0;
     list-style: none;
     border-radius: .35rem;
   }
-  
-  
-  
+
+  .p-r-20 {
+    padding-right: 20px;
+  }
+
+
 

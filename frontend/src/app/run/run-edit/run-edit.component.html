@@ -9,12 +9,13 @@
                     <div *ngIf="isFromCollection==false">
                         <div class="form-group">
                             <label>Collection id</label>
-                            <div class="input-group">
-                                <input type="number" #status="ngModel" [(ngModel)]="run.collection_id"
-                                    class="form-control" id="collection_id" name="collection_id">
-                            </div>
+                            <select id="collection_id" name="collection_id" class="form-control input-group" (change)="onCollectionChange($event.target.value)" #status="ngModel" [(ngModel)]="run.collection_id">
+                              <option *ngFor="let cl of collectionList" [value]="cl.id">
+                                  {{ cl.name }}
+                              </option>
+                            </select>
                         </div>
-                        <div class="form-group" >
+                        <div class="form-group" [hidden]="true">
                             <label>No</label>
                             <div class="input-group">
                                 <input type="number" required #name="ngModel" [(ngModel)]="run.no" class="form-control"
@@ -25,26 +26,28 @@
                     <div *ngIf="isFromCollection==true">
                         <div class="form-group">
                             <label>Collection id</label>
-                            <div class="input-group">
-                                <input disabled type="number" #status="ngModel" [(ngModel)]="run.collection_id"
-                                    class="form-control" id="collection_id" name="collection_id">
-                            </div>
+                            <select disabled id="collection_id" name="collection_id" (change)="onCollectionChange($event.target.value)" class="form-control input-group" #status="ngModel" [(ngModel)]="run.collection_id">
+                              <option *ngFor="let cl of collectionList" [value]="cl.id">
+                                  {{ cl.name }}
+                              </option>
+                            </select>
                         </div>
-                        <div class="form-group" >
+                        <div class="form-group" [hidden]="true">
                             <label>No</label>
                             <div class="input-group">
                                 <input disabled type="number" required #name="ngModel" [(ngModel)]="run.no" class="form-control"
                                     id="No" name="No">
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="form-group">
                         <label>Sorter id</label>
-                        <div class="input-group">
-                            <input type="number" #status="ngModel" [(ngModel)]="run.sorter_id"
-                                class="form-control" id="sorter_id" name="sorter_id">
-                        </div>
+                        <select ngModel name="sorter_id" id="sorter_id" class="form-control input-group" #status="ngModel" [(ngModel)]="run.sorter_id" #t>
+                          <option *ngFor="let sorter of sorterList" [value]="sorter.id">
+                              {{ sorter.name }}
+                          </option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Imagefolder</label>

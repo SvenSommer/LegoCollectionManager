@@ -5,6 +5,9 @@ import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { RunModel } from 'src/app/models/run-model';
+import { CollectionService } from 'src/app/services/collection.service';
+import { SorterService } from 'src/app/services/sorter.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-run-edit',
@@ -13,7 +16,11 @@ import { RunModel } from 'src/app/models/run-model';
 })
 export class RunEditComponent implements OnInit {
 
-  constructor(private runSer: RunService, private toastr: ToastrService) { }
+  public collectionList: Array<any>;
+  public sorterList: Array<any>;
+
+  constructor(private runSer: RunService, private router: Router, private toastr: ToastrService, private collectionService: CollectionService,
+    private sorterService: SorterService) { }
 
   @ViewChild('modalPopup') modal: ModalPopupComponent;
 
@@ -26,6 +33,57 @@ export class RunEditComponent implements OnInit {
   public pageTitle = 'Add new Run';
 
   ngOnInit(): void {
+    this.getCollectionsList();
+    this.getSortersList();
+  }
+
+  getCollectionsList() {
+    this.collectionService.getCollections().subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            this.collectionList = data.body.result;
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  getSortersList() {
+    this.sorterService.getSorters().subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            this.sorterList = data.body.result;
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  onCollectionChange(collectionId) {
+    this.collectionService.getRunsNextnoByCollectionid(collectionId).subscribe(
+      (data) => {
+        if (data) {
+          if(data.body && data.body.code == 200){
+            this.run.no = data.body.result[0].next_runno;
+            this.run.imagefolder = '/partimages/collection' + collectionId + '/run' + this.run.no;
+          }
+        }
+      }
+    );
   }
 
   open(data = null) {
@@ -45,6 +103,8 @@ export class RunEditComponent implements OnInit {
   }
 
   onSubmit(runForm: NgForm) {
+    console.log('runForm::::::::::::',runForm)
+    console.log('this.run::::::::::::',this.run)
     this.isFormSubmitted = true;
     if (!runForm.valid) {
       return;
