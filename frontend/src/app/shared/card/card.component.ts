@@ -7,6 +7,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CardComponent implements OnInit {
 
+  @Input() public showProgressbar: boolean;
+  @Input() public showIcon: boolean;
+  @Input() public title: string;
   @Input() public data: any
 
   constructor() { }

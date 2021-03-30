@@ -73,6 +73,19 @@ export class RunEditComponent implements OnInit {
     );
   }
 
+  onCollectionChange(collectionId) {
+    this.collectionService.getRunsNextnoByCollectionid(collectionId).subscribe(
+      (data) => {
+        if (data) {
+          if(data.body && data.body.code == 200){
+            this.run.no = data.body.result[0].next_runno;
+            this.run.imagefolder = '/partimages/collection' + collectionId + '/run' + this.run.no;
+          }
+        }
+      }
+    );
+  }
+
   open(data = null) {
     this.run = new RunModel(data);
     if (data && data.id != 0) {
