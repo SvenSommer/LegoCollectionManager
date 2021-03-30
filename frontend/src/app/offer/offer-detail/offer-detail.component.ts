@@ -51,11 +51,20 @@ export class OfferDetailComponent implements OnInit {
     "amount":1,
     "comments":""
   }
+  public newpropertiesDetails ={
+    "offer_id": 0,
+    "weight_kg": 0,
+    "instructions": "",
+    "minifigs": "",
+    "boxes": "",
+    "notes": ""
+  }
+
   public isSetFormSubmitted = false;
 
   public viewData: any; 
   public possiblesetData: any; 
-
+  public propertiesData: any;
   constructor(private activatedRoute: ActivatedRoute,
     private offerService: OfferService,
     private router: Router, private toastr: ToastrService,
@@ -67,6 +76,7 @@ export class OfferDetailComponent implements OnInit {
         this.offerid = params['id'];
         if (this.offerid > 0) {
           this.newpossiblesetDetail.offer_id = this.offerid;
+          this.newpropertiesDetails.offer_id = this.offerid;
           this.bindData();
           this.getAllViews();
           this.getAllPossiblesets();
@@ -144,6 +154,9 @@ export class OfferDetailComponent implements OnInit {
       );
     }
 
+  
+  
+
 
     onSubmitAddSets(form: NgForm) {
       this.isSetFormSubmitted = true;
@@ -176,7 +189,6 @@ export class OfferDetailComponent implements OnInit {
           console.log(error.name + ' ' + error.message);
         }
       );
-  
     }
 
     onRowPossibleSetClick(data) {
