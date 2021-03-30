@@ -21,6 +21,7 @@ export class OfferDetailComponent implements OnInit {
   public offerDetails;
   public possiblesetDetails;
 
+
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' }  },
@@ -51,6 +52,15 @@ export class OfferDetailComponent implements OnInit {
     "amount":1,
     "comments":""
   }
+  public propertiesDetails ={
+    "offer_id": 0,
+    "weight_kg": 0,
+    "instructions": "",
+    "minifigs": "",
+    "boxes": "",
+    "notes": ""
+  }
+
   public isSetFormSubmitted = false;
 
   public viewData: any; 
@@ -67,6 +77,7 @@ export class OfferDetailComponent implements OnInit {
         this.offerid = params['id'];
         if (this.offerid > 0) {
           this.newpossiblesetDetail.offer_id = this.offerid;
+          this.propertiesDetails.offer_id = this.offerid;
           this.bindData();
           this.getAllViews();
           this.getAllPossiblesets();
@@ -144,6 +155,9 @@ export class OfferDetailComponent implements OnInit {
       );
     }
 
+  
+  
+
 
     onSubmitAddSets(form: NgForm) {
       this.isSetFormSubmitted = true;
@@ -176,7 +190,6 @@ export class OfferDetailComponent implements OnInit {
           console.log(error.name + ' ' + error.message);
         }
       );
-  
     }
 
     onRowPossibleSetClick(data) {
