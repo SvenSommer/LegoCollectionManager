@@ -47,6 +47,12 @@
                   [src]="partimage.path" />
               </ng-container> 
             </td>
+            <td *ngSwitchCase="'imagesoffers'" (click)="rowCellClick.emit(row)">
+              <ng-container *ngFor="let image of row.images">
+               <img [style.width.px]="column.minSize"
+                 [src]="image.path" />
+             </ng-container> 
+           </td>
             <td *ngSwitchCase="'percentage'" (click)="rowCellClick.emit(row)"
               [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">
               <ngb-progressbar [type]="column.datatype.style" [value]="getData(row,column,i)" [animated]="true" >{{getData(row,column,i)}}</ngb-progressbar>

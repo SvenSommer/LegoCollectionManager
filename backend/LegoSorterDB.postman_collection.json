@@ -286,7 +286,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"offer_id\": 3,\r\n    \"imageurl\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n    \"downloadedpath\": \"offerimages/3/image1.jpg\"\r\n}",
+									"raw": "{\r\n    \"offer_id\": 3,\r\n    \"imageurl\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3412.jpg\",\r\n    \"downloadedpath\": \"offerimages/3/1714327303-23-3412.jpg\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -317,6 +317,288 @@
 									],
 									"path": [
 										"offers_images"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Properties",
+					"item": [
+						{
+							"name": "Create Properties",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"offer_id\": 3,\r\n    \"weight_kg\": 20,\r\n    \"instructions\": \"nein\",\r\n    \"minifigs\": \"ja\",\r\n    \"boxes\":\"nein\",\r\n    \"notes\":\"potentieller kauf\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_properties",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_properties"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all  Properties",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_properties",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_properties"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Properties by offer_id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_properties/offer/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_properties",
+										"offer",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single Property",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/offers_properties/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_properties",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update  Property",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":1,\r\n    \"offer_id\": 3,\r\n    \"setno\": \"7080\",\r\n    \"amount\":1,\r\n    \"comments\":\"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_properties/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_properties",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single  Property",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/offers_properties/11",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_properties",
+										"11"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Possible Sets",
+					"item": [
+						{
+							"name": "Create possible Set",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"offer_id\": 3,\r\n    \"setno\": \"7080\",\r\n    \"amount\": 1,\r\n    \"comments\":\"test\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_possiblesets",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_possiblesets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all possible Sets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_possiblesets",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_possiblesets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all possible Sets by offer_id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_possiblesets/offer/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_possiblesets",
+										"offer",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show single possible Set",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/offers_possiblesets/7",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_possiblesets",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update possible Set",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":1,\r\n    \"offer_id\": 3,\r\n    \"setno\": \"7080\",\r\n    \"amount\":1,\r\n    \"comments\":\"test2\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_possiblesets/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_possiblesets",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete single possible Set",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/offers_possiblesets/1",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_possiblesets",
+										"1"
 									]
 								}
 							},
@@ -456,7 +738,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"searchterm\": \"lego\",\r\n    \"location\": \"Berlin\",\r\n    \"active\": 1\r\n}",
+									"raw": "{\r\n          \r\n            \"searchterm\": \"Lego Konvulut Test\",\r\n            \"location\": \"Berlin\",\r\n            \"pricemin\": 30,\r\n            \"pricemax\": 200,\r\n            \"onlypickup\": 1,\r\n            \"active\": 1,\r\n            \"created\": \"2021-03-28T17:11:40.000Z\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -464,12 +746,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/offers_searchterms",
+									"raw": "{{URL}}/offers_searchproperties",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"offers_searchterms"
+										"offers_searchproperties"
 									]
 								}
 							},
@@ -481,12 +763,12 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/offers_searchterms",
+									"raw": "{{URL}}/offers_searchproperties",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"offers_searchterms"
+										"offers_searchproperties"
 									]
 								}
 							},
@@ -505,12 +787,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/offers_searchterms/3",
+									"raw": "{{URL}}/offers_searchproperties/3",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"offers_searchterms",
+										"offers_searchproperties",
 										"3"
 									]
 								}
@@ -524,7 +806,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\":2,\r\n    \"searchterm\": \"lego\",\r\n    \"location\": \"Berlin\",\r\n    \"active\": 2\r\n}",
+									"raw": " {\r\n            \"id\": 3,\r\n            \"searchterm\": \"Lego Kilo kg\",\r\n            \"location\": \"Berlin\",\r\n            \"pricemin\": null,\r\n            \"pricemax\": null,\r\n            \"onlypickup\": null,\r\n            \"active\": 0,\r\n            \"created\": \"2021-03-28T17:13:13.000Z\"\r\n        }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -532,13 +814,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/offers_searchterms/4",
+									"raw": "{{URL}}/offers_searchproperties/1",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"offers_searchterms",
-										"4"
+										"offers_searchproperties",
+										"1"
 									]
 								}
 							},
@@ -554,12 +836,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/offers_searchterms/4",
+									"raw": "{{URL}}/offers_searchproperties/4",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"offers_searchterms",
+										"offers_searchproperties",
 										"4"
 									]
 								}
@@ -609,6 +891,25 @@
 									],
 									"path": [
 										"offers_views"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Views by offerid",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_views/offer/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_views",
+										"offer",
+										"3"
 									]
 								}
 							},
@@ -719,7 +1020,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"external_id\": 1714327303,\r\n    \"url\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n    \"searchterm_id\": 1,\r\n    \"title\": \"Lego 35-45 Kilo Konvolut (Star Wars, Feuerwehr, Weltraum...)\",\r\n    \"price\": 500,\r\n    \"pricetype\" : \"VB\",\r\n    \"currency\": \"€\",\r\n    \"locationgroup\": \"Prenzlauer Berg\",\r\n    \"locality\": \"Prenzlauer Berg\",\r\n    \"zipcode\" : \"10405\",\r\n    \"datecreated\": \"2021-03-28 07:33:19\",\r\n    \"type\": \"LEGO & Duplo\",\r\n    \"shipping\": \"Nur Abholung\",\r\n    \"userid\": 11376516,\r\n    \"description\": \"Ich verkaufe 3 Kisten mit unsortiertem Lego. Pro Kiste sind es etwa 10-15 Kilo an Inhalt also etwa 35-45 Kilo. Darin zu finden sind verschiedene Themen von Lego. Hauptsächlich Star Wars, Feuerwehr, Weltraum und andere. Die Kisten dürfen mitgenommen werde., Abzuholen im Prenzlauer Berg. Dies ist ein Privatverkauf. Daher ist jegliche Gewährleistung und Rücknahme ausgeschlossen.\"\r\n}",
+							"raw": "{\r\n    \"external_id\": 1714327303,\r\n    \"url\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n    \"searchproperties_id\": 1,\r\n    \"title\": \"Lego 35-45 Kilo Konvolut (Star Wars, Feuerwehr, Weltraum...)\",\r\n    \"price\": 500,\r\n    \"pricetype\" : \"VB\",\r\n    \"currency\": \"€\",\r\n    \"locationgroup\": \"Prenzlauer Berg\",\r\n    \"locality\": \"Prenzlauer Berg\",\r\n    \"zipcode\" : \"10405\",\r\n    \"datecreated\": \"2021-03-28 07:33:19\",\r\n    \"type\": \"LEGO & Duplo\",\r\n    \"shipping\": \"Nur Abholung\",\r\n    \"user_id\": 11376516,\r\n    \"description\": \"Ich verkaufe 3 Kisten mit unsortiertem Lego. Pro Kiste sind es etwa 10-15 Kilo an Inhalt also etwa 35-45 Kilo. Darin zu finden sind verschiedene Themen von Lego. Hauptsächlich Star Wars, Feuerwehr, Weltraum und andere. Die Kisten dürfen mitgenommen werde., Abzuholen im Prenzlauer Berg. Dies ist ein Privatverkauf. Daher ist jegliche Gewährleistung und Rücknahme ausgeschlossen.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -787,7 +1088,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n \"id\": 3,\r\n            \"external_id\": 1714327303,\r\n            \"url\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n            \"searchterm\": \"lego konvolut\",\r\n            \"title\": \"Lego 35-45 Kilo Konvolut (Star Wars, Feuerwehr, Weltraum...)\",\r\n            \"pricetype\": \"Festpreis\",\r\n            \"price\": 100,\r\n            \"currency\": \"€\",\r\n            \"locationgroup\": \"Prenzlauer Berg\",\r\n            \"locality\": \"Prenzlauer Berg\",\r\n            \"zipcode\": \"10405\",\r\n            \"datecreated\": \"2021-03-28 07:33:19\",\r\n            \"type\": \"LEGO\",\r\n            \"shipping\": \"Nur Abholung\",\r\n            \"userid\": 11376516,\r\n            \"description\": \"Ich verkaufe 3 Kisten mit unsortiertem Lego. Pro Kiste sind es etwa 10-15 Kilo an Inhalt also etwa 35-45 Kilo. Darin zu finden sind verschiedene Themen von Lego. Hauptsächlich Star Wars, Feuerwehr, Weltraum und andere. Die Kisten dürfen mitgenommen werde., Abzuholen im Prenzlauer Berg. Dies ist ein Privatverkauf. Daher ist jegliche Gewährleistung und Rücknahme ausgeschlossen.\"\r\n}",
+							"raw": "{\r\n    \"id\":3,\r\n    \"external_id\": 1714327303,\r\n    \"url\": \"https://www.ebay-kleinanzeigen.de/s-anzeige/lego-35-45-kilo-konvolut-star-wars-feuerwehr-weltraum-/1714327303-23-3492\",\r\n    \"searchproperties_id\": 1,\r\n    \"title\": \"Lego 35-45 Kilo Konvolut (Star Wars, Feuerwehr, Weltraum...)\",\r\n    \"price\": 500,\r\n    \"pricetype\" : \"VB\",\r\n    \"currency\": \"€\",\r\n    \"locationgroup\": \"Prenzlauer Berg\",\r\n    \"locality\": \"Prenzlauer Berg\",\r\n    \"zipcode\" : \"10405\",\r\n    \"datecreated\": \"2021-03-28 07:33:19\",\r\n    \"type\": \"LEGO & Duplo\",\r\n    \"shipping\": \"Nur Abholung\",\r\n    \"user_id\": 11376516,\r\n    \"description\": \"Ich verkaufe 3 Kisten mit unsortiertem Lego. Pro Kiste sind es etwa 10-15 Kilo an Inhalt also etwa 35-45 Kilo. Darin zu finden sind verschiedene Themen von Lego. Hauptsächlich Star Wars, Feuerwehr, Weltraum und andere. Die Kisten dürfen mitgenommen werde., Abzuholen im Prenzlauer Berg. Dies ist ein Privatverkauf. Daher ist jegliche Gewährleistung und Rücknahme ausgeschlossen.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

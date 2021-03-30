@@ -50,6 +50,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
 import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
 import { LabelpartsComponent } from './labelparts/labelparts.component';
+import { OfferComponent } from './offer/offer.component';
+import { OfferDetailComponent } from './offer/offer-detail/offer-detail.component';
 
 
 
@@ -94,7 +96,9 @@ import { LabelpartsComponent } from './labelparts/labelparts.component';
     CategoriesComponent,
     PricesComponent,
     SetDetailComponent,
-    LabelpartsComponent
+    LabelpartsComponent,
+    OfferComponent,
+    OfferDetailComponent
 
   ],
   imports: [
