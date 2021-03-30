@@ -21,7 +21,6 @@ export class OfferDetailComponent implements OnInit {
   public offerDetails;
   public possiblesetDetails;
 
-
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' }  },
@@ -52,7 +51,7 @@ export class OfferDetailComponent implements OnInit {
     "amount":1,
     "comments":""
   }
-  public propertiesDetails ={
+  public newpropertiesDetails ={
     "offer_id": 0,
     "weight_kg": 0,
     "instructions": "",
@@ -65,7 +64,7 @@ export class OfferDetailComponent implements OnInit {
 
   public viewData: any; 
   public possiblesetData: any; 
-
+  public propertiesData: any;
   constructor(private activatedRoute: ActivatedRoute,
     private offerService: OfferService,
     private router: Router, private toastr: ToastrService,
@@ -77,7 +76,7 @@ export class OfferDetailComponent implements OnInit {
         this.offerid = params['id'];
         if (this.offerid > 0) {
           this.newpossiblesetDetail.offer_id = this.offerid;
-          this.propertiesDetails.offer_id = this.offerid;
+          this.newpropertiesDetails.offer_id = this.offerid;
           this.bindData();
           this.getAllViews();
           this.getAllPossiblesets();

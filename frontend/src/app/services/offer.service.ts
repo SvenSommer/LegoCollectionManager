@@ -29,6 +29,11 @@ export class OfferService {
       return this.http.get<any>(`${environment.baseUrl}offers_views/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }  
 
+    getProprtiesByOfferId(id): Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}offers_properties/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
     
     saveNewPossibleSets(model): Observable<any> {
       let headers = new HttpHeaders({
