@@ -43,8 +43,7 @@ export class RunEditComponent implements OnInit {
   ngOnInit(): void {
     this.getCollectionsList();
     this.getSortersList();
-    this.getExpectedSets();
-    this.getAllPushers();
+
   }
 
   getCollectionsList() {
@@ -97,7 +96,9 @@ export class RunEditComponent implements OnInit {
   }
 
   getExpectedSets() {
-    this.collectionService.getExpectedSets(1).subscribe(
+
+
+    this.collectionService.getExpectedSets(this.run.collection_id).subscribe(
       (data) => {
         console.log('data:::::::::',data.body.sets[0])
         if (data) {
@@ -116,11 +117,10 @@ export class RunEditComponent implements OnInit {
   }
 
   getAllPushers() {
-    this.sorterService.getPushers(1).subscribe(
+    this.sorterService.getPushers(this.run.sorter_id).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            console.log('pusherList:::::',data)
             // this.pusherList = data.body;
           }
           else if (data.body && data.body.code == 403) {
@@ -136,6 +136,10 @@ export class RunEditComponent implements OnInit {
 
   toggle(ev:MatSlideToggleChange ){
     this.showDragDrop = ev.checked;
+    if(this.run && this.run.sorter_id && this.run.collection_id){
+      this.getExpectedSets();
+      this.getAllPushers();
+    }
   }
 
   drop(event: CdkDragDrop<string[]>) {

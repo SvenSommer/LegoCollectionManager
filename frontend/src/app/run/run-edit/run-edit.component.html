@@ -106,9 +106,9 @@
     </div>
     <div>
       <label class="mr-3" for="">Sort Sets: </label>
-      <mat-slide-toggle (change)="toggle($event)"></mat-slide-toggle>
+      <mat-slide-toggle [disabled]="!run.collection_id || !run.sorter_id" (change)="toggle($event)"></mat-slide-toggle>
     </div>
-    <div *ngIf="!showDragDrop" style="display: flex;">
+    <div *ngIf="showDragDrop" style="display: flex;">
       <div class="example-container">
         <h2>Available Sets</h2>
         <div>
