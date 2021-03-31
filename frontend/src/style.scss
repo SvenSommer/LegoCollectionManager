@@ -114,5 +114,11 @@ label {
     padding-right: 20px;
   }
 
+  .mat-expansion-panel-header.mat-expanded {
+      background: #007bff !important;
+      .mat-expansion-panel-header-title {
+        color: #ffffff !important;
+      }
+  }
 
 

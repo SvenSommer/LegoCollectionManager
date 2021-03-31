@@ -8,6 +8,8 @@ import { RunModel } from 'src/app/models/run-model';
 import { CollectionService } from 'src/app/services/collection.service';
 import { SorterService } from 'src/app/services/sorter.service';
 import { Router } from '@angular/router';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-run-edit',
@@ -18,6 +20,12 @@ export class RunEditComponent implements OnInit {
 
   public collectionList: Array<any>;
   public sorterList: Array<any>;
+  public expectedSets: Array<any> = [];
+  public pusherList: Array<any> = [];
+
+  public setSearch:string;
+  public pusherSearch:string;
+  public showDragDrop:boolean;
 
   constructor(private runSer: RunService, private router: Router, private toastr: ToastrService, private collectionService: CollectionService,
     private sorterService: SorterService) { }
@@ -35,6 +43,8 @@ export class RunEditComponent implements OnInit {
   ngOnInit(): void {
     this.getCollectionsList();
     this.getSortersList();
+    this.getExpectedSets();
+    this.getAllPushers();
   }
 
   getCollectionsList() {
@@ -84,6 +94,61 @@ export class RunEditComponent implements OnInit {
         }
       }
     );
+  }
+
+  getExpectedSets() {
+    this.collectionService.getExpectedSets(1).subscribe(
+      (data) => {
+        console.log('data:::::::::',data.body.sets[0])
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            this.expectedSets = data.body.sets;
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  getAllPushers() {
+    this.sorterService.getPushers(1).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            console.log('pusherList:::::',data)
+            // this.pusherList = data.body;
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  toggle(ev:MatSlideToggleChange ){
+    this.showDragDrop = ev.checked;
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
+    console.log('this.expectedSets:::::::::::',this.expectedSets.length)
+    console.log('this.pusherList:::::::::::',this.pusherList.length)
   }
 
   open(data = null) {

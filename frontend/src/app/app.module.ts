@@ -53,6 +53,10 @@ import { CardComponent } from './shared/components/card/card.component';
 import { LabelpartsComponent } from './labelparts/labelparts.component';
 import { OfferComponent } from './offer/offer.component';
 import { OfferDetailComponent } from './offer/offer-detail/offer-detail.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatInputModule} from '@angular/material/input';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 
@@ -114,7 +118,11 @@ import { OfferDetailComponent } from './offer/offer-detail/offer-detail.componen
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgxBootstrapConfirmModule
+    NgxBootstrapConfirmModule,
+    DragDropModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatSlideToggleModule
   ],
   providers: [AuthGuardService,CollectionService, NgFilterPipe],
   bootstrap: [AppComponent]
