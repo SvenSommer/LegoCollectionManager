@@ -108,7 +108,7 @@
       <label class="mr-3" for="">Sort Sets: </label>
       <mat-slide-toggle (change)="toggle($event)"></mat-slide-toggle>
     </div>
-    <div *ngIf="showDragDrop" style="display: flex;">
+    <div *ngIf="!showDragDrop" style="display: flex;">
       <div class="example-container">
         <h2>Available Sets</h2>
         <div>
@@ -148,7 +148,7 @@
                 </div>
                 <div style="display: flex">
                     <label class="col-md-6">Price: </label>
-                    <p>{{ item.qty_avg_price }}</p>
+                    <p>{{ item.qty_avg_price }} €</p>
                 </div>
               </div>
             </mat-expansion-panel>
@@ -165,6 +165,7 @@
               <input matInput name="pusherSearch" [(ngModel)] = "pusherSearch">
             </mat-form-field>
           </form>
+
         </div>
         <div
           cdkDropList
@@ -174,9 +175,36 @@
           class="example-list"
           (cdkDropListDropped)="drop($event)"
         >
-          <div class="example-box" *ngFor="let item of pusherList" cdkDrag>
+          <!-- <div class="example-box" *ngFor="let item of pusherList" cdkDrag>
             {{ item.no }} - {{ item.name }}
-          </div>
+          </div> -->
+
+          <mat-accordion *ngFor="let item of pusherList" cdkDrag>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header class="disable_ripple">
+                <mat-panel-title>
+                  {{ item.no }} - {{ item.name }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="card mb-3 mt-3">
+                <div class="card-body text-center shadow">
+                  <img height="100px" [src]="item.image_url" alt="image_url" />
+                </div>
+                <div class="mt-3" style="display: flex">
+                    <label class="col-md-6">Parts: </label>
+                    <p>{{ item.parts_existing }}</p>
+                </div>
+                <div style="display: flex">
+                    <label class="col-md-6">Identified: </label>
+                    <p>{{ item.partsidentified_percentage }}</p>
+                </div>
+                <div style="display: flex">
+                    <label class="col-md-6">Price: </label>
+                    <p>{{ item.qty_avg_price }} €</p>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
       </div>
     </div>
