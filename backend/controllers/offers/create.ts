@@ -20,21 +20,22 @@ export default (req: Request, res: Response) => {
             userid,
             description
         } = req.body;
-        if (external_id &&
-            url &&
-            searchterm_id &&
-            title &&
-            price &&
-            pricetype &&
-            currency &&
-            locationgroup &&
-            locality &&
-            zipcode &&
-            datecreated &&
-            type &&
-            shipping &&
-            userid &&
-            description) {
+        if (external_id
+            // url &&
+            // searchterm_id &&
+            // title &&
+            // price &&
+            // // pricetype &&
+            // currency &&
+            // locationgroup &&
+            // locality &&
+            // zipcode &&
+            // datecreated &&
+            // type &&
+            // shipping &&
+            // userid &&
+            // description
+            ) {
                 const createOffer = `INSERT INTO Offers
                 (external_id,
                 url,

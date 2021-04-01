@@ -48,7 +48,7 @@ import offers_properties from "./routes/offers_properties";
 
 
 const corsOpts = {
-    origin: 'http://localhost:4200',
+    origin: 'http://localhost:3001',
     credentials: true,
     methods: [
         'GET',
@@ -68,6 +68,8 @@ const corsOpts = {
 */
 dotenv.config();
 app.use(cors(corsOpts));
+// app.use(cors());
+// app.options("*")
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -119,4 +121,3 @@ connection.getConnection((err) => {
         console.log(`Connected to DB`)
     });
 })
-
