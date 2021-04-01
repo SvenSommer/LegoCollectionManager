@@ -6,7 +6,7 @@ export default (req: Request, res: Response) => {
         const {
             external_id,
             url,
-            searchterm_id,
+            searchproperties_id,
             title,
             price,
             pricetype,
@@ -17,29 +17,29 @@ export default (req: Request, res: Response) => {
             datecreated,
             type,
             shipping,
-            userid,
+            user_id,
             description
         } = req.body;
-        if (external_id
-            // url &&
-            // searchterm_id &&
-            // title &&
-            // price &&
-            // // pricetype &&
-            // currency &&
-            // locationgroup &&
-            // locality &&
-            // zipcode &&
-            // datecreated &&
-            // type &&
-            // shipping &&
-            // userid &&
-            // description
+        if (external_id &&
+            url &&
+            searchproperties_id &&
+            title &&
+            price &&
+            pricetype &&
+            currency &&
+            locationgroup &&
+            locality &&
+            zipcode &&
+            datecreated &&
+            type &&
+            shipping &&
+            user_id &&
+            description
             ) {
                 const createOffer = `INSERT INTO Offers
                 (external_id,
                 url,
-                searchterm_id,
+                searchproperties_id,
                 title,
                 price,
                 pricetype,
@@ -50,12 +50,12 @@ export default (req: Request, res: Response) => {
                 datecreated,
                 type,
                 shipping,
-                userid,
+                user_id,
                 description)
                 VALUES(
                         ${external_id},
                         '${url}',
-                        '${searchterm_id}',
+                        '${searchproperties_id}',
                         '${title.replace("'","`").replace("'","`")}',
                          ${price},
                         '${pricetype}',
@@ -66,7 +66,7 @@ export default (req: Request, res: Response) => {
                         '${datecreated}',
                         '${type}',
                         '${shipping}',
-                         ${userid},
+                         ${user_id},
                         '${description.replace("'","`").replace("'","`")}')`;
                 connection.query(createOffer, (err, result:any) => {
                     if (err){ 
