@@ -19,13 +19,13 @@ export class OfferComponent implements OnInit {
 
   public columns = [
     { title: 'Image', name: 'images', size: '65', minSize: '65', datatype: { type: 'imagesoffers'}},
-    { title: 'Title', name: 'title', size: '20%', minSize: '120' },
-    { title: 'Price', name: 'price', size: '20%', minSize: '120', datatype: { type: 'price' } },
-    { title: 'Price Type', name: 'pricetype', size: '20%', minSize: '120' },
-    { title: 'Zipcode', name: 'zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },
-    { title: 'Shipping', name: 'shipping', size: '40', minSize: '40' },
-    { title: 'Seller', name: 'user.name', size: '40', minSize: '40' },
-    { title: 'Offer Date', name: 'datecreated', size: '100', minSize: '100', datatype: { type: 'date' } },
+    { title: 'Title', name: 'offerinfo.title', size: '20%', minSize: '120' },
+    { title: 'Price', name: 'offerinfo.price', size: '20%', minSize: '120', datatype: { type: 'price' } },
+    { title: 'Price Type', name: 'offerinfo.pricetype', size: '20%', minSize: '120' },
+    { title: 'Zipcode', name: 'offerinfo.zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },
+    { title: 'Shipping', name: 'offerinfo.shipping', size: '40', minSize: '40' },
+    { title: 'Seller', name: 'userinfo.name', size: '40', minSize: '40' },
+    { title: 'Offer Date', name: 'offerinfo.datecreated', size: '100', minSize: '100', datatype: { type: 'date' } },
   ];
 
   public data: any;

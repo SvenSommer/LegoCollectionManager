@@ -48,7 +48,7 @@ import offers_properties from "./routes/offers_properties";
 
 
 const corsOpts = {
-    origin: 'http://localhost:3001',
+    origin: ['http://localhost:3001','http://localhost:4200'],
     credentials: true,
     methods: [
         'GET',

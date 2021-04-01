@@ -28,19 +28,18 @@ export class OfferDetailComponent implements OnInit {
 
   public possiblesetColumns = [
     { title: 'Amount', name: 'amount', size: '40', minSize: '40' , datatype:{ type: 'number' }},
-    { title: 'Image', name: 'image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
+    { title: 'Image', name: 'setinfo.image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
     { title: 'Set No', name: 'setno', size: '30', minSize: '30' },
-    { title: 'Set Name', name: 'name', size: '30', minSize: '30' },
+    { title: 'Set Name', name: 'setinfo.name', size: '30', minSize: '30' },
     { title: 'Comments', name: 'comments', size: '30', minSize: '30' },
-    { title: 'Year', name: 'year', size: '30', minSize: '50', datatype:{ type: 'number' } },
-    { title: 'Weight(g)', name: 'weight_g', size: '40', minSize: '40' , datatype:{ type: 'number' }},
-    { title: 'Amount', name: 'amount', size: '40', minSize: '40' , datatype:{ type: 'number' }},
-    { title: 'Size', name: 'size', size: '80', minSize: '80' },
-    { title: 'Parts', name: 'complete_part_count', size: '50', minSize: '50', datatype:{ type: 'number' } },
-    { title: 'Minifigs', name: 'complete_minifigs_count', size: '50', minSize: '50' , datatype:{ type: 'number' }},
-    { title: 'min Price', name: 'min_price', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'max Price', name: 'max_price', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'Avg Price', name: 'avg_price', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Year', name: 'setinfo.year', size: '30', minSize: '50', datatype:{ type: 'number' } },
+    { title: 'Weight(g)', name: 'setinfo.weight_g', size: '40', minSize: '40' , datatype:{ type: 'number' }},
+    { title: 'Size', name: 'setinfo.size', size: '80', minSize: '80' },
+    { title: 'Parts', name: 'setinfo.complete_part_count', size: '50', minSize: '50', datatype:{ type: 'number' } },
+    { title: 'Minifigs', name: 'setinfo.complete_minifigs_count', size: '50', minSize: '50' , datatype:{ type: 'number' }},
+    { title: 'min Price', name: 'setinfo.min_price', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'max Price', name: 'setinfo.max_price', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Avg Price', name: 'setinfo.avg_price', size: '40', minSize: '40', datatype: { type: 'price' } },
     { title: 'Identified', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
   ];
 

@@ -19,7 +19,7 @@
                                 </td>
                                 <td>
                                     <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{offerDetails.user_id}}" (click)="onExternalClick(offerDetails)">
-                                        {{offerDetails.user_id}}
+                                        {{offerDetails.userinfo.user_id}}
                                     </a>
                                 </td>
                             </tr>
@@ -28,7 +28,7 @@
                                     Verkäufer
                                 </td>
                                 <td>
-                                    {{offerDetails.user.name}} <br>
+                                    {{offerDetails.userinfo.name}} <br>
                                 </td>
                             </tr>
                             <tr>
@@ -36,7 +36,7 @@
                                     Offers available
                                 </td>
                                 <td>
-                                    {{offerDetails.user.offerscount}} <br>
+                                    {{offerDetails.userinfo.offerscount}} <br>
                                 </td>
                             </tr>
                             <tr>
@@ -44,7 +44,7 @@
                                     Friendliness
                                 </td>
                                 <td>
-                                    {{offerDetails.user.friendliness}} <br>
+                                    {{offerDetails.userinfo.friendliness}} <br>
                                 </td>
                             </tr>
                             <tr>
@@ -52,7 +52,7 @@
                                     Satisfaction
                                 </td>
                                 <td>
-                                    {{offerDetails.user.satisfaction}} <br>
+                                    {{offerDetails.userinfo.satisfaction}} <br>
                                 </td>
                             </tr>
                             <tr>
@@ -60,7 +60,7 @@
                                     Account Created
                                 </td>
                                 <td>
-                                    {{offerDetails.user.accountcreated | date:'dd.MM.yyyy' }}
+                                    {{offerDetails.userinfo.accountcreated | date:'dd.MM.yyyy' }}
                                 </td>
                             </tr>
 
@@ -83,7 +83,7 @@
                                 </td>
                                 <td>
                                     <a [href]="offerDetails.url" (click)="onExternalClick(offerDetails)">
-                                        {{offerDetails.external_id}}
+                                        {{offerDetails.offerinfo.external_id}}
                                     </a>
                                 </td>
                             </tr>
@@ -92,9 +92,9 @@
                                     Price
                                 </td>
                                 <td>
-                                    {{offerDetails.pricetype}} <br>
+                                    {{offerDetails.offerinfo.pricetype}} <br>
                                     
-                                    {{offerDetails.price}} {{offerDetails.currency}} 
+                                    {{offerDetails.offerinfo.price}} {{offerDetails.offerinfo.currency}} 
                                 </td>
                             </tr>
                             <tr>
@@ -102,7 +102,7 @@
                                     Location Group
                                 </td>
                                 <td>
-                                    {{offerDetails.locationgroup}}
+                                    {{offerDetails.offerinfo.locationgroup}}
                                 </td>
                             </tr>
                             <tr>
@@ -110,7 +110,7 @@
                                     Locality
                                 </td>
                                 <td>
-                                        {{offerDetails.locality}}
+                                        {{offerDetails.offerinfo.locality}}
                                 </td>
                             </tr> 
                             <tr>
@@ -118,7 +118,7 @@
                                     Zipcode
                                 </td>
                                 <td>
-                                        {{offerDetails.zipcode}}
+                                        {{offerDetails.offerinfo.zipcode}}
                                 </td>
                             </tr> 
                             <tr>
@@ -126,7 +126,7 @@
                                     Shipping
                                 </td>
                                 <td>
-                                        {{offerDetails.shipping}}
+                                        {{offerDetails.offerinfo.shipping}}
                                 </td>
                             </tr>
                             <tr>
@@ -134,7 +134,7 @@
                                     Created
                                 </td>
                                 <td>
-                                    {{offerDetails.datecreated | date:'dd.MM.yyyy' }}
+                                    {{offerDetails.offerinfo.datecreated | date:'dd.MM.yyyy' }}
                                 </td>
                             </tr>
 
@@ -165,7 +165,23 @@
     <div class="col-lg-10">
         <div class="row">
             <div class="col-lg-12">
-
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Images</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12" *ngIf="offerDetails">
+                                <ng-container *ngFor="let partimage of offerDetails.images">
+                                    <img class="img-thumbnail rounded float-left" [style.height.px]="150"
+                                    [src]="partimage.path" 
+                                    
+                                    />
+                                </ng-container> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="card shadow mb-4">
@@ -175,7 +191,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-sm-12" *ngIf="offerDetails">
-                                        {{ offerDetails.description}}
+                                        {{ offerDetails.offerinfo.description}}
                                     </div>
                                 </div>
                             </div>

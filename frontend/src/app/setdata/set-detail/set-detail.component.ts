@@ -19,27 +19,26 @@ export class SetDetailComponent implements OnInit {
   public setdataDetails;
 
   public partColumns = [
-    { title: 'Image', name: 'thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
-    { title: 'Partno - Color Id', name: 'partnocolid', size: '30', minSize: '30' },
-    { title: 'Color', name: 'color_name', size: '30', minSize: '30' },
-    { title: 'Name', name: 'name', size: '25%', minSize: '90' },
+    { title: 'Image', name: 'partinfo.thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
+    { title: 'Partno - Color Id', name: 'partinfo.partnocolid', size: '30', minSize: '30' },
+    { title: 'Color', name: 'partinfo.color_name', size: '30', minSize: '30' },
+    { title: 'Name', name: 'partinfo.name', size: '25%', minSize: '90' },
     { title: 'Quantity', name: 'quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
-    { title: 'Extra Quantity', name: 'extra_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
+    { title: 'Extra Quantity', name: 'partinfo.extra_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
 
-    { title: 'Avg € (stock)', name: 'qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
-    { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
+    { title: 'Avg € (stock)', name: 'partinfo.qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
+    { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
 
   ];
   public partData: any; 
   
   public minifigColumns = [
-    { title: 'Image', name: 'thumbnail_url', size: '80', minSize: '80', datatype: { type: 'image' } },
-    { title: 'Part', name: 'part_no', size: '30', minSize: '30' },
-    { title: 'Name', name: 'name', size: '25%', minSize: '90' },
-    { title: 'Quantity', name: 'quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
-    { title: 'Extra Quantity', name: 'extra_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
-    { title: 'Avg € (stock)', name: 'qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
-    { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
+    { title: 'Image', name: 'partinfo.thumbnail_url', size: '80', minSize: '80', datatype: { type: 'image' } },
+    { title: 'Part', name: 'partinfo.part_no', size: '30', minSize: '30' },
+    { title: 'Name', name: 'partinfo.name', size: '25%', minSize: '90' },
+    { title: 'Quantity', name: 'partinfo.quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
+    { title: 'Avg € (stock)', name: 'partinfo.qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
+    { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
 
   ];
   public minifigData: any;
