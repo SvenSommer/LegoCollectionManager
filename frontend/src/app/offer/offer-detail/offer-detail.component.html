@@ -7,71 +7,12 @@
     <div class="col-lg-2">
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h6 class="text-primary font-weight-bold m-0">Seller Information</h6>
-            </div>         
-            <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <table *ngIf="offerDetails" class="div2 table table-hover table-sm datatable" role="grid">
-                            <tr>
-                                <td>
-                                    External User Id
-                                </td>
-                                <td>
-                                    <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{offerDetails.user_id}}" (click)="onExternalClick(offerDetails)">
-                                        {{offerDetails.userinfo.user_id}}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Verkäufer
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.name}} <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Offers available
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.offerscount}} <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Friendliness
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.friendliness}} <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Satisfaction
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.satisfaction}} <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Account Created
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.accountcreated | date:'dd.MM.yyyy' }}
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
-            </div>
-         </div>
-        <div class="card shadow mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="text-primary font-weight-bold m-0">Offer Information</h6>
+                <div class="dropdown no-arrow">
+                    <a class="pl-1 text-danger" title="Delete" (click)="onDeleteClick()">
+                        <i class="fas fa-trash-alt text-gray-400"></i>
+                    </a>
+                </div>
             </div>         
             <div class="card-body">
                 <div class="card">
@@ -143,6 +84,71 @@
                 </div>
             </div>
          </div>
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="text-primary font-weight-bold m-0">Seller Information</h6>
+            </div>         
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <table *ngIf="offerDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                            <tr>
+                                <td>
+                                    External User Id
+                                </td>
+                                <td>
+                                    <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{offerDetails.user_id}}" (click)="onExternalClick(offerDetails)">
+                                        {{offerDetails.userinfo.user_id}}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Verkäufer
+                                </td>
+                                <td>
+                                    {{offerDetails.userinfo.name}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Offers available
+                                </td>
+                                <td>
+                                    {{offerDetails.userinfo.offerscount}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Friendliness
+                                </td>
+                                <td>
+                                    {{offerDetails.userinfo.friendliness}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Satisfaction
+                                </td>
+                                <td>
+                                    {{offerDetails.userinfo.satisfaction}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Account Created
+                                </td>
+                                <td>
+                                    {{offerDetails.userinfo.accountcreated | date:'dd.MM.yyyy' }}
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+         </div>
+
          <div class="row" *ngIf="viewData">
             <div class="col-lg-12">
                 <div class="card shadow mb-4">
@@ -174,7 +180,7 @@
                             <div class="col-sm-12" *ngIf="offerDetails">
                                 <ng-container *ngFor="let partimage of offerDetails.images">
                                     <img class="img-thumbnail rounded float-left" [style.height.px]="150"
-                                    [src]="partimage.imageurl" 
+                                    [src]="partimage.imageurl"  (click)="onImgClick(partimage)"
                                     
                                     />
                                 </ng-container> 
@@ -282,3 +288,6 @@
 
 </div>
 
+<app-modal-popup [title]="imgPopupName" size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
+    <img [src]="imgPopupURL" width="100%"/>
+  </app-modal-popup>

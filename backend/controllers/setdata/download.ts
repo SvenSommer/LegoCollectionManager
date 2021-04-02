@@ -26,7 +26,8 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         const {id:userid} = result[0];
-                        GetAndUpsertSetDataByNo(setnumber, res, userid);
+
+                        GetAndUpsertSetDataByNo(setnumber.replace(' ',''), res, userid);
 
                         res.json({
                             code: 201,

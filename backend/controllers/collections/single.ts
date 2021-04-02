@@ -22,7 +22,7 @@ export default (req: Request, res: Response) => {
 
                 const uniquePartsQuery = `SELECT COUNT(*) as allSetsUniquePartCount FROM (
                     SELECT COUNT(*) as count, ss.no FROM LegoSorterDB.Recognisedsets rs
-                    LEFT JOIN LegoSorterDB.Sets s ON s.no = rs.setNo
+                    LEFT JOIN LegoSorterDB.Setdata s ON s.no = rs.setNo
                          LEFT JOIN LegoSorterDB.Subsets ss ON s.no = ss.Setno
                          WHERE rs.collection_id = ${collectionid}
                          GROUP BY ss.no

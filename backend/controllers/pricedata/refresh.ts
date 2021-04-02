@@ -24,7 +24,7 @@ export default (req: Request, res: Response) => {
                         errorMessage: process.env.DEBUG && err
                     });
                     else {
-                        const findPriceDataInDB = `SELECT * FROM Prices WHERE id=${priceid}`;
+                        const findPriceDataInDB = `SELECT * FROM Pricedata WHERE id=${priceid}`;
                         connection.query(findPriceDataInDB, (err, priceresult: any) => {
                             if (err) res.json({
                                 code: 500,

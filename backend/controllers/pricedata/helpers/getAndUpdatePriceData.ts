@@ -10,7 +10,7 @@ export function GetAndUpdatePriceData(type: any, partnumber: any, con: any, colo
             region: region,
             guide_type: guide_type
         }).then(function (priceinfo: any) {
-            const updatePriceData = `UPDATE Prices SET 
+            const updatePriceData = `UPDATE Pricedata SET 
                                                 min_price = ${priceinfo.min_price},
                                                 max_price = ${priceinfo.max_price},
                                                 avg_price = ${priceinfo.avg_price},

@@ -92,6 +92,38 @@ export class OfferDetailComponent implements OnInit {
       );
     }
 
+    public onDeleteClick(){
+      let options = {
+        title: 'Are you sure you want to delete this?',
+        confirmLabel: 'Okay',
+        declineLabel: 'Cancel'
+      }
+      this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+        if (res) {
+          console.log('Okay');
+          this.offerService.deleteOffer(this.offerid).subscribe(
+            (data) => {
+              if (data) {
+                if (data.body && data.body.code == 200) {
+                 // Message should be data.body.message
+                 this.toastr.success("Record Deleted Successfully.");
+                 this.router.navigateByUrl("/offer");
+                }
+                else if (data.body && data.body.code == 403) {
+                  this.router.navigateByUrl("/login");
+                }
+              }
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.name + ' ' + error.message);
+            }
+          );
+        } else {
+          console.log('Cancel');
+        }
+      });
+    }
+
     public onExternalClick(data) {
       if(data && data.url)
       {
@@ -125,7 +157,6 @@ export class OfferDetailComponent implements OnInit {
 
 
     getAllPossiblesets() {
-
       this.offerService.getPossiblesetsByOfferid(this.offerid).subscribe(
         (data) => {
           if (data) {
@@ -149,6 +180,7 @@ export class OfferDetailComponent implements OnInit {
       if (!form.valid) {
         return;
       }
+      this.newpossiblesetDetail.setno.replace(/ /g, "");
       console.log(this.newpossiblesetDetail)
       this.offerService.saveNewPossibleSets(this.newpossiblesetDetail).subscribe(
         (data) => {
@@ -213,5 +245,16 @@ export class OfferDetailComponent implements OnInit {
           console.log('Cancel');
         }
       });
+    }
+
+    public onImgPopupClose() {
+      this.imgPopupURL = '';
+      this.imgPopupName = '';
+     }
+  
+    public onImgClick(partimage) {
+      this.imgPopupURL = partimage.imageurl ;
+      this.imgPopupName = partimage.path;
+      this.imagePopup.open();
     }
 }

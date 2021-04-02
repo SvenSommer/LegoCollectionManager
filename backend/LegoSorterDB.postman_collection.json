@@ -966,6 +966,54 @@
 					]
 				},
 				{
+					"name": "Logs",
+					"item": [
+						{
+							"name": "Create Log",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"componentid\": 1,\r\n    \"level\": \"info\",\r\n    \"message\":\"Scraper started\"\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_logs",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_logs"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Logs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_logs",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_logs"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Status",
 					"item": [
 						{
@@ -1041,6 +1089,23 @@
 				},
 				{
 					"name": "Show all Offers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/offers",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"offers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show all Offers Copy",
 					"request": {
 						"method": "GET",
 						"header": [],

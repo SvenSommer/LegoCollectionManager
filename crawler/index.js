@@ -7,7 +7,10 @@ const CREDENTIALS = {
 	username: USERNAME,
 	password: PASSWORD
 }
+const LOGLEVEL = "INFO"
+exports.LOGLEVEL = LOGLEVEL
 const API_URL = "http://localhost:3001"
+exports.API_URL = API_URL
 const API_REQUEST = {
 	AUTH: "/users/login",
 	OFFERS: "/offers",
@@ -18,15 +21,19 @@ const API_REQUEST = {
 	OFFERS_VIEWS: "/offers_views",
 	OFFERS_USER: "/offers_users",
 	OFFERS_IMAGES: "/offers_images",
-	OFFER_STATUS: "/offers_status"
+	OFFER_STATUS: "/offers_status",
+	OFFER_LOGS: "/offers_logs"
 
 }
+exports.API_REQUEST = API_REQUEST
+
 
 
 // =================================================
 // * imports
 // =================================================
 const { getToken } = require("./utils")
+const { Log } = require("./services/log")
 // =================================================
 // * Scrapper variables configuration
 // =================================================
@@ -167,6 +174,7 @@ const offerDescriptionSelector = "#viewad-description";
 	// Handling all errors
 	const handleClose = async (message = "Closing the browser on unexpected Error") => {
 		console.log(message)
+		Log("ERROR",message, reqCredentials)
 		for (const page of await browser.pages()) {
 			await page.close()
 		}
@@ -189,6 +197,7 @@ const offerDescriptionSelector = "#viewad-description";
 		// =================================================
 		// * Going to the url
 		// =================================================
+		Log("INFO", "Going to the url: " + url, reqCredentials)
 		console.log("* Going to the url: ", url)
 		await page.goto(url, { waitUntil: "networkidle2" })
 		await page.waitForTimeout(2000)
@@ -325,7 +334,7 @@ const offerDescriptionSelector = "#viewad-description";
 					description: offerDescription,
 					// images: imagesUrls
 				}
-				
+
 				//*Checking if the offer exists
 				//TODO: Check if the offer prperties have changes -> store changes, store "changed {{description}}" info in status endpoint
 				//TODO: Check if the images of the offer have new images -> store new images, store change "added image" in status endpoint
@@ -340,20 +349,20 @@ const offerDescriptionSelector = "#viewad-description";
 					let offer_id = resultofferexistingofferinfo.id;
 
 					//TODO: FInd the changes between object from the databses und current scraped object for properties, if there are changes set e.g. updatedProperties.push("price")
-						//if(JSON.stringify() === JSON.stringify)
-					
+					//if(JSON.stringify() === JSON.stringify)
+
 					//TODO: thow away this code 
 					//THROW AWAYCODE START: Introducing a change
-						console.log("* changed the price by THROW AWAYCODE")
-						resultofferexistingofferinfo.price++
-						updatedProperties.push("price")
+					console.log("* changed the price by THROW AWAYCODE")
+					resultofferexistingofferinfo.price++
+					updatedProperties.push("price")
 					//THROW AWAYCODE END: Introducing a change
 
 					// If there are changes in props use update offer request
-					if(updatedProperties.length > 0)	{
+					if (updatedProperties.length > 0) {
 						console.log("==== UPDATING PROPERTIES OF OFFER", external_id);
-						storePropertiesResult = await updateData(API_URL + API_REQUEST.OFFERS + "/" + offer_id , resultofferexistingofferinfo, reqCredentials);
-						for (const updatedelement of updatedProperties){
+						storePropertiesResult = await updateData(API_URL + API_REQUEST.OFFERS + "/" + offer_id, resultofferexistingofferinfo, reqCredentials);
+						for (const updatedelement of updatedProperties) {
 							let status = {
 								offer_id: offer_id,
 								status: "updated " + updatedelement
@@ -398,7 +407,7 @@ const offerDescriptionSelector = "#viewad-description";
 						accountcreated: accountcreated
 					}
 					//* Saving the offer in the DB
-					
+
 					offerresult = await storeData(API_URL + API_REQUEST.OFFERS, offer, reqCredentials, true)
 					let offer_id = null
 					if (offerresult.data.code === 201) {
@@ -477,16 +486,6 @@ const offerDescriptionSelector = "#viewad-description";
 	await handleClose("* Closing the browser")
 })()
 
-//TODO: Mark offers no longer existing as deleted at the end of a complete run
-//1. Get all stored offers by
-//resultoffers await getData(API_URL + API_REQUEST.offer, reqCredentials)
-//2. check in the list of the external_ids from the last completed runs, which Ids did not appear any longer
-//3. Set those disappeard as deleted by (using the offer_id here!!)
-/* let status = {
-	offer_id: offer_id,
-	status: "offer created"
-}
-var offerresult = await storeData(API_URL + API_REQUEST.OFFER_STATUS, status, reqCredentials) */
 
 
 

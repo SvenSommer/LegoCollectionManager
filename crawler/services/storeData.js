@@ -1,6 +1,9 @@
 const { default: axios } = require("axios")
 
 async function storeData(url, object, reqCredentials, debug = false) {
+	if(debug) {
+		console.log({url,object, reqCredentials});
+	}
 	try {
 		let result = await  axios.post(url, object, reqCredentials);
 		if (result.data.code != 201) {
