@@ -26,6 +26,7 @@ export class OfferComponent implements OnInit {
     { title: 'Shipping', name: 'offerinfo.shipping', size: '40', minSize: '40' },
     { title: 'Seller', name: 'userinfo.name', size: '40', minSize: '40' },
     { title: 'Offer Date', name: 'offerinfo.datecreated', size: '100', minSize: '100', datatype: { type: 'date' } },
+    { title: 'created', name: 'created', size: '100', minSize: '100', datatype: { type: 'datetime' } },
   ];
 
   public data: any;

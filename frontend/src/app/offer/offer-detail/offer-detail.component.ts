@@ -211,8 +211,9 @@ export class OfferDetailComponent implements OnInit {
     }
 
     onRowPossibleSetClick(data) {
+      console.log(data)
       if(data.id != null)
-        this.router.navigateByUrl("/setdetail/" + data.id).then((bool) => { }).catch()
+        this.router.navigateByUrl("/setdetail/" + data.set_id).then((bool) => { }).catch()
     }
    
     onRowPossibleSetDeleteClick(data){

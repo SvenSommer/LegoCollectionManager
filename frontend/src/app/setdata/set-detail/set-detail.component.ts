@@ -96,8 +96,8 @@ export class SetDetailComponent implements OnInit {
    }
 
   public onImgClick(row) {
-    this.imgPopupURL = row.image_url ?? row.original_image_url ?? row.thumbnail_url ?? row.original_thumbnail_url ;
-    this.imgPopupName = row.no + " - " + row.name;
+    this.imgPopupURL =  row.setinfo.image_url;
+    this.imgPopupName = row.no + " - " + row.setinfo.name;
     this.imagePopup.open();
   }
 
