@@ -49,8 +49,8 @@
             </td>
             <td *ngSwitchCase="'imagesoffers'" (click)="rowCellClick.emit(row)">
               <ng-container *ngFor="let image of row.images">
-               <img [style.width.px]="column.minSize"
-                 [src]="image.path" />
+               <img [style.width.px]="column.minSize" *ngIf="image != null"
+                 [src]="image.imageurl" />
              </ng-container> 
            </td>
             <td *ngSwitchCase="'percentage'" (click)="rowCellClick.emit(row)"

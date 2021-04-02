@@ -6,19 +6,19 @@ export default (req: Request, res: Response) => {
         const {
             offer_id,
             imageurl,
-            downloadedpath
+         path
         } = req.body;
 
         if (offer_id &&
             imageurl &&
-            downloadedpath) {
+            path) {
                 const createImage = `INSERT INTO Offers_Images(offer_id,
                     imageurl,
-                    downloadedpath)
+                    path)
                 VALUES(
                         ${offer_id},
                         '${imageurl}',
-                        '${downloadedpath}')`;
+                        '${path}')`;
                 connection.query(createImage, (err1, result1) => {
                     if (err1) res.json({
                         code: 500,
@@ -35,7 +35,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'Missing Parameter: offerid, imageurl and downloadedpath are required!'
+                message: 'Missing Parameter: offer_id, imageurl and path are required!'
             });
         }
     } catch (e) {

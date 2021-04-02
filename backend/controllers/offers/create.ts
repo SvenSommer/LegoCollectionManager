@@ -20,8 +20,8 @@ export default (req: Request, res: Response) => {
             user_id,
             description
         } = req.body;
-        if (external_id &&
-            url &&
+        if (external_id 
+          /*   url &&
             searchproperties_id &&
             title &&
             price &&
@@ -34,7 +34,7 @@ export default (req: Request, res: Response) => {
             type &&
             shipping &&
             user_id &&
-            description
+            description */
             ) {
                 const createOffer = `INSERT INTO Offers
                 (external_id,
@@ -79,8 +79,8 @@ export default (req: Request, res: Response) => {
                     }else {
                         res.json({
                             code: 201,
-                            message: `Offer with order_id ${result.insertId} created!`,
-                            order_id: result.insertId
+                            message: `Offer with offer_id ${result.insertId} created!`,
+                            offer_id: result.insertId
                         });
                     }
                 })

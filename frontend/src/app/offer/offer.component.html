@@ -12,9 +12,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-sm-12" *ngIf="data && columns">
-                    <ng-table (rowCellClick)="onRowClick($event)" [isActionVisible]="false" [isEditVisible]="false"
-                    [isDeleteVisible]="false" [columns]="columns" [data]="data">
-                </ng-table>
+                    <ng-table (rowCellClick)="onRowClick($event)" [isActionVisible]="true" [isEditVisible]="false"
+                        [isDeleteVisible]="true" [columns]="columns" [data]="data" (rowDeleteClick)="onRowDeleteClick($event)">
+                    </ng-table>
                 </div>
             </div>
         </div>

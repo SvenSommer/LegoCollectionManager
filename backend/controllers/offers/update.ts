@@ -23,8 +23,8 @@ export default (req: Request, res: Response) => {
             description
         } = req.body;
 
-        if (id &&
-            external_id &&
+        if (id 
+           /*  external_id &&
             url &&
             searchproperties_id &&
             title &&
@@ -38,7 +38,7 @@ export default (req: Request, res: Response) => {
             type &&
             shipping &&
             user_id &&
-            description 
+            description  */
             ) {
                 console.log(datecreated);
                 const updateOffer = `UPDATE Offers SET external_id = ${external_id},
@@ -58,11 +58,15 @@ export default (req: Request, res: Response) => {
                                         description = '${description.replace("'","`").replace("'","`")}'
                                         WHERE id=${id}`;
                 connection.query(updateOffer, (err, result) => {
-                    if (err) res.json({
+                    if (err) { 
+                        console.log(updateOffer)
+                        console.log(err)
+                        res.json({
                         code: 500,
                         message: 'Couldn\'t updated the offer',
                         error: process.env.DEBUG && err
                     });
+                }
                     else {
                         res.json({
                             code: 200,

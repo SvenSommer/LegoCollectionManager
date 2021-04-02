@@ -52,6 +52,38 @@ export class OfferComponent implements OnInit {
     );
   }
 
+  onRowDeleteClick(model) {
+    let options = {
+      title: 'Are you sure you want to delete this?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel'
+    }
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+        console.log('Okay');
+        this.offerService.deleteOffer(model.id).subscribe(
+          (data) => {
+            if (data) {
+              if (data.body && data.body.code == 200) {
+               // Message should be data.body.message
+               this.toastr.success("Record Deleted Successfully.");
+               this.bindData();
+              }
+              else if (data.body && data.body.code == 403) {
+                this.router.navigateByUrl("/login");
+              }
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+      } else {
+        console.log('Cancel');
+      }
+    });
+  }
+
   onRowClick(data) {
     this.router.navigateByUrl("/offerdetail/" + data.id).then((bool) => { }).catch()
   }

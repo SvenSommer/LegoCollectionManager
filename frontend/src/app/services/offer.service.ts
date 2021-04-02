@@ -23,6 +23,15 @@ export class OfferService {
       return this.http.get<any>(`${environment.baseUrl}offers/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     } 
 
+    
+
+    deleteOffer(id): Observable<any> {
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+      return this.http.delete<any>(`${environment.baseUrl}offers/` + id, { withCredentials: true, headers: headers, observe: 'response' });
+    }
+
     getViewsByOfferid(id): Observable<any> {
       let httpHeader = new HttpHeaders();
       httpHeader.set("Access-Control-Allow-Origin", "*");
@@ -50,4 +59,6 @@ export class OfferService {
       })
       return this.http.delete<any>(`${environment.baseUrl}offers_possiblesets/` + id, { withCredentials: true, headers: headers, observe: 'response' });
     }
+
+
 }
