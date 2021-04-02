@@ -8,7 +8,7 @@ async function Log(level, message, reqCredentials) {
 				level:level,
 				message: message,
 			}
-			await storeData(API_URL + API_REQUEST.OFFER_LOGS, logentry, reqCredentials, true)
+			await storeData(API_URL + API_REQUEST.OFFER_LOGS, logentry, reqCredentials, false)
 		}
 }
 exports.Log = Log;
