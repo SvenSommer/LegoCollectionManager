@@ -22,6 +22,7 @@ export class RunEditComponent implements OnInit {
   public sorterList: Array<any>;
   public expectedSets: Array<any> = [];
   public pusherList: Array<any> = [];
+  public droppedList: Array<any> = [];
 
   public setSearch:string;
   public pusherSearch:string;
@@ -64,6 +65,8 @@ export class RunEditComponent implements OnInit {
     );
   }
 
+
+
   getSortersList() {
     this.sorterService.getSorters().subscribe(
       (data) => {
@@ -96,11 +99,8 @@ export class RunEditComponent implements OnInit {
   }
 
   getExpectedSets() {
-
-
     this.collectionService.getExpectedSets(this.run.collection_id).subscribe(
       (data) => {
-        console.log('data:::::::::',data.body.sets[0])
         if (data) {
           if (data.body && data.body.code == 200) {
             this.expectedSets = data.body.sets;
@@ -121,7 +121,10 @@ export class RunEditComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            // this.pusherList = data.body;
+            this.pusherList = data.body.result;
+            this.pusherList.forEach(item => {
+              item.sets = [];
+            });
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -143,19 +146,30 @@ export class RunEditComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    console.log("drop");
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      console.log("move");
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
+      console.log("trans");
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     }
-    console.log('this.expectedSets:::::::::::',this.expectedSets.length)
-    console.log('this.pusherList:::::::::::',this.pusherList.length)
   }
 
   open(data = null) {
+    console.log(':::::::;;open::::::::::::',data)
+    this.expectedSets = [];
+    this.pusherList = [];
+    this.showDragDrop = false;
     this.run = new RunModel(data);
     if (data && data.id != 0) {
       this.pageTitle = 'Edit Run';
@@ -172,8 +186,6 @@ export class RunEditComponent implements OnInit {
   }
 
   onSubmit(runForm: NgForm) {
-    console.log('runForm::::::::::::',runForm)
-    console.log('this.run::::::::::::',this.run)
     this.isFormSubmitted = true;
     if (!runForm.valid) {
       return;

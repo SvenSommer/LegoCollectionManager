@@ -1,6 +1,8 @@
 body {
   margin: 0;
-  font-family: Nunito,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  font-family: Nunito, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji,
+    Segoe UI Symbol, Noto Color Emoji;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -9,116 +11,117 @@ body {
   background-color: #fff;
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .text-md-right {
-    text-align: right!important;
+    text-align: right !important;
   }
 }
-
-
-
 
 label {
   display: inline-block;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .text-nowrap {
-  white-space: nowrap!important;
+  white-space: nowrap !important;
 }
 
 .modal-dialog {
-    .confirm {
-
-      .buttons {
-        padding: 10px 15px;
-        float: right;
-        button {
-          margin-right: 10px;
-        }
+  .confirm {
+    .buttons {
+      padding: 10px 15px;
+      float: right;
+      button {
+        margin-right: 10px;
       }
     }
   }
+}
 
-  #div22 {
-    th[sortable] {
-      cursor: pointer;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    th[sortable].desc:before, th[sortable].asc:before {
-      content: '';
-      display: block;
-      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAmxJREFUeAHtmksrRVEUx72fH8CIGQNJkpGUUmakDEiZSJRIZsRQmCkTJRmZmJgQE0kpX0D5DJKJgff7v+ru2u3O3vvc67TOvsdatdrnnP1Y///v7HvvubdbUiIhBISAEBACQkAICAEhIAQ4CXSh2DnyDfmCPEG2Iv9F9MPlM/LHyAecdyMzHYNwR3fdNK/OH9HXl1UCozD24TCvILxizEDWIEzA0FcM8woCgRrJCoS5PIwrANQSMAJX1LEI9bqpQo4JYNFFKRSvIgsxHDVnqZgIkPnNBM0rIGtYk9YOOsqgbgepRCfdbmFtqhFkVEDVPjJp0+Z6e6hRHhqBKgg6ZDCvYBygVmUoEGoh5JTRvIJwhJo1aUOoh4CLPMyvxxi7EWOMgnCGsXXI1GIXlZUYX7ucU+kbR8NW8lh3O7cue0Pk32MKndfUxQFAwxdirk3fHappAnc0oqDPzDfGTBrCfHP04dM4oTV8cxr0SVzH9FF07xD3ib6xCDE+M+aUcVygtWzzbtGX2rPBrEUYfecfQkaFzYi6HjVnGBdtL7epqAlc1+jRdAap74RrnPc4BCijttY2tRcdN0g17w7HqZrXhdJTYAuS3hd8z+vKgK3V1zWPae0mZDMykadBn1hTQBLnZNwVrJpSe/NwEeDsEwCctEOsJTsgxLvCqUl2ACftEGvJDgjxrnBqkh3ASTvEWrIDQrwrnJpkB3DSDrGW7IAQ7wqnJtkBnLRztejXXVu4+mxz/nQ9jR1w5VB86ejLTFcnnDwhzV+F6T+CHZlx6THSjn76eyyBIOPHyDakhBAQAkJACAgBISAEhIAQYCLwC8JxpAmsEGt6AAAAAElFTkSuQmCC') no-repeat;
-      background-size: 22px;
-      width: 22px;
-      height: 22px;
-      float: left;
-      margin-left: -22px;
-    }
-
-    th[sortable].desc:before {
-      transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-    }
+#div22 {
+  th[sortable] {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
-  .flex-right {
-    display: flex !important;
-    flex-direction: row-reverse;
+  th[sortable].desc:before,
+  th[sortable].asc:before {
+    content: "";
+    display: block;
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAAXNSR0IArs4c6QAAAmxJREFUeAHtmksrRVEUx72fH8CIGQNJkpGUUmakDEiZSJRIZsRQmCkTJRmZmJgQE0kpX0D5DJKJgff7v+ru2u3O3vvc67TOvsdatdrnnP1Y///v7HvvubdbUiIhBISAEBACQkAICAEhIAQ4CXSh2DnyDfmCPEG2Iv9F9MPlM/LHyAecdyMzHYNwR3fdNK/OH9HXl1UCozD24TCvILxizEDWIEzA0FcM8woCgRrJCoS5PIwrANQSMAJX1LEI9bqpQo4JYNFFKRSvIgsxHDVnqZgIkPnNBM0rIGtYk9YOOsqgbgepRCfdbmFtqhFkVEDVPjJp0+Z6e6hRHhqBKgg6ZDCvYBygVmUoEGoh5JTRvIJwhJo1aUOoh4CLPMyvxxi7EWOMgnCGsXXI1GIXlZUYX7ucU+kbR8NW8lh3O7cue0Pk32MKndfUxQFAwxdirk3fHappAnc0oqDPzDfGTBrCfHP04dM4oTV8cxr0SVzH9FF07xD3ib6xCDE+M+aUcVygtWzzbtGX2rPBrEUYfecfQkaFzYi6HjVnGBdtL7epqAlc1+jRdAap74RrnPc4BCijttY2tRcdN0g17w7HqZrXhdJTYAuS3hd8z+vKgK3V1zWPae0mZDMykadBn1hTQBLnZNwVrJpSe/NwEeDsEwCctEOsJTsgxLvCqUl2ACftEGvJDgjxrnBqkh3ASTvEWrIDQrwrnJpkB3DSDrGW7IAQ7wqnJtkBnLRztejXXVu4+mxz/nQ9jR1w5VB86ejLTFcnnDwhzV+F6T+CHZlx6THSjn76eyyBIOPHyDakhBAQAkJACAgBISAEhIAQYCLwC8JxpAmsEGt6AAAAAElFTkSuQmCC")
+      no-repeat;
+    background-size: 22px;
+    width: 22px;
+    height: 22px;
+    float: left;
+    margin-left: -22px;
   }
 
-  .status-type {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    right: 0;
-    top: 28px;
-    border-radius: 50%;
-    border: 2px var(--white) solid;
+  th[sortable].desc:before {
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
   }
+}
 
-  .border-left-primary {
-    border-left: .25rem solid #4e73df!important;
+.flex-right {
+  display: flex !important;
+  flex-direction: row-reverse;
+}
+
+.status-type {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  right: 0;
+  top: 28px;
+  border-radius: 50%;
+  border: 2px var(--white) solid;
+}
+
+.border-left-primary {
+  border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-info {
+  border-left: 0.25rem solid #36b9cc !important;
+}
+
+.border-left-success {
+  border-left: 0.25rem solid #1cc88a !important;
+}
+
+.border-left-danger {
+  border-left: 0.25rem solid #dc3545 !important;
+}
+
+.border-left-secondary {
+  border-left: 0.25rem solid #6c757d !important;
+}
+
+.text-nowrap {
+  white-space: nowrap !important;
+}
+
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.35rem;
+}
+
+.p-r-20 {
+  padding-right: 20px;
+}
+
+#set_header {
+  .mat-expansion-panel-header {
+    cursor: move !important;
   }
-
-  .border-left-info {
-    border-left: .25rem solid #36b9cc!important;
+}
+.mat-expansion-panel-header.mat-expanded {
+  background: #007bff !important;
+  .mat-expansion-panel-header-title {
+    color: #ffffff !important;
   }
-
-  .border-left-success {
-    border-left: .25rem solid #1cc88a!important;
-  }
-
-  .border-left-danger {
-    border-left: .25rem solid #dc3545!important;
-  }
-
-  .border-left-secondary {
-    border-left: .25rem solid #6c757d!important;
-  }
-
-  .text-nowrap {
-    white-space: nowrap!important;
-  }
-
-  .pagination {
-    display: flex;
-    padding-left: 0;
-    list-style: none;
-    border-radius: .35rem;
-  }
-
-  .p-r-20 {
-    padding-right: 20px;
-  }
-
-  .mat-expansion-panel-header.mat-expanded {
-      background: #007bff !important;
-      .mat-expansion-panel-header-title {
-        color: #ffffff !important;
-      }
-  }
-
-
+}
