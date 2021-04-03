@@ -145,28 +145,26 @@ export class RunEditComponent implements OnInit {
     }
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    console.log("drop");
+  drop(event: CdkDragDrop<any[]>) {
     if (event.previousContainer === event.container) {
-      console.log("move");
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
     } else {
-      console.log("trans");
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      if(event.container.data.length < 1){
+          transferArrayItem(
+            event.previousContainer.data,
+            event.container.data,
+            event.previousIndex,
+            event.currentIndex
+          );
+      }
     }
   }
 
   open(data = null) {
-    console.log(':::::::;;open::::::::::::',data)
     this.expectedSets = [];
     this.pusherList = [];
     this.showDragDrop = false;
