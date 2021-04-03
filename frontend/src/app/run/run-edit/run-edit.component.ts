@@ -145,7 +145,7 @@ export class RunEditComponent implements OnInit {
     }
   }
 
-  drop(event: CdkDragDrop<any[]>) {
+  drop(event: CdkDragDrop<any[]>, type: string) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -153,7 +153,7 @@ export class RunEditComponent implements OnInit {
         event.currentIndex
       );
     } else {
-      if(event.container.data.length < 1){
+      if(event.container.data.length < 1 || type != 'pusher'){
           transferArrayItem(
             event.previousContainer.data,
             event.container.data,

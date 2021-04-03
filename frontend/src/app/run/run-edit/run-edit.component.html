@@ -128,7 +128,7 @@
           cdkDropList
           [cdkDropListData]="expectedSets"
           class="example-list"
-          (cdkDropListDropped)="drop($event)"
+          (cdkDropListDropped)="drop($event, 'sets')"
         >
           <mat-accordion
             class="example-box"
@@ -175,10 +175,11 @@
         </div>
         <div class="example-list">
           <mat-accordion *ngFor="let item of pusherList | ngFilter: setSearch:pusherList">
-            <mat-expansion-panel hideToggle>
+            <mat-expansion-panel hideToggle #panel (mouseenter)="panel.open()"
+            (mouseleave)="panel.close()">
               <mat-expansion-panel-header class="disable_ripple">
                 <mat-panel-title>
-                  {{ item.number }} - {{ item.name }}
+                  {{ item.name }} <p *ngIf="item?.sets && item?.sets.length > 0"> : {{item.sets[0].no}} - {{item.sets[0].name}}</p>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div
@@ -186,7 +187,7 @@
                 cdkDropList
                 *ngIf="item.sets.length > 0"
                 [cdkDropListData]="item.sets"
-                (cdkDropListDropped)="drop($event)"
+                (cdkDropListDropped)="drop($event,'pusher')"
               >
                 <div class="example-box" *ngFor="let it of item.sets" cdkDrag>
                   <div class="card-body text-center shadow">
@@ -211,7 +212,7 @@
                 class="card mb-3 mt-3 example-list-dropped"
                 cdkDropList
                 [cdkDropListData]="item.sets"
-                (cdkDropListDropped)="drop($event)">
+                (cdkDropListDropped)="drop($event,'')">
                 Drop here..
               </div>
             </mat-expansion-panel>
