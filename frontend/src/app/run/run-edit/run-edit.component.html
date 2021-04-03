@@ -174,7 +174,7 @@
           </form>
         </div>
         <div class="example-list">
-          <mat-accordion *ngFor="let item of pusherList | ngFilter: setSearch:pusherList">
+          <mat-accordion *ngFor="let item of pusherList | ngFilter: pusherSearch:pusherList">
             <mat-expansion-panel hideToggle #panel (mouseenter)="panel.open()"
             (mouseleave)="panel.close()">
               <mat-expansion-panel-header class="disable_ripple">
