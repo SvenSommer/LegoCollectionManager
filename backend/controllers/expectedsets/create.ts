@@ -33,12 +33,12 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         const {id: userid} = userResult[0];
-                        const createRecognisedSet = `INSERT INTO Recognisedsets (
+                        const createOne = `INSERT INTO Expectedsets (
                                                   collection_id,
                                                   setNo,
                                                   comments,
                                                   instructions,
-                                                  Recognisedsets.condition,
+                                                  Expectedsets.condition,
                                                   status,
                                                   created,
                                                   createdBy)
@@ -51,17 +51,17 @@ export default (req: Request, res: Response) => {
                                                           ${status},
                                                           NOW(),
                                                           ${userid})`;
-                        connection.query(createRecognisedSet, (err) => {
+                        connection.query(createOne, (err) => {
                             if (err) res.json({
                                 code: 500,
-                                message: 'Couldn\'t create the recognised set',
+                                message: 'Couldn\'t create the Expected set',
                                 errorMessage: process.env.DEBUG && err
                             });
                             else {
                                 GetAndUpsertSetDataByNo(setnumber, res, userid);
                                 res.json({
                                     code: 201,
-                                    message: 'Recognised set created!'
+                                    message: 'Expected set created!'
                                 });
                             }
                         })

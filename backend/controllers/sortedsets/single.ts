@@ -3,7 +3,7 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {id} = req.params;
-    const showRecognisedPart = `SELECT * FROM sortedsets_overview WHERE id=${id};`
+    const showRecognisedPart = `SELECT * FROM sorted_set_basis WHERE id=${id};`
     connection.query(showRecognisedPart, (err, result) => {
         if (err) res.json({
             code: 500,

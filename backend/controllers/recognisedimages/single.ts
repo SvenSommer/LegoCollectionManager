@@ -3,11 +3,11 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {id} = req.params;
-    const showRecognisedImage = `SELECT * FROM Recognisedimages WHERE id=${id};`
-    connection.query(showRecognisedImage, (err, result) => {
+    const showOne = `SELECT * FROM Identifiedimages WHERE id=${id};`
+    connection.query(showOne, (err, result) => {
         if (err) res.json({
             code: 500,
-            message: 'Some error occurred while fetching Recognisedset',
+            message: 'Some error occurred while fetching ',
             errorMessage: process.env.DEBUG && err
         });
         else {

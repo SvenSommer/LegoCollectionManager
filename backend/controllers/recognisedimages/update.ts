@@ -19,21 +19,21 @@ export default (req: Request, res: Response) => {
             score) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const updateRecognisedSet = `UPDATE Recognisedimages SET image_id = ${image_id},
+                const updateOne = `UPDATE Identifiedimages SET image_id = ${image_id},
                                             part_id = ${part_id},
                                             score = ${score}
                                             WHERE id= ${id}`;
-                console.log(updateRecognisedSet)
-                connection.query(updateRecognisedSet, (err, result) => {
+                console.log(updateOne)
+                connection.query(updateOne, (err, result) => {
                     if (err) res.json({
                         code: 500,
-                        message: 'Couldn\'t updated the Recognised Image',
+                        message: 'Couldn\'t updated the Identified Image',
                         error: err
                     });
                     else {
                         res.json({
                             code: 201,
-                            message: 'Recognised Image updated!'
+                            message: 'Identified Image updated!'
                         });
                     }
                 })

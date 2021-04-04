@@ -5,7 +5,7 @@
               <div class="text-uppercase text-{{data?.color ? data?.color : ''}} font-weight-bold text-xs mb-1">
                   <span>{{title}}</span>
               </div>
-              <ngb-progressbar *ngIf="showProgressbar" type="{{data?.color ? data?.color : ''}}" [value]="data?.percentage" [animated]="true">{{data?.percentage}} % </ngb-progressbar>
+              <ngb-progressbar *ngIf="showProgressbar" type="{{data?.color ? data?.color : ''}}" [value]="(data?.current / data?.total) * 100" [animated]="true">{{data?.current / data?.total * 100}} % </ngb-progressbar>
               <div *ngIf="showProgressbar" class="text-dark font-weight-bold h5 mb-0">
                   {{data?.current}} of {{data?.total}}
               </div>

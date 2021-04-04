@@ -23,24 +23,24 @@ export default (req: Request, res: Response) => {
             status) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const updateRecognisedSet = `UPDATE Recognisedsets SET collection_id = ${collectionid},
+                const updateOne = `UPDATE Expectedsets SET collection_id = ${collectionid},
                                             setNo = '${setnumber}',
                                             comments = '${comments}',
                                             instructions = '${instructions}',
-                                            Recognisedsets.condition = '${condition}',
+                                            Expectedsets.condition = '${condition}',
                                             status = ${status}
                                             WHERE id=${id}`;
-                console.log(updateRecognisedSet)
-                connection.query(updateRecognisedSet, (err, result) => {
+                console.log(updateOne)
+                connection.query(updateOne, (err, result) => {
                     if (err) res.json({
                         code: 500,
-                        message: 'Couldn\'t updated the Recognisedsets',
+                        message: 'Couldn\'t updated the expected Sets',
                         error: err
                     });
                     else {
                         res.json({
                             code: 200,
-                            message: 'Recognisedsets updated!'
+                            message: 'Expected set updated!'
                         });
                     }
                 })

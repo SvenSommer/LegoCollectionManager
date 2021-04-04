@@ -31,11 +31,11 @@ export class RunDetailComponent implements OnInit {
   public recognisedpartDetails;
 
   public sortedsetsColumns = [
-    { title: 'Pusher', name: 'pusher_number', size: '60', minSize: '60' },
-    { title: 'Image', name: 'image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
-    { title: 'Set No', name: 'no', size: '30', minSize: '30' , datatype:{ type: 'number' }},
-    { title: 'Set Name', name: 'name', size: '30', minSize: '30' },
-    { title: 'Comments', name: 'recognisedset_comments', size: '30', minSize: '30' },
+    { title: 'Pusher', name: 'pusherinfo.name', size: '60', minSize: '60' },
+    { title: 'Image', name: 'setinfo.image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
+    { title: 'Set No', name: 'setinfo.no', size: '30', minSize: '30' , datatype:{ type: 'number' }},
+    { title: 'Set Name', name: 'setinfo.name', size: '30', minSize: '30' },
+    { title: 'Comments', name: 'expectedset.comment', size: '30', minSize: '30' },
     { title: 'Identified', name: 'percentage_identified', label: 'label_identified_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'info' }},
     { title: 'Sorted (detected)', name: 'percentage_sorted_detected', label: 'label_sorted_detected_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'success'} },
     { title: 'Sorted (undetected)', name: 'percentage_sorted_undetected',  label: 'label_sorted_undetected_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'danger'} },
@@ -56,7 +56,7 @@ export class RunDetailComponent implements OnInit {
   public newSortedSetDetail = {
     "id":0,
     "run_id":0,
-    "recognisedset_id":1,
+    "expectedset_id":1,
     "pusher_id":1
   }
   public sortedsetsData: any;
@@ -86,6 +86,7 @@ export class RunDetailComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
+            console.log(data)
             this.runDetails = data.body.result[0];
           }
           else if (data.body && data.body.code == 403) {

@@ -3,8 +3,8 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {collectionid} = req.params;
-    const showRecognisedSetsByCollectionId = `SELECT * FROM LegoSorterDB.sets_overview WHERE collection_id = ${collectionid} `
-    connection.query(showRecognisedSetsByCollectionId, (err, setsResult) => {
+    const showExpectedSetsByCollectionId = `SELECT * FROM LegoSorterDB.expected_sets_perCollectionId WHERE collection_id = ${collectionid} `
+    connection.query(showExpectedSetsByCollectionId, (err, setsResult) => {
         if (err) res.json({
             code: 500,
             message: 'Some error occurred while fetching recognised Sets',
@@ -18,8 +18,8 @@ export default (req: Request, res: Response) => {
             SUM(complete_minifigs_count) as allSetsSumMinifigsCount,
             SUM(min_price) as allSetsSumMinPrice,
             SUM(avg_price) as allSetsSumAvgPrice
-            FROM LegoSorterDB.Recognisedsets rs
-            LEFT JOIN LegoSorterDB.Sets s ON rs.setno = s.no
+            FROM LegoSorterDB.Expectedsets rs
+            LEFT JOIN LegoSorterDB.Setdata s ON rs.setno = s.no
             WHERE rs.collection_id = ${collectionid}`
             connection.query(sumQuery, (err, summarizedResults:any) => {
                 if (err) res.json({
@@ -29,8 +29,8 @@ export default (req: Request, res: Response) => {
                 });
 
                 const uniquePartsQuery = `SELECT COUNT(*) as allSetsUniquePartCount FROM (
-                    SELECT COUNT(*) as count, ss.no FROM LegoSorterDB.Recognisedsets rs
-                   LEFT JOIN LegoSorterDB.Sets s ON s.no = rs.setNo
+                    SELECT COUNT(*) as count, ss.no FROM LegoSorterDB.Expectedsets rs
+                   LEFT JOIN LegoSorterDB.Setdata s ON s.no = rs.setNo
                          LEFT JOIN LegoSorterDB.Subsets ss ON s.no = ss.Setno
                          WHERE rs.collection_id = ${collectionid}
                          GROUP BY ss.no
