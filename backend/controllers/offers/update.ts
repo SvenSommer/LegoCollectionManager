@@ -8,7 +8,7 @@ export default (req: Request, res: Response) => {
             id,
             external_id,
             url,
-            searchterm,
+            searchproperties_id,
             title,
             price,
             pricetype,
@@ -19,14 +19,14 @@ export default (req: Request, res: Response) => {
             datecreated,
             type,
             shipping,
-            userid,
+            user_id,
             description
         } = req.body;
 
-        if (id &&
-            external_id &&
+        if (id 
+           /*  external_id &&
             url &&
-            searchterm &&
+            searchproperties_id &&
             title &&
             price &&
             pricetype &&
@@ -37,12 +37,13 @@ export default (req: Request, res: Response) => {
             datecreated &&
             type &&
             shipping &&
-            userid &&
-            description) {
+            user_id &&
+            description  */
+            ) {
                 console.log(datecreated);
                 const updateOffer = `UPDATE Offers SET external_id = ${external_id},
                                         url = '${url}',
-                                        searchterm = '${searchterm.replace("'","`").replace("'","`")}',
+                                        searchproperties_id = ${searchproperties_id},
                                         title = '${title.replace("'","`").replace("'","`")}',
                                         price = ${price},
                                         pricetype = '${pricetype}',
@@ -53,15 +54,19 @@ export default (req: Request, res: Response) => {
                                         datecreated = '${datecreated}',
                                         type = '${type}',
                                         shipping = '${shipping}',
-                                        userid = ${userid},
+                                        user_id = ${user_id},
                                         description = '${description.replace("'","`").replace("'","`")}'
                                         WHERE id=${id}`;
                 connection.query(updateOffer, (err, result) => {
-                    if (err) res.json({
+                    if (err) { 
+                        console.log(updateOffer)
+                        console.log(err)
+                        res.json({
                         code: 500,
                         message: 'Couldn\'t updated the offer',
                         error: process.env.DEBUG && err
                     });
+                }
                     else {
                         res.json({
                             code: 200,
@@ -78,6 +83,7 @@ export default (req: Request, res: Response) => {
             });
         }
     } catch (e) {
+        console.log(e)
         res.json({
             code: 500,
             message: 'Some error occurred',

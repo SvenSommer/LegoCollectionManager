@@ -18,14 +18,16 @@ export class OfferComponent implements OnInit {
 
 
   public columns = [
-    { title: 'Image', name: 'images', size: '65', minSize: '65', datatype: { type: 'imagesoffers'}},
-    { title: 'Title', name: 'title', size: '20%', minSize: '120' },
-    { title: 'Price', name: 'price', size: '20%', minSize: '120', datatype: { type: 'price' } },
-    { title: 'Price Type', name: 'pricetype', size: '20%', minSize: '120' },
-    { title: 'Zipcode', name: 'zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },
-    { title: 'Shipping', name: 'shipping', size: '40', minSize: '40' },
-    { title: 'Seller', name: 'user.name', size: '40', minSize: '40' },
-    { title: 'Offer Date', name: 'datecreated', size: '100', minSize: '100', datatype: { type: 'date' } },
+    { title: 'Images', name: 'images', size: '120', minSize: '120', datatype: { type: 'imagesoffers'}},
+    { title: 'Title', name: 'offerinfo.title', size: '20%', minSize: '120' },
+    { title: 'Price', name: 'offerinfo.price', size: '20%', minSize: '120', datatype: { type: 'price' } },
+    { title: 'Price Type', name: 'offerinfo.pricetype', size: '20%', minSize: '120' },
+    { title: 'Zipcode', name: 'offerinfo.zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },
+    { title: 'Locality', name: 'offerinfo.locality', size: '25', minSize: '25' },
+    { title: 'Shipping', name: 'offerinfo.shipping', size: '40', minSize: '40' },
+    { title: 'Seller', name: 'userinfo.name', size: '40', minSize: '40' },
+    { title: 'Offer Date', name: 'offerinfo.datecreated', size: '100', minSize: '100', datatype: { type: 'date' } },
+    { title: 'created', name: 'created', size: '100', minSize: '100', datatype: { type: 'datetime' } },
   ];
 
   public data: any;
@@ -50,6 +52,38 @@ export class OfferComponent implements OnInit {
         console.log(error.name + ' ' + error.message);
       }
     );
+  }
+
+  onRowDeleteClick(model) {
+    let options = {
+      title: 'Are you sure you want to delete this?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel'
+    }
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+        console.log('Okay');
+        this.offerService.deleteOffer(model.id).subscribe(
+          (data) => {
+            if (data) {
+              if (data.body && data.body.code == 200) {
+               // Message should be data.body.message
+               this.toastr.success("Record Deleted Successfully.");
+               this.bindData();
+              }
+              else if (data.body && data.body.code == 403) {
+                this.router.navigateByUrl("/login");
+              }
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+      } else {
+        console.log('Cancel');
+      }
+    });
   }
 
   onRowClick(data) {

@@ -6,7 +6,7 @@ export function UpdateSetMinifigCount(setnumber: any) {
     IFNULL(SUM(p.qty_avg_price_stock),0) as part_stock_price_sum,
     IFNULL(SUM(p.qty_avg_price_sold),0) as part_sold_price_sum
     FROM Subsets 
-    JOIN Parts p ON Subsets.no = p.no AND Subsets.color_id = p.color_id
+    JOIN Partdata p ON Subsets.no = p.no AND Subsets.color_id = p.color_id
     WHERE p.type = 'MINIFIG'
     AND setNo = ${setnumber}`;
 
@@ -14,7 +14,7 @@ export function UpdateSetMinifigCount(setnumber: any) {
         if (err)
             console.log(err);
 
-        const updateSetData = `UPDATE Sets SET complete_minifigs_count = ${sumresult[0].minifigs_count} WHERE no = ${setnumber}`;
+        const updateSetData = `UPDATE Setdata SET complete_minifigs_count = ${sumresult[0].minifigs_count} WHERE no = ${setnumber}`;
 
         connection.query(updateSetData, (err) => {
             if (err) {

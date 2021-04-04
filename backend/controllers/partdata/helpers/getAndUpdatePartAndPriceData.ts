@@ -20,7 +20,7 @@ export function getAndUpdatePartAndPriceData(type: any, partnumber: any, colorid
                             region: 'europe',
                             guide_type: 'sold'
                         }).then(function (priceinfosolddata: any) {
-                            const updatePartData = `UPDATE Parts SET 
+                            const updatePartData = `UPDATE Partdata SET 
                                                     name = '${partinfo.name.replace("'","`").replace("'","`")}',
                                                     category_id = '${partinfo.category_id}',
                                                     year = '${partinfo.year_released}',

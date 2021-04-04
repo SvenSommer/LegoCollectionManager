@@ -45,10 +45,11 @@ import offers_views from "./routes/offers_views";
 import offers_status from "./routes/offers_status";
 import offers_possiblesets from "./routes/offers_possiblesets";
 import offers_properties from "./routes/offers_properties";
+import offers_logs from "./routes/offers_logs";
 
 
 const corsOpts = {
-    origin: 'http://localhost:4200',
+    origin: ['http://localhost:3001','http://localhost:4200'],
     credentials: true,
     methods: [
         'GET',
@@ -68,6 +69,8 @@ const corsOpts = {
 */
 dotenv.config();
 app.use(cors(corsOpts));
+// app.use(cors());
+// app.options("*")
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
@@ -109,6 +112,7 @@ app.use('/offers_views', offers_views);
 app.use('/offers_status', offers_status);
 app.use('/offers_possiblesets', offers_possiblesets);
 app.use('/offers_properties', offers_properties);
+app.use('/offers_logs', offers_logs);
 
 
 const PORT = process.env.PORT || 4000;
@@ -119,4 +123,3 @@ connection.getConnection((err) => {
         console.log(`Connected to DB`)
     });
 })
-

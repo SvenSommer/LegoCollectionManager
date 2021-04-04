@@ -5,7 +5,7 @@ import { PriceParams } from "../../../models/model";
 export function InsertPriceData(res: Response<any, Record<string, any>>, userid: string, priceParams: PriceParams): void {
     const { type, partnumber, colorid, guide_type, priceinfo, region } = priceParams;
 
-    const insertPrices = `INSERT INTO Prices (
+    const insertPrices = `INSERT INTO Pricedata (
         no,
         type,
         new_or_used,

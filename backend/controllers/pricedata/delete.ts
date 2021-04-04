@@ -3,7 +3,7 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {id} = req.params;
-    const deletePartdata = `DELETE FROM Prices WHERE id=${id};`
+    const deletePartdata = `DELETE FROM Pricedata WHERE id=${id};`
     connection.query(deletePartdata, (err, result) => {
         if (err) res.json({
             code: 500,

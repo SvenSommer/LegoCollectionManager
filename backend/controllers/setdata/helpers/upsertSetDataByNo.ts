@@ -5,7 +5,7 @@ import { GetAndInsertSetData } from './getAndInsertSetData';
 import { GetAndUpdateSetData } from './getAndUpdateSetData';
 
 export function GetAndUpsertSetDataByNo(setnumber: any, res: Response<any, Record<string, any>>, userid: number) {
-    const findSetDataInDB = `SELECT * FROM Sets WHERE no='${setnumber}'`;
+    const findSetDataInDB = `SELECT * FROM Setdata WHERE no='${setnumber}'`;
 
     connection.query(findSetDataInDB, (err, setresult: any) => {
         if (err)

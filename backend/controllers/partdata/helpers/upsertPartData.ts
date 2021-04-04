@@ -4,7 +4,7 @@ import { getAndInsertPartAndPriceData } from './getAndInsertPartAndPriceData';
 import { getAndUpdatePartAndPriceData } from './getAndUpdatePartAndPriceData';
 
 export function UpsertPartDataByNo(partnumber: any, colorid: any, type: any, res: Response<any, Record<string, any>>, userid: number) {
-    const findPartDataInDB = `SELECT * FROM Parts WHERE no='${partnumber}' AND color_id = ${colorid} AND type = '${type}' `;
+    const findPartDataInDB = `SELECT * FROM Partdata WHERE no='${partnumber}' AND color_id = ${colorid} AND type = '${type}' `;
     connection.query(findPartDataInDB, (err, partresult: any) => {
         if (err)
             res.json({
@@ -28,7 +28,7 @@ export function UpsertPartDataByNo(partnumber: any, colorid: any, type: any, res
 }
 
 export function UpdatePartDataById(partid: any, res: Response<any, Record<string, any>>, userid: number) {
-    const findPartDataInDB = `SELECT * FROM Parts WHERE id = ${partid}`;
+    const findPartDataInDB = `SELECT * FROM Partdata WHERE id = ${partid}`;
     connection.query(findPartDataInDB, (err, partresult: any) => {
         if (err)
             res.json({

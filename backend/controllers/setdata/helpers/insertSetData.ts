@@ -2,7 +2,7 @@ import { Response } from 'express';
 import connection from "../../../database_connection";
 
 export function InsertSetData(setnumber: any, setinfo: any, priceinfo: any, id: any, res: Response<any, Record<string, any>>) {
-    const createSetData = `INSERT INTO Sets (
+    const createSetData = `INSERT INTO Setdata (
                                             no,
                                             name,
                                             category_id,

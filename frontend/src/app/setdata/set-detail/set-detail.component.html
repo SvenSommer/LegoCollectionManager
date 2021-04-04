@@ -1,13 +1,13 @@
 <div class="container-fluid" *ngIf="setdataDetails">
     <div class="d-sm-flex justify-content-between align-items-center mb-4 pt-2">
-        <h3 class="text-dark mb-0">{{setdataDetails.no}} - {{setdataDetails.name}}</h3>
+        <h3 class="text-dark mb-0">{{setdataDetails.setinfo.no}} - {{setdataDetails.setinfo.name}}</h3>
     </div>
 </div>
 <div class="row mb-3" *ngIf="setdataDetails">
     <div class="col-lg-4">
         <div class="card mb-3">
             <div class="card-body text-center shadow">
-                 <img (click)="onImgClick(setdataDetails)" height="160px" [src]="setdataDetails.image_url" />
+                 <img (click)="onImgClick(setdataDetails)" height="160px" [src]="setdataDetails.setinfo.image_url" />
             </div>
          </div>
          <div class="card shadow mb-4">
@@ -25,7 +25,7 @@
                                 </td>
                                 <td>
                                     <a href="https://www.bricklink.com/v2/catalog/catalogitem.page?S={{setdataDetails.no}}#T=S&O={%22ss%22:%22DE%22,%22cond%22:%22U%22,%22ii%22:0,%22is%22:0,%22iconly%22:0}" (click)="onExternalClick(setdataDetails)">
-                                        {{setdataDetails.no}}
+                                        {{setdataDetails.setinfo.no}}
                                     </a>
                                 </td>
                             </tr>
@@ -34,7 +34,7 @@
                                     Year
                                 </td>
                                 <td>
-                                    {{setdataDetails.year}}
+                                    {{setdataDetails.setinfo.year}}
                                 </td>
                             </tr>
                             <tr>
@@ -42,7 +42,7 @@
                                     Weight
                                 </td>
                                 <td>
-                                        {{setdataDetails.weight_g}} g 
+                                        {{setdataDetails.setinfo.weight_g}} g 
                                 </td>
                             </tr> 
                             <tr>
@@ -50,7 +50,7 @@
                                     Size
                                 </td>
                                 <td>
-                                        {{setdataDetails.size}} g 
+                                        {{setdataDetails.setinfo.size}} g 
                                 </td>
                             </tr>
                             <tr>
@@ -59,8 +59,8 @@
                                     (avg Price)
                                 </td>
                                 <td>
-                                    {{setdataDetails.min_price}}&#8364; {{setdataDetails.max_price}}&#8364; <br>
-                                    {{setdataDetails.avg_price}}         &#8364;                          
+                                    {{setdataDetails.setinfo.min_price}}&#8364; {{setdataDetails.setinfo.max_price}}&#8364; <br>
+                                    {{setdataDetails.setinfo.avg_price}}         &#8364;                          
                                        
                                 </td>
                             </tr>

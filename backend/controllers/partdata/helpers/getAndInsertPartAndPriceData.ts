@@ -21,7 +21,7 @@ export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid
                             region: 'europe',
                             guide_type: 'sold'
                         }).then(function (priceinfoSold: PriceInfo) {
-                            const createPartData = `INSERT INTO Parts (
+                            const createPartData = `INSERT INTO Partdata (
                                                     no,
                                                     name,
                                                     type,

@@ -28,19 +28,18 @@ export class OfferDetailComponent implements OnInit {
 
   public possiblesetColumns = [
     { title: 'Amount', name: 'amount', size: '40', minSize: '40' , datatype:{ type: 'number' }},
-    { title: 'Image', name: 'image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
+    { title: 'Image', name: 'setinfo.image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
     { title: 'Set No', name: 'setno', size: '30', minSize: '30' },
-    { title: 'Set Name', name: 'name', size: '30', minSize: '30' },
+    { title: 'Set Name', name: 'setinfo.name', size: '30', minSize: '30' },
     { title: 'Comments', name: 'comments', size: '30', minSize: '30' },
-    { title: 'Year', name: 'year', size: '30', minSize: '50', datatype:{ type: 'number' } },
-    { title: 'Weight(g)', name: 'weight_g', size: '40', minSize: '40' , datatype:{ type: 'number' }},
-    { title: 'Amount', name: 'amount', size: '40', minSize: '40' , datatype:{ type: 'number' }},
-    { title: 'Size', name: 'size', size: '80', minSize: '80' },
-    { title: 'Parts', name: 'complete_part_count', size: '50', minSize: '50', datatype:{ type: 'number' } },
-    { title: 'Minifigs', name: 'complete_minifigs_count', size: '50', minSize: '50' , datatype:{ type: 'number' }},
-    { title: 'min Price', name: 'min_price', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'max Price', name: 'max_price', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'Avg Price', name: 'avg_price', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Year', name: 'setinfo.year', size: '30', minSize: '50', datatype:{ type: 'number' } },
+    { title: 'Weight(g)', name: 'setinfo.weight_g', size: '40', minSize: '40' , datatype:{ type: 'number' }},
+    { title: 'Size', name: 'setinfo.size', size: '80', minSize: '80' },
+    { title: 'Parts', name: 'setinfo.complete_part_count', size: '50', minSize: '50', datatype:{ type: 'number' } },
+    { title: 'Minifigs', name: 'setinfo.complete_minifigs_count', size: '50', minSize: '50' , datatype:{ type: 'number' }},
+    { title: 'min Price', name: 'setinfo.min_price', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'max Price', name: 'setinfo.max_price', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Avg Price', name: 'setinfo.avg_price', size: '40', minSize: '40', datatype: { type: 'price' } },
     { title: 'Identified', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
   ];
 
@@ -103,6 +102,38 @@ export class OfferDetailComponent implements OnInit {
       );
     }
 
+    public onDeleteClick(){
+      let options = {
+        title: 'Are you sure you want to delete this?',
+        confirmLabel: 'Okay',
+        declineLabel: 'Cancel'
+      }
+      this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+        if (res) {
+          console.log('Okay');
+          this.offerService.deleteOffer(this.offerid).subscribe(
+            (data) => {
+              if (data) {
+                if (data.body && data.body.code == 200) {
+                 // Message should be data.body.message
+                 this.toastr.success("Record Deleted Successfully.");
+                 this.router.navigateByUrl("/offer");
+                }
+                else if (data.body && data.body.code == 403) {
+                  this.router.navigateByUrl("/login");
+                }
+              }
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.name + ' ' + error.message);
+            }
+          );
+        } else {
+          console.log('Cancel');
+        }
+      });
+    }
+
     public onExternalClick(data) {
       if(data && data.url)
       {
@@ -136,7 +167,6 @@ export class OfferDetailComponent implements OnInit {
 
 
     getAllPossiblesets() {
-
       this.offerService.getPossiblesetsByOfferid(this.offerid).subscribe(
         (data) => {
           if (data) {
@@ -163,6 +193,7 @@ export class OfferDetailComponent implements OnInit {
       if (!form.valid) {
         return;
       }
+      this.newpossiblesetDetail.setno.replace(/ /g, "");
       console.log(this.newpossiblesetDetail)
       this.offerService.saveNewPossibleSets(this.newpossiblesetDetail).subscribe(
         (data) => {
@@ -192,8 +223,9 @@ export class OfferDetailComponent implements OnInit {
     }
 
     onRowPossibleSetClick(data) {
+      console.log(data)
       if(data.id != null)
-        this.router.navigateByUrl("/setdetail/" + data.id).then((bool) => { }).catch()
+        this.router.navigateByUrl("/setdetail/" + data.set_id).then((bool) => { }).catch()
     }
    
     onRowPossibleSetDeleteClick(data){
@@ -226,5 +258,16 @@ export class OfferDetailComponent implements OnInit {
           console.log('Cancel');
         }
       });
+    }
+
+    public onImgPopupClose() {
+      this.imgPopupURL = '';
+      this.imgPopupName = '';
+     }
+  
+    public onImgClick(partimage) {
+      this.imgPopupURL = partimage.imageurl ;
+      this.imgPopupName = partimage.path;
+      this.imagePopup.open();
     }
 }

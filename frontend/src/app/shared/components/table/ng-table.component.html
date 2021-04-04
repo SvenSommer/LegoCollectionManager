@@ -41,16 +41,16 @@
               <img (click)="onImgClick(row,column)" *ngIf="getData(row,column,i)" [style.width.px]="column.minSize"
                 [src]="getData(row,column,i)" />
             </td>
-            <td *ngSwitchCase="'images'" (click)="rowCellClick.emit(row)">
+            <td *ngSwitchCase="'images'" (click)="rowCellClick.emit(row)" >
                <ng-container *ngFor="let partimage of row.partimages">
                 <img *ngIf="partimage.deleted==null" [style.width.px]="column.minSize"
                   [src]="partimage.path" />
               </ng-container> 
             </td>
-            <td *ngSwitchCase="'imagesoffers'" (click)="rowCellClick.emit(row)">
+            <td *ngSwitchCase="'imagesoffers'" (click)="rowCellClick.emit(row)" [style.min-width.px]="500">
               <ng-container *ngFor="let image of row.images">
-               <img [style.width.px]="column.minSize"
-                 [src]="image.path" />
+               <img class="img-thumbnail rounded float-left" [style.height.px]="column.minSize" *ngIf="image != null"
+                 [src]="image.imageurl" />
              </ng-container> 
            </td>
             <td *ngSwitchCase="'percentage'" (click)="rowCellClick.emit(row)"

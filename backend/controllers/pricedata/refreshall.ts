@@ -28,7 +28,7 @@ export default (req: Request, res: Response) => {
                         errorMessage: process.env.DEBUG && err
                     });
                     else {
-                        const findallPrices = `SELECT * FROM Prices WHERE created < CURDATE() LIMIT ${batchsize}`;
+                        const findallPrices = `SELECT * FROM Pricedata WHERE created < CURDATE() LIMIT ${batchsize}`;
                         
                         connection.query(findallPrices, (err, allpricesresult: any) => {
                             if (err) res.json({
