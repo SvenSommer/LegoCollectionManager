@@ -13,10 +13,12 @@ body {
     text-align: left;
     background-color: #fff;
   }
-  
-  
+
+
 .table {
     width: 100%;
     margin-bottom: 1rem;
     color: #858796;
   }
+/* html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
