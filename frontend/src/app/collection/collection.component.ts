@@ -19,15 +19,16 @@ export class CollectionComponent implements OnInit {
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   public columns = [
-    { title: 'Image', name: 'thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' }},
-    { title: 'Name', name: 'name', size: '20%', minSize: '120' },
-    { title: 'Description', name: 'description', size: '20%', minSize: '120' },
-    { title: 'Weight(kg)', name: 'weight_kg', size: '25', minSize: '25', datatype: { type: 'number' } },
-    { title: 'Cost', name: 'cost', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'Cost per Kilo', name: 'cost_per_kilo', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'Origin', name: 'origin', size: '50', minSize: '50' },
-    { title: 'Seller', name: 'seller', size: '80', minSize: '80' },
-    { title: 'Purchase Date', name: 'purchase_date', size: '100', minSize: '100', datatype: { type: 'date' } },
+    { title: 'Image', name: 'collectioninfo.thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' }},
+    { title: 'Name', name: 'collectioninfo.name', size: '20%', minSize: '120' },
+    { title: 'Description', name: 'collectioninfo.description', size: '20%', minSize: '120' },
+    { title: 'Weight(kg)', name: 'collectioninfo.weight_kg', size: '25', minSize: '25', datatype: { type: 'number' } },
+    { title: 'Cost', name: 'collectioninfo.cost', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Cost per Kilo', name: 'collectioninfo.cost_per_kilo', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Seller', name: 'collectioninfo.seller', size: '80', minSize: '80' },
+    { title: 'Sugegsted Sets', name: 'suggested_sets.sumSet', size: '80', minSize: '80' },
+    { title: 'Expected Sets', name: 'expected_sets.sumSet', size: '80', minSize: '80' },
+    { title: 'Purchase Date', name: 'collectioninfo.purchase_date', size: '100', minSize: '100', datatype: { type: 'date' } },
   ];
 
   public data: any;
