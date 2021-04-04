@@ -179,7 +179,7 @@
             (mouseleave)="panel.close()">
               <mat-expansion-panel-header class="disable_ripple">
                 <mat-panel-title>
-                  {{ item.name }} <p *ngIf="item?.sets && item?.sets.length > 0"> : {{item.sets[0].no}} - {{item.sets[0].name}}</p>
+                  {{ item.pusherinfo.name }} <p *ngIf="item?.sets && item?.sets.length > 0"> : {{item.sets[0].no}} - {{item.sets[0].name}}</p>
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div
