@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RecognisedpartEditComponent } from './recognisedpart-edit.component';
+import { IdentifiedpartEditComponent } from './identifiedpart-edit.component';
 
-describe('RecognisedpartEditComponent', () => {
-  let component: RecognisedpartEditComponent;
-  let fixture: ComponentFixture<RecognisedpartEditComponent>;
+describe('IdentifiedpartEditComponent', () => {
+  let component: IdentifiedpartEditComponent;
+  let fixture: ComponentFixture<IdentifiedpartEditComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RecognisedpartEditComponent ]
+      declarations: [ IdentifiedpartEditComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RecognisedpartEditComponent);
+    fixture = TestBed.createComponent(IdentifiedpartEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -3,24 +3,24 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RecognisedPartModel } from 'src/app/models/RecognisedPartModel';
-import { RecognisedpartsService } from 'src/app/services/recognisedpart.service';
+import { IdentifiedPartModel } from 'src/app/models/IdentifiedPartModel';
+import { IdentifiedpartService } from 'src/app/services/identifiedpart.service';
 import { PartimageService } from 'src/app/services/partimage.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-recognisedpart-edit',
-  templateUrl: './recognisedpart-edit.component.html',
-  styleUrls: ['./recognisedpart-edit.component.css']
+  selector: 'app-identifiedpart-edit',
+  templateUrl: './identifiedpart-edit.component.html',
+  styleUrls: ['./identifiedpart-edit.component.css']
 })
-export class RecognisedpartEditComponent implements OnInit {
+export class IdentifiedpartEditComponent implements OnInit {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
      this.HandleKeyInput(event.key);
     }
  
 
-  constructor(private recognisedpartsService: RecognisedpartsService,
+  constructor(private identifiedpartsService: IdentifiedpartService,
     private partimageService: PartimageService,
     private router: Router,
     private toastr: ToastrService) { }
@@ -28,12 +28,12 @@ export class RecognisedpartEditComponent implements OnInit {
   @ViewChild('modalPopup') modal: ModalPopupComponent;
 
   
-  public recognisedpart:RecognisedPartModel = new RecognisedPartModel();
-  @Output() recognisedpartAdded = new EventEmitter<RecognisedPartModel>();
+  public identifiedpart:IdentifiedPartModel = new IdentifiedPartModel();
+  @Output() identifiedpartAdded = new EventEmitter<IdentifiedPartModel>();
 
   public isFormSubmitted = false;
   public isForEdit = false;
-  public pageTitle = 'Add Recognised Part';
+  public pageTitle = 'Add Identified Part';
 
   ngOnInit(): void {
   }
@@ -42,9 +42,9 @@ export class RecognisedpartEditComponent implements OnInit {
   open(data = null) {
     if (data) {
       this.recpartid = data.id;
-      this.pageTitle = 'Edit Recognised Part';
+      this.pageTitle = 'Edit Identified Part';
       this.isForEdit = true;
-      this.recognisedpart = new RecognisedPartModel(data);
+      this.identifiedpart = new IdentifiedPartModel(data);
     }
     else {
       this.isForEdit = false;
@@ -57,15 +57,15 @@ export class RecognisedpartEditComponent implements OnInit {
     if (!sortedsetform.valid) {
       return;
     }
-    var method = "saveRecognisedpart";
+    var method = "saveIdentifiedpart";
     if (this.isForEdit) {
-      method = "updatetRecognisedpart";
+      method = "updatetIdentifiedpart";
     }
-    this.recognisedpartsService[method](this.recognisedpart).subscribe(
+    this.identifiedpartsService[method](this.identifiedpart).subscribe(
       (data) => {
         if (data.body.code == 201 || data.body.code == 200) {
           this.toastr.success(data.body.message);
-          this.recognisedpartAdded.emit(this.recognisedpart);
+          this.identifiedpartAdded.emit(this.identifiedpart);
           this.modal.close();
         }
         else {
@@ -81,7 +81,7 @@ export class RecognisedpartEditComponent implements OnInit {
   HandleKeyInput(key: string) {
     switch (key) {
       case "Enter":
-        this.recognisedpartAdded.emit(this.recognisedpart);
+        this.identifiedpartAdded.emit(this.identifiedpart);
         this.modal.close();
         break;
         default:
@@ -136,12 +136,12 @@ export class RecognisedpartEditComponent implements OnInit {
   }
 
   Refresh() {
-    this.recognisedpartsService.getRecognisedpartById(this.recpartid).subscribe(
+    this.identifiedpartsService.getIdentifiedpartById(this.recpartid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
             console.log(data)
-            this.recognisedpart = data.body.result[0];
+            this.identifiedpart = data.body.result[0];
 
           }
           else if (data.body && data.body.code == 403) {

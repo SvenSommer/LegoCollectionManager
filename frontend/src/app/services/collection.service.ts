@@ -70,7 +70,7 @@ export class CollectionService {
   getUnsettedParts(id) {
     let httpHeader = new HttpHeaders();
     httpHeader.set("Access-Control-Allow-Origin", "*");
-    return this.http.get<any>(`${environment.baseUrl}recognisedparts/collection/` + id + '/unsetted', { withCredentials: true, headers: httpHeader, observe: 'response' });
+    return this.http.get<any>(`${environment.baseUrl}identifiedparts/collection/` + id + '/unsetted', { withCredentials: true, headers: httpHeader, observe: 'response' });
   }
   getExpectedMinifigs(id) {
     let httpHeader = new HttpHeaders();

@@ -12,21 +12,21 @@ import UserAuthMiddleware from '../controllers/middleware/UserAuth.middleware';
 import {Router} from "express";
 const route = Router();
 
-//List all RecognisedParts
+//List all IdentifiedParts
 route.get(``, UserAuthMiddleware, ShowAllIdentifiedParts);
-//List all RecognisedParts by RunId
+//List all IdentifiedParts by RunId
 route.get(`/run/:runid`, UserAuthMiddleware, ShowAllIdentifiedPartsByRunId);
-//Show unsetted RecognisedParts od collectionid
+//Show unsetted IdentifiedParts od collectionid
 route.get(`/collection/:collectionid/unsetted`, UserAuthMiddleware, ShowAllUnsettedIdentifiedPartsByCollectionId);
-//Create a new RecognisedPart
+//Create a new IdentifiedPart
 route.post(``, AdminAuthMiddleware, CreateIdentifiedPart);
-//Show info about a RecognisedPart
+//Show info about a IdentifiedPart
 route.get(`/:id`, UserAuthMiddleware, GetSingleIdentifiedPartById);
-//Update a particular RecognisedPart
+//Update a particular IdentifiedPart
 route.put(`/:id`, AdminAuthMiddleware, UpdateIdentifiedPartById);
-//Delete a particular RecognisedPart
-//route.delete(`/:id`, AdminAuthMiddleware, DeleteSingleRecognisedPartById);
-//Mark RecognisedPart as deleted
+//Delete a particular IdentifiedPart
+//route.delete(`/:id`, AdminAuthMiddleware, DeleteSingleIdentifiedPartById);
+//Mark IdentifiedPart as deleted
 route.patch(`/:id`, AdminAuthMiddleware, MarkAsDeletedIdentifiedPartById);
 route.delete(`/:id`, AdminAuthMiddleware, MarkAsDeletedIdentifiedPartById);
 export default route;

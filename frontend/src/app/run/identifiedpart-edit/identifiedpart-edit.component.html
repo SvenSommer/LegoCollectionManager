@@ -1,5 +1,5 @@
 <app-modal-popup [title]="pageTitle" #modalPopup>
-    <form (ngSubmit)="onSubmit(recognisedpartForm)" #recognisedpartForm="ngForm">
+    <form (ngSubmit)="onSubmit(identifiedpartForm)" #identifiedpartForm="ngForm">
         <div class="col-md-12  mb-4" >
             <div class="card shadow mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -11,14 +11,14 @@
                                 <div class="form-group">
                                     <label>No</label>
                                     <div class="input-group">
-                                        <input type="text" required #name="ngModel" [(ngModel)]="recognisedpart.no" class="form-control"
+                                        <input type="text" required #name="ngModel" [(ngModel)]="identifiedpart.no" class="form-control"
                                             id="no" name="no">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Color id</label>
                                     <div class="input-group">
-                                        <input type="number" #status="ngModel" [(ngModel)]="recognisedpart.color_id"
+                                        <input type="number" #status="ngModel" [(ngModel)]="identifiedpart.color_id"
                                             class="form-control" id="color_id" name="color_id">
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="card-body">
                         <div class="col-md-12  mb-4" >
-                            <ng-container *ngFor="let partimage of recognisedpart.partimages">
+                            <ng-container *ngFor="let partimage of identifiedpart.partimages">
                                 <img class="img-thumbnail rounded float-left" [style.height.px]="150"
                                 [src]="partimage.path" (click)="onToggleDeleted(partimage)"
                                 [ngStyle]="styleImage(partimage)"    

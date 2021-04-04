@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RecognisedpartsService } from '../services/recognisedpart.service';
+import { IdentifiedpartService } from '../services/identifiedpart.service';
 import { PartimageService } from '../services/partimage.service';
 
 
@@ -21,9 +21,9 @@ export class LabelpartsComponent implements OnInit {
 
 
 
-  public recognisedpartsData: any;
+  public identifiedpartsData: any;
   constructor(private activatedRoute: ActivatedRoute,
-    private recognisedpartsService: RecognisedpartsService,
+    private identifiedpartsService: IdentifiedpartService,
     private partimageService: PartimageService,
     private router: Router, private toastr: ToastrService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
@@ -36,12 +36,12 @@ export class LabelpartsComponent implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       this.runid = params['runid'];
       if (this.runid > 0) {
-        this.getAllRecognisedpartsByRunid();
+        this.getAllIdentifiedpartsByRunid();
       }
     });
   }
 
-  public recognisedpartsColumns = [
+  public identifiedpartsColumns = [
     { title: 'Part Images Recorded', name: 'partimages', size: '65', minSize: '65', maxSize: '30%', datatype:{ type: 'images' } },
     { title: 'Recignised Part', name: 'thumbnail_url', size: '65', minSize: '65' , datatype:{ type: 'image' }},
     { title: 'Color', name: 'color_name', size: '30', minSize: '30' },
@@ -75,10 +75,10 @@ export class LabelpartsComponent implements OnInit {
         break;
         
       case "Delete": 
-          this.onDeleteRecognisedPartClick(this.current_partid)
+          this.onDeleteIdentifiedPartClick(this.current_partid)
         break;        
       case "0": 
-          this.onToogleAllDeleted(this.recognisedpartsData[this.currentpart_of_run])
+          this.onToogleAllDeleted(this.identifiedpartsData[this.currentpart_of_run])
         break;
     
       default:
@@ -96,7 +96,7 @@ styleImage(partimage): Object {
   return {}
   }
 
-  onDeleteRecognisedPartClick(id){
+  onDeleteIdentifiedPartClick(id){
     let options = {
       title: 'Are you sure you want to delete part?',
       confirmLabel: 'Okay',
@@ -105,7 +105,7 @@ styleImage(partimage): Object {
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
         console.log('Okay');
-        this.recognisedpartsService.markRecognisedpartAsDeletedById(id).subscribe(
+        this.identifiedpartsService.markIdentifiedpartAsDeletedById(id).subscribe(
           (data) => {
             this.refreshImages(data);
           },
@@ -154,7 +154,7 @@ styleImage(partimage): Object {
     if (data) {
       if (data.body && data.body.code == 200) {
         // Message should be data.body.message
-        this.getAllRecognisedpartsByRunid();
+        this.getAllIdentifiedpartsByRunid();
       }
       else if (data.body && data.body.code == 403) {
         this.router.navigateByUrl("/login");
@@ -162,12 +162,12 @@ styleImage(partimage): Object {
     }
   }
 
-  getAllRecognisedpartsByRunid() {
-    this.recognisedpartsService.getRecognisedpartByRunid(this.runid).subscribe(
+  getAllIdentifiedpartsByRunid() {
+    this.identifiedpartsService.getIdentifiedpartByRunid(this.runid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.recognisedpartsData = data.body.result;
+            this.identifiedpartsData = data.body.result;
             this.refreshCurrentPartid();
           }
           else if (data.body && data.body.code == 403) {
@@ -183,8 +183,8 @@ styleImage(partimage): Object {
   
 
   private refreshCurrentPartid() {
-    if(this.recognisedpartsData)
-      this.current_partid = this.recognisedpartsData[this.currentpart_of_run].id;
+    if(this.identifiedpartsData)
+      this.current_partid = this.identifiedpartsData[this.currentpart_of_run].id;
   }
 }
 

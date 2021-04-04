@@ -30,7 +30,7 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         const {id:userid} = result[0];
-                        const createRecognisedimages = `INSERT INTO Recognisedimages (
+                        const createOne = `INSERT INTO Identifiedimages (
                                                   image_id,
                                                   part_id,
                                                   score
@@ -41,16 +41,16 @@ export default (req: Request, res: Response) => {
                                                           ${score},
                                                           ${userid}
                                                         )`;
-                        connection.query(createRecognisedimages, (err) => {
+                        connection.query(createOne, (err) => {
                             if (err) res.json({
                                 code: 500,
-                                message: 'Couldn\'t create the recognised image',
+                                message: 'Couldn\'t create the identified image',
                                 errorMessage: process.env.DEBUG && err
                             });
                             else {
                                 res.json({
                                     code: 201,
-                                    message: 'Recognised image created!'
+                                    message: 'Identified image created!'
                                 });
                             }
                         })

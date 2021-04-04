@@ -7,10 +7,10 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h6 class="text-primary font-weight-bold m-0">Recorded Images of Part {{current_partid}}</h6>
                         <div class="dropdown no-arrow">
-                            <a class="btn btzn-link btn-sm" title="edit" aria-expanded="false"  type="button" (click)="onToogleAllDeleted(recognisedpartsData[currentpart_of_run])">
+                            <a class="btn btzn-link btn-sm" title="edit" aria-expanded="false"  type="button" (click)="onToogleAllDeleted(identifiedpartsData[currentpart_of_run])">
                                 <i class="fas fa-exchange-alt"></i>
                             </a>
-                            <a class="pl-1 text-danger" title="Delete" (click)="onDeleteRecognisedPartClick(current_partid)">
+                            <a class="pl-1 text-danger" title="Delete" (click)="onDeleteIdentifiedPartClick(current_partid)">
                                 <i class="far fa-trash-alt text-gray-400"></i>
                             </a>
                         </div>
@@ -19,15 +19,15 @@
                         <div class="row">
                             <ng-container *ngFor='let index of [1,2,3,4,5,6,7,9,10]'>
                                 <img class="img-thumbnail rounded float-left" [style.height.px]="50"
-                                [src]="recognisedpartsData[currentpart_of_run+index].partimages[0].path" 
-                                [ngStyle]="styleImage(recognisedpartsData[currentpart_of_run+index].partimages[0].path)"
+                                [src]="identifiedpartsData[currentpart_of_run+index].partimages[0].path" 
+                                [ngStyle]="styleImage(identifiedpartsData[currentpart_of_run+index].partimages[0].path)"
                                 
                                 />
                             </ng-container> 
                         </div>
                         <hr>    
                         <div class="row">
-                            <ng-container *ngFor="let partimage of recognisedpartsData[currentpart_of_run].partimages">
+                            <ng-container *ngFor="let partimage of identifiedpartsData[currentpart_of_run].partimages">
                                 <img class="img-thumbnail rounded float-left" [style.height.px]="150"
                                 [src]="partimage.path" (click)="onToggleDeleted(partimage)"
                                 [ngStyle]="styleImage(partimage)"

@@ -1,4 +1,4 @@
-export class RecognisedPartModel {
+export class IdentifiedPartModel {
     public id: number;
     public run_id: number;
     public no : number;

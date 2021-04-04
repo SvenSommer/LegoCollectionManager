@@ -20,7 +20,7 @@ export class RunComponent implements OnInit {
 
   public columns = [
   { title: 'Run #', name: 'run_no', size: '5%', minSize: '50'},
-  { title: 'Collection', name: 'runinfo.collection', size: '50', minSize: '50'},
+  { title: 'Collection', name: 'name', size: '50', minSize: '50'},
   { title: 'Collectionid', name: 'collection_id', size: '50', minSize: '50'},
   { title: 'Sorter', name: 'sorterinfo.name', size: '5%', minSize: '50'},
   { title: 'Status', name: 'status.name', size: '80', minSize: '80' },

@@ -120,7 +120,7 @@
             <div class="row">
                 <div class="card shadow mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="text-primary font-weight-bold m-0">Recognised Parts</h6>
+                        <h6 class="text-primary font-weight-bold m-0">Identified Parts</h6>
                         <div class="dropdown no-arrow">
                             <button class="btn btn-sm btn-primary" aria-expanded="false"  type="button" (click)="labelparts(runDetails.id)">
                                 Label Parts
@@ -129,8 +129,8 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-12" *ngIf="recognisedpartsData && recognisedpartsColumns">
-                                <ng-table (rowCellClick)="onEditRecognisedpartClick($event)"  [isActionVisible]="true" [isEditVisible]="false" [isDeleteVisible]="true" [columns]="recognisedpartsColumns" [data]="recognisedpartsData" (rowDeleteClick)="onRowRecognisedpartDeleteClick($event)">
+                            <div class="col-sm-12" *ngIf="identifiedpartsData && identifiedpartsColumns">
+                                <ng-table (rowCellClick)="onEditIdentifiedpartClick($event)"  [isActionVisible]="true" [isEditVisible]="false" [isDeleteVisible]="true" [columns]="identifiedpartsColumns" [data]="identifiedpartsData" (rowDeleteClick)="onRowIdentifiedpartDeleteClick($event)">
                                 </ng-table>
                             </div>
                     </div>
@@ -142,4 +142,4 @@
 
 <app-run-edit (runAdded)="addNewRun($event)" #runEdit></app-run-edit>
 <app-sortedset-edit (sortedsetAdded)="addNewSortedset($event)" #sortedsetEdit></app-sortedset-edit>
-<app-recognisedpart-edit (recognisedpartAdded)="addNewRecognisedpart($event)" #recognisedpartEdit></app-recognisedpart-edit>
+<app-identifiedpart-edit (identifiedpartAdded)="addNewIdentifiedpart($event)" #identifiedpartEdit></app-identifiedpart-edit>

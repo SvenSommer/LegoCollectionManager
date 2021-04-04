@@ -2,12 +2,12 @@ import {Request, Response} from 'express';
 import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
-    const {id} = req.params;
-    const deleteRecognisedImage = `DELETE FROM Recognisedimages WHERE id=${id};`
-    connection.query(deleteRecognisedImage, (err, result) => {
+    const showAll = `SELECT *
+                                FROM Identifiedimages;`
+    connection.query(showAll, (err, result) => {
         if (err) res.json({
             code: 500,
-            message: 'Some error occurred while deleting recognisedimage',
+            message: 'Some error occurred while fetching Identified images',
             errorMessage: process.env.DEBUG && err
         });
         else {

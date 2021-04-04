@@ -7,7 +7,7 @@ export default (req: Request, res: Response) => {
     connection.query(showExpectedSetsByCollectionId, (err, setsResult) => {
         if (err) res.json({
             code: 500,
-            message: 'Some error occurred while fetching recognised Sets',
+            message: 'Some error occurred while fetching expected Sets',
             errorMessage: process.env.DEBUG && err
         });
         else {
@@ -24,7 +24,7 @@ export default (req: Request, res: Response) => {
             connection.query(sumQuery, (err, summarizedResults:any) => {
                 if (err) res.json({
                     code: 500,
-                    message: 'Some error occurred while fetching recognised Sets summary',
+                    message: 'Some error occurred while fetching expected Sets summary',
                     errorMessage: process.env.DEBUG && err
                 });
 

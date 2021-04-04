@@ -7,46 +7,46 @@ import { RunModel } from '../models/run-model';
 @Injectable({
     providedIn: 'root'
   })
-export class RecognisedpartsService {
+export class IdentifiedpartService {
     constructor(private http: HttpClient) {
     }
       
-    getRecognisedpartByRunid(id): Observable<any> {
+    getIdentifiedpartByRunid(id): Observable<any> {
 
         let httpHeader = new HttpHeaders();
         httpHeader.set("Access-Control-Allow-Origin", "*");
         return this.http.get<any>(`${environment.baseUrl}identifiedparts/run/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
-    getRecognisedpartById(id): Observable<any> {
+    getIdentifiedpartById(id): Observable<any> {
         let httpHeader = new HttpHeaders();
         httpHeader.set("Access-Control-Allow-Origin", "*");
         return this.http.get<any>(`${environment.baseUrl}identifiedparts/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
-    saveRecognisedpart(model: RunModel): Observable<any> {
+    saveIdentifiedpart(model: RunModel): Observable<any> {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         })
         return this.http.post<RunModel>(`${environment.baseUrl}identifiedparts`, model, { withCredentials: true, headers: headers, observe: 'response' });
     }
   
-    updatetRecognisedpart(model: RunModel): Observable<any> {
+    updatetIdentifiedpart(model: RunModel): Observable<any> {
         let headers = new HttpHeaders({
             'Content-Type': 'application/json',
         })
         return this.http.put<RunModel>(`${environment.baseUrl}identifiedparts/` + model.id, model, { withCredentials: true, headers: headers, observe: 'response' });
     }
   
-    deleteRecognisedpart(id): Observable<any> {
+    deleteIdentifiedpart(id): Observable<any> {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         })
         return this.http.delete<any>(`${environment.baseUrl}identifiedparts/` + id, { withCredentials: true, headers: headers, observe: 'response' });
     }
 
-    markRecognisedpartAsDeletedById(id): Observable<any> {
-        console.log("DELETE Recognisedpartid = " + id)
+    markIdentifiedpartAsDeletedById(id): Observable<any> {
+        console.log("DELETE identifiedpartid = " + id)
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',
         })
