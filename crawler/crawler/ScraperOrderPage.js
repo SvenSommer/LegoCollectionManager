@@ -139,7 +139,7 @@ const scraperOrderPage = async (args) => {
 		url: offerUrl,
 		searchproperties_id: id,
 		title: offerTitle,
-		price:  toNumber(offerPrice, 0) || 0,
+		price: toNumber(offerPrice, 0) || 0,
 		pricetype: offerPriceType || "unknown",
 		currency: offerCurrency || "€",
 		locationgroup: location,

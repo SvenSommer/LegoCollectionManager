@@ -7,7 +7,7 @@ const CREDENTIALS = {
 	username: USERNAME,
 	password: PASSWORD
 }
-const LOGLEVEL = "INFO"
+const LOGLEVEL = "INFO" //This should come from API (preferences) each time the script runs
 exports.LOGLEVEL = LOGLEVEL
 const API_URL = "http://localhost:3001"
 exports.API_URL = API_URL
@@ -128,6 +128,9 @@ const offerPerPageSelector = "li > article a.ellipsis";
 	let { value: imageBasePath } = preferences.data.result.find(pref => pref.name === "imagebasepath")
 	imageBasePath = imageBasePath.split("/").filter(Boolean)[0]
 
+	//Should be log url (from preferences)
+	// let { value: loglevel } = preferences.data.result.find(pref => pref.name === "loglevel")
+
 	//* Getting the search terms
 	response = await getData(API_URL + API_REQUEST.SEARCH_TERMS, reqCredentials)
 	//filtering by active => true
@@ -226,6 +229,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 			}
 
 			console.log(offersPerPage.length, " offers found")
+			//TODO: Check here if there are deleted offers making the request (deleted_by_user)
 
 			for (const offerPage of offersPerPage) {
 
