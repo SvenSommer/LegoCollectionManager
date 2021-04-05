@@ -9,8 +9,9 @@ import { RunService } from 'src/app/services/run.service';
 import { RunModel } from 'src/app/models/run-model';
 import { SortedsetEditComponent } from '../sortedset-edit/sortedset-edit.component';
 import { SortedSetModel } from 'src/app/models/sortedset-model';
-import { RecognisedpartEditComponent } from '../recognisedpart-edit/recognisedpart-edit.component';
-import { RecognisedpartsService } from 'src/app/services/recognisedpart.service';
+import { IdentifiedpartEditComponent } from '../identifiedpart-edit/identifiedpart-edit.component';
+import { IdentifiedpartService } from 'src/app/services/identifiedpart.service';
+import { IdentifiedPartModel } from 'src/app/models/IdentifiedPartModel';
 
 @Component({
   selector: 'app-run-detail',
@@ -24,25 +25,24 @@ export class RunDetailComponent implements OnInit {
 
   @ViewChild('runEdit') runEdit: RunEditComponent;
   @ViewChild('sortedsetEdit') sortedsetEdit: SortedsetEditComponent;
-  @ViewChild('recognisedpartEdit') recognisedpartEdit: RecognisedpartEditComponent;
-
+  @ViewChild('identifiedpartEdit') identifiedpartEdit: IdentifiedpartEditComponent
   public runDetails;
   public sortedsetDetails;
-  public recognisedpartDetails;
+  public identifiedpartDetails;
 
   public sortedsetsColumns = [
-    { title: 'Pusher', name: 'pusher_number', size: '60', minSize: '60' },
-    { title: 'Image', name: 'image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
-    { title: 'Set No', name: 'no', size: '30', minSize: '30' , datatype:{ type: 'number' }},
-    { title: 'Set Name', name: 'name', size: '30', minSize: '30' },
-    { title: 'Comments', name: 'recognisedset_comments', size: '30', minSize: '30' },
+    { title: 'Pusher', name: 'pusherinfo.name', size: '60', minSize: '60' },
+    { title: 'Image', name: 'setinfo.image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
+    { title: 'Set No', name: 'setinfo.no', size: '30', minSize: '30' , datatype:{ type: 'number' }},
+    { title: 'Set Name', name: 'setinfo.name', size: '30', minSize: '30' },
+    { title: 'Comments', name: 'expectedset.comment', size: '30', minSize: '30' },
     { title: 'Identified', name: 'percentage_identified', label: 'label_identified_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'info' }},
     { title: 'Sorted (detected)', name: 'percentage_sorted_detected', label: 'label_sorted_detected_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'success'} },
     { title: 'Sorted (undetected)', name: 'percentage_sorted_undetected',  label: 'label_sorted_undetected_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'danger'} },
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
   ];
 
-  public recognisedpartsColumns = [
+  public identifiedpartsColumns = [
     { title: 'Part Images Recorded', name: 'partimages', size: '65', minSize: '65', maxSize: '30%', datatype:{ type: 'images' } },
     { title: 'Recignised Part', name: 'thumbnail_url', size: '65', minSize: '65' , datatype:{ type: 'image' }},
     { title: 'Color', name: 'color_name', size: '30', minSize: '30' },
@@ -56,14 +56,14 @@ export class RunDetailComponent implements OnInit {
   public newSortedSetDetail = {
     "id":0,
     "run_id":0,
-    "recognisedset_id":1,
+    "expectedset_id":1,
     "pusher_id":1
   }
   public sortedsetsData: any;
-  public recognisedpartsData: any;
+  public identifiedpartsData: any;
   constructor(private activatedRoute: ActivatedRoute,
     private runService: RunService,
-    private recognisedpartsService: RecognisedpartsService,
+    private identifiedpartsService: IdentifiedpartService,
     private router: Router, private toastr: ToastrService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
@@ -76,7 +76,7 @@ export class RunDetailComponent implements OnInit {
         this.newSortedSetDetail.run_id = this.id;
         this.bindData();
         this.getAllSortedsets();
-        this.getAllRecognisedparts();
+        this.getAllIdentifiedparts();
       }
     });
   }
@@ -86,6 +86,7 @@ export class RunDetailComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
+            console.log(data)
             this.runDetails = data.body.result[0];
           }
           else if (data.body && data.body.code == 403) {
@@ -171,13 +172,13 @@ export class RunDetailComponent implements OnInit {
     this.sortedsetEdit.open(data);
   }
 
-  getAllRecognisedparts() {
+  getAllIdentifiedparts() {
 
-    this.recognisedpartsService.getRecognisedpartByRunid(this.id).subscribe(
+    this.identifiedpartsService.getIdentifiedpartByRunid(this.id).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.recognisedpartsData = data.body.result;
+            this.identifiedpartsData = data.body.result;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -190,8 +191,8 @@ export class RunDetailComponent implements OnInit {
     );
   }
 
-  editRecognisedpart(id) {
-    this.recognisedpartEdit.open();
+  editIdentifiedpart(id) {
+    this.identifiedpartEdit.open();
   }  
   
   labelparts(id) {
@@ -199,16 +200,16 @@ export class RunDetailComponent implements OnInit {
     this.router.navigateByUrl("/labelparts/" + id).then((bool) => { }).catch()
   }
 
-  addNewRecognisedpart(newData: SortedSetModel) {
+  addNewIdentifiedpart(newData: SortedSetModel) {
     this.bindData();
-    this.getAllRecognisedparts();
+    this.getAllIdentifiedparts();
   }
 
-  onEditRecognisedpartClick(data) {
-    this.recognisedpartEdit.open(data);
+  onEditIdentifiedpartClick(data) {
+    this.identifiedpartEdit.open(data);
   }
 
-  onRowRecognisedpartDeleteClick(model) {
+  onRowIdentifiedpartDeleteClick(model) {
     let options = {
       title: 'Are you sure you want to delete this?',
       confirmLabel: 'Okay',
@@ -217,13 +218,13 @@ export class RunDetailComponent implements OnInit {
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
         console.log('Okay');
-        this.recognisedpartsService.markRecognisedpartAsDeletedById(model.id).subscribe(
+        this.identifiedpartsService.markIdentifiedpartAsDeletedById(model.id).subscribe(
           (data) => {
             if (data) {
               if (data.body && data.body.code == 200) {
                // Message should be data.body.message
                this.toastr.success("Record Deleted Successfully.");
-               this.getAllRecognisedparts();
+               this.getAllIdentifiedparts();
               }
               else if (data.body && data.body.code == 403) {
                 this.router.navigateByUrl("/login");

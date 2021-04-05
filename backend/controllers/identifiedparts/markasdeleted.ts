@@ -3,7 +3,7 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {id} = req.params;
-    const markDeleted = `UPDATE Recognisedparts SET deleted = NOW() WHERE id = ${id};`
+    const markDeleted = `UPDATE Identifiedparts SET deleted = NOW() WHERE id = ${id};`
     connection.query(markDeleted, (err, result) => {
         if (err) res.json({
             code: 500,

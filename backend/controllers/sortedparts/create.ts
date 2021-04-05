@@ -10,12 +10,12 @@ export default (req: Request, res: Response) => {
     try {
         const {token} = req.cookies;
         const {
-            recognisedpart_id,
+            identifiedpart_id,
             sortedset_id,
             detected
         } = req.body;
 
-        if (recognisedpart_id && 
+        if (identifiedpart_id && 
             sortedset_id && 
             detected) {
             //@ts-ignore
@@ -32,12 +32,12 @@ export default (req: Request, res: Response) => {
                     else {
                         const {id:userid} = result[0];
                         const createSortedParts = `INSERT INTO SortedParts (
-                                                    recognisedpart_id,
+                                                    identifiedpart_id,
                                                     sortedset_id,
                                                     detected,
                                                   createdBy)
                                                   VALUES(
-                                                          ${recognisedpart_id},
+                                                          ${identifiedpart_id},
                                                           ${sortedset_id},
                                                           ${detected},
                                                           ${userid})`;
@@ -60,7 +60,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'recognisedpart_id, sortedset_id and detected are required!'
+                message: 'identifiedpart_id, sortedset_id and detected are required!'
             });
         }
     } catch (e) {

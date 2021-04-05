@@ -33,7 +33,7 @@ import { ValveEditComponent } from './sorter/valve-edit/valve-edit.component';
 import { ScaleEditComponent } from './sorter/scale-edit/scale-edit.component';
 import { RunDetailComponent } from './run/run-detail/run-detail.component';
 import { SortedsetEditComponent } from './run/sortedset-edit/sortedset-edit.component';
-import { RecognisedpartEditComponent } from './run/recognisedpart-edit/recognisedpart-edit.component';
+import { IdentifiedpartEditComponent } from './run/identifiedpart-edit/identifiedpart-edit.component';
 import { PreferencesComponent } from './preferences/preferences.component';
 import { UserComponent } from './preferences/user/user.component';
 import { UserEditComponent } from './preferences/user/user-edit/user-edit.component';
@@ -86,7 +86,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     ScaleEditComponent,
     RunDetailComponent,
     SortedsetEditComponent,
-    RecognisedpartEditComponent,
+    IdentifiedpartEditComponent,
     PreferencesComponent,
     UserComponent,
     UserEditComponent,

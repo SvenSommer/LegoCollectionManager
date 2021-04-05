@@ -1,13 +1,13 @@
 <div class="container-fluid" *ngIf="collectionDetails">
     <div class="d-sm-flex justify-content-between align-items-center mb-4 pt-2">
-        <h3 class="text-dark mb-0">{{collectionDetails.name}}</h3>
+        <h3 class="text-dark mb-0">{{collectionDetails.collectioninfo.name}}</h3>
     </div>
 </div>
 <div class="row mb-3" *ngIf="collectionDetails">
     <div class="col-lg-4">
         <div class="card mb-3">
            <div class="card-body text-center shadow">
-                <img (click)="onImgClick(collectionDetails)" height="160px" [src]="collectionDetails.thumbnail_url" />
+                <img (click)="onImgClick(collectionDetails)" height="160px" [src]="collectionDetails.collectioninfo.thumbnail_url" />
            </div>
         </div>
         <div class="card shadow mb-4">
@@ -34,7 +34,7 @@
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);" (click)="onExternalClick(collectionDetails)">
-                                        {{collectionDetails.origin}}
+                                        {{collectionDetails.collectioninfo.origin}}
                                     </a>
                                 </td>
                             </tr>
@@ -43,7 +43,7 @@
                                     Seller
                                 </td>
                                 <td>
-                                    {{collectionDetails.seller}}
+                                    {{collectionDetails.collectioninfo.seller}}
                                 </td>
                             </tr>
                             <tr>
@@ -51,7 +51,7 @@
                                     Weight
                                 </td>
                                 <td>
-                                        {{collectionDetails.weight_kg}} kg 
+                                        {{collectionDetails.collectioninfo.weight_kg}} kg 
                                 </td>
                             </tr>
                             <tr>
@@ -60,8 +60,8 @@
                                     (per Weight)
                                 </td>
                                 <td>
-                                    {{collectionDetails.cost}}&#8364; ( Incl. porto {{collectionDetails.porto}}&#8364; ) <br>
-                                    {{collectionDetails.cost_per_kilo}}         &#8364; / kg                           
+                                    {{collectionDetails.collectioninfo.cost}}&#8364; ( Incl. porto {{collectionDetails.collectioninfo.porto}}&#8364; ) <br>
+                                    {{collectionDetails.collectioninfo.cost_per_kilo}}         &#8364; / kg                           
                                        
                                 </td>
                             </tr>
@@ -70,7 +70,7 @@
                                     Purchased
                                 </td>
                                 <td>
-                                    {{collectionDetails.purchase_date | date:'dd.MM.yyyy' }}
+                                    {{collectionDetails.collectioninfo.purchase_date | date:'dd.MM.yyyy' }}
                                 </td>
                             </tr>
                             <tr>
@@ -96,7 +96,7 @@
                                     Sets Identified
                                 </td>
                                 <td>
-                                    {{collectionSummary.allSetsCount }}
+                                    {{collectionDetails.expected_sets.sumSet }}
                                 </td>
                             </tr>
                             <tr>
@@ -104,7 +104,7 @@
                                     Sum Parts Weight
                                 </td>
                                 <td>
-                                    {{collectionSummary.allSetsSumWeight/1000}} kg
+                                    {{collectionDetails.expected_parts.sumItemsWeight_g/1000}} kg
                                 </td>
                             </tr>
                             <tr>
@@ -112,15 +112,7 @@
                                     Sum Parts Count
                                 </td>
                                 <td>
-                                    {{collectionSummary.allSetsSumPartCount}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Sum Unique Parts Count
-                                </td>
-                                <td>
-                                    {{uniqueDetails.allSetsUniquePartCount}}
+                                    {{collectionDetails.expected_parts.sumPartsQuantity}}
                                 </td>
                             </tr>
                             <tr>
@@ -128,17 +120,17 @@
                                     Sum Minifigs Count
                                 </td>
                                 <td>
-                                    {{collectionSummary.allSetsSumMinifigsCount}}
+                                    {{collectionDetails.expected_parts.sumMinifigQuantity}}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    All Sets Price
+                                    All part Price
                                 </td>
                                 <td>
-                                    min {{collectionSummary.allSetsSumMinPrice}}&#8364;
+                                    sold {{collectionDetails.expected_sets.sumItemsQty_avg_price_sold}}&#8364;
                                     <br>
-                                    avg {{collectionSummary.allSetsSumAvgPrice }}&#8364;
+                                    stock {{collectionDetails.expected_sets.sumItemsQty_avg_price_stock }}&#8364;
                                 </td>
                             </tr>
                         </table>

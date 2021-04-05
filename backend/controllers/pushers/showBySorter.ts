@@ -6,7 +6,7 @@ export default (req: Request, res: Response) => {
   //  const showAll = `SELECT * FROM Pushers p LEFT JOIN Valves v ON v.id = p.valveid
   //  WHERE sorterid = ${sorterid};`
       const showAll = `SELECT * FROM pushers_basis
-    WHERE sorterid = ${sorterid};`
+    WHERE sorter_id = ${sorterid};`
     connection.query(showAll, (err, result) => {
         if (err) res.json({
             code: 500,

@@ -475,7 +475,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"offer_id\": 3,\r\n    \"setno\": \"7080\",\r\n    \"amount\": 1,\r\n    \"comments\":\"test\"\r\n}",
+									"raw": "{\r\n    \"offer_id\": 48,\r\n    \"setno\": \"375\",\r\n    \"amount\": 1,\r\n    \"comments\":\"test\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -543,13 +543,13 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/offers_possiblesets/7",
+									"raw": "{{URL}}/offers_possiblesets/9",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"offers_possiblesets",
-										"7"
+										"9"
 									]
 								}
 							},
@@ -1358,7 +1358,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"setnumber\": \"4619\"\r\n}",
+									"raw": "{\r\n    \"setnumber\": \"7017\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1582,14 +1582,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/subsetdata/setno/8880",
+									"raw": "{{URL}}/subsetdata/setno/8880/parts",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"subsetdata",
 										"setno",
-										"8880"
+										"8880",
+										"parts"
 									]
 								}
 							},
@@ -1709,10 +1710,10 @@
 					]
 				},
 				{
-					"name": "Recognised Set",
+					"name": "Expected Set",
 					"item": [
 						{
-							"name": "Create RecognisedSet",
+							"name": "Create expected Set",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -1726,36 +1727,36 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedsets",
+									"raw": "{{URL}}/expectedsets",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedsets"
+										"expectedsets"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Show all RecognisedSets",
+							"name": "Show all expected Sets",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/recognisedsets",
+									"raw": "{{URL}}/expectedsets",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedsets"
+										"expectedsets"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Show single RecognisedSet",
+							"name": "Show single expected Set",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -1767,12 +1768,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedsets/113",
+									"raw": "{{URL}}/expectedsets/113",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedsets",
+										"expectedsets",
 										"113"
 									]
 								}
@@ -1780,17 +1781,17 @@
 							"response": []
 						},
 						{
-							"name": "Show RecognisedSets By CollectionId",
+							"name": "Show expected Sets By CollectionId",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/recognisedsets/collection/1",
+									"raw": "{{URL}}/expectedsets/collection/1",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedsets",
+										"expectedsets",
 										"collection",
 										"1"
 									]
@@ -1799,7 +1800,7 @@
 							"response": []
 						},
 						{
-							"name": "Update RecognisedSet",
+							"name": "Update expected Set",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -1813,12 +1814,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedsets/113",
+									"raw": "{{URL}}/expectedsets/113",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedsets",
+										"expectedsets",
 										"113"
 									]
 								}
@@ -1826,7 +1827,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete single RecognisedSet",
+							"name": "Delete single expected Set",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -1835,12 +1836,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedsets/112",
+									"raw": "{{URL}}/expectedsets/112",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedsets",
+										"expectedsets",
 										"112"
 									]
 								}
@@ -1848,7 +1849,7 @@
 							"response": []
 						},
 						{
-							"name": "Show RecognisedSetInfo by",
+							"name": "Show expected SetInfo by id",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -1860,12 +1861,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedsets/113",
+									"raw": "{{URL}}/expectedsets/113",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedsets",
+										"expectedsets",
 										"113"
 									]
 								}
@@ -2321,10 +2322,10 @@
 					]
 				},
 				{
-					"name": "Recognised Partimages",
+					"name": "Identified Partimages",
 					"item": [
 						{
-							"name": "Create RecognisedImage",
+							"name": "Create Identified Image",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -2338,36 +2339,36 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedimages",
+									"raw": "{{URL}}/identifiedimages",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedimages"
+										"identifiedimages"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Show all RecognisedImage",
+							"name": "Show all Identified Images",
 							"request": {
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/recognisedimages",
+									"raw": "{{URL}}/identifiedimages",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedimages"
+										"identifiedimages"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Show single RecognisedImage",
+							"name": "Show single Identified Images",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2379,12 +2380,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedimages/113",
+									"raw": "{{URL}}/identifiedimages/113",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedimages",
+										"identifiedimages",
 										"113"
 									]
 								}
@@ -2392,7 +2393,7 @@
 							"response": []
 						},
 						{
-							"name": "Show RecognisedImage by runId",
+							"name": "Show Identified Images by runId",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2409,12 +2410,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedimages/runid/12",
+									"raw": "{{URL}}/identifiedimages/runid/12",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedimages",
+										"identifiedimages",
 										"runid",
 										"12"
 									]
@@ -2423,7 +2424,7 @@
 							"response": []
 						},
 						{
-							"name": "Show RecognisedImage by partId",
+							"name": "Show Identified Images by partId",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2440,12 +2441,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedimages/partid/6239",
+									"raw": "{{URL}}/identifiedimages/partid/6239",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedimages",
+										"identifiedimages",
 										"partid",
 										"6239"
 									]
@@ -2454,7 +2455,7 @@
 							"response": []
 						},
 						{
-							"name": "Update RecognisedImage",
+							"name": "Update Identified Image",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -2468,12 +2469,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedimages/113",
+									"raw": "{{URL}}/identifiedimages/113",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedimages",
+										"identifiedimages",
 										"113"
 									]
 								}
@@ -2481,7 +2482,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete single RecognisedImage",
+							"name": "Delete single Identified Image",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -2490,12 +2491,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedimages/112",
+									"raw": "{{URL}}/identifiedimages/112",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedimages",
+										"identifiedimages",
 										"112"
 									]
 								}
@@ -2505,10 +2506,10 @@
 					]
 				},
 				{
-					"name": "Recognised Parts",
+					"name": "Identified Parts",
 					"item": [
 						{
-							"name": "Create RecognisedParts",
+							"name": "Create IdentifiedParts",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -2522,19 +2523,19 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedparts",
+									"raw": "{{URL}}/identifiedparts",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedparts"
+										"identifiedparts"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Show all RecognisedParts",
+							"name": "Show all IdentifiedParts",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -2551,7 +2552,7 @@
 							"response": []
 						},
 						{
-							"name": "Show single RecognisedParts",
+							"name": "Show single IdentifiedParts",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2563,12 +2564,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedparts/600",
+									"raw": "{{URL}}/identifiedparts/600",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedparts",
+										"identifiedparts",
 										"600"
 									]
 								}
@@ -2576,7 +2577,7 @@
 							"response": []
 						},
 						{
-							"name": "Show RecognisedParts by runId",
+							"name": "Show IdentifiedParts by runId",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
@@ -2593,12 +2594,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedparts/run/12",
+									"raw": "{{URL}}/identifiedparts/run/12",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedparts",
+										"identifiedparts",
 										"run",
 										"12"
 									]
@@ -2624,12 +2625,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedparts/collection/1/unsetted",
+									"raw": "{{URL}}/identifiedparts/collection/1/unsetted",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedparts",
+										"identifiedparts",
 										"collection",
 										"1",
 										"unsetted"
@@ -2639,7 +2640,7 @@
 							"response": []
 						},
 						{
-							"name": "Update RecognisedPart",
+							"name": "Update IdentifiedPart",
 							"request": {
 								"method": "PUT",
 								"header": [],
@@ -2653,12 +2654,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedparts/6240",
+									"raw": "{{URL}}/identifiedparts/6240",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedparts",
+										"identifiedparts",
 										"6240"
 									]
 								}
@@ -2666,7 +2667,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete single RecognisedPart",
+							"name": "Delete single IdentifiedPart",
 							"request": {
 								"method": "DELETE",
 								"header": [],
@@ -2675,12 +2676,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedparts/6240",
+									"raw": "{{URL}}/identifiedparts/6240",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedparts",
+										"identifiedparts",
 										"6240"
 									]
 								}
@@ -2688,7 +2689,7 @@
 							"response": []
 						},
 						{
-							"name": "Mark RecognisedPart as Deleted",
+							"name": "Mark IdentifiedPart as Deleted",
 							"request": {
 								"method": "PATCH",
 								"header": [],
@@ -2697,12 +2698,12 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{URL}}/recognisedparts/1",
+									"raw": "{{URL}}/identifiedparts/1",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"recognisedparts",
+										"identifiedparts",
 										"1"
 									]
 								}
