@@ -7,7 +7,10 @@ const CREDENTIALS = {
 	username: USERNAME,
 	password: PASSWORD
 }
+const LOGLEVEL = "INFO"
+exports.LOGLEVEL = LOGLEVEL
 const API_URL = "http://localhost:3001"
+exports.API_URL = API_URL
 const API_REQUEST = {
 	AUTH: "/users/login",
 	OFFERS: "/offers",
@@ -18,15 +21,18 @@ const API_REQUEST = {
 	OFFERS_VIEWS: "/offers_views",
 	OFFERS_USER: "/offers_users",
 	OFFERS_IMAGES: "/offers_images",
-	OFFER_STATUS: "/offers_status"
+	OFFER_STATUS: "/offers_status",
+	OFFER_LOGS: "/offers_logs"
 
 }
-
+exports.API_REQUEST = API_REQUEST
 
 // =================================================
 // * imports
 // =================================================
 const { getToken, toNumber, areEquals, getDiff, getDiffImages, downloadImages } = require("./utils")
+const { Log } = require("./services/log")
+
 // =================================================
 // * Scrapper variables configuration
 // =================================================
@@ -145,6 +151,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 	// Handling all errors
 	const handleClose = async (message = "Closing the browser on unexpected Error") => {
 		console.log(message)
+		Log("ERROR",message, reqCredentials)
 		for (const page of await browser.pages()) {
 			await page.close()
 		}
@@ -167,6 +174,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 		// =================================================
 		// * Going to the url
 		// =================================================
+		Log("INFO", "Going to the url: " + url, reqCredentials)
 		console.log("* Going to the url: ", url)
 		await page.goto(url, { waitUntil: "networkidle2" })
 		await page.waitForTimeout(2000)
@@ -341,16 +349,6 @@ const offerPerPageSelector = "li > article a.ellipsis";
 	await handleClose("* Closing the browser")
 })()
 
-//TODO: Mark offers no longer existing as deleted at the end of a complete run
-//1. Get all stored offers by
-//resultoffers await getData(API_URL + API_REQUEST.offer, reqCredentials)
-//2. check in the list of the external_ids from the last completed runs, which Ids did not appear any longer
-//3. Set those disappeard as deleted by (using the offer_id here!!)
-/* let status = {
-	offer_id: offer_id,
-	status: "offer created"
-}
-var offerresult = await storeData(API_URL + API_REQUEST.OFFER_STATUS, status, reqCredentials) */
 
 // TODO: Implement logger in database
 // TODO: 1. run stable for a "unlimited" time

@@ -4,17 +4,19 @@ import { ArchiveAndUpdatePriceData } from './archiveAndUpdatePriceData';
 import { GetAndInsertPriceData } from './getAndInsertPriceData';
 
 export function UpsertPriceData(partnumber: any, colorid: any, type: any, condition: any, region: any, guide_type: any, res: Response<any, Record<string, any>>, userid: any) {
-    const findPriceDataInDB = `SELECT * FROM Prices WHERE 
+    const findPriceDataInDB = `SELECT * FROM Pricedata WHERE 
                         no='${partnumber}' AND color_id = ${colorid} AND type = '${type}' 
                         AND new_or_used = '${condition}' AND region = '${region}' AND guide_type = '${guide_type}'`;
     connection.query(findPriceDataInDB, (err, priceresult: any) => {
-        if (err)
+        if (err) {
+            console.log(findPriceDataInDB)
+            console.log(err)
             res.json({
                 code: 500,
                 message: 'Some Error Occurred!',
                 //@ts-ignore
                 errorMessage: process.env.DEBUG && err
-            });
+            });}
         else {
             if (priceresult !== 'undefined' && priceresult.length > 0) {
                 const { id: priceid } = priceresult[0];

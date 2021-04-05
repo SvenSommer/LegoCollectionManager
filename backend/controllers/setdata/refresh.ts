@@ -27,7 +27,7 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         const {id: userid} = result[0];
-                        const findDetailedSetInDB = `SELECT no FROM Sets WHERE id='${setid}'`;
+                        const findDetailedSetInDB = `SELECT no FROM Setdata WHERE id='${setid}'`;
                         connection.query(findDetailedSetInDB, (err, setresult: any) => {
                             if (err) res.json({
                                 code: 500,

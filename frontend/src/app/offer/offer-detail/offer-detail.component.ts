@@ -50,11 +50,20 @@ export class OfferDetailComponent implements OnInit {
     "amount":1,
     "comments":""
   }
+  public newpropertiesDetails ={
+    "offer_id": 0,
+    "weight_kg": 0,
+    "instructions": "",
+    "minifigs": "",
+    "boxes": "",
+    "notes": ""
+  }
+
   public isSetFormSubmitted = false;
 
   public viewData: any; 
   public possiblesetData: any; 
-
+  public propertiesData: any;
   constructor(private activatedRoute: ActivatedRoute,
     private offerService: OfferService,
     private router: Router, private toastr: ToastrService,
@@ -66,6 +75,7 @@ export class OfferDetailComponent implements OnInit {
         this.offerid = params['id'];
         if (this.offerid > 0) {
           this.newpossiblesetDetail.offer_id = this.offerid;
+          this.newpropertiesDetails.offer_id = this.offerid;
           this.bindData();
           this.getAllViews();
           this.getAllPossiblesets();
@@ -90,6 +100,38 @@ export class OfferDetailComponent implements OnInit {
           console.log(error.name + ' ' + error.message);
         }
       );
+    }
+
+    public onDeleteClick(){
+      let options = {
+        title: 'Are you sure you want to delete this?',
+        confirmLabel: 'Okay',
+        declineLabel: 'Cancel'
+      }
+      this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+        if (res) {
+          console.log('Okay');
+          this.offerService.deleteOffer(this.offerid).subscribe(
+            (data) => {
+              if (data) {
+                if (data.body && data.body.code == 200) {
+                 // Message should be data.body.message
+                 this.toastr.success("Record Deleted Successfully.");
+                 this.router.navigateByUrl("/offer");
+                }
+                else if (data.body && data.body.code == 403) {
+                  this.router.navigateByUrl("/login");
+                }
+              }
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.name + ' ' + error.message);
+            }
+          );
+        } else {
+          console.log('Cancel');
+        }
+      });
     }
 
     public onExternalClick(data) {
@@ -125,7 +167,6 @@ export class OfferDetailComponent implements OnInit {
 
 
     getAllPossiblesets() {
-
       this.offerService.getPossiblesetsByOfferid(this.offerid).subscribe(
         (data) => {
           if (data) {
@@ -143,12 +184,16 @@ export class OfferDetailComponent implements OnInit {
       );
     }
 
+  
+  
+
 
     onSubmitAddSets(form: NgForm) {
       this.isSetFormSubmitted = true;
       if (!form.valid) {
         return;
       }
+      this.newpossiblesetDetail.setno.replace(/ /g, "");
       console.log(this.newpossiblesetDetail)
       this.offerService.saveNewPossibleSets(this.newpossiblesetDetail).subscribe(
         (data) => {
@@ -175,12 +220,12 @@ export class OfferDetailComponent implements OnInit {
           console.log(error.name + ' ' + error.message);
         }
       );
-  
     }
 
     onRowPossibleSetClick(data) {
+      console.log(data)
       if(data.id != null)
-        this.router.navigateByUrl("/setdetail/" + data.id).then((bool) => { }).catch()
+        this.router.navigateByUrl("/setdetail/" + data.set_id).then((bool) => { }).catch()
     }
    
     onRowPossibleSetDeleteClick(data){
@@ -213,5 +258,16 @@ export class OfferDetailComponent implements OnInit {
           console.log('Cancel');
         }
       });
+    }
+
+    public onImgPopupClose() {
+      this.imgPopupURL = '';
+      this.imgPopupName = '';
+     }
+  
+    public onImgClick(partimage) {
+      this.imgPopupURL = partimage.imageurl ;
+      this.imgPopupName = partimage.path;
+      this.imagePopup.open();
     }
 }

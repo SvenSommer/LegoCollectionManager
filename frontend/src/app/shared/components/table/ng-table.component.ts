@@ -109,7 +109,7 @@ export class NgTableComponent implements OnInit, OnChanges {
   }
 
   public onImgClick(row, column) {
-    this.imgPopupURL = row.image_url ?? row.thumbnail_url;
+    this.imgPopupURL = row.image_url ?? row.thumbnail_url ?? row.setinfo.image_url;
     this.imgPopupName = [row?.no, row?.name, row?.color_name].join(' - ');
     this.imagePopup.open();
   }

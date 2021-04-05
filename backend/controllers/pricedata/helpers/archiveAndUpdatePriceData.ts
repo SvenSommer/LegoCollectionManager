@@ -4,8 +4,8 @@ import { GetAndUpdatePriceData } from './getAndUpdatePriceData';
 const blApi = require("../../../config/bl.api.js");
 
 export function ArchiveAndUpdatePriceData(priceid: any, res: Response<any, Record<string, any>>, priceresult: any, userid: number) {
-    const archiveSQL = `INSERT INTO PricesArchive 
-                        SELECT * FROM Prices WHERE id=${priceid}`; //TODO This does not work as expected
+    const archiveSQL = `INSERT INTO PriceDataArchive 
+                        SELECT * FROM Pricedata WHERE id=${priceid}`; //TODO This does not work as expected
     connection.query(archiveSQL, (err) => {
         if (err) {
             console.log(err);

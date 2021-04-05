@@ -1,5 +1,6 @@
 import CreateOffer from '../controllers/offers/create';
 import ShowAllOffers from '../controllers/offers/show';
+import ShowAllOffersFromInterest from '../controllers/offers/showFromInterest';
 import UpdateOfferById from '../controllers/offers/update';
 import GetSingleOfferById from '../controllers/offers/single';
 import GetSingleOfferByExternalid from '../controllers/offers/singleByExternalid';
@@ -11,6 +12,7 @@ const route = Router();
 
 //List all offers
 route.get(``, UserAuthMiddleware, ShowAllOffers);
+route.get(`/frominterest`, UserAuthMiddleware, ShowAllOffersFromInterest);
 //Create a new offer
 route.post(``, AdminAuthMiddleware, CreateOffer);
 //Show info about a specific offer
