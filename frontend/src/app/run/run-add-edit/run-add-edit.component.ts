@@ -145,6 +145,12 @@ export class RunAddEditComponent implements OnInit {
     }
   }
 
+  expandPanel(data, panel){    // Expands accordion only when there is data inside
+    if(data && data.length == 0){
+      panel.close();
+    }
+  }
+
   drop(event: CdkDragDrop<any[]>, type: string) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -184,6 +190,26 @@ export class RunAddEditComponent implements OnInit {
   }
 
   onSubmit(runForm: NgForm) {
+    let obj = {
+      collection_id: null,
+      sorter_id: null,
+      sortedsets: []
+    };
+    obj.collection_id = this.run.collection_id;
+    obj.sorter_id = this.run.sorter_id;
+
+    for (var i=0; i<this.pusherList.length; i++){
+      let pushedSet = {
+        expectedset_id: null,
+        pusher_id: null
+      }
+      if (this.pusherList[i] && this.pusherList[i].sets && this.pusherList[i].sets.length > 0) {
+          pushedSet.expectedset_id = this.pusherList[i].sets[0].id;
+          pushedSet.pusher_id = this.pusherList[i].id;
+          obj.sortedsets.push(pushedSet);
+      }
+    }
+    console.log('obj:::::::::::',obj)
     this.isFormSubmitted = true;
     if (!runForm.valid) {
       return;
