@@ -58,6 +58,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatInputModule} from '@angular/material/input';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { LinkSetnumbersPipe } from './shared/components/pipes/link-setnumbers/link-setnumbers.pipe';
+import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 
 
 
@@ -106,7 +107,8 @@ import { LinkSetnumbersPipe } from './shared/components/pipes/link-setnumbers/li
     LabelpartsComponent,
     OfferComponent,
     OfferDetailComponent,
-    LinkSetnumbersPipe
+    LinkSetnumbersPipe,
+    RunAddEditComponent
 
   ],
   imports: [

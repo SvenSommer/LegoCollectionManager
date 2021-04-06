@@ -16,7 +16,7 @@ export class RunComponent implements OnInit {
 
   constructor(private runService: RunService,
     private router: Router, private toastr: ToastrService,
-    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) {} 
+    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) {}
 
   public columns = [
   { title: 'Run #', name: 'run_no', size: '5%', minSize: '50'},
@@ -53,7 +53,8 @@ bindData() {
 }
 
 editRun(id) {
-  this.runEdit.open();
+  // this.runEdit.open();
+  this.router.navigateByUrl("/addRun");
 }
 
 onEditClick(data) {
