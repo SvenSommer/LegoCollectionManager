@@ -57,6 +57,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatInputModule} from '@angular/material/input';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { LinkSetnumbersPipe } from './shared/components/pipes/link-setnumbers/link-setnumbers.pipe';
 
 
 
@@ -104,7 +105,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     CardComponent,
     LabelpartsComponent,
     OfferComponent,
-    OfferDetailComponent
+    OfferDetailComponent,
+    LinkSetnumbersPipe
 
   ],
   imports: [

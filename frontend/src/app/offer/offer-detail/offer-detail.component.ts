@@ -184,10 +184,6 @@ export class OfferDetailComponent implements OnInit {
       );
     }
 
-  
-  
-
-
     onSubmitAddSets(form: NgForm) {
       this.isSetFormSubmitted = true;
       if (!form.valid) {
