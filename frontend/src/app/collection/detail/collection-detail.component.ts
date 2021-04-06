@@ -31,26 +31,26 @@ export class CollectionDetailComponent implements OnInit {
   public runsColumns = [
     { title: 'Run #', name: 'run_no', size: '30', minSize: '30' },
     { title: 'Status', name: 'status.name', size: '25%', minSize: '90' },
-    { title: 'Parts unidentified', name: 'parts_unidentified', size: '25', minSize: '25' },
-    { title: 'Parts deleted', name: 'parts_deleted', size: '50', minSize: '50' },
-    { title: 'Parts identified', name: 'parts_identified', size: '25%', minSize: '80' },
-    { title: 'unique Parts identified', name: 'parts_uniquepartsidentified', size: '25%', minSize: '120' },
+    { title: 'Parts identified', name: 'identified_parts.sumTotal', size: '25%', minSize: '80' },
+    { title: 'Parts unidentified', name: 'unlabeled_parts.sumPartUnlabeled', size: '25', minSize: '25' },
+    { title: 'Colors unidentified', name: 'unlabeled_parts.sumColorUnlabeled', size: '25', minSize: '25' },
+    { title: 'Sorted Parts', name: 'sorted_parts.detected_parts', size: '50', minSize: '50' },
+    { title: 'Sorted (undetected)', name: 'sorted_parts.undetected_parts', size: '50', minSize: '50' },
     { title: 'Created', name: 'created', size: '25%', minSize: '100', datatype: { type: 'date' } },
   ];
 
   public expSetsColumns = [
-    { title: 'Image', name: 'thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
-    { title: 'setNo', name: 'no', size: '30', minSize: '30' },
-    { title: 'Category', name: 'category_name', size: '30%', minSize: '50' },
-    { title: 'Name', name: 'name', size: '70%', minSize: '90' },
-    { title: 'year', name: 'year', size: '25', minSize: '25' },
-    { title: 'weight(g)', name: 'weight_g', size: '25', minSize: '25' },
-    { title: 'parts', name: 'parts_existing', size: '25', minSize: '25' },
+    { title: 'Image', name: 'setinfo.thumbnail_url', size: '70', minSize: '70', datatype: { type: 'image' } },
+    { title: 'setNo', name: 'setNo', size: '30', minSize: '30' },
+    { title: 'Category', name: 'setinfo.category_name', size: '30%', minSize: '50' },
+    { title: 'Name', name: 'setinfo.name', size: '70%', minSize: '90' },
+    { title: 'year', name: 'setinfo.year', size: '25', minSize: '25' },
+    { title: 'weight(g)', name: 'setinfo.weight_g', size: '25', minSize: '25' },
+    { title: 'parts', name: 'setinfo.complete_part_count', size: '25', minSize: '25' },
     { title: 'Parts Identified(%)', name: 'partsidentified_percentage', size: '25', minSize: '25' },
-    { title: 'Minifigs', name: 'complete_minifigs_count', size: '25', minSize: '25' },
-    { title: 'Min price(€)', name: 'min_price', size: '35', minSize: '35', datatype: { type: 'price' } },
-    { title: 'Avg price(€)', name: 'avg_price', size: '35', minSize: '35', datatype: { type: 'price' } },
-    { title: 'Status', name: 'status_name', size: '25', minSize: '25' },
+    { title: 'Minifigs', name: 'setinfo.complete_minifigs_count', size: '25', minSize: '25' },
+    { title: 'Min price(€)', name: 'setinfo.min_price', size: '35', minSize: '35', datatype: { type: 'price' } },
+    { title: 'Avg price(€)', name: 'setinfo.avg_price', size: '35', minSize: '35', datatype: { type: 'price' } }
   ];
 
   public suggSetsColumns = [
@@ -148,7 +148,6 @@ export class CollectionDetailComponent implements OnInit {
     this.collectionService.getCollectionById(this.id).subscribe(
       (data) => {
         if (data) {
-          console.log(data)
           if (data.body && data.body.code == 200) {
             this.collectionDetails = data.body.result[0];
           }
@@ -178,7 +177,7 @@ export class CollectionDetailComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.runsData = data.body;
+            this.runsData = data.body.result;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -216,7 +215,7 @@ export class CollectionDetailComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.expectedSets = data.body.sets;
+            this.expectedSets = data.body;
             this.currentTab = 'Expected Sets';
           }
           else if (data.body && data.body.code == 403) {

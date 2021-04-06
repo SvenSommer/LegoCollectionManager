@@ -3,7 +3,7 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const showAll = `SELECT *
-                                FROM Identifiedparts;`
+                                FROM identified_parts_basis;`
     connection.query(showAll, (err, result) => {
         if (err) res.json({
             code: 500,

@@ -35,7 +35,7 @@ export class RunDetailComponent implements OnInit {
     { title: 'Image', name: 'setinfo.image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
     { title: 'Set No', name: 'setinfo.no', size: '30', minSize: '30' , datatype:{ type: 'number' }},
     { title: 'Set Name', name: 'setinfo.name', size: '30', minSize: '30' },
-    { title: 'Comments', name: 'expectedset.comment', size: '30', minSize: '30' },
+    { title: 'Comments', name: 'setproperties.comments', size: '30', minSize: '30' },
     { title: 'Identified', name: 'percentage_identified', label: 'label_identified_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'info' }},
     { title: 'Sorted (detected)', name: 'percentage_sorted_detected', label: 'label_sorted_detected_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'success'} },
     { title: 'Sorted (undetected)', name: 'percentage_sorted_undetected',  label: 'label_sorted_undetected_parts', size: '180', minSize: '80', datatype:{ type: 'percentage', style: 'danger'} },
@@ -116,7 +116,6 @@ export class RunDetailComponent implements OnInit {
     }
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
-        console.log('Okay');
         this.runService.deleteRun(this.id).subscribe(
           (data) => {
             if (data) {
@@ -177,7 +176,9 @@ export class RunDetailComponent implements OnInit {
     this.identifiedpartsService.getIdentifiedpartByRunid(this.id).subscribe(
       (data) => {
         if (data) {
+          console.log(data)
           if (data.body && data.body.code == 200) {
+            console.log(data.body.result)
             this.identifiedpartsData = data.body.result;
           }
           else if (data.body && data.body.code == 403) {

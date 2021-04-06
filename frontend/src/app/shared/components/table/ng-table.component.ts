@@ -119,7 +119,8 @@ export class NgTableComponent implements OnInit, OnChanges {
     return cellData;
   }
   public getData(row: any, column: any, index: number): any {
-    var cellData = column.name.split('.').reduce((prev: any, curr: string) => prev[curr], row);
+    var cellData = 'unknown';
+    cellData = column.name.split('.').reduce((prev: any, curr: string) => prev[curr], row);
     if (column.datatype == undefined || column.datatype == null || column.datatype.type == undefined || column.datatype.type == null) {
       return cellData;
     }

@@ -167,6 +167,7 @@ styleImage(partimage): Object {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
+            console.log( data.body.result[0])
             this.identifiedpartsData = data.body.result;
             this.refreshCurrentPartid();
           }
