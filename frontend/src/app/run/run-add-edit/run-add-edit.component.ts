@@ -29,7 +29,7 @@ export class RunAddEditComponent implements OnInit {
   public showDragDrop:boolean;
 
   constructor(private runSer: RunService, private router: Router, private toastr: ToastrService, private collectionService: CollectionService,
-    private sorterService: SorterService) { }
+    private sorterService: SorterService) {}
 
   @ViewChild('modalPopup') modal: ModalPopupComponent;
 
@@ -42,9 +42,17 @@ export class RunAddEditComponent implements OnInit {
   public pageTitle = 'Add new Run';
 
   ngOnInit(): void {
+
     this.getCollectionsList();
     this.getSortersList();
 
+    setTimeout(()=>{
+    const runData = this.runSer.getData();
+    if(runData){
+      this.run = new RunModel(runData);
+      this.run.imagefolder = runData.runinfo.imagefolder;
+    }
+  }, 1000);
   }
 
   getCollectionsList() {
@@ -186,7 +194,7 @@ export class RunAddEditComponent implements OnInit {
     }else {
       this.isForEdit = false;
     }
-    this.modal.open();
+    // this.modal.open();
   }
 
   onSubmit(runForm: NgForm) {
