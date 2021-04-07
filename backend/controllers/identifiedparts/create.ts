@@ -34,7 +34,7 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         const {id:userid} = result[0];
-                        const createRecognisedparts = `INSERT INTO Recognisedparts (
+                        const createIdentifiedparts = `INSERT INTO Identifiedparts (
                                                   run_id,
                                                   no,
                                                   color_id,
@@ -48,16 +48,16 @@ export default (req: Request, res: Response) => {
                                                           ${score},
                                                           '${identifier}',
                                                           ${userid})`;
-                        connection.query(createRecognisedparts, (err) => {
+                        connection.query(createIdentifiedparts, (err) => {
                             if (err) res.json({
                                 code: 500,
-                                message: 'Couldn\'t create the recognised parts',
+                                message: 'Couldn\'t create the identified parts',
                                 errorMessage: process.env.DEBUG && err
                             });
                             else {
                                 res.json({
                                     code: 201,
-                                    message: 'Recognised parts created!'
+                                    message: 'Identified part created!'
                                 });
                             }
                         })

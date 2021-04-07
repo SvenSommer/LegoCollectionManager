@@ -22,23 +22,23 @@ export default (req: Request, res: Response) => {
             identifier) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const updateRecognisedParts = `UPDATE Recognisedparts SET run_id = ${run_id},
+                const updateIdentifiedparts = `UPDATE Identifiedparts SET run_id = ${run_id},
                                             no = '${no}',
                                             color_id = ${color_id},
                                             score = ${score},
                                             identifier = '${identifier}'
                                             WHERE id= ${id}`;
-                console.log(updateRecognisedParts)
-                connection.query(updateRecognisedParts, (err, result) => {
+                console.log(updateIdentifiedparts)
+                connection.query(updateIdentifiedparts, (err, result) => {
                     if (err) res.json({
                         code: 500,
-                        message: 'Couldn\'t updated the Recognised Parts',
+                        message: 'Couldn\'t updated the Identified Parts',
                         error: err
                     });
                     else {
                         res.json({
                             code: 200,
-                            message: 'Recognised Parts updated!'
+                            message: 'Identified Parts updated!'
                         });
                     }
                 })

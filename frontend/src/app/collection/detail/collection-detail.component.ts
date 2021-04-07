@@ -29,8 +29,8 @@ export class CollectionDetailComponent implements OnInit {
   public uniqueDetails;
 
   public runsColumns = [
-    { title: 'Run #', name: 'no', size: '30', minSize: '30' },
-    { title: 'Status', name: 'status_name', size: '25%', minSize: '90' },
+    { title: 'Run #', name: 'run_no', size: '30', minSize: '30' },
+    { title: 'Status', name: 'status.name', size: '25%', minSize: '90' },
     { title: 'Parts unidentified', name: 'parts_unidentified', size: '25', minSize: '25' },
     { title: 'Parts deleted', name: 'parts_deleted', size: '50', minSize: '50' },
     { title: 'Parts identified', name: 'parts_identified', size: '25%', minSize: '80' },
@@ -148,10 +148,9 @@ export class CollectionDetailComponent implements OnInit {
     this.collectionService.getCollectionById(this.id).subscribe(
       (data) => {
         if (data) {
+          console.log(data)
           if (data.body && data.body.code == 200) {
-            this.collectionDetails = data.body.general;
-            this.collectionSummary = data.body.summarized;
-            this.uniqueDetails = data.body.unique;
+            this.collectionDetails = data.body.result[0];
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");

@@ -1,117 +1,26 @@
 <div class="container-fluid" *ngIf="runDetails">
     <div class="d-sm-flex justify-content-between align-items-center mb-4 pt-2">
-        <h3 class="text-dark mb-0">{{runDetails.collection_name}} - Run Number {{runDetails.no}}</h3>
+        <h3 class="text-dark mb-0">{{runDetails.runinfo.title}}</h3>
     </div>
 </div>
 <div class="row" *ngIf="runDetails">
     <div class="col-md mb-4">
-        <!-- <div class="card shadow border-left-info py-2">
-            <div class="card-body">
-                <div class="row align-items-center no-gutters">
-                    <div class="col mr-2">
-                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1">
-                            <span>Parts Identified</span>
-                        </div>
-                        <ngb-progressbar type="info" [value]="runDetails.percentage_identified" [animated]="true">{{runDetails.percentage_identified}} % </ngb-progressbar>
-                        <div class="text-dark font-weight-bold h5 mb-0">
-                            <span>{{runDetails.parts_identified}} of {{runDetails.allSetsSumPartCount}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <app-card [title]="'Parts Identified'" [showProgressbar]="true"
-        [data]="{color: 'info',current: runDetails.parts_identified, total: runDetails.allSetsSumPartCount, percentage: runDetails.percentage_identified}"></app-card>
+        [data]="{color: 'info',current: runDetails.identified_parts.sumTotal, total: runDetails.expected_parts.sumPartsQuantity}"></app-card>
     </div>
     <div class="col-md  mb-4" >
-        <!-- <div class="card shadow border-left-success py-2">
-            <div class="card-body">
-                <div class="row align-items-center no-gutters">
-                    <div class="col mr-2">
-                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1">
-                            <span>Parts sorted of identified</span>
-                        </div>
-                        <ngb-progressbar type="success" [value]="runDetails.percentage_sorted_parts_total" [animated]="true">{{runDetails.percentage_sorted_parts_total}} % </ngb-progressbar>
-                        <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.sorted_parts_total}} of {{runDetails.parts_identified}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calender fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <app-card [title]="'Parts sorted of identified'" [showProgressbar]="true"
-        [data]="{color: 'success',current: runDetails.sorted_parts_total, total: runDetails.parts_identified, percentage: runDetails.percentage_sorted_parts_total}">
+        [data]="{color: 'success',current: runDetails.sorted_parts.detected_parts, total: runDetails.identified_parts.sumTotal}">
       </app-card>
     </div>
     <div class="col-md  mb-4" >
-        <!-- <div class="card shadow border-left-danger py-2">
-            <div class="card-body">
-                <div class="row align-items-center no-gutters">
-                    <div class="col mr-2">
-                        <div class="text-uppercase text-danger font-weight-bold text-xs mb-1">
-                            <span>Sorted (undetected)</span>
-                        </div>
-                        <ngb-progressbar type="danger" [value]="runDetails.percentage_sorted_undetected_parts" [animated]="true">{{runDetails.percentage_sorted_undetected_parts}} % </ngb-progressbar>
-                        <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.sorted_undetected_parts}} of {{runDetails.parts_identified}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calender fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <app-card [title]="'Sorted (undetected)'" [showProgressbar]="true"
-        [data]="{color: 'danger',current: runDetails.sorted_undetected_parts, total: runDetails.parts_identified, percentage: runDetails.percentage_sorted_undetected_parts}">
+        [data]="{color: 'danger',current: runDetails.sorted_parts.undetected_parts, total: runDetails.identified_parts.sumTotal}">
         </app-card>
     </div>
     <div class="col-md  mb-4" >
-        <!-- <div class="card shadow border-left-primary py-2">
-            <div class="card-body">
-                <div class="row align-items-center no-gutters">
-                    <div class="col mr-2">
-                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1">
-                            <span>Identified By CNN</span>
-                        </div>
-                        <ngb-progressbar type="primary" [value]="runDetails.percentage_identified_by_cnn" [animated]="true">{{runDetails.percentage_identified_by_cnn}} % </ngb-progressbar>
-                        <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.parts_identified_by_cnn}} of {{runDetails.parts_identified}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calender fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <app-card [title]="'Identified By CNN'" [showProgressbar]="true"
-        [data]="{color: 'primary',current: runDetails.parts_identified_by_cnn, total: runDetails.parts_identified, percentage: runDetails.percentage_identified_by_cnn}">
-        </app-card>
-    </div>
-    <div class="col-md  mb-4" >
-        <!-- <div class="card shadow border-left-secondary py-2">
-            <div class="card-body">
-                <div class="row align-items-center no-gutters">
-                    <div class="col mr-2">
-                        <div class="text-uppercase text-secondary font-weight-bold text-xs mb-1">
-                            <span>Parts / colors to label</span>
-                        </div>
-                        <div class="text-dark font-weight-bold h5 mb-0">
-                            {{runDetails.partno_not_yet_identified}} / {{runDetails.colorid_not_yet_identified}}
-                        </div>
-                    </div>
-                    <div class="col-auto">
-                        <i class="fas fa-calender fa-2x text-gray-300"></i>
-                    </div>
-                </div>
-            </div>
-        </div> -->
         <app-card [title]="'Parts / Colors to label'" [showProgressbar]="false"
-        [data]="{color: 'secondary',current: runDetails.partno_not_yet_identified, total: runDetails.colorid_not_yet_identified, percentage: runDetails.percentage_identified_by_cnn}">
+        [data]="{color: 'secondary',current: runDetails.unlabeled_parts.sumPartUnlabeled, total: runDetails.unlabeled_parts.sumColorUnlabeled}">
         </app-card>
     </div>
 </div>
@@ -141,7 +50,7 @@
                                     Collection
                                 </td>
                                 <td>
-                                        {{runDetails.collection_name}}
+                                        {{runDetails.name}}
                                 </td>
                             </tr>
                             <tr>
@@ -149,7 +58,7 @@
                                     Sorter
                                 </td>
                                 <td>
-                                        {{runDetails.sorter_name}}
+                                        {{runDetails.sorterinfo.name}}
                                 </td>
                             </tr>
                             <tr>
@@ -157,7 +66,7 @@
                                     Status
                                 </td>
                                 <td>
-                                        {{runDetails.status_name}}
+                                        {{runDetails.status.name}}
                                 </td>
                             </tr>
                             <tr>
@@ -211,7 +120,7 @@
             <div class="row">
                 <div class="card shadow mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="text-primary font-weight-bold m-0">Recognised Parts</h6>
+                        <h6 class="text-primary font-weight-bold m-0">Identified Parts</h6>
                         <div class="dropdown no-arrow">
                             <button class="btn btn-sm btn-primary" aria-expanded="false"  type="button" (click)="labelparts(runDetails.id)">
                                 Label Parts
@@ -220,8 +129,8 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-12" *ngIf="recognisedpartsData && recognisedpartsColumns">
-                                <ng-table (rowCellClick)="onEditRecognisedpartClick($event)"  [isActionVisible]="true" [isEditVisible]="false" [isDeleteVisible]="true" [columns]="recognisedpartsColumns" [data]="recognisedpartsData" (rowDeleteClick)="onRowRecognisedpartDeleteClick($event)">
+                            <div class="col-sm-12" *ngIf="identifiedpartsData && identifiedpartsColumns">
+                                <ng-table (rowCellClick)="onEditIdentifiedpartClick($event)"  [isActionVisible]="true" [isEditVisible]="false" [isDeleteVisible]="true" [columns]="identifiedpartsColumns" [data]="identifiedpartsData" (rowDeleteClick)="onRowIdentifiedpartDeleteClick($event)">
                                 </ng-table>
                             </div>
                     </div>
@@ -233,4 +142,4 @@
 
 <app-run-edit (runAdded)="addNewRun($event)" #runEdit></app-run-edit>
 <app-sortedset-edit (sortedsetAdded)="addNewSortedset($event)" #sortedsetEdit></app-sortedset-edit>
-<app-recognisedpart-edit (recognisedpartAdded)="addNewRecognisedpart($event)" #recognisedpartEdit></app-recognisedpart-edit>
+<app-identifiedpart-edit (identifiedpartAdded)="addNewIdentifiedpart($event)" #identifiedpartEdit></app-identifiedpart-edit>

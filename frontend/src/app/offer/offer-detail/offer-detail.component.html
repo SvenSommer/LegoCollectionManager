@@ -159,9 +159,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12" *ngIf="offerDetails">
-                                <ng-container *ngFor="let partimage of offerDetails.images">
+                                <ng-container *ngFor="let image of offerDetails.images">
                                     <img class="img-thumbnail rounded float-left" [style.height.px]="150"
-                                    [src]="partimage.imageurl"  (click)="onImgClick(partimage)"
+                                    [src]="image.imageurl"  (click)="onImgClick(image)"
                                     
                                     />
                                 </ng-container> 
@@ -179,7 +179,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-12" *ngIf="offerDetails">
-                                            {{offerDetails.description}}
+                                            {{offerDetails.searchpropertyinfo.searchterm}}
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-12" *ngIf="offerDetails">
-                                            {{offerDetails.description}}
+                                            <div [innerHTML]="offerDetails.offerinfo.description"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -210,13 +210,13 @@
                                     <div class="card-body">
                                         <div class="card">
                                             <div class="card-body">
-                                                <table *ngIf="offerDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                                                <table *ngIf="offerDetails.propertyinfo" class="div2 table table-hover table-sm datatable" role="grid">
                                                     <tr>
                                                         <td>
                                                             Weight (kg)
                                                         </td>
                                                         <td>
-                                                            {{offerDetails.properties.weight_kg}} <br>
+                                                            {{offerDetails.propertyinfo.weight_kg}} <br>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -224,7 +224,7 @@
                                                             Boxes
                                                         </td>
                                                         <td>
-                                                            {{offerDetails.properties.boxes}} <br>
+                                                            {{offerDetails.propertyinfo.boxes}} <br>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -232,7 +232,7 @@
                                                             Notes
                                                         </td>
                                                         <td>
-                                                            {{offerDetails.properties.notes}} <br>
+                                                            {{offerDetails.propertyinfo.notes}} <br>
                                                         </td>
                                                     </tr>
                                                    
@@ -241,7 +241,7 @@
                                                             Minifigs
                                                         </td>
                                                         <td>
-                                                            {{offerDetails.properties.minifigs}} <br>
+                                                            {{offerDetails.propertyinfo.minifigs}} <br>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -249,7 +249,7 @@
                                                             Created
                                                         </td>
                                                         <td>
-                                                            {{offerDetails.properties.created | date:'dd.MM.yyyy' }}
+                                                            {{offerDetails.propertyinfo.created | date:'dd.MM.yyyy' }}
                                                         </td>
                                                     </tr>
                         

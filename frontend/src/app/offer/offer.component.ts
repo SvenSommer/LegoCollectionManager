@@ -20,6 +20,7 @@ export class OfferComponent implements OnInit {
   public columns = [
     { title: 'Images', name: 'images', size: '120', minSize: '120', datatype: { type: 'imagesoffers'}},
     { title: 'Title', name: 'offerinfo.title', size: '20%', minSize: '120' },
+    { title: 'Description', name: 'offerinfo.description', size: '20%', minSize: '120' },
     { title: 'Price', name: 'offerinfo.price', size: '20%', minSize: '120', datatype: { type: 'price' } },
     { title: 'Price Type', name: 'offerinfo.pricetype', size: '20%', minSize: '120' },
     { title: 'Zipcode', name: 'offerinfo.zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },

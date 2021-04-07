@@ -10,18 +10,18 @@ export default (req: Request, res: Response) => {
         const {
             id,
             run_id,
-            recognisedset_id,
+            expectedset_id,
             pusher_id
         } = req.body;
 
         if (id &&
             run_id && 
-            recognisedset_id &&
+            expectedset_id &&
             pusher_id ) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const updateSortedSet = `UPDATE SortedSets SET run_id = ${run_id},
-                                     recognisedset_id = ${recognisedset_id},
+                expectedset_id = ${expectedset_id},
                                             pusher_id = ${pusher_id}
                                             WHERE id= ${id}`;
 
@@ -43,7 +43,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'id, run_id, recognisedset_id and pusher_id are required!'
+                message: 'id, run_id, expectedset_id and pusher_id are required!'
             });
         }
     } catch (e) {

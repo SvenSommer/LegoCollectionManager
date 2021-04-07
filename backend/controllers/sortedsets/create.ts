@@ -11,12 +11,12 @@ export default (req: Request, res: Response) => {
         const {token} = req.cookies;
         const {
             run_id,
-            recognisedset_id,
+            expectedset_id,
             pusher_id
         } = req.body;
 
         if (run_id && 
-            recognisedset_id && 
+            expectedset_id && 
             pusher_id) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
@@ -33,12 +33,12 @@ export default (req: Request, res: Response) => {
                         const {id:userid} = result[0];
                         const createSortedSet = `INSERT INTO SortedSets (
                                                   run_id,
-                                                  recognisedset_id,
+                                                  expectedset_id,
                                                   pusher_id,
                                                   createdBy)
                                                   VALUES(
                                                           ${run_id},
-                                                          ${recognisedset_id},
+                                                          ${expectedset_id},
                                                           ${pusher_id},
                                                           ${userid})`;
                                                           console.log(createSortedSet)
@@ -61,7 +61,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'run_id, recognisedset_id and pusher_id are required!'
+                message: 'run_id, expectedset_id and pusher_id are required!'
             });
         }
     } catch (e) {
