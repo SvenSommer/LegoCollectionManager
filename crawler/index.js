@@ -229,7 +229,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 			}
 
 			console.log(offersPerPage.length, " offers found")
-			//TODO: Check here if there are deleted offers making the request (deleted_by_user)
+			
 
 			for (const offerPage of offersPerPage) {
 
@@ -357,5 +357,6 @@ const offerPerPageSelector = "li > article a.ellipsis";
 // TODO: Implement logger in database
 // TODO: 1. run stable for a "unlimited" time
 // 			2. accept configuration/schedule changes without manual restarting.
-
-
+// TODO: Detect the deleted offer by user
+//TODO: Check here if there are deleted offers making the request (deleted_by_user)
+//This should come from API (preferences) each time the script runs (LOG_LEVEL)
