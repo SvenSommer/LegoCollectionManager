@@ -3,12 +3,12 @@ import connection from "../../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {offerid: offer_id} = req.params;
-    const showAllbyId = `SELECT *
-                                FROM Offers_Views WHERE offer_id = ${offer_id};`
-    connection.query(showAllbyId, (err, result) => {
+    const showAllByid = `SELECT *
+                                FROM Offers_Status WHERE offer_id = ${offer_id};`
+    connection.query(showAllByid, (err, result) => {
         if (err) res.json({
             code: 500,
-            message: 'Some error occurred while fetching offers views',
+            message: 'Some error occurred while fetching offers status',
             errorMessage: process.env.DEBUG && err
         });
         else {

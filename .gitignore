@@ -60,3 +60,5 @@ tools/gulp-tasks/cldr/cldr-data/
 # Husky
 .husky/_
 /crawler/offerimages
+/frontend/partimages
+/frontend/src/assets/partimages
