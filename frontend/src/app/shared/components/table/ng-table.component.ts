@@ -211,12 +211,29 @@ export class NgTableComponent implements OnInit, OnChanges {
   private sort(rows: any, column: SortColumn, direction: string, columnType: any): any {
     if (direction === '' || column === '') {
       return this.resultData;
-    } else {
+    } else {0
       return [...rows].sort((a, b) => {
-        const res = this.compare(a[column], b[column],columnType);
+        const aVal = this.getKeyValue(a,column);
+        const bVal = this.getKeyValue(b,column);
+        const res = this.compare(aVal, bVal,columnType);
         return direction === 'asc' ? res : -res;
       });
     }
+  }
+
+  getKeyValue(o, s) {
+      s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+      s = s.replace(/^\./, '');           // strip a leading dot
+      var a = s.split('.');
+      for (var i = 0, n = a.length; i < n; ++i) {
+          var k = a[i];
+          if (k in o) {
+              o = o[k];
+          } else {
+              return;
+          }
+      }
+      return o;
   }
 
   public search(rows: any, searchText: any): any{
