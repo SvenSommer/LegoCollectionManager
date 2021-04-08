@@ -4,7 +4,7 @@
     </div>
 </div>
 <div class="row mb-3" *ngIf="offerDetails">
-    <div class="col-lg-2">
+    <div class="col-lg-3">
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="text-primary font-weight-bold m-0">Offer Information</h6>
@@ -148,8 +148,66 @@
                 </div>
             </div>
          </div>
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="text-primary font-weight-bold m-0">Searchproperties</h6>
+            </div>
+            <div class="card-body">
+                <table *ngIf="offerDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                    <tr>
+                        <td>
+                            Searchterm
+                        </td>
+                        <td>
+                            {{offerDetails.searchpropertyinfo.searchterm}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Location
+                        </td>
+                        <td>
+                            {{offerDetails.searchpropertyinfo.location}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Price
+                        </td>
+                        <td>
+                            {{offerDetails.searchpropertyinfo.pricemin}} - {{offerDetails.searchpropertyinfo.pricemax}} 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            only Pickup
+                        </td>
+                        <td>
+                            {{offerDetails.searchpropertyinfo.onlypickup}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="text-primary font-weight-bold m-0">Status</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-12" *ngIf="statusData && statusColumns">
+                                <ng-table [allowSearch] = "true" [allowPaging] = "false" [isActionVisible]="false" [columns]="statusColumns" [data]="statusData">
+                                </ng-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-lg-10">
+    <div class="col-lg-9">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card shadow mb-4">
@@ -171,20 +229,6 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
-                        <div class="row">
-                            <div class="card shadow mb-4">
-                                <div class="card-header d-flex justify-content-between align-items-center">
-                                <h6 class="text-primary font-weight-bold m-0">Searchproperties</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-sm-12" *ngIf="offerDetails">
-                                            {{offerDetails.searchpropertyinfo.searchterm}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="card shadow mb-4">
                                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -210,50 +254,71 @@
                                     <div class="card-body">
                                         <div class="card">
                                             <div class="card-body">
-                                                <table *ngIf="offerDetails.propertyinfo" class="div2 table table-hover table-sm datatable" role="grid">
-                                                    <tr>
-                                                        <td>
-                                                            Weight (kg)
-                                                        </td>
-                                                        <td>
-                                                            {{offerDetails.propertyinfo.weight_kg}} <br>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Boxes
-                                                        </td>
-                                                        <td>
-                                                            {{offerDetails.propertyinfo.boxes}} <br>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Notes
-                                                        </td>
-                                                        <td>
-                                                            {{offerDetails.propertyinfo.notes}} <br>
-                                                        </td>
-                                                    </tr>
-                                                   
-                                                    <tr>
-                                                        <td>
-                                                            Minifigs
-                                                        </td>
-                                                        <td>
-                                                            {{offerDetails.propertyinfo.minifigs}} <br>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Created
-                                                        </td>
-                                                        <td>
-                                                            {{offerDetails.propertyinfo.created | date:'dd.MM.yyyy' }}
-                                                        </td>
-                                                    </tr>
-                        
-                                                </table>
+                                                <form (ngSubmit)="onSaveProperties(propertiesForm)" #propertiesForm="ngForm">
+                                                    <table class="div2 table table-hover table-sm datatable" role="grid">
+                                                        <tr>
+                                                            <td>
+                                                                Weight (kg)
+                                                            </td>
+                                                            <td>
+                                                                <input type="number" required #name="ngModel" [(ngModel)]="properties.weight_kg" class="form-control"
+                                                                id="weight_kg" name="weight_kg">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Boxes
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" required #name="ngModel" [(ngModel)]="properties.boxes" class="form-control"
+                                                                id="boxes" name="boxes">
+                                                            </td>
+                                                        </tr>
+                                                        
+                                                        <tr>
+                                                            <td>
+                                                                Instructions
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" required #name="ngModel" [(ngModel)]="properties.instructions" class="form-control"
+                                                                id="instructions" name="instructions">
+                                                            </td>
+                                                        </tr>
+                                                    
+                                                        <tr>
+                                                            <td>
+                                                                Minifigs
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" required #name="ngModel" [(ngModel)]="properties.minifigs" class="form-control"
+                                                                id="notes" name="notes">
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Notes
+                                                            </td>
+                                                            <td>
+                                                                <textarea rows="3" type="text" #description="ngModel" required [(ngModel)]="properties.notes"
+                                                                class="form-control" id="notes" name="notes"></textarea>
+                                                            </td>
+                                                        </tr>
+                                                        <tr *ngIf="properties.created">
+                                                            <td>
+                                                                Created
+                                                            </td>
+                                                            <td>
+                                                                {{properties.created | date:'dd.MM.yyyy' }}
+                                                            </td>
+                                                        </tr>
+                            
+                                                    </table>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <button type="submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -267,6 +332,9 @@
                             <h6 class="text-primary font-weight-bold m-0">Views</h6>
                             </div>
                             <div class="card-body">
+                                <div>
+                                    <canvas id="viewChart"></canvas>
+                                </div>
                                 <div class="row">
                                     <div class="card-body">
                                         <div class="card">
@@ -354,6 +422,7 @@
     </div>
 
 </div>
+
 
 <app-modal-popup [title]="imgPopupName" size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
     <img [src]="imgPopupURL" width="100%"/>

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PossiblesetModel } from '../models/possibleset-model';
+import { OfferPropertiesModel } from '../models/offer_properties-model';
 
 @Injectable({
     providedIn: 'root'
@@ -36,6 +37,12 @@ export class OfferService {
       return this.http.get<any>(`${environment.baseUrl}offers_views/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }  
 
+    getStatusByOfferid(id): Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}offers_status/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }  
+
     getProprtiesByOfferId(id): Observable<any> {
       let httpHeader = new HttpHeaders();
       httpHeader.set("Access-Control-Allow-Origin", "*");
@@ -53,6 +60,14 @@ export class OfferService {
       let httpHeader = new HttpHeaders();
       httpHeader.set("Access-Control-Allow-Origin", "*");
       return this.http.get<any>(`${environment.baseUrl}offers_possiblesets/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
+
+    upsertProperties(model: OfferPropertiesModel): Observable<any> {
+      console.log(model);
+      let headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+      return this.http.post<OfferPropertiesModel>(`${environment.baseUrl}offers_properties`, model, { withCredentials: true, headers: headers, observe: 'response' });
     }
 
     deletePossibleSetBySetId(id): Observable<any> {
