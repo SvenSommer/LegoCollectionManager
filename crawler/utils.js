@@ -10,10 +10,11 @@ const toNumber = (arg, defaulvalue = 0) => {
 	}
 }
 const getDiff = (originalobj, newobj) => {
+	const ignoreKeys = ["created", "datecreated"]
 	const keys = Object.keys(originalobj)
 	const changedkeys = []
 	for (let key of keys) {
-		// if (key === "id") continue
+		if(ignoreKeys.includes(key)) continue
 		if (originalobj[key] !== newobj[key]) {
 			changedkeys.push(key)
 		}
@@ -52,6 +53,9 @@ const downloadImages = async (args) => {
 		await storeData(url, offerImage, reqCredentials)
 	}
 }
+const getFromPreferences = (searchValue, response) => {
+	return response.data.result.find(pref => pref.name === searchValue)
+}
 const areEquals = (obj, newobj) => JSON.stringify(obj) === JSON.stringify(newobj)
 module.exports = {
 	getToken,
@@ -59,5 +63,6 @@ module.exports = {
 	getDiff,
 	getDiffImages,
 	areEquals,
-	downloadImages
+	downloadImages,
+	getFromPreferences
 }
