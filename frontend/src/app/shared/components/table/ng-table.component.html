@@ -13,7 +13,7 @@
       <div class="col-md-6">
         <div id="dataTable_filter" class="text-md-right dataTable_filter">
           <label *ngIf="!allowSearch">
-            <input class="form-control form-control-sm" type="search" name="searchTerm" (keyup)='search(rows,$event.target.value)' aria-controls="dataTable" placeholder="Search"/>
+            <input class="form-control form-control-sm" type="search" name="searchTerm" (click)="clear(rows)" (keyup)='search(rows,$event.target.value)' aria-controls="dataTable" placeholder="Search"/>
           </label>
         </div>
       </div>
@@ -45,13 +45,13 @@
                <ng-container *ngFor="let partimage of row.partimages">
                 <img *ngIf="partimage.deleted==null" [style.width.px]="column.minSize"
                   [src]="partimage.path" />
-              </ng-container> 
+              </ng-container>
             </td>
             <td *ngSwitchCase="'imagesoffers'" (click)="rowCellClick.emit(row)" [style.min-width.px]="500">
               <ng-container *ngFor="let image of row.images">
                <img class="img-thumbnail rounded float-left" [style.height.px]="column.minSize" *ngIf="image != null"
                  [src]="image.imageurl" />
-             </ng-container> 
+             </ng-container>
            </td>
             <td *ngSwitchCase="'percentage'" (click)="rowCellClick.emit(row)"
               [class.text-right]="column.datatype && column.datatype.type && column.datatype.type == 'number'">

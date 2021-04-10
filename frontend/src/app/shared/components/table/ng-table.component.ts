@@ -213,8 +213,8 @@ export class NgTableComponent implements OnInit, OnChanges {
       return this.resultData;
     } else {0
       return [...rows].sort((a, b) => {
-        const aVal = this.getKeyValue(a,column);
-        const bVal = this.getKeyValue(b,column);
+        const aVal = this.getKeyValue(a,column ? column : '');
+        const bVal = this.getKeyValue(b,column ? column : '');
         const res = this.compare(aVal, bVal,columnType);
         return direction === 'asc' ? res : -res;
       });
@@ -234,6 +234,10 @@ export class NgTableComponent implements OnInit, OnChanges {
           }
       }
       return o;
+  }
+
+  clear(rows) {
+    this.search(rows,'')
   }
 
   public search(rows: any, searchText: any): any{
