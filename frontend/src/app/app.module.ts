@@ -60,6 +60,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { LinkSetnumbersPipe } from './shared/components/pipes/link-setnumbers/link-setnumbers.pipe';
 import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     OfferDetailComponent,
     LinkSetnumbersPipe,
     RunAddEditComponent,
+    UserDetailComponent,
   ],
   imports: [
     BrowserModule,

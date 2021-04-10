@@ -1,13 +1,13 @@
 import {Request, Response} from 'express';
-import connection from "../../../database_connection";
+import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
-    const showAllCollections = `SELECT *
-                                FROM LegoSorterDB.offer_users_basis;`
-    connection.query(showAllCollections, (err, result) => {
+    const {id} = req.params;
+    const deleteCollection = `UPDATE Offers Set deletedByExtUser = NOW() Where id =${id};`
+    connection.query(deleteCollection, (err, result) => {
         if (err) res.json({
             code: 500,
-            message: 'Some error occurred while fetching Offers Users',
+            message: 'Some error occurred while deleting collection',
             errorMessage: process.env.DEBUG && err
         });
         else {

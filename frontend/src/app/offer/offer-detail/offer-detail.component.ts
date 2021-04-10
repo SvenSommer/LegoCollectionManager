@@ -91,7 +91,6 @@ export class OfferDetailComponent implements OnInit {
       this.offerService.getOfferById(this.offerid).subscribe(
         (data) => {
           if (data) {
-            console.log(data)
             if (data.body && data.body.code == 200) {
               this.offerDetails = data.body.result[0];
               if (this.offerDetails.propertyinfo != null)

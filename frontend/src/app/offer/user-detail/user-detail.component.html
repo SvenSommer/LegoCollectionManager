@@ -1,0 +1,91 @@
+<div class="container-fluid" *ngIf="userDetails">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4 pt-2">
+        <h3 class="text-dark mb-0">{{userDetails.userinfo.name}} - {{userDetails.user_id}} </h3>
+    </div>
+</div>
+<div class="row mb-3" *ngIf="userDetails">
+    <div class="col-lg-3">
+        <div class="card shadow mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="text-primary font-weight-bold m-0">User Information</h6>
+            </div>         
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <table *ngIf="userDetails" class="div2 table table-hover table-sm datatable" role="grid">
+                            <tr>
+                                <td>
+                                    External User Id
+                                </td>
+                                <td>
+                                    <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{userDetails.user_id}}" (click)="onExternalClick(userDetails)">
+                                        {{userDetails.userinfo.user_id}}
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Verkäufer
+                                </td>
+                                <td>
+                                    {{userDetails.userinfo.name}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Offers available
+                                </td>
+                                <td>
+                                    {{userDetails.userinfo.offerscount}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Friendliness
+                                </td>
+                                <td>
+                                    {{userDetails.userinfo.friendliness}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Satisfaction
+                                </td>
+                                <td>
+                                    {{userDetails.userinfo.satisfaction}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Account Created
+                                </td>
+                                <td>
+                                    {{userDetails.userinfo.accountcreated | date:'dd.MM.yyyy' }}
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9">
+        <div class="row">
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Offers</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12" *ngIf="userDetails && offerColumns">
+                            <ng-table (rowCellClick)="onRowClick($event)" [isActionVisible]="true" [isEditVisible]="false"
+                                [isDeleteVisible]="true" [columns]="offerColumns" [data]="userDetails.offers">
+                            </ng-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

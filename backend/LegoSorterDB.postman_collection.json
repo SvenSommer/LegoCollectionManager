@@ -517,14 +517,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/offers_possiblesets/offer/3",
+									"raw": "{{URL}}/offers_possiblesets/offer/48",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"offers_possiblesets",
 										"offer",
-										"3"
+										"48"
 									]
 								}
 							},
@@ -962,6 +962,23 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Show single user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_users",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_users"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -1048,12 +1065,31 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/offers_views",
+									"raw": "{{URL}}/offers_status",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"offers_views"
+										"offers_status"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show all Status by offerId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/offers_status/offer/3",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_status",
+										"offer",
+										"3"
 									]
 								}
 							},
@@ -1201,6 +1237,28 @@
 				},
 				{
 					"name": "Delete single Offer",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/offers/2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"offers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark Deleted by ext user",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -2410,13 +2468,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/identifiedimages/runid/12",
+									"raw": "{{URL}}/identifiedimages/run/12",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"identifiedimages",
-										"runid",
+										"run",
 										"12"
 									]
 								}
