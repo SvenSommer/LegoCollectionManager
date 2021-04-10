@@ -205,7 +205,7 @@ export class CollectionDetailComponent implements OnInit {
 
 
   onRunCellClick(data){
-    this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
+    this.router.navigateByUrl("/rundetail/" + data.run_id).then((bool) => { }).catch()
   }
 
   getExpectedSets() {

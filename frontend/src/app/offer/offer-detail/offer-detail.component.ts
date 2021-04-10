@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
@@ -7,7 +7,7 @@ import { OfferService } from 'src/app/services/offer.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 import { NgForm } from '@angular/forms';
 import { OfferPropertiesModel } from 'src/app/models/offer_properties-model';
-import {Chart}  from 'node_modules/chart.js';
+import { RawViewData, ViewChartData } from './offer-detail.model';
 
 @Component({
   selector: 'app-offer-detail',
@@ -60,7 +60,7 @@ export class OfferDetailComponent implements OnInit {
 
   public properties: OfferPropertiesModel = new OfferPropertiesModel();
   public isSetFormSubmitted = false;
-  public viewData: any; 
+  public viewChartData: ViewChartData; 
   public statusData: any; 
   public possiblesetData: any; 
   public propertiesData: any;  
@@ -70,42 +70,9 @@ export class OfferDetailComponent implements OnInit {
     private router: Router, private toastr: ToastrService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
-    public offerid = 0;
-    ngOnInit(): void {
-      var myChart = new Chart("viewChart", {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
+  public offerid = 0;
+  ngOnInit(): void {
+    
       this.activatedRoute.params.subscribe(params => {
         this.offerid = params['id'];
         if (this.offerid > 0) {
@@ -191,7 +158,19 @@ export class OfferDetailComponent implements OnInit {
         (data) => {
           if (data) {
             if (data.body && data.body.code == 200) {
-              this.viewData = data.body.result;
+              const result = data.body.result as RawViewData[];
+              const viewCounts = result.map(rawDataNode => rawDataNode.viewcount);
+              this.viewChartData = {
+                yScaleMin: Math.min(...viewCounts),
+                yScaleMax: Math.max(...viewCounts) * 1.01,
+                collection: [{
+                  name: 'views',
+                  series: result.map(rawDataNode => ({
+                    name: new Date(rawDataNode.created),
+                    value: rawDataNode.viewcount
+                  }))
+                }]
+              };
             }
             else if (data.body && data.body.code == 403) {
               this.router.navigateByUrl("/login");

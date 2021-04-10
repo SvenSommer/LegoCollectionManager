@@ -330,26 +330,18 @@
                         <div class="card shadow mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Views</h6>
-                            </div>
-                            <div class="card-body">
-                                <div>
-                                    <canvas id="viewChart"></canvas>
-                                </div>
-                                <div class="row">
-                                    <div class="card-body">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-sm-12" *ngIf="viewData && viewColumns">
-                                                        <ng-table [isActionVisible]="false" [columns]="viewColumns" [data]="viewData">
-                                                        </ng-table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                            <ngx-charts-line-chart
+                                [showYAxisLabel]="true"
+                                [yAxis]="true"
+                                [xAxis]="true"
+                                [yAxisLabel]="'Views'"
+                                [results]="viewChartData.collection"
+                                [yScaleMin]="viewChartData.yScaleMin"
+                                [yScaleMax]="viewChartData.yScaleMax"
+                                [scheme]="{ domain: ['#007BFF'] }"
+                            >
+                            </ngx-charts-line-chart>
                         </div>
                     </div>
                 </div>

@@ -59,7 +59,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { LinkSetnumbersPipe } from './shared/components/pipes/link-setnumbers/link-setnumbers.pipe';
 import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
@@ -108,8 +108,7 @@ import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
     OfferComponent,
     OfferDetailComponent,
     LinkSetnumbersPipe,
-    RunAddEditComponent
-
+    RunAddEditComponent,
   ],
   imports: [
     BrowserModule,
@@ -126,7 +125,8 @@ import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
     DragDropModule,
     MatExpansionModule,
     MatInputModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxChartsModule,
   ],
   providers: [AuthGuardService,CollectionService, NgFilterPipe],
   bootstrap: [AppComponent]

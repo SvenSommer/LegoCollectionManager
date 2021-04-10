@@ -10,7 +10,7 @@ import { PartdataService } from '../services/partdata.service';
 })
 export class PartdataComponent implements OnInit {
 
-  constructor(private setdataService: PartdataService,
+  constructor(private partdataService: PartdataService,
     private router: Router) { }
 
 
@@ -36,7 +36,7 @@ export class PartdataComponent implements OnInit {
   }
 
   bindData() {
-    this.setdataService.getPartdata().subscribe(
+    this.partdataService.getPartdata().subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
