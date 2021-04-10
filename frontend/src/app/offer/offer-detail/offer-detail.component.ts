@@ -257,6 +257,12 @@ export class OfferDetailComponent implements OnInit {
       console.log(data)
       if(data.id != null)
         this.router.navigateByUrl("/setdetail/" + data.set_id).then((bool) => { }).catch()
+    } 
+    
+    onUserDetailsClick(user_id) {
+      console.log(user_id)
+      if(user_id != null)
+        this.router.navigateByUrl("/offeruser/" + user_id).then((bool) => { }).catch()
     }
    
     onRowPossibleSetDeleteClick(data){
