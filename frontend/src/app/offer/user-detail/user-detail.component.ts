@@ -61,4 +61,8 @@ export class UserDetailComponent implements OnInit {
       }
     );
   }
+
+  onOfferRowClick(data) {
+    this.router.navigateByUrl("/offerdetail/" + data.id).then((bool) => { }).catch()
+  }
 }
