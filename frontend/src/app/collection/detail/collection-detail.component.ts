@@ -100,6 +100,18 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '50', minSize: '90', datatype: { type: 'price' } },
   ];
 
+  public purchaseInfo = {
+    title: 'Purchase Information',
+    rowData: [
+      { key: 'origin', name: 'Origin', value: '',dataType:'link'},
+      { key: 'seller', name: 'Seller', value: '',dataType:''},
+      { key: 'weight_kg', name: 'Weight', value: '',dataType:'weight'},
+      { key: 'cost', name: 'Cost(per Weight)', value: '',dataType:'cost'},
+      { key: 'purchase_date', name: 'Purchased', value: '',dataType:'date'},
+      { key: 'created', name: 'Created', value: '',dataType:'date'},
+    ]
+  };
+
   public runsData: any;
   public expectedSets: any;
   public suggestedSets: any;
@@ -144,12 +156,36 @@ export class CollectionDetailComponent implements OnInit {
     });
   }
 
+  buildTableData(collectionDetails){
+    let keys = Object.keys(collectionDetails);
+    let collectionkeys = Object.keys(collectionDetails.collectioninfo);
+    this.purchaseInfo.rowData.forEach(item => {
+      keys.forEach(key => {
+        if(key == item.key){
+          item.value = collectionDetails[key];
+        }
+      });
+      collectionkeys.forEach(key => {
+        if(key == item.key){
+          item.value = collectionDetails.collectioninfo[key];
+        }
+        if(key == item.key && item.key == 'cost'){
+          item.value = collectionDetails.collectioninfo.cost + ' &#8364; ( Incl. porto'  + collectionDetails.collectioninfo.porto + '&#8364; )' + '<br>' +
+                        collectionDetails.collectioninfo.cost_per_kilo + ' &#8364;';
+        }
+      });
+    });
+
+    console.log('this.purchaseInfo:::::::::::::',this.purchaseInfo)
+  }
+
   bindData() {
     this.collectionService.getCollectionById(this.id).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.collectionDetails = data.body.result[0];
+            this.buildTableData(this.collectionDetails);
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -345,7 +381,7 @@ export class CollectionDetailComponent implements OnInit {
   public onImgPopupClose() {
     this.imgPopupURL = '';
     this.imgPopupName = '';
-   
+
   }
 
   public onImgClick(row) {
@@ -361,7 +397,7 @@ export class CollectionDetailComponent implements OnInit {
       if (!/^http[s]?:\/\//.test(data.origin_url)) {
         url += 'http://';
       }
-  
+
       url += data.origin_url;
       window.open(url, '_blank');
     }

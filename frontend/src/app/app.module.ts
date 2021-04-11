@@ -61,6 +61,7 @@ import { LinkSetnumbersPipe } from './shared/components/pipes/link-setnumbers/li
 import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserDetailComponent } from './offer/user-detail/user-detail.component';
+import { CardTableComponent } from './shared/card-table/card-table.component';
 
 
 @NgModule({
@@ -111,6 +112,7 @@ import { UserDetailComponent } from './offer/user-detail/user-detail.component';
     LinkSetnumbersPipe,
     RunAddEditComponent,
     UserDetailComponent,
+    CardTableComponent,
   ],
   imports: [
     BrowserModule,

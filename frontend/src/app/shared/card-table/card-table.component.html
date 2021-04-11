@@ -1,0 +1,33 @@
+<div class="card-body">
+  <div class="card">
+      <div class="card-body">
+          <h4>{{cardData.title}}</h4>
+          <table *ngIf="cardData" class="div2 table table-hover table-sm datatable" role="grid">
+              <tr *ngFor="let cardInfo of cardData.rowData">
+                <ng-container [ngSwitch]="cardInfo?.dataType">
+                  <td>
+                    {{cardInfo.name}}
+                  </td>
+                  <td *ngSwitchCase="'link'">
+                      <a href="javascript:void(0);" (click)="onExternalClick(collectionDetails)">
+                          {{cardInfo.value}}
+                      </a>
+                  </td>
+                  <td *ngSwitchCase="'date'">
+                    {{cardInfo.value | date:'dd.MM.yyyy'}}
+                  </td>
+                  <td *ngSwitchCase="'weight'">
+                    {{cardInfo.value}} kg
+                  </td>
+                  <td *ngSwitchCase="'cost'">
+                    <span [innerHtml]="cardInfo.value"></span> kg
+                  </td>
+                  <td *ngSwitchDefault>
+                    {{cardInfo.value}}
+                  </td>
+                </ng-container>
+              </tr>
+          </table>
+      </div>
+  </div>
+</div>

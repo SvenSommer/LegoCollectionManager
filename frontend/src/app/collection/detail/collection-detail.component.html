@@ -23,7 +23,8 @@
                 </div>
 
             </div>
-            <div class="card-body">
+            <app-card-table [cardData]="purchaseInfo" [collectionDetails]="collectionDetails"></app-card-table>
+            <!-- <div class="card-body">
                 <div class="card">
                     <div class="card-body">
                         <h4>Purchase Information</h4>
@@ -51,7 +52,7 @@
                                     Weight
                                 </td>
                                 <td>
-                                        {{collectionDetails.collectioninfo.weight_kg}} kg 
+                                        {{collectionDetails.collectioninfo.weight_kg}} kg
                                 </td>
                             </tr>
                             <tr>
@@ -61,8 +62,8 @@
                                 </td>
                                 <td>
                                     {{collectionDetails.collectioninfo.cost}}&#8364; ( Incl. porto {{collectionDetails.collectioninfo.porto}}&#8364; ) <br>
-                                    {{collectionDetails.collectioninfo.cost_per_kilo}}         &#8364; / kg                           
-                                       
+                                    {{collectionDetails.collectioninfo.cost_per_kilo}}         &#8364; / kg
+
                                 </td>
                             </tr>
                             <tr>
@@ -85,7 +86,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="card-body">
                 <div class="card">
                     <div class="card-body">
@@ -152,45 +153,45 @@
                             </button>
                         </div>
                     </div>
-                       
+
                     <div class="card-body">
                         <div class="row" *ngIf="runsData && runsData.summarized && runsData.unique">
                             <div class="col-md mb-2">
                                 <app-card [title]="'Parts Labeled'" [showProgressbar]="true"
                                     [data]="{color: 'info',
-                                    identified: runsData.summarized[0].allRunsPartsIdentified, 
-                                    total: collectionSummary.allSetsSumPartCount, 
+                                    identified: runsData.summarized[0].allRunsPartsIdentified,
+                                    total: collectionSummary.allSetsSumPartCount,
                                     percentage: runsData.summarized[0].allRunsPartsIdentified/collectionSummary.allSetsSumPartCount}">
                                 </app-card>
                             </div>
                             <div class="col-md mb-2">
                                 <app-card [title]="'Parts Sorted'" [showProgressbar]="true"
                                     [data]="{color: 'success',
-                                    identified: runsData.summarized[0].allRunsPartsSortedDetected, 
-                                    total: runsData.summarized[0].allRunsPartsIdentified, 
+                                    identified: runsData.summarized[0].allRunsPartsSortedDetected,
+                                    total: runsData.summarized[0].allRunsPartsIdentified,
                                     percentage: runsData.summarized[0].allRunsPartsSortedDetected/collectionSummary.allSetsSumPartCount}">
                                 </app-card>
-                            </div> 
+                            </div>
                             <div class="col-md mb-2">
                                 <app-card [title]="'Undetected'" [showProgressbar]="true"
                                     [data]="{color: 'danger',
-                                    identified: runsData.summarized[0].allRunsPartsSortedUndetected, 
-                                    total: runsData.summarized[0].allRunsPartsIdentified, 
+                                    identified: runsData.summarized[0].allRunsPartsSortedUndetected,
+                                    total: runsData.summarized[0].allRunsPartsIdentified,
                                     percentage: runsData.summarized[0].allRunsPartsSortedUndetected/collectionSummary.allSetsSumPartCount}">
                                 </app-card>
                             </div>
                             <div class="col-md mb-2">
                                 <app-card [title]="'CNN Identified'" [showProgressbar]="true"
                                     [data]="{color: 'primary',
-                                    identified: runsData.summarized[0].allRunsPartsIdentifiedByCnn, 
-                                    total: runsData.summarized[0].allRunsPartsIdentified, 
+                                    identified: runsData.summarized[0].allRunsPartsIdentifiedByCnn,
+                                    total: runsData.summarized[0].allRunsPartsIdentified,
                                     percentage: runsData.summarized[0].allRunsPartsIdentifiedByCnn/collectionSummary.allSetsSumPartCount}">
                                 </app-card>
                             </div>
                             <div class="col-md mb-2">
                                 <app-card [title]="'Unlabeled Parts / Colors'" [showProgressbar]="false"
                                     [data]="{color: 'secondary',
-                                    identified: runsData.summarized[0].partno_not_yet_identified, 
+                                    identified: runsData.summarized[0].partno_not_yet_identified,
                                     total: runsData.summarized[0].colorid_not_yet_identified}">
                                 </app-card>
                             </div>
@@ -205,7 +206,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-12">    
+                <div class="col-lg-12">
                     <div class="card shoadow mb-4">
                         <div class="card-header d-flex align-items-center">
                             <div class="dropdown btn-group pr-2">
@@ -292,7 +293,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    
+
                                     </div>
                                 </div>
                                 <div class="col-sm-12" *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
@@ -332,7 +333,7 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 
 
