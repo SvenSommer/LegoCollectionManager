@@ -22,7 +22,8 @@ const API_REQUEST = {
 	OFFERS_USER: "/offers_users",
 	OFFERS_IMAGES: "/offers_images",
 	OFFER_STATUS: "/offers_status",
-	OFFER_LOGS: "/offers_logs"
+	OFFER_LOGS: "/offers_logs",
+	DELETE_OFFER: "/offers/byextuser/"
 
 }
 exports.API_REQUEST = API_REQUEST
@@ -206,7 +207,7 @@ const main = async () => {
 			// console.log({ external_id, deleted_by_user });
 			Log(LOGLEVEL, "# Updating the offer, is not longer available", reqCredentials)
 			offer.deletedByExtUser = deleted_by_user
-			await updateData(API_URL + API_REQUEST.OFFERS + "/" + id, offer, reqCredentials, true)
+			await updateData(API_URL + API_REQUEST.DELETE_OFFER + "/" + id, offer, reqCredentials, true)
 			// console.log(offer);
 		}
 	} //url in localoffers
@@ -415,7 +416,7 @@ const main = async () => {
 
 	await handleClose("* Closing the browser")
 }
-
+main()
 // =================================================
 // * Setting the scheduler
 // =================================================
@@ -453,22 +454,22 @@ const main = async () => {
 // 	// console.log({ nextStop });
 // })()
 
-(async () => {
-	const { getCurrentCron } = require("./services/getCurrentCron")
-	let timeStartMillis = Date.now()
-	let nextStop = timeStartMillis + scheduleTime;
-	console.log(await getCurrentCron())
-	while (true) {
-		let nowMillis = Date.now()
-		if (nowMillis === nextStop) {
-			await main()
-			nowMillis = Date.now()
-			scheduleTime = await getCurrentCron()
-			scheduleTime = toMillis(scheduleTime)
-			nextStop = nowMillis + scheduleTime
-		} else {
-			console.log(new Date().toISOString());
-		}
-	}
-	// working fine now, but in 2nd iteration the crawler is dying because of was already handled
-})()
+// (async () => {
+// 	const { getCurrentCron } = require("./services/getCurrentCron")
+// 	let timeStartMillis = Date.now()
+// 	let nextStop = timeStartMillis + scheduleTime;
+// 	console.log(await getCurrentCron())
+// 	while (true) {
+// 		let nowMillis = Date.now()
+// 		if (nowMillis === nextStop) {
+// 			await main()
+// 			nowMillis = Date.now()
+// 			scheduleTime = await getCurrentCron()
+// 			scheduleTime = toMillis(scheduleTime)
+// 			nextStop = nowMillis + scheduleTime
+// 		} else {
+// 			console.log(new Date().toISOString());
+// 		}
+// 	}
+// 	// working fine now, but in 2nd iteration the crawler is dying because of was already handled
+// })()
