@@ -39,6 +39,8 @@ const getCurrentCron = async () => {
 	
 	return currentCronjob
 };
-exports.getCurrentCron
+module.exports = {
+	getCurrentCron
+}
 // getCurrentCron()
 

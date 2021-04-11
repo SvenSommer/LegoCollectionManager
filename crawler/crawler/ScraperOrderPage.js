@@ -41,7 +41,7 @@ const offerDescriptionSelector = "#viewad-description .l-container";
  * @returns 
  */
 const scraperOrderPage = async (args) => {
-	const { browser, url: offerurl, id, location } = args
+	const { browser, url: offerurl, id, location, externalId } = args
 	console.log("=================================================")
 	// =================================================
 	// * Opening the url in another tab
@@ -55,6 +55,9 @@ const scraperOrderPage = async (args) => {
 		console.log("!! This page can't be loaded, SKIP ", offerurl);
 		// Log(LOGLEVEL, "!! This page can't be loaded, SKIP " + offerurl, reqCredentials)
 		await page.close()
+		return {
+			deleted_by_user: true
+		}
 	}
 	await page.waitForTimeout(1500)
 	if (await page.$(notificationSelector)) {
@@ -74,20 +77,26 @@ const scraperOrderPage = async (args) => {
 	try {
 		await page.waitForSelector(offerTitleSelector, { timeout: 15000 })
 	} catch (error) {
-		console.log("!! Error: Cannot detect the title of the offer, maybe is deleted by user");
+		console.log("!! Error: Cannot detect the title of the offer, is deleted by user");
 		// Log(LOGLEVEL, "!! Error: Cannot detect the title of the offer, maybe is deleted by user", reqCredentials)
 		const currentUrl = page.url()
 		console.log(currentUrl);
 		// Log(LOGLEVEL, currentUrl, reqCredentials)
-		const externalId = currentUrl.split("/").pop().split("-")[0]
+		// console.log("* Closing the tab")
+		// // Log(LOGLEVEL, "* Closing the tab", reqCredentials)
+		// await page.close()
 		return {
 			external_id: externalId,
 			deleted_by_user: true
 		}
+
 	}
 
 	const offerTitle = await page.$eval(offerTitleSelector, el => el.innerText.trim())
-	const offerSubInfo = await page.$eval(offerPriceSelector, el => el.innerText.trim().split(" "))
+	let offerSubInfo = []
+	if (await page.$(offerPriceSelector)) {
+		offerSubInfo = await page.$eval(offerPriceSelector, el => el.innerText.trim().split(" "))
+	}
 	const [offerPrice, offerCurrency, offerPriceType] = offerSubInfo
 	const locationInfo = await page.$eval(offerLocationSelector, el => el.innerText.trim().split(" "))
 	const offerZipCode = locationInfo[0]
@@ -150,7 +159,10 @@ const scraperOrderPage = async (args) => {
 	if (await page.$(userFriendlySelector)) {
 		friendliness = await page.$eval(userFriendlySelector, el => el.innerText.trim())
 	}
-	const satisfaction = await page.$eval(userSatisfactionSelector, el => el.innerText.trim())
+	let satisfaction = ""
+	if(await page.$(userSatisfactionSelector)){
+		satisfaction = await page.$eval(userSatisfactionSelector, el => el.innerText.trim())
+	}
 	let accountcreated = await page.$eval(userCreationDateSelector, el => el.innerText.trim())
 	accountcreated = accountcreated.split(" ")[2].split(".").reverse().join("-") + " " + "00:00:00"
 	const user = {

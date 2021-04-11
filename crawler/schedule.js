@@ -1,8 +1,7 @@
 
 // const fs = require("fs")
 // const cronjob = fs.readFileSync("./cron.txt", {encoding: "utf-8"})
-
-(async() => {
+(async () => {
 	const getCurrentCron = require("./services/getCurrentCron")
 	const Bree = require('bree');
 	const path = require("path")
@@ -14,17 +13,16 @@
 		hasSeconds: false,
 		defaultExtension: 'js'
 	};
+	const functtest = () => {
+		console.log("inside the func")
+	}
 	const bree = new Bree({
 		...options,
 		jobs: [
-			// {
-			// 	name: 'schedule',
-			// 	path: path.join(__dirname, 'services', 'getCurrentCron.js'),
-			// 	interval: '1 min'
-			// },
 			{
-				name: 'schedule',
-				path: path.join(__dirname, 'services', 'getCurrentCron.js'),
+				name: 'crawler',
+				// path: path.join(__dirname, 'index.js'),
+				path: functtest,
 				interval: '1 min'
 			},
 			// {
@@ -34,7 +32,6 @@
 			// }
 		]
 	});
-	
-	exports.bree = bree
-	
+	bree.start()
+	console.log("end");
 })()
