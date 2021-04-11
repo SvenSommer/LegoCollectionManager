@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
     this.loginService.login(this.userName, this.password).subscribe(
       (data) => {
         if (data.body.code == 200) {
+          localStorage.setItem("SessionUser", this.userName);
           this.router.navigateByUrl("/collection");
           this.toastr.success(data.body.message);
         }

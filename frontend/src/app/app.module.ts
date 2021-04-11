@@ -57,7 +57,10 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatInputModule} from '@angular/material/input';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-
+import { LinkSetnumbersPipe } from './shared/components/pipes/link-setnumbers/link-setnumbers.pipe';
+import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 
 
 @NgModule({
@@ -104,8 +107,10 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     CardComponent,
     LabelpartsComponent,
     OfferComponent,
-    OfferDetailComponent
-
+    OfferDetailComponent,
+    LinkSetnumbersPipe,
+    RunAddEditComponent,
+    UserDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,7 +127,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     DragDropModule,
     MatExpansionModule,
     MatInputModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgxChartsModule,
   ],
   providers: [AuthGuardService,CollectionService, NgFilterPipe],
   bootstrap: [AppComponent]

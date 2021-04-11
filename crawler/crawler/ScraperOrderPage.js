@@ -159,12 +159,16 @@ const scraperOrderPage = async (args) => {
 	if (await page.$(userFriendlySelector)) {
 		friendliness = await page.$eval(userFriendlySelector, el => el.innerText.trim())
 	}
-	let satisfaction = ""
-	if(await page.$(userSatisfactionSelector)){
-		satisfaction = await page.$eval(userSatisfactionSelector, el => el.innerText.trim())
+	let satisfaction = "unknown";
+	try {
+		const satisfaction = await page.$eval(userSatisfactionSelector, el => el.innerText.trim())
+	} catch (error) {
+		console.log("Error: ", error.message);
+		// Log(LOGLEVEL, "Error: " + error.message, reqCredentials)
 	}
 	let accountcreated = await page.$eval(userCreationDateSelector, el => el.innerText.trim())
 	accountcreated = accountcreated.split(" ")[2].split(".").reverse().join("-") + " " + "00:00:00"
+
 	const user = {
 		user_id: user_Id,
 		name: userName,

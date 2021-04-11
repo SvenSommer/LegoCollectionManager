@@ -35,7 +35,7 @@
                                 <td>
                                     {{offerDetails.offerinfo.pricetype}} <br>
                                     
-                                    {{offerDetails.offerinfo.price}} {{offerDetails.offerinfo.currency}} 
+                                    {{offerDetails.offerinfo.price | currency:'EUR'}} 
                                 </td>
                             </tr>
                             <tr>
@@ -104,18 +104,45 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Verkäufer
+                                    Seller
                                 </td>
-                                <td>
-                                    {{offerDetails.userinfo.name}} <br>
+                                <td >
+                                    <a class="pl-1" title="See details" (click)="onUserDetailsClick(offerDetails.userinfo.id)">{{offerDetails.userinfo.name}}</a> <br>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    Offers available
+                                    Type
+                                </td>
+                                <td>
+                                    {{offerDetails.userinfo.type}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Category
+                                </td>
+                                <td >
+                                    <a class="pl-1" title="See details" (click)="onUserDetailsClick(offerDetails.userinfo.id)">{{offerDetails.userinfo.category}}</a> <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Available Offers
                                 </td>
                                 <td>
                                     {{offerDetails.userinfo.offerscount}} <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                        Recorded Offers                                   
+                                </td>
+                                <td >
+                                    {{offerDetails.userinfo.sumOffersRecorded}}
+                                    <a class="pl-1" title="See details" (click)="onUserDetailsClick(offerDetails.userinfo.id)">
+                                        <i class="fas fa-info-circle text-gray-400"></i>
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -217,7 +244,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12" *ngIf="offerDetails">
-                                <ng-container *ngFor="let image of offerDetails.images">
+                                <ng-container *ngFor="let image of offerDetails.offerinfo.images">
                                     <img class="img-thumbnail rounded float-left" [style.height.px]="150"
                                     [src]="image.imageurl"  (click)="onImgClick(image)"
                                     
@@ -237,7 +264,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-12" *ngIf="offerDetails">
-                                            <div [innerHTML]="offerDetails.offerinfo.description"></div>
+                                            <div [innerHTML]="offerDetails.offerinfo.description | linkSetnumbers"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -330,26 +357,18 @@
                         <div class="card shadow mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Views</h6>
-                            </div>
-                            <div class="card-body">
-                                <div>
-                                    <canvas id="viewChart"></canvas>
-                                </div>
-                                <div class="row">
-                                    <div class="card-body">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-sm-12" *ngIf="viewData && viewColumns">
-                                                        <ng-table [isActionVisible]="false" [columns]="viewColumns" [data]="viewData">
-                                                        </ng-table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        </div>
+                            <ngx-charts-line-chart
+                                [showYAxisLabel]="true"
+                                [yAxis]="true"
+                                [xAxis]="true"
+                                [yAxisLabel]="'Views'"
+                                [results]="viewChartData.collection"
+                                [yScaleMin]="viewChartData.yScaleMin"
+                                [yScaleMax]="viewChartData.yScaleMax"
+                                [scheme]="{ domain: ['#007BFF'] }"
+                            >
+                            </ngx-charts-line-chart>
                         </div>
                     </div>
                 </div>

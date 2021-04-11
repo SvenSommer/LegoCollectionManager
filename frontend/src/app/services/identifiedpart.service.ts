@@ -52,4 +52,16 @@ export class IdentifiedpartService {
         })
         return this.http.delete<any>(`${environment.baseUrl}identifiedparts/` + id, { withCredentials: true, headers: headers, observe: 'response' });
     }
+
+    getPartdata(): Observable<any> {
+        let httpHeader = new HttpHeaders();
+        httpHeader.set("Access-Control-Allow-Origin", "*");
+        return this.http.get<any>(`${environment.baseUrl}partdata`, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
+    
+    getColordata(): Observable<any> {
+        let httpHeader = new HttpHeaders();
+        httpHeader.set("Access-Control-Allow-Origin", "*");
+        return this.http.get<any>(`${environment.baseUrl}colors`, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
 }

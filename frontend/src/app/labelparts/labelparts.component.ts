@@ -37,6 +37,8 @@ export class LabelpartsComponent implements OnInit {
       this.runid = params['runid'];
       if (this.runid > 0) {
         this.getAllIdentifiedpartsByRunid();
+        this.getAllPartdata();
+        this.getAllColordata();
       }
     });
   }
@@ -51,6 +53,36 @@ export class LabelpartsComponent implements OnInit {
     { title: 'Identifier', name: 'identifier', size: '30', minSize: '30' },
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' }},
   ];
+
+  public partColumns = [
+    { title: 'Image', name: 'partinfo.thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
+    { title: 'Number', name: 'partno', size: '5%', minSize: '50'},
+    { title: 'Colorid', name: 'color_id', size: '5%', minSize: '50'},
+    { title: 'Type', name: 'type', size: '5%', minSize: '50'},
+    { title: 'Name', name: 'partinfo.name', size: '30%', minSize: '120' },
+    { title: 'Category', name: 'partinfo.category_name', size: '30', minSize: '120' },
+    { title: 'Year', name: 'partinfo.year', size: '30', minSize: '50' },
+    { title: 'Weight(g)', name: 'partinfo.weight_g', size: '40', minSize: '40' },
+    { title: 'Size', name: 'partinfo.size', size: '80', minSize: '80' },
+    { title: 'Obsolete', name: 'partinfo.is_obsolete', size: '50', minSize: '50' },
+    { title: 'avg Price (stock)', name: 'partinfo.qty_avg_price_stock', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'avg Price (sold)', name: 'partinfo.qty_avg_price_sold', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Avg Price', name: 'partinfo.avg_price', size: '40', minSize: '40', datatype: { type: 'price' } }
+  ]
+  public partData: any;
+
+  public colorColumns = [
+    { title: 'Name', name: 'color_name', size: '5%', minSize: '50'},
+    { title: 'Code', name: 'color_code', size: '30%', minSize: '120' , datatype: { type: 'color' }},
+    { title: 'Type', name: 'color_type', size: '30', minSize: '120' },
+    { title: 'Parts Count', name: 'parts_count', size: '30', minSize: '50', datatype: { type: 'number' } },
+    { title: 'Year From', name: 'year_from', size: '40', minSize: '40', datatype: { type: 'number' } },
+    { title: 'Year to', name: 'year_to', size: '80', minSize: '80' , datatype: { type: 'number' }},
+  ]
+
+
+  public colorData: any;
+
 
 
   onNextPartClick(){
@@ -167,8 +199,47 @@ styleImage(partimage): Object {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
+            console.log( data.body.result[0])
             this.identifiedpartsData = data.body.result;
             this.refreshCurrentPartid();
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  getAllPartdata() {
+    this.identifiedpartsService.getPartdata().subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            console.log( data.body.result[0])
+            this.partData = data.body.result;
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  } 
+  
+  getAllColordata() {
+    this.identifiedpartsService.getColordata().subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            console.log( data.body.result[0])
+            this.colorData = data.body.result;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");

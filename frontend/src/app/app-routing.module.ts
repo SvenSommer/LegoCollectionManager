@@ -18,6 +18,8 @@ import { SetDetailComponent } from './setdata/set-detail/set-detail.component';
 import { LabelpartsComponent } from './labelparts/labelparts.component';
 import { OfferComponent } from './offer/offer.component';
 import { OfferDetailComponent } from './offer/offer-detail/offer-detail.component';
+import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
+import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 
 const routes: Routes = [
 
@@ -29,6 +31,7 @@ const routes: Routes = [
   {path:'setdetail/:id',component:SetDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'partdata',component:PartdataComponent,canActivate:[AuthenticationGuard]},
   {path:'run',component:RunComponent,canActivate:[AuthenticationGuard]},
+  {path:'addRun',component:RunAddEditComponent,canActivate:[AuthenticationGuard]},
   {path:'rundetail/:id',component:RunDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'hardware',component:SorterComponent,canActivate:[AuthenticationGuard]},
   {path:'sortersdetail/:id',component:SorterDetailComponent,canActivate:[AuthenticationGuard]},
@@ -39,6 +42,7 @@ const routes: Routes = [
   {path:'labelparts/:runid',component:LabelpartsComponent,canActivate:[AuthenticationGuard]},
   {path:'offer',component:OfferComponent,canActivate:[AuthenticationGuard]},
   {path:'offerdetail/:id',component:OfferDetailComponent,canActivate:[AuthenticationGuard]},
+  {path:'offeruser/:id',component:UserDetailComponent,canActivate:[AuthenticationGuard]},
 ];
 
 @NgModule({

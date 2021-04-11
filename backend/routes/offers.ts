@@ -5,6 +5,7 @@ import UpdateOfferById from '../controllers/offers/update';
 import GetSingleOfferById from '../controllers/offers/single';
 import GetSingleOfferByExternalid from '../controllers/offers/singleByExternalid';
 import DeleteSingleOfferById from '../controllers/offers/delete';
+import MarkDeletedOfferById from '../controllers/offers/markDeletedByUser';
 import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
 import UserAuthMiddleware from '../controllers/middleware/UserAuth.middleware';
 import {Router} from "express";
@@ -23,5 +24,7 @@ route.get(`/externalid/:id`, UserAuthMiddleware, GetSingleOfferByExternalid);
 route.put(`/:id`, AdminAuthMiddleware, UpdateOfferById);
 //Delete a particular offer
 route.delete(`/:id`, AdminAuthMiddleware, DeleteSingleOfferById);
+//Mark offer deleted by ext user
+route.delete(`/byextuser/:id`, AdminAuthMiddleware, MarkDeletedOfferById);
 
 export default route;

@@ -119,7 +119,8 @@ export class NgTableComponent implements OnInit, OnChanges {
     return cellData;
   }
   public getData(row: any, column: any, index: number): any {
-    var cellData = column.name.split('.').reduce((prev: any, curr: string) => prev[curr], row);
+    var cellData = 'unknown';
+    cellData = column.name.split('.').reduce((prev: any, curr: string) => prev[curr], row);
     if (column.datatype == undefined || column.datatype == null || column.datatype.type == undefined || column.datatype.type == null) {
       return cellData;
     }
@@ -210,12 +211,33 @@ export class NgTableComponent implements OnInit, OnChanges {
   private sort(rows: any, column: SortColumn, direction: string, columnType: any): any {
     if (direction === '' || column === '') {
       return this.resultData;
-    } else {
+    } else {0
       return [...rows].sort((a, b) => {
-        const res = this.compare(a[column], b[column],columnType);
+        const aVal = this.getKeyValue(a,column ? column : '');
+        const bVal = this.getKeyValue(b,column ? column : '');
+        const res = this.compare(aVal, bVal,columnType);
         return direction === 'asc' ? res : -res;
       });
     }
+  }
+
+  getKeyValue(o, s) {
+      s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+      s = s.replace(/^\./, '');           // strip a leading dot
+      var a = s.split('.');
+      for (var i = 0, n = a.length; i < n; ++i) {
+          var k = a[i];
+          if (k in o) {
+              o = o[k];
+          } else {
+              return;
+          }
+      }
+      return o;
+  }
+
+  clear(rows) {
+    this.search(rows,'')
   }
 
   public search(rows: any, searchText: any): any{

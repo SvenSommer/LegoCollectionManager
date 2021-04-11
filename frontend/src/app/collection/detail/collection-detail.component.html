@@ -197,7 +197,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12" *ngIf="runsData && runsColumns">
-                                <ng-table (rowCellClick)="onRunCellClick($event)" [isActionVisible]="false" [columns]="runsColumns" [data]="runsData.runs">
+                                <ng-table (rowCellClick)="onRunCellClick($event)" [isActionVisible]="false" [columns]="runsColumns" [data]="runsData">
                                 </ng-table>
                             </div>
                         </div>
@@ -297,7 +297,7 @@
                                 </div>
                                 <div class="col-sm-12" *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
                                     <div>
-                                        <ng-table [isActionVisible]="false" [columns]="expSetsColumns" [data]="expectedSets">
+                                        <ng-table [isActionVisible]="false" [columns]="expSetsColumns" [data]="expectedSets.sets">
                                         </ng-table>
                                     </div>
                                 </div>

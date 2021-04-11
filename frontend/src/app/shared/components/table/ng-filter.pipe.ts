@@ -13,14 +13,24 @@ export class NgFilterPipe implements PipeTransform {
     filter = filter.toUpperCase();
     if (filter && Array.isArray(values)) {
       const keys = Object.keys(values[0]);
-
-      return values.filter(
+      let result = values.filter(
         (v) =>
           v &&
-          keys.some(
-            (k) => v[k] && v[k].toString().toUpperCase().indexOf(filter) >= 0
-          )
+          keys.some((k) => {
+            if(v[k] && v[k].constructor && v[k].constructor.name !== 'Object') {
+              return v[k] && v[k].toString().toUpperCase().indexOf(filter) >= 0;
+            }
+            else{
+              if(v[k]){
+                let b = Object.keys(v[k]).some((e)=>{
+                  return v[k] && v[k][e] && v[k][e].toString().toUpperCase().indexOf(filter) >= 0;
+                })
+                return b;
+              }
+            }
+          })
       );
+      return result;
     }
   }
 }
