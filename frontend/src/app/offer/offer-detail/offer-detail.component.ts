@@ -6,6 +6,8 @@ import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { OfferService } from 'src/app/services/offer.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 import { NgForm } from '@angular/forms';
+import { OfferPropertiesModel } from 'src/app/models/offer_properties-model';
+import {Chart}  from 'node_modules/chart.js';
 
 @Component({
   selector: 'app-offer-detail',
@@ -22,7 +24,12 @@ export class OfferDetailComponent implements OnInit {
   public possiblesetDetails;
 
   public viewColumns = [
-    { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
+    { title: 'Views', name: 'viewcount', size: '65', minSize: '65' , datatype: { type: 'number' }},
+    { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' }  },
+  ]
+
+  public statusColumns = [
+    { title: 'Status', name: 'status', size: '65', minSize: '65' },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' }  },
   ]
 
@@ -50,20 +57,14 @@ export class OfferDetailComponent implements OnInit {
     "amount":1,
     "comments":""
   }
-  public newpropertiesDetails ={
-    "offer_id": 0,
-    "weight_kg": 0,
-    "instructions": "",
-    "minifigs": "",
-    "boxes": "",
-    "notes": ""
-  }
 
+  public properties: OfferPropertiesModel = new OfferPropertiesModel();
   public isSetFormSubmitted = false;
-
   public viewData: any; 
+  public statusData: any; 
   public possiblesetData: any; 
-  public propertiesData: any;
+  public propertiesData: any;  
+
   constructor(private activatedRoute: ActivatedRoute,
     private offerService: OfferService,
     private router: Router, private toastr: ToastrService,
@@ -71,16 +72,52 @@ export class OfferDetailComponent implements OnInit {
 
     public offerid = 0;
     ngOnInit(): void {
+      var myChart = new Chart("viewChart", {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
       this.activatedRoute.params.subscribe(params => {
         this.offerid = params['id'];
         if (this.offerid > 0) {
           this.newpossiblesetDetail.offer_id = this.offerid;
-          this.newpropertiesDetails.offer_id = this.offerid;
+          this.properties = new OfferPropertiesModel(this.offerid);
           this.bindData();
           this.getAllViews();
+          this.getAllStatus();
           this.getAllPossiblesets();
         }
       });
+      
     }
 
     bindData() {
@@ -90,6 +127,8 @@ export class OfferDetailComponent implements OnInit {
             console.log(data)
             if (data.body && data.body.code == 200) {
               this.offerDetails = data.body.result[0];
+              if (this.offerDetails.propertyinfo != null)
+              this.properties = this.offerDetails.propertyinfo
             }
             else if (data.body && data.body.code == 403) {
               this.router.navigateByUrl("/login");
@@ -153,6 +192,24 @@ export class OfferDetailComponent implements OnInit {
           if (data) {
             if (data.body && data.body.code == 200) {
               this.viewData = data.body.result;
+            }
+            else if (data.body && data.body.code == 403) {
+              this.router.navigateByUrl("/login");
+            }
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + ' ' + error.message);
+        }
+      );
+    }
+
+    getAllStatus() {
+      this.offerService.getStatusByOfferid(this.offerid).subscribe(
+        (data) => {
+          if (data) {
+            if (data.body && data.body.code == 200) {
+              this.statusData = data.body.result;
             }
             else if (data.body && data.body.code == 403) {
               this.router.navigateByUrl("/login");
@@ -270,5 +327,28 @@ export class OfferDetailComponent implements OnInit {
       this.imgPopupURL = image.imageurl ;
       this.imgPopupName = image.path;
       this.imagePopup.open();
+    }
+
+    onSaveProperties(propertiesForm: NgForm) {
+      if (!propertiesForm.valid) {
+        return;
+      }
+      this.properties.offer_id = this.offerid;
+    
+
+      this.offerService.upsertProperties(this.properties).subscribe(
+        (data) => {
+          if (data.body.code == 201 || data.body.code == 200) {
+            this.toastr.success(data.body.message);
+          }
+          else {
+            this.toastr.error(data.body.message);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          //console.log('[getUSers] error : ', error);
+          console.log(error.name + ' ' + error.message);
+        }
+      );
     }
 }

@@ -25,7 +25,7 @@ export default (req: Request, res: Response) => {
                                         boxes = '${boxes}',
                                         notes = '${notes}'   
                                         WHERE id=${id}`;
-                connection.query(updateOne, (err, result) => {
+                connection.query(updateOne, (err) => {
                     if (err) res.json({
                         code: 500,
                         message: 'Couldn\'t updated the offer Property',
