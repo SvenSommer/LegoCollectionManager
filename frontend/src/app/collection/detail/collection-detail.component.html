@@ -24,7 +24,7 @@
 
             </div>
             <app-card-table [cardData]="purchaseInfo" [collectionDetails]="collectionDetails"></app-card-table>
-            <!-- <div class="card-body">
+          <!--  <div class="card-body"> 
                 <div class="card">
                     <div class="card-body">
                         <h4>Purchase Information</h4>
@@ -34,7 +34,7 @@
                                     Origin
                                 </td>
                                 <td>
-                                    <a href="javascript:void(0);" (click)="onExternalClick(collectionDetails)">
+                                    <a [href]="collectionDetails.collectioninfo.origin_url" (click)="onExternalClick(collectionDetails)">
                                         {{collectionDetails.collectioninfo.origin}}
                                     </a>
                                 </td>

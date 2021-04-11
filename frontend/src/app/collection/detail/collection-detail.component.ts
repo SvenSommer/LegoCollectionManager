@@ -103,12 +103,12 @@ export class CollectionDetailComponent implements OnInit {
   public purchaseInfo = {
     title: 'Purchase Information',
     rowData: [
-      { key: 'origin', name: 'Origin', value: '',dataType:'link'},
-      { key: 'seller', name: 'Seller', value: '',dataType:''},
-      { key: 'weight_kg', name: 'Weight', value: '',dataType:'weight'},
-      { key: 'cost', name: 'Cost(per Weight)', value: '',dataType:'cost'},
-      { key: 'purchase_date', name: 'Purchased', value: '',dataType:'date'},
-      { key: 'created', name: 'Created', value: '',dataType:'date'},
+      { key: 'origin', name: 'Origin', dataType:{type:'link', target: 'origin_url'}},
+      { key: 'seller', name: 'Seller'},
+      { key: 'weight_kg', name: 'Weight', dataType:{type:'weight'}},
+      { key: 'cost', name: 'Cost(per Weight)', dataType:{type:'cost'}},
+      { key: 'purchase_date', name: 'Purchased', dataType:{type:'date'}},
+      { key: 'created', name: 'Created', dataType:{type:'date'}},
     ]
   };
 
@@ -162,15 +162,18 @@ export class CollectionDetailComponent implements OnInit {
     this.purchaseInfo.rowData.forEach(item => {
       keys.forEach(key => {
         if(key == item.key){
-          item.value = collectionDetails[key];
+          item['value'] = collectionDetails[key];
         }
       });
       collectionkeys.forEach(key => {
         if(key == item.key){
-          item.value = collectionDetails.collectioninfo[key];
+          item['value'] = collectionDetails.collectioninfo[key];
+        }
+        if(item.dataType?.target){
+          item['target']= collectionDetails.collectioninfo[item.dataType?.target];
         }
         if(key == item.key && item.key == 'cost'){
-          item.value = collectionDetails.collectioninfo.cost + ' &#8364; ( Incl. porto'  + collectionDetails.collectioninfo.porto + '&#8364; )' + '<br>' +
+          item['value'] = collectionDetails.collectioninfo.cost + ' &#8364; ( Incl. porto '  + collectionDetails.collectioninfo.porto + '&#8364; )' + '<br>' +
                         collectionDetails.collectioninfo.cost_per_kilo + ' &#8364;';
         }
       });

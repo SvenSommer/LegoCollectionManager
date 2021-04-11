@@ -14,15 +14,15 @@ export class CardTableComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public onExternalClick(data) {
-    if(data && data.origin_url)
+  public onExternalClick(origin_url) {
+    if(origin_url)
     {
       let url: string = '';
-      if (!/^http[s]?:\/\//.test(data.origin_url)) {
+      if (!/^http[s]?:\/\//.test(origin_url)) {
         url += 'http://';
       }
 
-      url += data.origin_url;
+      url += origin_url;
       window.open(url, '_blank');
     }
   }
