@@ -21,7 +21,7 @@ const getDiff = (originalobj, newobj) => {
 	}
 	return changedkeys
 }
-const getDiffImages = (arr1, arr2) => {
+const getDiffFromArray = (arr1, arr2) => {
 	return arr1
 		.filter(x => !arr2.includes(x))
 		.concat(arr2.filter(x => !arr1.includes(x)));
@@ -61,7 +61,7 @@ module.exports = {
 	getToken,
 	toNumber,
 	getDiff,
-	getDiffImages,
+	getDiffFromArray,
 	areEquals,
 	downloadImages,
 	getFromPreferences

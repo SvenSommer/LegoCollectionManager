@@ -7,7 +7,7 @@ const CREDENTIALS = {
 	username: USERNAME,
 	password: PASSWORD
 }
-let LOGLEVEL = "info"
+let LOGLEVEL = "INFO"
 exports.LOGLEVEL = LOGLEVEL
 const API_URL = "http://localhost:3001"
 exports.API_URL = API_URL
@@ -22,7 +22,8 @@ const API_REQUEST = {
 	OFFERS_USER: "/offers_users",
 	OFFERS_IMAGES: "/offers_images",
 	OFFER_STATUS: "/offers_status",
-	OFFER_LOGS: "/offers_logs"
+	OFFER_LOGS: "/offers_logs",
+	DELETE_OFFER: "/offers/byextuser"
 
 }
 exports.API_REQUEST = API_REQUEST
@@ -30,8 +31,10 @@ exports.API_REQUEST = API_REQUEST
 // =================================================
 // * imports
 // =================================================
-const { getToken, toNumber, areEquals, getDiff, getDiffImages, downloadImages, getFromPreferences } = require("./utils")
+const { getToken, toNumber, areEquals, getDiff, getDiffFromArray, downloadImages, getFromPreferences } = require("./utils")
 const { Log } = require("./services/log")
+const toMillis = require("readable-to-ms")
+const { deleteData } = require("./services/deleteData")
 
 // =================================================
 // * Scrapper variables configuration
@@ -53,12 +56,15 @@ const maxPriceSelector = "#srchrslt-brwse-price-max"
 const buttonPriceSelector = ".button-iconized"
 
 const offerPerPageSelector = "li > article a.ellipsis";
-// const offerPerPageSelector = "#srchrslt-adtable article a"
+let scheduleTime = "10 minutes";
+
+scheduleTime = toMillis(scheduleTime)
+
 
 // =================================================
 // * Initializing the scrapper
 // =================================================
-(async () => {
+const main = async () => {
 	// IMPORTS
 	const puppeteer = require('puppeteer-extra')
 
@@ -69,6 +75,8 @@ const offerPerPageSelector = "li > article a.ellipsis";
 	// Add adblocker plugin to block all ads and trackers (saves bandwidth)
 	const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker')
 	puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
+
+	// package to translate str to millis
 
 	const { storeData } = require("./services/storeData")
 	const { getData } = require("./services/getData")
@@ -113,7 +121,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 
 	if (!isAuthenticated) {
 		console.log("!! You are not authenticated")
-		Log(LOGLEVEL,"!! You are not authenticated",reqCredentials)
+		Log(LOGLEVEL, "!! You are not authenticated", reqCredentials)
 		process.exit(1)
 	}
 	//* Making the call to the API preferences
@@ -127,24 +135,24 @@ const offerPerPageSelector = "li > article a.ellipsis";
 	let { value: imageBasePath } = getFromPreferences("imagebasepath", preferences)
 	imageBasePath = imageBasePath.split("/").filter(Boolean)[0]
 
+	//* Getting the cronjob time
+	scheduleTime = getFromPreferences("active_schedule", preferences)
+	scheduleTime = scheduleTime.value
 	//* Getting the loglevel
 	let { value: LOGLEVEL } = getFromPreferences("loglevel", preferences)
 	LOGLEVEL = LOGLEVEL.toUpperCase()
+
 	//* Getting the search terms
 	response = await getData(API_URL + API_REQUEST.SEARCH_TERMS, reqCredentials)
 	//filtering by active => true
 	const searchTermns = response.data.result.filter(termn => termn.active)
 
-	// const URLS = [
-	// 	baseUrl
-	// ];
-
 	// =================================================
 	// * OPENING THE BROWSER
 	// =================================================
-	// const context = await browser.createIncognitoBrowserContext()
-	// const page = await context.newPage();
 	const page = await browser.newPage()
+	// await page.reload()
+	// await page.waitForTimeout(2500)
 	await page.setCacheEnabled(false)
 	await page.setRequestInterception(true);
 	// await page.setUserAgent(userAgent.getRandom())
@@ -153,38 +161,74 @@ const offerPerPageSelector = "li > article a.ellipsis";
 	// Handling all errors
 	const handleClose = async (message = "Closing the browser on unexpected Error") => {
 		console.log(message)
-		Log(LOGLEVEL,"",reqCredentials)
 		Log("ERROR", message, reqCredentials)
 		for (const page of await browser.pages()) {
-			await page.close()
+			if (!await page.isClosed()) {
+				await page.close();
+			}
 		}
-		await browser.close()
 		process.exit(1)
 	}
 
-	// process.on("uncaughtException", (e) => {
-	// 	handleClose(`Uncaught Exception ${e.message}`)
-	// })
+	process.on("uncaughtException", (e) => {
+		handleClose(`Uncaught Exception ${e.message}`)
+	})
 
-	// process.on("unhandledRejection", (e) => {
-	// 	//e.stack returns the line of the script with the error
-	// 	handleClose(`Request exception: ${e.message} - Line:${e.stack}`)
-	// })
+	process.on("unhandledRejection", (e) => {
+		//e.stack returns the line of the script with the error
+		handleClose(`Request exception: ${e.message} - Line:${e.stack}`)
+	})
 
-	const offers = []
 	// =================================================
-	// * Going to the url
+	// * CHECKING OFFERS FROM DATABASE
+	// =================================================
+	const localOfferUrls = []
+	//* Getting all the offers from the database
+	let { data: localOffers } = await getData(API_URL + API_REQUEST.OFFERS, reqCredentials)
+	localOffers = localOffers.result.filter(offer => offer.deletedByExtUser === null).map(offer => ({ offer: offer.offerinfo }))
+	// console.log({ localOffers });
+	//* Checking the offers from yesterday
+	console.log("* Checking ", localOffers.length, " offers")
+	Log(LOGLEVEL, "* Checking " + localOffers.length + " offers", reqCredentials)
+	for (const { offer } of localOffers) {
+		let { url, searchproperties_id, locationgroup, external_id, id } = offer
+		//*Scrapper configuration
+		const scraperobject = {
+			browser: browser,
+			url: url,
+			id: searchproperties_id,
+			location: locationgroup,
+			externalId: external_id
+		}
+		localOfferUrls.push(url)
+		const scraperesult = await scraperOrderPage(scraperobject)
+		const { deleted_by_user } = scraperesult
+		if (deleted_by_user) {
+			console.log("# Updating the offer " + external_id + " [" + id + "] " + ", is not longer available")
+			// console.log({ external_id, deleted_by_user });
+			Log(LOGLEVEL, "# Updating the offer, is not longer available", reqCredentials)
+			await deleteData(API_URL + API_REQUEST.DELETE_OFFER + "/" + id, reqCredentials)
+			// console.log(offer);
+		}
+	} //url in localoffers
+
+	console.log();
+	console.log("================================================= X =================================================");
+	console.log();
+	// throw new Error("die")
+	// =================================================
+	// * CHECKING NEW OFFERS
 	// =================================================
 	Log(LOGLEVEL, "Going to the url: " + baseUrl, reqCredentials)
 	console.log("* Going to the url: ", baseUrl)
 	await page.goto(baseUrl, { waitUntil: "networkidle2" })
 	await page.waitForTimeout(2000)
 	console.log("* Loading the page...")
-	Log(LOGLEVEL,"* Loading the page...",reqCredentials)
+	Log(LOGLEVEL, "* Loading the page...", reqCredentials)
 	// await page.waitForTimeout(1000)
 	if (await page.$(acceptCookiesSelector)) {
 		console.log("* Accepting cookies")
-		Log(LOGLEVEL,"* Accepting cookies",reqCredentials)
+		Log(LOGLEVEL, "* Accepting cookies", reqCredentials)
 		await page.$eval(acceptCookiesSelector, el => el.click())
 		await page.waitForTimeout(2500)
 	}
@@ -194,6 +238,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 		await page.$eval(closeLoginSelector, el => el.click())
 	}
 
+
 	// =================================================
 	// * Going over the valid search termns
 	// =================================================
@@ -202,40 +247,40 @@ const offerPerPageSelector = "li > article a.ellipsis";
 
 		console.log();
 		console.log("* Introducing the search term: ", searchterm)
-		Log(LOGLEVEL,"* Introducing the search term: ",reqCredentials)
+		Log(LOGLEVEL, "* Introducing the search term: ", reqCredentials)
 		await page.type(inputSearchSelector, searchterm, { delay: 100 })
 		console.log("* Introducing the location: ", location)
-		Log(LOGLEVEL,"* Introducing the location: ",reqCredentials)
+		Log(LOGLEVEL, "* Introducing the location: ", reqCredentials)
 		await page.type(inputLocationSelector, location, { delay: 100 })
 		await page.$eval(submitSearchSelector, el => el.click())
 		await page.waitForTimeout(3500)
 
 		if (onlypickup && await page.$(onlyPickUpSelector)) {
 			console.log("* Clicking on only pick up option...")
-			Log(LOGLEVEL,"* Clicking on only pick up option...",reqCredentials)
+			Log(LOGLEVEL, "* Clicking on only pick up option...", reqCredentials)
 			await page.$eval(onlyPickUpSelector, el => el.click())
 			await page.waitForTimeout(1500)
 		}
 
 		if (pricemin && pricemax) {
 			console.log("* Setting the price", [pricemin, pricemax])
-			Log(LOGLEVEL,"* Setting the price: " + pricemin + ", " + pricemax,reqCredentials)
+			Log(LOGLEVEL, "* Setting the price: " + pricemin + ", " + pricemax, reqCredentials)
 			await page.type(minPriceSelector, pricemin.toString(), { delay: 100 })
 			await page.type(maxPriceSelector, pricemax.toString(), { delay: 100 })
 			await page.$eval(buttonPriceSelector, el => el.click())
 			await page.waitForTimeout(2000)
 		}
 
-		const offersPerPage = await page.$$eval(offerPerPageSelector, els => els.map(link => link.href))
+		let offersPerPage = await page.$$eval(offerPerPageSelector, els => els.map(link => link.href))
 		if (offersPerPage.length <= 0) {
 			console.log("!! There are not valid offers, SKIP")
-			Log(LOGLEVEL,"!! There are not valid offers, SKIP",reqCredentials)
+			Log(LOGLEVEL, "!! There are not valid offers, SKIP", reqCredentials)
 			continue
 		}
+		// offersPerPage = getDiffFromArray(localOfferUrls, offersPerPage)
 
 		console.log(offersPerPage.length, " offers found")
-		Log(LOGLEVEL,offersPerPage.length + " offers found",reqCredentials)
-
+		Log(LOGLEVEL, offersPerPage.length + " offers found", reqCredentials)
 
 		for (const offerPage of offersPerPage) {
 
@@ -247,19 +292,11 @@ const offerPerPageSelector = "li > article a.ellipsis";
 				location: location
 			}
 			const scraperesult = await scraperOrderPage(scraperobject)
-			const { external_id, deleted_by_user } = scraperesult
-			if(deleted_by_user){
-				console.log("# Updating the offer, is not longer available")
-				Log(LOGLEVEL, "# Updating the offer, is not longer available", reqCredentials)
-				const offer = await getData(API_URL + API_REQUEST.OFFER_BY_EXTERNALID + external_id, reqCredentials)
-				offer.deletedByExtUser = true
-				await updateData(API_URL + API_REQUEST.OFFERS + "/" + offer_id, offer, reqCredentials)
-				continue
-			}
+			const { external_id } = scraperesult
 			//*Checking if the offer exists
 			resultofferexisting = await getData(API_URL + API_REQUEST.OFFER_BY_EXTERNALID + external_id, reqCredentials)
 			// If the offer exists
-			if (resultofferexisting.data.result.length > 0) {
+			if (resultofferexisting.data.result && resultofferexisting.data.result.length > 0) {
 				//* Checking if the objects are equals between each other
 				const resultofferexistingofferinfo = resultofferexisting.data.result[0].offerinfo
 				const resultimagesexisting = resultofferexisting.data.result[0].images.filter(Boolean)
@@ -267,7 +304,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 
 				const newoffer = scraperesult.offer
 				const images = scraperesult.images
-				const diffimages = getDiffImages(imagesurls, images)
+				const diffimages = getDiffFromArray(imagesurls, images)
 
 				if (!areEquals(resultofferexistingofferinfo, newoffer)) {
 					let offer_id = resultofferexistingofferinfo.id;
@@ -276,7 +313,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 					newoffer["id"] = offer_id
 					//* Saving the view count
 					console.log("* Storing the view count")
-					Log(LOGLEVEL,"* Storing the view count",reqCredentials)
+					Log(LOGLEVEL, "* Storing the view count", reqCredentials)
 					let object = {
 						offer_id,
 						viewcount: offerViews
@@ -287,7 +324,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 					//*Updating the offer
 					let storePropertiesResult = await updateData(API_URL + API_REQUEST.OFFERS + "/" + offer_id, newoffer, reqCredentials)
 					// console.log({res: storePropertiesResult.data});
-					
+
 					//*Setting the status for changes
 					for (const updatedelement of updatedKeys) {
 						if (updatedelement === "id") continue
@@ -297,7 +334,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 						}
 						let offerresult = await storeData(API_URL + API_REQUEST.OFFER_STATUS, status, reqCredentials)
 						console.log("+ Updating ", updatedelement);
-						Log(LOGLEVEL,"+ Updating " + updatedelement,reqCredentials)
+						Log(LOGLEVEL, "+ Updating " + updatedelement, reqCredentials)
 					}
 
 					if (diffimages.length > 0) {
@@ -315,7 +352,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 						await downloadImages(objDownloadImages)
 						await storeData(API_URL + API_REQUEST.OFFER_STATUS, status, reqCredentials)
 						console.log("+ Updating images")
-						Log(LOGLEVEL,"+ Updating images",reqCredentials)
+						Log(LOGLEVEL, "+ Updating images", reqCredentials)
 					}
 				}
 			} else {
@@ -327,7 +364,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 				if (offerresult.data.code === 201) {
 					offer_id = offerresult.data.offer_id
 					// console.log(offerresult.data.message)
-					Log(LOGLEVEL,"",reqCredentials)
+					// Log(LOGLEVEL, "", reqCredentials)
 				}
 
 				if (offer_id == null) {
@@ -336,7 +373,7 @@ const offerPerPageSelector = "li > article a.ellipsis";
 
 				//* Saving the view count
 				console.log("* Storing the view count")
-				Log(LOGLEVEL,"* Storing the view count",reqCredentials)
+				Log(LOGLEVEL, "* Storing the view count", reqCredentials)
 				let object = {
 					offer_id,
 					viewcount: offerViews
@@ -346,13 +383,13 @@ const offerPerPageSelector = "li > article a.ellipsis";
 
 				//* Saving the user information in the DB
 				console.log("* Storing the user information...")
-				Log(LOGLEVEL,"* Storing the user information...",reqCredentials)
+				Log(LOGLEVEL, "* Storing the user information...", reqCredentials)
 				let userresponse = await storeData(API_URL + API_REQUEST.OFFERS_USER, user, reqCredentials)
 				// console.log({res: userresponse.data, user});
 
 				//* Saving the status infor that we created a new offer
 				console.log("* Storing the status of offer creation...")
-				Log(LOGLEVEL,"* Storing the status of offer creation...",reqCredentials)
+				Log(LOGLEVEL, "* Storing the status of offer creation...", reqCredentials)
 				let status = {
 					offer_id: offer_id,
 					status: "offer created"
@@ -370,7 +407,6 @@ const offerPerPageSelector = "li > article a.ellipsis";
 				await downloadImages(objDownloadImages)
 			}
 
-
 		}//offer in offers
 		//* Cleaning the previuous filters
 		await page.goto(baseUrl)
@@ -379,13 +415,25 @@ const offerPerPageSelector = "li > article a.ellipsis";
 	}// for search term in searchTermns
 
 	await handleClose("* Closing the browser")
-})()
-
-// TODO: 1. Mark offers as deleted by using the deletedByExtUser property [done]
-// TODO: 2. offerscount of 1 [done]
-// TODO: 3. viewcount needs update everytime page is visited [done]
-// TODO: 4. no change event on created and datecreated [done]
-// TODO: 5. Remove "shipping" and "Description" [done]
-// TODO: 6. User without badges error [done]
-// TODO: 7. scheduled run with config option
-// TODO: 8. use of logging into db by depended LOGELEVL [done]
+}
+//comment this test if you want to check the schedule task
+main() //test
+// =================================================
+// * Setting the scheduler
+// =================================================
+//uncomment this to see and enable the schedule
+// (async () => {
+// 	const { getCurrentCron } = require("./services/getCurrentCron")
+// 	let timeStartMillis = Date.now()
+// 	let nextStop = timeStartMillis + scheduleTime;
+// 	while (true) {
+// 		let nowMillis = Date.now()
+// 		if (nowMillis === nextStop) {
+// 			await main()
+// 			nowMillis = Date.now()
+// 			scheduleTime = await getCurrentCron()
+// 			scheduleTime = toMillis(scheduleTime)
+// 			nextStop = nowMillis + scheduleTime
+// 		}
+// 	}
+// })()

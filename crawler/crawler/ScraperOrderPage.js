@@ -41,7 +41,7 @@ const offerDescriptionSelector = "#viewad-description .l-container";
  * @returns 
  */
 const scraperOrderPage = async (args) => {
-	const { browser, url: offerurl, id, location } = args
+	const { browser, url: offerurl, id, location, externalId } = args
 	console.log("=================================================")
 	// =================================================
 	// * Opening the url in another tab
@@ -55,6 +55,9 @@ const scraperOrderPage = async (args) => {
 		console.log("!! This page can't be loaded, SKIP ", offerurl);
 		// Log(LOGLEVEL, "!! This page can't be loaded, SKIP " + offerurl, reqCredentials)
 		await page.close()
+		return {
+			deleted_by_user: true
+		}
 	}
 	await page.waitForTimeout(1500)
 	if (await page.$(notificationSelector)) {
@@ -74,20 +77,26 @@ const scraperOrderPage = async (args) => {
 	try {
 		await page.waitForSelector(offerTitleSelector, { timeout: 15000 })
 	} catch (error) {
-		console.log("!! Error: Cannot detect the title of the offer, maybe is deleted by user");
+		console.log("!! Error: Cannot detect the title of the offer, is deleted by user");
 		// Log(LOGLEVEL, "!! Error: Cannot detect the title of the offer, maybe is deleted by user", reqCredentials)
 		const currentUrl = page.url()
 		console.log(currentUrl);
 		// Log(LOGLEVEL, currentUrl, reqCredentials)
-		const externalId = currentUrl.split("/").pop().split("-")[0]
+		// console.log("* Closing the tab")
+		// // Log(LOGLEVEL, "* Closing the tab", reqCredentials)
+		// await page.close()
 		return {
 			external_id: externalId,
 			deleted_by_user: true
 		}
+
 	}
 
 	const offerTitle = await page.$eval(offerTitleSelector, el => el.innerText.trim())
-	const offerSubInfo = await page.$eval(offerPriceSelector, el => el.innerText.trim().split(" "))
+	let offerSubInfo = []
+	if (await page.$(offerPriceSelector)) {
+		offerSubInfo = await page.$eval(offerPriceSelector, el => el.innerText.trim().split(" "))
+	}
 	const [offerPrice, offerCurrency, offerPriceType] = offerSubInfo
 	const locationInfo = await page.$eval(offerLocationSelector, el => el.innerText.trim().split(" "))
 	const offerZipCode = locationInfo[0]
@@ -124,10 +133,21 @@ const scraperOrderPage = async (args) => {
 	//* Getting the information from the user
 	let user_Id = ""
 	if (await page.$(userIdSelector)) {
-		await page.$eval(userIdSelector, el => el.click())
+		// const user_link = await page.$eval(userIdSelector, el => el.click())
+		const user_link = await page.$eval(userIdSelector, el => el.href)
+		try {
+			await page.goto(user_link, {timeout: 5000})
+			await page.waitForTimeout(1000)
+			await page.reload()
+			await page.waitForTimeout(1000)
+		} catch (error) {
+			return
+		}
+
+		await page.waitForTimeout(1500)
 		console.log("* Reading the user details")
 		// Log(LOGLEVEL, "* Reading the user details", reqCredentials)
-		await page.waitForSelector(userNameSelector, { timeout: 5000 })
+		// await page.waitForSelector(userNameSelector, { timeout: 10000 })
 		// const userIdLink = await page.$eval(userIdSelector, el => el.href)
 		const urlHandler = new URLSearchParams(new URL(page.url()).search)
 		user_Id = urlHandler.get("userId")
