@@ -60,6 +60,12 @@ export class OfferService {
       let httpHeader = new HttpHeaders();
       httpHeader.set("Access-Control-Allow-Origin", "*");
       return this.http.get<any>(`${environment.baseUrl}offers_possiblesets/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }  
+    
+    getUserCategories(): Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}offers_users_categories`, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
     upsertProperties(model: OfferPropertiesModel): Observable<any> {

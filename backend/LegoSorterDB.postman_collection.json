@@ -921,6 +921,28 @@
 					"name": "Users",
 					"item": [
 						{
+							"name": "User Categories",
+							"item": [
+								{
+									"name": "Show all UserCategories",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/offers_users",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_users"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Create User",
 							"request": {
 								"method": "POST",
@@ -1141,7 +1163,7 @@
 					"response": []
 				},
 				{
-					"name": "Show all Offers Copy",
+					"name": "Show all Offers from Interest",
 					"request": {
 						"method": "GET",
 						"header": [],

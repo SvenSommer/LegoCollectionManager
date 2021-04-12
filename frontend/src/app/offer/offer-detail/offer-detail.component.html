@@ -38,6 +38,19 @@
                                     {{offerDetails.offerinfo.price | currency:'EUR'}} 
                                 </td>
                             </tr>
+                            <tr *ngIf="offerDetails.expectedSets.sumAmount > 0">
+                                <td>
+                                    Expected Sets
+                                </td>
+                                <td>
+                                    {{offerDetails.expectedSets.sumAmount}} <br>
+                                    Min price {{offerDetails.expectedSets.sumMin_price}} € <br>
+                                    Avg_price {{offerDetails.expectedSets.sumAvg_price}} € <br>
+                                    Parts {{offerDetails.expectedSets.sumComplete_part_count}} <br>
+                                    Minifigs {{offerDetails.expectedSets.sumComplete_minifigs_count}} <br>
+                                  
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     Location Group
@@ -116,6 +129,7 @@
                                 </td>
                                 <td>
                                     {{offerDetails.userinfo.type}} <br>
+                                  
                                 </td>
                             </tr>
                             <tr>
@@ -123,7 +137,19 @@
                                     Category
                                 </td>
                                 <td >
-                                    <a class="pl-1" title="See details" (click)="onUserDetailsClick(offerDetails.userinfo.id)">{{offerDetails.userinfo.category}}</a> <br>
+                                        <select
+                                         ngModel
+                                         name="usercategory_id"
+                                         id="usercategory_id"
+                                         class="form-control input-group"
+                                         #status="ngModel"
+                                         [(ngModel)]="offerDetails.usercategory.id"
+                                         #usercategory_id
+                                       >
+                                         <option *ngFor="let category of userCategoryList" [value]="category.id">
+                                           {{ category.category }}
+                                         </option>
+                                       </select>
                                 </td>
                             </tr>
                             <tr>

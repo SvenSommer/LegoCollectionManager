@@ -22,6 +22,7 @@ export class OfferDetailComponent implements OnInit {
 
   public offerDetails;
   public possiblesetDetails;
+  public userCategoryList: Array<any>;
 
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65' , datatype: { type: 'number' }},
@@ -82,6 +83,7 @@ export class OfferDetailComponent implements OnInit {
           this.getAllViews();
           this.getAllStatus();
           this.getAllPossiblesets();
+          this.getUserCategoriesList();
         }
       });
       
@@ -207,6 +209,24 @@ export class OfferDetailComponent implements OnInit {
           if (data) {
             if (data.body && data.body.code == 200) {
               this.possiblesetData = data.body.result;
+            }
+            else if (data.body && data.body.code == 403) {
+              this.router.navigateByUrl("/login");
+            }
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + ' ' + error.message);
+        }
+      );
+    }
+
+    getUserCategoriesList() {
+      this.offerService.getUserCategories().subscribe(
+        (data) => {
+          if (data) {
+            if (data.body && data.body.code == 200) {
+              this.userCategoryList = data.body.result;
             }
             else if (data.body && data.body.code == 403) {
               this.router.navigateByUrl("/login");
