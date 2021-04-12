@@ -133,10 +133,21 @@ const scraperOrderPage = async (args) => {
 	//* Getting the information from the user
 	let user_Id = ""
 	if (await page.$(userIdSelector)) {
-		await page.$eval(userIdSelector, el => el.click())
+		// const user_link = await page.$eval(userIdSelector, el => el.click())
+		const user_link = await page.$eval(userIdSelector, el => el.href)
+		try {
+			await page.goto(user_link, {timeout: 5000})
+			await page.waitForTimeout(1000)
+			await page.reload()
+			await page.waitForTimeout(1000)
+		} catch (error) {
+			return
+		}
+
+		await page.waitForTimeout(1500)
 		console.log("* Reading the user details")
 		// Log(LOGLEVEL, "* Reading the user details", reqCredentials)
-		await page.waitForSelector(userNameSelector, { timeout: 5000 })
+		// await page.waitForSelector(userNameSelector, { timeout: 10000 })
 		// const userIdLink = await page.$eval(userIdSelector, el => el.href)
 		const urlHandler = new URLSearchParams(new URL(page.url()).search)
 		user_Id = urlHandler.get("userId")

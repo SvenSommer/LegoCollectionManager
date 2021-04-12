@@ -36,11 +36,11 @@ const getCurrentCron = async () => {
 	const { value: currentCronjob } = getFromPreferences("active_schedule", response)
 	// fs.writeFileSync(fileName, currentCronjob)
 	// console.log("* The job schedule has been created: ", currentCronjob, "(",new Date().toLocaleString(),")");
-	
+
 	return currentCronjob
 };
 module.exports = {
 	getCurrentCron
 }
-// getCurrentCron()
+
 
