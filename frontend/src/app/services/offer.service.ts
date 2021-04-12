@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PossiblesetModel } from '../models/possibleset-model';
 import { OfferPropertiesModel } from '../models/offer_properties-model';
+import { UserCategoryModel } from '../models/usercategory-model';
 
 @Injectable({
     providedIn: 'root'
@@ -67,6 +68,14 @@ export class OfferService {
       httpHeader.set("Access-Control-Allow-Origin", "*");
       return this.http.get<any>(`${environment.baseUrl}offers_users_categories`, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
+
+
+    updateUserCategory(model: UserCategoryModel): Observable<any> {
+      let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+      })
+      return this.http.put<UserCategoryModel>(`${environment.baseUrl}offers_users_categories/userid/` + model.id, model, { withCredentials: true, headers: headers, observe: 'response' });
+  }
 
     upsertProperties(model: OfferPropertiesModel): Observable<any> {
       console.log(model);

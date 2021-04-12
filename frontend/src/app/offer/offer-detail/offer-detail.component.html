@@ -144,7 +144,8 @@
                                          class="form-control input-group"
                                          #status="ngModel"
                                          [(ngModel)]="offerDetails.usercategory.id"
-                                         #usercategory_id
+                                         #t
+                                         (change)="callUserCategory(t.value)"
                                        >
                                          <option *ngFor="let category of userCategoryList" [value]="category.id">
                                            {{ category.category }}

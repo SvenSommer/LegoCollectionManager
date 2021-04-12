@@ -75,9 +75,9 @@ const scraperOrderPage = async (args) => {
 
 	//*Trying to get the title of the offer
 	try {
-		await page.waitForSelector(offerTitleSelector, { timeout: 15000 })
+		await page.waitForSelector(offerTitleSelector, { timeout: 12000 })
 	} catch (error) {
-		console.log("!! Error: Cannot detect the title of the offer, is deleted by user");
+		console.log(`!! Error: Cannot detect the title of the offer ${id}|${externalId}, is deleted by user`);
 		// Log(LOGLEVEL, "!! Error: Cannot detect the title of the offer, maybe is deleted by user", reqCredentials)
 		const currentUrl = page.url()
 		console.log(currentUrl);

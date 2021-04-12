@@ -8,6 +8,7 @@ import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup
 import { NgForm } from '@angular/forms';
 import { OfferPropertiesModel } from 'src/app/models/offer_properties-model';
 import { RawViewData, ViewChartData } from './offer-detail.model';
+import { UserCategoryModel } from 'src/app/models/usercategory-model';
 
 @Component({
   selector: 'app-offer-detail',
@@ -59,6 +60,8 @@ export class OfferDetailComponent implements OnInit {
     "comments":""
   }
 
+  public user_category: UserCategoryModel = new UserCategoryModel();
+
   public properties: OfferPropertiesModel = new OfferPropertiesModel();
   public isSetFormSubmitted = false;
   public viewChartData: ViewChartData; 
@@ -78,6 +81,7 @@ export class OfferDetailComponent implements OnInit {
         this.offerid = params['id'];
         if (this.offerid > 0) {
           this.newpossiblesetDetail.offer_id = this.offerid;
+
           this.properties = new OfferPropertiesModel(this.offerid);
           this.bindData();
           this.getAllViews();
@@ -97,6 +101,7 @@ export class OfferDetailComponent implements OnInit {
               this.offerDetails = data.body.result[0];
               if (this.offerDetails.propertyinfo != null)
               this.properties = this.offerDetails.propertyinfo
+              this.user_category.id = this.offerDetails.userinfo.id;
             }
             else if (data.body && data.body.code == 403) {
               this.router.navigateByUrl("/login");
@@ -234,6 +239,26 @@ export class OfferDetailComponent implements OnInit {
           }
         },
         (error: HttpErrorResponse) => {
+          console.log(error.name + ' ' + error.message);
+        }
+      );
+    }
+
+    callUserCategory(value) {
+      this.user_category.category_id = value;
+      console.log(this.user_category)
+      this.offerService.updateUserCategory(this.user_category).subscribe(
+        (data) => {
+          if (data.body.code == 201 || data.body.code == 200) {
+            this.toastr.success(data.body.message);
+            this.router.navigateByUrl("/offer");
+          }
+          else {
+            this.toastr.error(data.body.message);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          //console.log('[getUSers] error : ', error);
           console.log(error.name + ' ' + error.message);
         }
       );
