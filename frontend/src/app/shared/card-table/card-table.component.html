@@ -1,9 +1,9 @@
 <div class="card-body">
   <div class="card">
       <div class="card-body">
-          <h4>{{cardData.title}}</h4>
-          <table *ngIf="cardData" class="div2 table table-hover table-sm datatable" role="grid">
-              <tr *ngFor="let cardInfo of cardData.rowData">
+          <h4>{{cardColumns.title}}</h4>
+          <table *ngIf="cardColumns" class="div2 table table-hover table-sm datatable" role="grid">
+              <tr *ngFor="let cardInfo of cardColumns.rowData">
                 <ng-container [ngSwitch]="cardInfo?.dataType?.type">
                   <td>
                     {{cardInfo.name}}
