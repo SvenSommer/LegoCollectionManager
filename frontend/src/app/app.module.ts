@@ -62,6 +62,7 @@ import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 import { CardTableComponent } from './shared/card-table/card-table.component';
+import { AccountsComponent } from './offer/accounts/accounts.component';
 
 
 @NgModule({
@@ -113,6 +114,7 @@ import { CardTableComponent } from './shared/card-table/card-table.component';
     RunAddEditComponent,
     UserDetailComponent,
     CardTableComponent,
+    AccountsComponent,
   ],
   imports: [
     BrowserModule,

@@ -88,9 +88,18 @@
                                     Created
                                 </td>
                                 <td>
-                                    {{offerDetails.offerinfo.datecreated | date:'dd.MM.yyyy' }}
+                                    {{offerDetails.offerinfo.created | date:'dd.MM.yyyy HH:mm' }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    Deleted By User
+                                </td>
+                                <td>
+                                    {{offerDetails.deletedByExtUser | date:'dd.MM.yyyy HH:mm' }}
+                                </td>
+                            </tr>
+
 
                         </table>
                     </div>
