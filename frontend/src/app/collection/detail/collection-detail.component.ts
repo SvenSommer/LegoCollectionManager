@@ -106,9 +106,9 @@ export class CollectionDetailComponent implements OnInit {
       { key: 'collectioninfo.origin', name: 'Origin', dataType:{type:'link', target: 'collectioninfo.origin_url'}},
       { key: 'collectioninfo.seller', name: 'Seller'},
       { key: 'collectioninfo.weight_kg', name: 'Weight', dataType:{type:'weight'}},
-      { key: 'collectioninfo.cost', name: 'Cost(per Weight)', dataType:{type:'cost'}},
-      { key: 'collectioninfo.cost_per_kilo', name: 'Cost Per Kilo', dataType:{type:'cost_per_kilo'}},
-      { key: 'collectioninfo.porto', name: 'Porto', dataType:{type:'porto'}},
+      { key: 'collectioninfo.cost', name: 'Cost(per Weight)', dataType:{type:'price'}},
+      { key: 'collectioninfo.cost_per_kilo', name: 'Cost Per Kilo', dataType:{type:'price_per_kilo'}},
+      { key: 'collectioninfo.porto', name: 'Porto', dataType:{type:'price'}},
       { key: 'collectioninfo.purchase_date', name: 'Purchased', dataType:{type:'date'}},
       { key: 'created', name: 'Created', dataType:{type:'date'}},
     ]

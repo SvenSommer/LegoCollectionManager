@@ -30,37 +30,27 @@ export class CardTableComponent implements OnInit {
     }
   }
 
+  buildTableData(cardData){
+      this.cardColumns.rowData.forEach(item => {
+        item["value"] = this.getProperty(item.key, cardData)
 
-  buildTableData(collectionDetails){
-    let keys = Object.keys(collectionDetails);
-    let collectionkeys = Object.keys(collectionDetails.collectioninfo);
-    this.cardColumns.rowData.forEach(item => {
-      let col;
-      if(item.key.indexOf('.') !== -1){
-        const a = item.key.split('.');
-        col = a.length > 1 ? a[1] : a[0];
-      }
-      else{
-        col = item.key;
-      }
-      keys.forEach(key => {
-        if(key == col){
-          item['value'] = collectionDetails[key];
-        }
-      });
-      collectionkeys.forEach(key => {
-        if(key == col){
-          item['value'] = collectionDetails.collectioninfo[key];
-        }
         if(item.dataType?.target){
-          item['target']= collectionDetails.collectioninfo[item.dataType?.target];
+          item['target']= this.getProperty(item.dataType?.target, cardData)
         }
-        if(key == col && col == 'cost'){
-          item['value'] = collectionDetails.collectioninfo.cost + ' &#8364; ( Incl. porto '  + collectionDetails.collectioninfo.porto + '&#8364; )' + '<br>' +
-                        collectionDetails.collectioninfo.cost_per_kilo + ' &#8364;';
-        }
-      });
     });
+  }
+
+  getProperty( propertyName, object ) {
+    var parts = propertyName.split( "." ),
+      length = parts.length,
+      i,
+      property = object || this;
+  
+    for ( i = 0; i < length; i++ ) {
+      property = property[parts[i]];
+    }
+  
+    return property;
   }
 
 }
