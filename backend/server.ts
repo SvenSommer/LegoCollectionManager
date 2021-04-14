@@ -47,6 +47,8 @@ import offers_status from "./routes/offers_status";
 import offers_possiblesets from "./routes/offers_possiblesets";
 import offers_properties from "./routes/offers_properties";
 import offers_logs from "./routes/offers_logs";
+import offers_accounts from "./routes/offers_accounts";
+import offers_messagetexts from "./routes/offers_messagetexts";
 
 
 const corsOpts = {
@@ -115,6 +117,8 @@ app.use('/offers_status', offers_status);
 app.use('/offers_possiblesets', offers_possiblesets);
 app.use('/offers_properties', offers_properties);
 app.use('/offers_logs', offers_logs);
+app.use('/offers_accounts', offers_accounts);
+app.use('/offers_messagetexts', offers_messagetexts);
 
 
 
