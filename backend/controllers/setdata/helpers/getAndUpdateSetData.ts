@@ -1,14 +1,16 @@
 import { Response } from 'express';
 import connection from "../../../database_connection";
+
 const blApi = require("../../../config/bl.api.js");
 
-export function GetAndUpdateSetData(no: any, userid: any, setid: any, res: Response<any, Record<string, any>>) {
-    blApi.bricklinkClient.getCatalogItem(blApi.ItemType.Set, no + '-1')
-        .then(function (setinfo: any) {
-            blApi.bricklinkClient.getPriceGuide(blApi.ItemType.Set, no + '-1', { new_or_used: blApi.Condition.Used, region: 'europe', guide_type: 'stock' })
-                .then(function (priceinfo: any) {
-                    const updateSetData = `UPDATE Setdata SET 
-                                            name = '${setinfo.name.replace("'","`").replace("'","`")}',
+export function GetAndUpdateSetData(no: any, userid: any, setid: any): Promise<any> {
+    return new Promise(function (resolve, reject) {
+        blApi.bricklinkClient.getCatalogItem(blApi.ItemType.Set, no + '-1')
+            .then(function (setinfo: any) {
+                blApi.bricklinkClient.getPriceGuide(blApi.ItemType.Set, no + '-1', { new_or_used: blApi.Condition.Used, region: 'europe', guide_type: 'stock' })
+                    .then(function (priceinfo: any) {
+                        const updateSetData = `UPDATE Setdata SET 
+                                            name = '${setinfo.name.replace("'", "`").replace("'", "`")}',
                                             category_id = '${setinfo.category_id}',
                                             year = '${setinfo.year_released}',
                                             weight_g = '${setinfo.weight}',
@@ -26,17 +28,27 @@ export function GetAndUpdateSetData(no: any, userid: any, setid: any, res: Respo
                                             WHERE id = ${setid}
                                             `;
 
-                    connection.query(updateSetData, (err) => {
-                        if (err){
-                            console.log(updateSetData)
-                            console.log(err)
-                            res.json({
-                                code: 500,
-                                message: 'Couldn\'t download the SetData',
-                                errorMessage: process.env.DEBUG && err
-                            });
-                        }
+                        connection.query(updateSetData, (err) => {
+                            if (err) {
+                                console.log(updateSetData)
+                                console.log(err);
+                                reject({
+                                    code: 500,
+                                    message: 'Couldn\'t download the SetData',
+                                    errorMessage: process.env.DEBUG && err
+                                });
+                            }
+                            else {
+                                resolve(true);
+                            }
+                        });
                     });
+            }).catch(function () {
+                console.log("error...");
+                reject({
+                    code: 500,
+                    message: 'Couldn\'t download the SetData',
                 });
-        });
+            });
+    });
 }
