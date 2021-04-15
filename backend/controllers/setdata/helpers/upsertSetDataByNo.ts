@@ -24,7 +24,7 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, request_
                     const { id: setid } = setresult[0];
                     console.log(`Set already in Set Table with id ${setid}`)
                     GetAndUpdateSetData(setnumber, userid, setid).then(function () {
-                        InsertProgressDetail(request_id, 40, "Set Data Downloaded");
+                        InsertProgressDetail(request_id, 10, "Set Data already existed");
                         GetAndUpsertSubSetData(setnumber, userid, request_id).then(function (data) {
                             if (data) {
                                 resolve(data);
@@ -45,7 +45,7 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, request_
                     console.log(`Set not existend in Set Table yet setnumber: ${setnumber}, userid: ${userid}`)
                     GetAndInsertSetData(setnumber, userid).then(function () {
                         console.log('GetAndUpsertSubSetData');
-                        InsertProgressDetail(request_id, 40, "Set Data Downloaded");
+                        InsertProgressDetail(request_id, 10, "Set Data Downloaded");
                         GetAndUpsertSubSetData(setnumber, userid, request_id).then(function (data) {
                             if (data) {
                                 resolve(data);
