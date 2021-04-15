@@ -50,6 +50,7 @@ import offers_logs from "./routes/offers_logs";
 import offers_accounts from "./routes/offers_accounts";
 import offers_messagetexts from "./routes/offers_messagetexts";
 
+import progress_routes from './routes/progressdetails';
 
 const corsOpts = {
     origin: ['http://localhost:3001','http://localhost:4200'],
@@ -120,6 +121,7 @@ app.use('/offers_logs', offers_logs);
 app.use('/offers_accounts', offers_accounts);
 app.use('/offers_messagetexts', offers_messagetexts);
 
+app.use('/progressdetails', progress_routes);
 
 
 const PORT = process.env.PORT || 4000;
