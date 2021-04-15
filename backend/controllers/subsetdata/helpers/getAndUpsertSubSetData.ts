@@ -13,7 +13,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
     return new Promise(function (resolve, reject) {
         blApi.bricklinkClient.getItemSubset(blApi.ItemType.Set, setnumber + "-1", { break_minifigs: false })
             .then(function (subsetData: any) {
-                InsertProgressDetail(request_id, 60, "Sub Set Data Downloaded");
+                InsertProgressDetail(request_id, 15, "Sub Set Data Downloaded");
                 var totalCount = 0;
                 var incrementCount = 1;
                 console.log(delay);
@@ -60,37 +60,6 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
                                 console.log(insertSubSetData);
                                 reject(err);
                             }
-                            else {
-
-                                // setTimeout(function () {
-                                //     UpsertPartDataByNo(entry.item.no, entry.color_id, entry.item.type, userid).then(function (data) {
-                                //         totalCount--;
-                                //         GlobalVariable.apiCounter--;
-                                //         if (incrementCount > 5 && totalCount <= (incrementCount / 2)) {
-                                //             InsertProgressDetail(request_id, 70, "Part Data Downloading.");
-                                //         }
-                                //         if (data && totalCount == 0) {
-                                //             InsertProgressDetail(request_id, 80, "Part Data Downloaded.");
-                                //             console.log("Updating the set part count and minifig count");
-                                //             UpdateSetPartCount(setnumber).then(function (data) {
-                                //                 if (data) {
-                                //                     UpdateSetMinifigCount(setnumber).then(function (data) {
-                                //                         if (data) {
-                                //                             resolve(data);
-                                //                         }
-                                //                     }, function (err) {
-                                //                         reject(err);
-                                //                     });
-                                //                 }
-                                //             }, function (err) {
-                                //                 reject(err);
-                                //             });
-                                //         }
-                                //     }, function (err) {
-                                //         reject(err);
-                                //     });
-                                // }, (GlobalVariable.apiCounter++) * parseInt(delay.toString()));
-                            }
                         });
                     });
                 });
@@ -102,7 +71,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
                         reject(err);
                     }
                     else {
-                        InsertProgressDetail(request_id, 80, "Part Data Downloaded.");
+                        InsertProgressDetail(request_id, 96, "Part Data Downloaded.");
                         console.log("Updating the set part count and minifig count");
                         UpdateSetPartCount(setnumber).then(function (data) {
                             if (data) {
@@ -127,11 +96,15 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
 
 export function makeRequest(entry: any, callback: any) {
     UpsertPartDataByNo(entry.item.no, entry.color_id, entry.item.type, entry.userid).then(function (data) {
-        console.log("success");
         GlobalVariable.incrementCount++;
+        if(GlobalVariable.totalCount > 0){
+            let percentage = GlobalVariable.incrementCount/((GlobalVariable.totalCount+2)/2) * 100;
+            console.log(`success, downloaded: ${percentage}%` );
+            InsertProgressDetail(entry.request_id, percentage * 0.8 + 15, "Part Data Downloading.");
+        }
         if (GlobalVariable.totalCount > 0 && GlobalVariable.incrementCount > (GlobalVariable.totalCount / 2)) {
             GlobalVariable.totalCount = 0;
-            InsertProgressDetail(entry.request_id, 70, "Part Data Downloading.");
+            
         }
         callback();
     });

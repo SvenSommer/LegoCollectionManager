@@ -53,7 +53,7 @@ export default (req: Request, res: Response) => {
                             });
                             else {
                                 console.log("Start on: " + new Date());
-                                InsertProgressDetail(request_id, 20, "Download Started");
+                                InsertProgressDetail(request_id, 5, "Download Started");
                                 GetAndUpsertSetDataByNo(setno, userid, request_id).then(function (data) {
                                     if (data) {
                                         InsertProgressDetail(request_id, 100, "All Data Downloaded.");
@@ -80,7 +80,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'Missing Parameter: offer_id, setno, amount, request id and comments are required!'
+                message: 'Missing Parameter: offer_id, setno, amount, request_id and comments are required!'
             });
         }
     } catch (e) {
