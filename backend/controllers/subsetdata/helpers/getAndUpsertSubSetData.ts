@@ -66,7 +66,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
 
                 GlobalVariable.incrementCount = 0;
                 GlobalVariable.totalCount = sets.length;
-                async.eachLimit(sets, 5, makeRequest, function (err: any) {
+                async.eachLimit(sets, 7, makeRequest, function (err: any) {
                     if (err) {
                         reject(err);
                     }
