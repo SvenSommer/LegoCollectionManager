@@ -10,17 +10,18 @@ const toNumber = (arg, defaulvalue = 0) => {
 	}
 }
 const getDiff = (originalobj, newobj) => {
+	const ignoreKeys = ["created", "datecreated"]
 	const keys = Object.keys(originalobj)
 	const changedkeys = []
 	for (let key of keys) {
-		// if (key === "id") continue
+		if(ignoreKeys.includes(key)) continue
 		if (originalobj[key] !== newobj[key]) {
 			changedkeys.push(key)
 		}
 	}
 	return changedkeys
 }
-const getDiffImages = (arr1, arr2) => {
+const getDiffFromArray = (arr1, arr2) => {
 	return arr1
 		.filter(x => !arr2.includes(x))
 		.concat(arr2.filter(x => !arr1.includes(x)));
@@ -52,12 +53,16 @@ const downloadImages = async (args) => {
 		await storeData(url, offerImage, reqCredentials)
 	}
 }
+const getFromPreferences = (searchValue, response) => {
+	return response.data.result.find(pref => pref.name === searchValue)
+}
 const areEquals = (obj, newobj) => JSON.stringify(obj) === JSON.stringify(newobj)
 module.exports = {
 	getToken,
 	toNumber,
 	getDiff,
-	getDiffImages,
+	getDiffFromArray,
 	areEquals,
-	downloadImages
+	downloadImages,
+	getFromPreferences
 }

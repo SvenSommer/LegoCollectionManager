@@ -1,30 +1,30 @@
 <!-- <app-modal-popup [title]="pageTitle" #modalPopup> -->
-  <form (ngSubmit)="onSubmit(runForm)" #runForm="ngForm">
-    <div class="col mb-4">
-      <div class="card shadow mb-4">
-        <div
-          class="card-header d-flex justify-content-between align-items-center"
-        >
-          <h6 class="text-primary font-weight-bold m-0">General</h6>
-        </div>
-        <div class="card-body" style="display: flex;">
-          <div class="col-md-4" *ngIf="isFromCollection == false">
-            <div class="form-group">
-              <label>Collection id</label>
-              <select
-                id="id"
-                name="id"
-                class="form-control input-group"
-                (change)="onCollectionChange($event.target.value)"
-                #status="ngModel"
-                [(ngModel)]="run.collection_id"
-              >
-                <option *ngFor="let cl of collectionList" [value]="cl.id">
-                  {{ cl.collectioninfo.name }}
-                </option>
-              </select>
-            </div>
-            <!-- <div class="form-group col-md-4" [hidden]="true">
+<form (ngSubmit)="onSubmit(runForm)" #runForm="ngForm">
+  <div class="col mb-4">
+    <div class="card shadow mb-4">
+      <div
+        class="card-header d-flex justify-content-between align-items-center"
+      >
+        <h6 class="text-primary font-weight-bold m-0">General</h6>
+      </div>
+      <div class="card-body" style="display: flex">
+        <div class="col-md-3" *ngIf="isFromCollection == false">
+          <div class="form-group">
+            <label>Collection id</label>
+            <select
+              id="id"
+              name="id"
+              class="form-control input-group"
+              (change)="onCollectionChange($event.target.value)"
+              #status="ngModel"
+              [(ngModel)]="run.collection_id"
+            >
+              <option *ngFor="let cl of collectionList" [value]="cl.id">
+                {{ cl.collectioninfo.name }}
+              </option>
+            </select>
+          </div>
+          <!-- <div class="form-group col-md-4" [hidden]="true">
               <label>No</label>
               <div class="input-group">
                 <input
@@ -38,25 +38,25 @@
                 />
               </div>
             </div> -->
+        </div>
+        <div *ngIf="isFromCollection == true">
+          <div class="form-group col-md-3">
+            <label>Collection id</label>
+            <select
+              disabled
+              id="collection_id"
+              name="collection_id"
+              (change)="onCollectionChange($event.target.value)"
+              class="form-control input-group"
+              #status="ngModel"
+              [(ngModel)]="run.collection_id"
+            >
+              <option *ngFor="let cl of collectionList" [value]="cl.id">
+                {{ cl.name }}
+              </option>
+            </select>
           </div>
-          <div *ngIf="isFromCollection == true">
-            <div class="form-group col-md-4">
-              <label>Collection id</label>
-              <select
-                disabled
-                id="collection_id"
-                name="collection_id"
-                (change)="onCollectionChange($event.target.value)"
-                class="form-control input-group"
-                #status="ngModel"
-                [(ngModel)]="run.collection_id"
-              >
-                <option *ngFor="let cl of collectionList" [value]="cl.id">
-                  {{ cl.name }}
-                </option>
-              </select>
-            </div>
-            <!-- <div class="form-group col-md-4" [hidden]="true">
+          <!-- <div class="form-group col-md-4" [hidden]="true">
               <label>No</label>
               <div class="input-group">
                 <input
@@ -71,160 +71,192 @@
                 />
               </div>
             </div> -->
-          </div>
-          <div class="form-group col-md-4">
-            <label>Sorter id</label>
-            <select
-              ngModel
-              name="id"
-              id="id"
-              class="form-control input-group"
+        </div>
+        <div class="form-group col-md-3">
+          <label>Sorter id</label>
+          <select
+            ngModel
+            name="id"
+            id="id"
+            class="form-control input-group"
+            #status="ngModel"
+            [(ngModel)]="run.sorter_id"
+            #t
+          >
+            <option *ngFor="let sorter of sorterList" [value]="sorter.id">
+              {{ sorter.sorterinfo.name }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group col-md-4">
+          <label>Imagefolder</label>
+          <div class="input-group">
+            <input
+              type="text"
               #status="ngModel"
-              [(ngModel)]="run.sorter_id"
-              #t
-            >
-              <option *ngFor="let sorter of sorterList" [value]="sorter.id">
-                {{ sorter.sorterinfo.name }}
-              </option>
-            </select>
+              [(ngModel)]="run.imagefolder"
+              class="form-control"
+              id="imagefolder"
+              name="imagefolder"
+              readonly
+            />
           </div>
-          <div class="form-group col-md-4">
-            <label>Imagefolder</label>
-            <div class="input-group">
-              <input
-                type="text"
-                #status="ngModel"
-                [(ngModel)]="run.imagefolder"
-                class="form-control"
-                id="imagefolder"
-                name="imagefolder"
-                readonly
-              />
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="pl-18">
+          <label class="mr-3" for="">Sort Sets: </label>
+          <mat-slide-toggle
+            [(ngModel)]="showDragDrop"
+            name="slide"
+            [disabled]="!run.collection_id || !run.sorter_id"
+            (change)="toggle($event)"
+          ></mat-slide-toggle>
+        </div>
+        <div cdkDropListGroup *ngIf="showDragDrop" style="display: flex">
+          <div class="col-md-2"></div>
+          <div id="set_header" class="col-md-4 example-container">
+            <h3>Available Sets</h3>
+            <form class="example-form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Search</mat-label>
+                <input matInput name="setSearch" [(ngModel)]="setSearch" />
+              </mat-form-field>
+            </form>
+            <div
+              cdkDropList
+              [cdkDropListData]="expectedSets"
+              class="example-list"
+              (cdkDropListDropped)="drop($event, 'sets')"
+            >
+              <mat-accordion
+                class="example-box"
+                *ngFor="
+                  let item of expectedSets | ngFilter: setSearch:expectedSets
+                "
+                cdkDrag
+              >
+                <mat-expansion-panel hideToggle>
+                  <mat-expansion-panel-header class="disable_ripple">
+                    <mat-panel-title>
+                      {{ item.setinfo.no }} - {{ item.setinfo.name }}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="card mb-3 mt-3">
+                    <div class="card-body text-center shadow">
+                      <img
+                        height="100px"
+                        [src]="item.setinfo.image_url"
+                        alt="setinfo.image_url"
+                      />
+                    </div>
+                    <div class="mt-3" style="display: flex">
+                      <label class="col-md-6">Parts: </label>
+                      <p>{{ item.setinfo.parts_existing }}</p>
+                    </div>
+                    <div style="display: flex">
+                      <label class="col-md-6">Identified: </label>
+                      <p>{{ item.setinfo.partsidentified_percentage }}</p>
+                    </div>
+                    <div style="display: flex">
+                      <label class="col-md-6">Price: </label>
+                      <p>{{ item.setinfo.qty_avg_price }} €</p>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+          </div>
+
+          <div id="pusher_header" class="col-md-4 example-container">
+            <h3>Available Pusher</h3>
+            <div>
+              <form class="example-form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Search</mat-label>
+                  <input
+                    matInput
+                    name="pusherSearch"
+                    [(ngModel)]="pusherSearch"
+                  />
+                </mat-form-field>
+              </form>
+            </div>
+            <div class="example-list">
+              <mat-accordion
+                *ngFor="
+                  let item of pusherList | ngFilter: pusherSearch:pusherList
+                "
+              >
+                <mat-expansion-panel #panel hideToggle (click)="expandPanel(item.sets, panel)">
+                  <mat-expansion-panel-header
+                    class="disable_ripple"
+                    cdkDropList
+                    [cdkDropListData]="item.sets"
+                    (cdkDropListDropped)="drop($event, 'pusher')"
+                  >
+                    <mat-panel-title>
+                      {{ item.pusherinfo.name }}
+                      <p *ngIf="item?.sets && item?.sets.length > 0">
+                        : {{ item.sets[0].setinfo.no }} -
+                        {{ item.sets[0].setinfo.name }}
+                      </p>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div
+                    class="card mb-3 mt-3 example-list"
+                    cdkDropList
+                    *ngIf="item.sets.length > 0"
+                    [cdkDropListData]="item.sets"
+                    (cdkDropListDropped)="drop($event, 'pusher')"
+                  >
+                    <div
+                      class="example-box"
+                      *ngFor="let it of item.sets"
+                      cdkDrag
+                    >
+                      <div class="card-body text-center shadow">
+                        <img
+                          height="100px"
+                          [src]="it.setinfo.image_url"
+                          alt="setinfo.image_url"
+                        />
+                      </div>
+                      <div class="mt-3" style="display: flex">
+                        <label class="col-md-6">Parts: </label>
+                        <p>{{ it.parts_existing }}</p>
+                      </div>
+                      <div style="display: flex">
+                        <label class="col-md-6">Identified: </label>
+                        <p>{{ it.partsidentified_percentage }}</p>
+                      </div>
+                      <div style="display: flex">
+                        <label class="col-md-6">Price: </label>
+                        <p>{{ it.qty_avg_price }} €</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div
+                    *ngIf="item.sets.length == 0"
+                    class="card mb-3 mt-3 example-list-dropped"
+                    cdkDropList
+                    [cdkDropListData]="item.sets"
+                    (cdkDropListDropped)="drop($event, '')"
+                  >
+                    Drop here..
+                  </div> -->
+                </mat-expansion-panel>
+              </mat-accordion>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div>
-      <label class="mr-3" for="">Sort Sets: </label>
-      <mat-slide-toggle
-        [(ngModel)]="showDragDrop"
-        name="slide"
-        [disabled]="!run.collection_id || !run.sorter_id"
-        (change)="toggle($event)"
-      ></mat-slide-toggle>
-    </div>
-    <div cdkDropListGroup *ngIf="showDragDrop" style="display: flex">
-      <div id="set_header" class="col-md-6 example-container">
-        <h2>Available Sets</h2>
-          <form class="example-form">
-            <mat-form-field class="example-full-width">
-              <mat-label>Search</mat-label>
-              <input matInput name="setSearch" [(ngModel)]="setSearch" />
-            </mat-form-field>
-          </form>
-        <div
-          cdkDropList
-          [cdkDropListData]="expectedSets"
-          class="example-list"
-          (cdkDropListDropped)="drop($event, 'sets')"
-        >
-          <mat-accordion
-            class="example-box"
-            *ngFor="let item of expectedSets | ngFilter: setSearch:expectedSets"
-            cdkDrag
-          >
-            <mat-expansion-panel hideToggle>
-              <mat-expansion-panel-header class="disable_ripple">
-                <mat-panel-title>
-                  {{ item.setinfo.no }} - {{ item.setinfo.name }}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <div class="card mb-3 mt-3">
-                <div class="card-body text-center shadow">
-                  <img height="100px" [src]="item.setinfo.image_url" alt="setinfo.image_url" />
-                </div>
-                <div class="mt-3" style="display: flex">
-                  <label class="col-md-6">Parts: </label>
-                  <p>{{ item.setinfo.parts_existing }}</p>
-                </div>
-                <div style="display: flex">
-                  <label class="col-md-6">Identified: </label>
-                  <p>{{ item.setinfo.partsidentified_percentage }}</p>
-                </div>
-                <div style="display: flex">
-                  <label class="col-md-6">Price: </label>
-                  <p>{{ item.setinfo.qty_avg_price }} €</p>
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </div>
-      </div>
-
-      <div id="pusher_header" class="col-md-6 example-container">
-        <h2>Available Pusher</h2>
-        <div>
-          <form class="example-form">
-            <mat-form-field class="example-full-width">
-              <mat-label>Search</mat-label>
-              <input matInput name="pusherSearch" [(ngModel)]="pusherSearch" />
-            </mat-form-field>
-          </form>
-        </div>
-        <div class="example-list">
-          <mat-accordion *ngFor="let item of pusherList | ngFilter: pusherSearch:pusherList">
-            <mat-expansion-panel hideToggle>
-              <mat-expansion-panel-header class="disable_ripple"
-              cdkDropList
-                [cdkDropListData]="item.sets"
-                (cdkDropListDropped)="drop($event,'pusher')">
-                <mat-panel-title>
-                  {{ item.pusherinfo.name }} <p *ngIf="item?.sets && item?.sets.length > 0"> : {{item.sets[0].setinfo.no}} - {{item.sets[0].setinfo.name}}</p>
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <div
-                class="card mb-3 mt-3 example-list"
-                cdkDropList
-                *ngIf="item.sets.length > 0"
-                [cdkDropListData]="item.sets"
-                (cdkDropListDropped)="drop($event,'pusher')"
-              >
-                <div class="example-box" *ngFor="let it of item.sets" cdkDrag>
-                  <div class="card-body text-center shadow">
-                    <img height="100px" [src]="it.setinfo.image_url" alt="setinfo.image_url" />
-                  </div>
-                  <div class="mt-3" style="display: flex">
-                    <label class="col-md-6">Parts: </label>
-                    <p>{{ it.parts_existing }}</p>
-                  </div>
-                  <div style="display: flex">
-                    <label class="col-md-6">Identified: </label>
-                    <p>{{ it.partsidentified_percentage }}</p>
-                  </div>
-                  <div style="display: flex">
-                    <label class="col-md-6">Price: </label>
-                    <p>{{ it.qty_avg_price }} €</p>
-                  </div>
-                </div>
-              </div>
-              <div
-              *ngIf="item.sets.length == 0"
-                class="card mb-3 mt-3 example-list-dropped"
-                cdkDropList
-                [cdkDropListData]="item.sets"
-                (cdkDropListDropped)="drop($event,'')">
-                Drop here..
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
+        <div class="row">
+          <div class="col-sm-12">
+            <button type="submit" class="btn btn-primary float-right mr-18">Submit</button>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </div>
-  </form>
+  </div>
+</form>
 <!-- </app-modal-popup> -->

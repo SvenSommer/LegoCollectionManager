@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -101,7 +101,9 @@ export class RunDetailComponent implements OnInit {
   }
 
   onEditRunClick() {
-    this.runEdit.open(this.runDetails);
+    // this.runEdit.open(this.runDetails);
+    this.runService.setData(this.runDetails);
+    this.router.navigateByUrl("/addRun");
   }
 
   addNewRun(newData: RunModel) {
@@ -194,8 +196,8 @@ export class RunDetailComponent implements OnInit {
 
   editIdentifiedpart(id) {
     this.identifiedpartEdit.open();
-  }  
-  
+  }
+
   labelparts(id) {
     console.log("label Parts for run id: " + id)
     this.router.navigateByUrl("/labelparts/" + id).then((bool) => { }).catch()

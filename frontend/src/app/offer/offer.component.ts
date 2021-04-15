@@ -18,17 +18,20 @@ export class OfferComponent implements OnInit {
 
 
   public columns = [
-    { title: 'Images', name: 'images', size: '120', minSize: '120', datatype: { type: 'imagesoffers'}},
-    { title: 'Title', name: 'offerinfo.title', size: '20%', minSize: '120' },
-    { title: 'Description', name: 'offerinfo.description', size: '20%', minSize: '120' },
-    { title: 'Price', name: 'offerinfo.price', size: '20%', minSize: '120', datatype: { type: 'price' } },
-    { title: 'Price Type', name: 'offerinfo.pricetype', size: '20%', minSize: '120' },
+    { title: 'Images', name: 'offerinfo.images', size: '80', minSize: '80', datatype: { type: 'imagesoffers'}},
+    { title: 'Title', name: 'offerinfo.title', size: '30', minSize: '30' },
+    { title: 'Description2', name: 'offerinfo.description', size: '120', minSize: '120' },
+    { title: 'Price', name: 'offerinfo.price', size: '10', minSize: '20', datatype: { type: 'price' } },
+    { title: 'Price Type', name: 'offerinfo.pricetype', size: '10', minSize: '20' },
     { title: 'Zipcode', name: 'offerinfo.zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },
     { title: 'Locality', name: 'offerinfo.locality', size: '25', minSize: '25' },
     { title: 'Shipping', name: 'offerinfo.shipping', size: '40', minSize: '40' },
     { title: 'Seller', name: 'userinfo.name', size: '40', minSize: '40' },
-    { title: 'Offer Date', name: 'offerinfo.datecreated', size: '100', minSize: '100', datatype: { type: 'date' } },
-    { title: 'created', name: 'created', size: '100', minSize: '100', datatype: { type: 'datetime' } },
+    { title: 'Category', name: 'userinfo.category', size: '40', minSize: '40' },
+    { title: 'Offers', name: 'userinfo.sumOffersRecorded', size: '40', minSize: '40' },
+    { title: 'Offer Date', name: 'offerinfo.datecreated', size: '80', minSize: '80', datatype: { type: 'date' } },
+    { title: 'created', name: 'created', size: '80', minSize: '80', datatype: { type: 'datetime' } },
+    { title: 'deletedbyUser', name: 'deletedByExtUser', size: '80', minSize: '80', datatype: { type: 'datetime' } },
   ];
 
   public data: any;
@@ -56,35 +59,23 @@ export class OfferComponent implements OnInit {
   }
 
   onRowDeleteClick(model) {
-    let options = {
-      title: 'Are you sure you want to delete this?',
-      confirmLabel: 'Okay',
-      declineLabel: 'Cancel'
-    }
-    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
-      if (res) {
-        console.log('Okay');
-        this.offerService.deleteOffer(model.id).subscribe(
-          (data) => {
-            if (data) {
-              if (data.body && data.body.code == 200) {
-               // Message should be data.body.message
-               this.toastr.success("Record Deleted Successfully.");
-               this.bindData();
-              }
-              else if (data.body && data.body.code == 403) {
-                this.router.navigateByUrl("/login");
-              }
-            }
-          },
-          (error: HttpErrorResponse) => {
-            console.log(error.name + ' ' + error.message);
+      this.offerService.deleteOffer(model.id).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            // Message should be data.body.message
+            this.toastr.success("Record Deleted Successfully.");
+            this.bindData();
           }
-        );
-      } else {
-        console.log('Cancel');
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
       }
-    });
+    );
   }
 
   onRowClick(data) {
