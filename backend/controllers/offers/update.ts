@@ -40,7 +40,6 @@ export default (req: Request, res: Response) => {
             user_id &&
             description  */
             ) {
-                console.log(datecreated);
                 const updateOffer = `UPDATE Offers SET external_id = ${external_id},
                                         url = '${url}',
                                         searchproperties_id = ${searchproperties_id},

@@ -114,6 +114,21 @@ export class CollectionDetailComponent implements OnInit {
     ]
   };
 
+  public setsAndPartsInfo = {
+    title: 'Expected Sets & Parts',
+    rowData: [
+      { key: 'expected_sets.sumSet', name: 'Sets Identified', dataType:{type:'number'}},
+      { key: 'expected_sets.sumMin_price', name: 'All Sets Price (Min)', dataType:{type:'price'}},
+      { key: 'expected_sets.sumAvg_price', name: 'All Sets Price (Avg)', dataType:{type:'price'}},
+      { key: 'expected_sets.sumMax_price', name: 'All Sets Price (Max)', dataType:{type:'price'}},
+      { key: 'expected_parts.sumItemsWeight_g', name: 'Sum Parts Weight', dataType:{type:'weight', unit:"g"}},
+      { key: 'expected_parts.sumPartsQuantity', name: 'Sum Parts Count'},
+      { key: 'expected_parts.sumMinifigQuantity', name: 'Sum Minifigs Count'},
+      { key: 'expected_parts.sumItemsQty_avg_price_sold', name: 'All part Price (sold)', dataType:{type:'price'}},
+      { key: 'expected_parts.sumItemsQty_avg_price_stock', name: 'All part Price (stock)', dataType:{type:'price'}}
+    ]
+  };
+
   public runsData: any;
   public expectedSets: any;
   public suggestedSets: any;
@@ -246,6 +261,12 @@ export class CollectionDetailComponent implements OnInit {
 
   onRunCellClick(data){
     this.router.navigateByUrl("/rundetail/" + data.run_id).then((bool) => { }).catch()
+  }
+
+
+  onExpectedSetCellClick(data){
+    console.log(data)
+    this.router.navigateByUrl("/setdetail/" + data.setinfo.id).then((bool) => { }).catch()
   }
 
   getExpectedSets() {
