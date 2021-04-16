@@ -18,8 +18,7 @@ export default (req: Request, res: Response) => {
             purchase_date,
             cost,
             porto,
-            thumbnail_url,
-            status,
+            thumbnail_url
         } = req.body;
 
         if (
@@ -33,7 +32,6 @@ export default (req: Request, res: Response) => {
             cost &&
             porto) {
                
-                console.log(purchase_date);
             //@ts-ignore
 
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
@@ -46,16 +44,18 @@ export default (req: Request, res: Response) => {
                                             purchase_date = '${purchase_date}',
                                             cost = ${cost},
                                             porto = ${porto},
-                                            thumbnail_url = '${thumbnail_url}',
-                                            status = ${status}
+                                            thumbnail_url = '${thumbnail_url}'
                                             WHERE id=${id}`;
                 connection.query(updateCollection, (err, result) => {
-                    if (err) res.json({
+                    if (err) {
+                        console.log(updateCollection)
+                        console.log(err);
+                        res.json({
                         code: 500,
                         message: 'Couldn\'t updated the collection',
                         error: process.env.DEBUG && err
                     });
-                    else {
+                }else {
                         res.json({
                             code: 200,
                             message: 'Collection updated!'

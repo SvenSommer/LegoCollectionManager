@@ -100,6 +100,20 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '50', minSize: '90', datatype: { type: 'price' } },
   ];
 
+  public purchaseInfo = {
+    title: 'Purchase Information',
+    rowData: [
+      { key: 'collectioninfo.origin', name: 'Origin', dataType:{type:'link', target: 'collectioninfo.origin_url'}},
+      { key: 'collectioninfo.seller', name: 'Seller'},
+      { key: 'collectioninfo.weight_kg', name: 'Weight', dataType:{type:'weight'}},
+      { key: 'collectioninfo.cost', name: 'Cost(per Weight)', dataType:{type:'price'}},
+      { key: 'collectioninfo.cost_per_kilo', name: 'Cost Per Kilo', dataType:{type:'price_per_kilo'}},
+      { key: 'collectioninfo.porto', name: 'Porto', dataType:{type:'price'}},
+      { key: 'collectioninfo.purchase_date', name: 'Purchased', dataType:{type:'date'}},
+      { key: 'created', name: 'Created', dataType:{type:'date'}},
+    ]
+  };
+
   public runsData: any;
   public expectedSets: any;
   public suggestedSets: any;
@@ -143,6 +157,32 @@ export class CollectionDetailComponent implements OnInit {
       }
     });
   }
+
+  // buildTableData(collectionDetails){
+  //   let keys = Object.keys(collectionDetails);
+  //   let collectionkeys = Object.keys(collectionDetails.collectioninfo);
+  //   this.purchaseInfo.rowData.forEach(item => {
+  //     keys.forEach(key => {
+  //       if(key == item.key){
+  //         item['value'] = collectionDetails[key];
+  //       }
+  //     });
+  //     collectionkeys.forEach(key => {
+  //       if(key == item.key){
+  //         item['value'] = collectionDetails.collectioninfo[key];
+  //       }
+  //       if(item.dataType?.target){
+  //         item['target']= collectionDetails.collectioninfo[item.dataType?.target];
+  //       }
+  //       if(key == item.key && item.key == 'cost'){
+  //         item['value'] = collectionDetails.collectioninfo.cost + ' &#8364; ( Incl. porto '  + collectionDetails.collectioninfo.porto + '&#8364; )' + '<br>' +
+  //                       collectionDetails.collectioninfo.cost_per_kilo + ' &#8364;';
+  //       }
+  //     });
+  //   });
+
+  //   console.log('this.purchaseInfo:::::::::::::',this.purchaseInfo)
+  // }
 
   bindData() {
     this.collectionService.getCollectionById(this.id).subscribe(
@@ -345,7 +385,7 @@ export class CollectionDetailComponent implements OnInit {
   public onImgPopupClose() {
     this.imgPopupURL = '';
     this.imgPopupName = '';
-   
+
   }
 
   public onImgClick(row) {
@@ -361,7 +401,7 @@ export class CollectionDetailComponent implements OnInit {
       if (!/^http[s]?:\/\//.test(data.origin_url)) {
         url += 'http://';
       }
-  
+
       url += data.origin_url;
       window.open(url, '_blank');
     }

@@ -1,13 +1,13 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 //@ts-ignore
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
-import {Token_encodeInterface} from '../middleware/token_encode.interface';
+import { Token_encodeInterface } from '../middleware/token_encode.interface';
 import { GetAndUpsertSetDataByNo } from './helpers/upsertSetDataByNo';
 
 export default (req: Request, res: Response) => {
     try {
-        const {token} = req.cookies;
+        const { token } = req.cookies;
         const {
             setnumber
         } = req.body;
@@ -15,7 +15,7 @@ export default (req: Request, res: Response) => {
         if (setnumber) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const {username} = decoded;
+                const { username } = decoded;
                 const findUserInDB = `SELECT * FROM Users WHERE username='${username}'`;
                 connection.query(findUserInDB, (err, result: any) => {
                     if (err) res.json({
@@ -25,13 +25,23 @@ export default (req: Request, res: Response) => {
                         errorMessage: process.env.DEBUG && err
                     });
                     else {
-                        const {id:userid} = result[0];
+                        const { id: userid } = result[0];
 
-                        GetAndUpsertSetDataByNo(setnumber.replace(' ',''), res, userid);
-
-                        res.json({
-                            code: 201,
-                            message: 'Setdata successfully added or refreshed!',
+                        GetAndUpsertSetDataByNo(setnumber.replace(' ', ''), userid, "New Request ID").then(function () {
+                            res.json({
+                                code: 201,
+                                message: 'Setdata successfully added or refreshed!',
+                            });
+                        }, function (err) {
+                            res.json({
+                                code: 500,
+                                message: 'Some error occurred',
+                            });
+                        }).catch(function () {
+                            res.json({
+                                code: 500,
+                                message: 'Some error occurred',
+                            });
                         });
                     }
                 })

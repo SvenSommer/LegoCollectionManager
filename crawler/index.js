@@ -185,7 +185,7 @@ const main = async () => {
 	const localOfferUrls = []
 	//* Getting all the offers from the database
 	let { data: localOffers } = await getData(API_URL + API_REQUEST.OFFERS, reqCredentials)
-	localOffers = localOffers.result.filter(offer => offer.deletedByExtUser === null).map(offer => ({ offer: offer.offerinfo }))
+	localOffers = localOffers.result.filter(offer => offer.deletedByExtUser === null && offer.deleted === null).map(offer => ({ offer: offer.offerinfo }))
 	// console.log({ localOffers });
 	//* Checking the offers from yesterday
 	console.log("* Checking ", localOffers.length, " offers")

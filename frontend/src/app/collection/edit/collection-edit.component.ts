@@ -30,11 +30,12 @@ export class CollectionEditComponent implements OnInit {
 
   open(data = null) {
     if (data) {
-      this.pageTitle = 'Collection Edit';
+      console.log(data)
+      this.pageTitle = 'Edit Collection ' + data.collectioninfo.name;
       this.isForEdit = true;
-      this.collection = new CollectionModel(data);
-      if (data.purchase_date) {
-        let oldDate = new Date(data.purchase_date);
+      this.collection = new CollectionModel(data.collectioninfo);
+      if (data.collectioninfo.purchase_date) {
+        let oldDate = new Date(data.collectioninfo.purchase_date);
         this.pickerDate = new NgbDate(oldDate.getFullYear(), oldDate.getMonth(), oldDate.getDate());
       }
     }

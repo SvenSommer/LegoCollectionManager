@@ -1,0 +1,36 @@
+<div class="card-body">
+  <div class="card">
+      <div class="card-body">
+          <h4>{{cardColumns.title}}</h4>
+          <table *ngIf="cardColumns" class="div2 table table-hover table-sm datatable" role="grid">
+              <tr *ngFor="let cardInfo of cardColumns.rowData">
+                <ng-container [ngSwitch]="cardInfo?.dataType?.type">
+                  <td>
+                    {{cardInfo.name}}
+                  </td>
+                  <td *ngSwitchCase="'link'">
+                      <a [href]="cardInfo.target" (click)="onExternalClick(cardInfo.target)">
+                          {{cardInfo.value}}
+                      </a>
+                  </td>
+                  <td *ngSwitchCase="'date'">
+                    {{cardInfo.value | date:'dd.MM.yyyy'}}
+                  </td>
+                  <td *ngSwitchCase="'weight'">
+                    {{cardInfo.value}} kg
+                  </td>
+                  <td *ngSwitchCase="'price'">
+                    <span [innerHtml]="cardInfo.value"></span> &#8364;
+                  </td> 
+                  <td *ngSwitchCase="'price_per_kilo'">
+                    <span [innerHtml]="cardInfo.value"></span> &#8364;/kg
+                  </td>
+                  <td *ngSwitchDefault>
+                    {{cardInfo.value}}
+                  </td>
+                </ng-container>
+              </tr>
+          </table>
+      </div>
+  </div>
+</div>

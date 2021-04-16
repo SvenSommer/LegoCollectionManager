@@ -41,12 +41,16 @@ import offers_images from "./routes/offers_images";
 import offers_preferences from "./routes/offers_preferences";
 import offers_searchproperties from "./routes/offers_searchproperties";
 import offers_users from "./routes/offers_users";
+import offers_users_categories from "./routes/offers_users_categories";
 import offers_views from "./routes/offers_views";
 import offers_status from "./routes/offers_status";
 import offers_possiblesets from "./routes/offers_possiblesets";
 import offers_properties from "./routes/offers_properties";
 import offers_logs from "./routes/offers_logs";
+import offers_accounts from "./routes/offers_accounts";
+import offers_messagetexts from "./routes/offers_messagetexts";
 
+import progress_routes from './routes/progressdetails';
 
 const corsOpts = {
     origin: ['http://localhost:3001','http://localhost:4200'],
@@ -108,11 +112,16 @@ app.use('/offers_images', offers_images);
 app.use('/offers_preferences', offers_preferences);
 app.use('/offers_searchproperties', offers_searchproperties);
 app.use('/offers_users', offers_users);
+app.use('/offers_users_categories', offers_users_categories);
 app.use('/offers_views', offers_views);
 app.use('/offers_status', offers_status);
 app.use('/offers_possiblesets', offers_possiblesets);
 app.use('/offers_properties', offers_properties);
 app.use('/offers_logs', offers_logs);
+app.use('/offers_accounts', offers_accounts);
+app.use('/offers_messagetexts', offers_messagetexts);
+
+app.use('/progressdetails', progress_routes);
 
 
 const PORT = process.env.PORT || 4000;
