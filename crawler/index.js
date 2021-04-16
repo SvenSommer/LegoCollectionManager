@@ -179,42 +179,6 @@ const main = async () => {
 		handleClose(`Request exception: ${e.message} - Line:${e.stack}`)
 	})
 
-	// =================================================
-	// * CHECKING OFFERS FROM DATABASE
-	// =================================================
-	const localOfferUrls = []
-	//* Getting all the offers from the database
-	let { data: localOffers } = await getData(API_URL + API_REQUEST.OFFERS, reqCredentials)
-	localOffers = localOffers.result.filter(offer => offer.deletedByExtUser === null && offer.deleted === null).map(offer => ({ offer: offer.offerinfo }))
-	// console.log({ localOffers });
-	//* Checking the offers from yesterday
-	console.log("* Checking ", localOffers.length, " offers")
-	Log(LOGLEVEL, "* Checking " + localOffers.length + " offers", reqCredentials)
-	for (const { offer } of localOffers) {
-		let { url, searchproperties_id, locationgroup, external_id, id } = offer
-		//*Scrapper configuration
-		const scraperobject = {
-			browser: browser,
-			url: url,
-			id: searchproperties_id,
-			location: locationgroup,
-			externalId: external_id
-		}
-		localOfferUrls.push(url)
-		const scraperesult = await scraperOrderPage(scraperobject)
-		const { deleted_by_user } = scraperesult
-		if (deleted_by_user) {
-			console.log("# Updating the offer " + external_id + " [" + id + "] " + ", is not longer available")
-			// console.log({ external_id, deleted_by_user });
-			Log(LOGLEVEL, "# Updating the offer, is not longer available", reqCredentials)
-			await deleteData(API_URL + API_REQUEST.DELETE_OFFER + "/" + id, reqCredentials)
-			// console.log(offer);
-		}
-	} //url in localoffers
-
-	console.log();
-	console.log("================================================= X =================================================");
-	console.log();
 	// throw new Error("die")
 	// =================================================
 	// * CHECKING NEW OFFERS
@@ -413,6 +377,42 @@ const main = async () => {
 		await page.waitForTimeout(2500)
 
 	}// for search term in searchTermns
+
+	console.log();
+	console.log("================================================= X =================================================");
+	console.log();
+	// =================================================
+	// * CHECKING OFFERS FROM DATABASE
+	// =================================================
+	const localOfferUrls = []
+	//* Getting all the offers from the database
+	let { data: localOffers } = await getData(API_URL + API_REQUEST.OFFERS, reqCredentials)
+	localOffers = localOffers.result.filter(offer => offer.deletedByExtUser === null && offer.deleted === null).map(offer => ({ offer: offer.offerinfo }))
+	// console.log({ localOffers });
+	//* Checking the offers from yesterday
+	console.log("* Checking ", localOffers.length, " offers")
+	Log(LOGLEVEL, "* Checking " + localOffers.length + " offers", reqCredentials)
+	for (const { offer } of localOffers) {
+		let { url, searchproperties_id, locationgroup, external_id, id } = offer
+		//*Scrapper configuration
+		const scraperobject = {
+			browser: browser,
+			url: url,
+			id: searchproperties_id,
+			location: locationgroup,
+			externalId: external_id
+		}
+		localOfferUrls.push(url)
+		const scraperesult = await scraperOrderPage(scraperobject)
+		const { deleted_by_user } = scraperesult
+		if (deleted_by_user) {
+			console.log("# Updating the offer " + external_id + " [" + id + "] " + ", is not longer available")
+			// console.log({ external_id, deleted_by_user });
+			Log(LOGLEVEL, "# Updating the offer, is not longer available", reqCredentials)
+			await deleteData(API_URL + API_REQUEST.DELETE_OFFER + "/" + id, reqCredentials)
+			// console.log(offer);
+		}
+	} //url in localoffers
 
 	await handleClose("* Closing the browser")
 }

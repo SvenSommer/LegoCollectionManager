@@ -50,7 +50,7 @@ const scraperOrderPage = async (args) => {
 	console.log("Opening the offer page: ", offerurl)
 	// Log(LOGLEVEL, "Opening the offer page: " + offerurl, reqCredentials)
 	try {
-		await page.goto(offerurl, { waitUntil: "networkidle2", timeout: 5 * 60 * 1000 })
+		await page.goto(offerurl, { waitUntil: "networkidle2", timeout: 0.5 * 60 * 1000 })
 	} catch (error) {
 		console.log("!! This page can't be loaded, SKIP ", offerurl);
 		// Log(LOGLEVEL, "!! This page can't be loaded, SKIP " + offerurl, reqCredentials)
@@ -59,7 +59,7 @@ const scraperOrderPage = async (args) => {
 			deleted_by_user: true
 		}
 	}
-	await page.waitForTimeout(1500)
+	await page.waitForTimeout(200)
 	if (await page.$(notificationSelector)) {
 		await page.$eval(closeNotificationSelector, el => el.click())
 	}
