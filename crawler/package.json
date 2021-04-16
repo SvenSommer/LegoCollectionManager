@@ -12,6 +12,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bree": "^6.2.0",
+    "ps-list": "^7.2.0",
     "puppeteer": "^8.0.0",
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-adblocker": "^2.11.11",

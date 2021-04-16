@@ -73,23 +73,19 @@ const scraperOrderPage = async (args) => {
 	// Log(LOGLEVEL, "Offer title: " + await page.title(), reqCredentials)
 	const offerUrl = page.url()
 
-	//*Trying to get the title of the offer
-	try {
-		await page.waitForSelector(offerTitleSelector, { timeout: 15000 })
-	} catch (error) {
-		console.log("!! Error: Cannot detect the title of the offer, is deleted by user");
-		// Log(LOGLEVEL, "!! Error: Cannot detect the title of the offer, maybe is deleted by user", reqCredentials)
-		const currentUrl = page.url()
-		console.log(currentUrl);
-		// Log(LOGLEVEL, currentUrl, reqCredentials)
-		// console.log("* Closing the tab")
-		// // Log(LOGLEVEL, "* Closing the tab", reqCredentials)
-		// await page.close()
+	//* Checking if the article is available
+	if (/deleted_ad/gi.test(offerUrl)) {
+		console.log(offerUrl);
 		return {
 			external_id: externalId,
 			deleted_by_user: true
 		}
-
+	} else if (externalId) {
+		console.log("* The offer still available");
+		return {
+			external_id: externalId,
+			deleted_by_user: false
+		}
 	}
 
 	const offerTitle = await page.$eval(offerTitleSelector, el => el.innerText.trim())
@@ -136,7 +132,7 @@ const scraperOrderPage = async (args) => {
 		// const user_link = await page.$eval(userIdSelector, el => el.click())
 		const user_link = await page.$eval(userIdSelector, el => el.href)
 		try {
-			await page.goto(user_link, {timeout: 5000})
+			await page.goto(user_link, { timeout: 5000 })
 			await page.waitForTimeout(1000)
 			await page.reload()
 			await page.waitForTimeout(1000)

@@ -416,24 +416,5 @@ const main = async () => {
 
 	await handleClose("* Closing the browser")
 }
-//comment this test if you want to check the schedule task
-main() //test
-// =================================================
-// * Setting the scheduler
-// =================================================
-//uncomment this to see and enable the schedule
-// (async () => {
-// 	const { getCurrentCron } = require("./services/getCurrentCron")
-// 	let timeStartMillis = Date.now()
-// 	let nextStop = timeStartMillis + scheduleTime;
-// 	while (true) {
-// 		let nowMillis = Date.now()
-// 		if (nowMillis === nextStop) {
-// 			await main()
-// 			nowMillis = Date.now()
-// 			scheduleTime = await getCurrentCron()
-// 			scheduleTime = toMillis(scheduleTime)
-// 			nextStop = nowMillis + scheduleTime
-// 		}
-// 	}
-// })()
+
+main()
