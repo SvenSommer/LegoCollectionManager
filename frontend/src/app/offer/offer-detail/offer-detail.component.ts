@@ -322,8 +322,7 @@ export class OfferDetailComponent implements OnInit {
             (data) => {
               if (data) {
                 if (data.body && data.body.code == 200) {
-                 // Message should be data.body.message
-                 this.toastr.success("Set Deleted Successfully.");
+                 this.toastr.success("Set deleted successfully.");
                  this.bindData();
                  this.getAllPossiblesets();
                 }
