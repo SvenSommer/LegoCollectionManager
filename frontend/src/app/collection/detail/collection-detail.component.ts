@@ -430,7 +430,7 @@ export class CollectionDetailComponent implements OnInit {
 
   public onDeleteClick(){
     let options = {
-      title: 'Are you sure you want to delete this?',
+      title: 'Are you sure you want to delete this collection?',
       confirmLabel: 'Okay',
       declineLabel: 'Cancel'
     }
@@ -442,8 +442,41 @@ export class CollectionDetailComponent implements OnInit {
             if (data) {
               if (data.body && data.body.code == 200) {
                // Message should be data.body.message
-               this.toastr.success("Record Deleted Successfully.");
+               this.toastr.success("Record deleted successfully.");
                this.router.navigateByUrl("/collection");
+              }
+              else if (data.body && data.body.code == 403) {
+                this.router.navigateByUrl("/login");
+              }
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+      } else {
+        console.log('Cancel');
+      }
+    });
+  }
+
+  onRowExpectedSetDeleteClick(data){
+    let options = {
+      title: 'Are you sure you want to delete this?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel'
+    }
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+
+        this.collectionService.deleteExpectedSetBySetId(data.id).subscribe(
+          (data) => {
+            if (data) {
+              if (data.body && data.body.code == 200) {
+               // Message should be data.body.message
+               this.toastr.success("Set deleted successfully.");
+               this.bindData();
+               this.getExpectedSets();
               }
               else if (data.body && data.body.code == 403) {
                 this.router.navigateByUrl("/login");

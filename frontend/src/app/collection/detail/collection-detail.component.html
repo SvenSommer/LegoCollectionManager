@@ -185,7 +185,7 @@
                                 </div>
                                 <div class="col-sm-12" *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
                                     <div>
-                                        <ng-table (rowCellClick)="onExpectedSetCellClick($event)" [isActionVisible]="true" [isDeleteVisible]="true" [isEditVisible]="false" [columns]="expSetsColumns" [data]="expectedSets.sets">
+                                        <ng-table (rowCellClick)="onExpectedSetCellClick($event)" [isActionVisible]="true" [isDeleteVisible]="true" (rowDeleteClick)="onRowExpectedSetDeleteClick($event)" [isEditVisible]="false" [columns]="expSetsColumns" [data]="expectedSets.sets">
                                         </ng-table>
                                     </div>
                                 </div>
