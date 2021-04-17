@@ -278,6 +278,7 @@ export class OfferDetailComponent implements OnInit {
 
     setInterval(() => {
       this.getProgressDetails();
+
     }, 1000);
 
     this.offerService.saveNewPossibleSets(this.newpossiblesetDetail).subscribe(
@@ -361,7 +362,7 @@ export class OfferDetailComponent implements OnInit {
     }
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
-        this.offerService.deletePossibleSetBySetId(data.possibleset_id).subscribe(
+        this.offerService.deletePossibleSetBySetId(data.id).subscribe(
           (data) => {
             if (data) {
               if (data.body && data.body.code == 200) {
