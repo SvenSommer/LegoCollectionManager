@@ -93,5 +93,9 @@ export class OfferService {
       return this.http.delete<any>(`${environment.baseUrl}offers_possiblesets/` + id, { withCredentials: true, headers: headers, observe: 'response' });
     }
 
-
+    getProgressDetails(requestIds): Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}progressdetails/` + requestIds, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
 }
