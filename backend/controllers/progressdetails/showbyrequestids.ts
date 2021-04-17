@@ -21,8 +21,8 @@ export default (req: Request, res: Response) => {
                         errorMessage: process.env.DEBUG && err
                     });
                     else {
-                        console.log(id);
-                        const showAll = `SELECT * FROM ProgressDetail where request_id in (${id});`
+                        var ids = "'" + id.split( "," ).join( "','" ) + "'";
+                        const showAll = `select * from progressdetail where id in(select max(id) from progressdetail where request_id in (${ids})  group by request_id);`
                         connection.query(showAll, (err, result) => {
                             if (err) res.json({
                                 code: 500,
