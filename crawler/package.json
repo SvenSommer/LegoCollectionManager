@@ -11,12 +11,10 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.1",
-    "bree": "^6.2.0",
-    "ps-list": "^7.2.0",
+    "find-process": "^1.4.4",
     "puppeteer": "^8.0.0",
     "puppeteer-extra": "^3.1.18",
     "puppeteer-extra-plugin-adblocker": "^2.11.11",
-    "puppeteer-extra-plugin-stealth": "^2.7.6",
-    "readable-to-ms": "^1.0.3"
+    "puppeteer-extra-plugin-stealth": "^2.7.6"
   }
 }

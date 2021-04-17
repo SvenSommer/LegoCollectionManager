@@ -57,6 +57,11 @@ const getFromPreferences = (searchValue, response) => {
 	return response.data.result.find(pref => pref.name === searchValue)
 }
 const areEquals = (obj, newobj) => JSON.stringify(obj) === JSON.stringify(newobj)
+const sleep = async (ms) => {
+	return new Promise(resolve => {
+		setTimeout(resolve, ms)
+	})
+}
 module.exports = {
 	getToken,
 	toNumber,
@@ -64,5 +69,6 @@ module.exports = {
 	getDiffFromArray,
 	areEquals,
 	downloadImages,
-	getFromPreferences
+	getFromPreferences,
+	sleep
 }
