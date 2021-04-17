@@ -76,12 +76,14 @@ const scraperOrderPage = async (args) => {
 	//* Checking if the article is available
 	if (/deleted_ad/gi.test(offerUrl)) {
 		console.log(offerUrl);
+		await page.close()	
 		return {
 			external_id: externalId,
 			deleted_by_user: true
 		}
 	} else if (externalId) {
 		console.log("* The offer still available");
+		await page.close()
 		return {
 			external_id: externalId,
 			deleted_by_user: false

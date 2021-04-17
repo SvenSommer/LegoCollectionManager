@@ -33,7 +33,7 @@ exports.API_REQUEST = API_REQUEST
 // =================================================
 const { getToken, toNumber, areEquals, getDiff, getDiffFromArray, downloadImages, getFromPreferences } = require("./utils")
 const { Log } = require("./services/log")
-const toMillis = require("readable-to-ms")
+// const toMillis = require("readable-to-ms")
 const { deleteData } = require("./services/deleteData")
 
 // =================================================
@@ -58,13 +58,17 @@ const buttonPriceSelector = ".button-iconized"
 const offerPerPageSelector = "li > article a.ellipsis";
 let scheduleTime = "10 minutes";
 
-scheduleTime = toMillis(scheduleTime)
+// scheduleTime = toMillis(scheduleTime)
 
 
 // =================================================
 // * Initializing the scrapper
 // =================================================
 const main = async () => {
+	//Writing the current PID of this script
+	const fs = require("fs")
+	const currentPid = process.pid.toString()
+	fs.writeFileSync("pid.log", currentPid)
 	// IMPORTS
 	const puppeteer = require('puppeteer-extra')
 
