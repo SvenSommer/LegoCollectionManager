@@ -278,8 +278,8 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-12" *ngIf="offerDetails">
-                                <ng-container *ngFor="let image of offerDetails.offerinfo.images">
+                            <div class="col-sm-12" *ngIf="imageData">
+                                <ng-container *ngFor="let image of imageData.images">
                                     <img class="img-thumbnail rounded float-left" [style.height.px]="150"
                                         [src]="image.imageurl" (click)="onImgClick(image)" />
                                 </ng-container>

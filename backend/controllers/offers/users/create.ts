@@ -3,7 +3,7 @@ import connection from "../../../database_connection";
 
 export default (req: Request, res: Response) => {
     try {
-        const {
+        let {
             user_id,
             name,
             phone,
@@ -16,19 +16,20 @@ export default (req: Request, res: Response) => {
 
         if (user_id &&
             name &&
-            phone &&
             type &&
             offerscount &&
             friendliness &&
             satisfaction &&
             accountcreated
             ) {
+                if (!phone)
+                phone = 'unknown';
                 const findById = `SELECT *
                 FROM Offers_Users WHERE user_id = ${user_id};`
                 connection.query(findById, (err, result:any) => {
                     if(result.length > 0){
                         const user_id = result[0].id;
-                        const updateOne = `UPDATE Offers_Users SET user_id = ${user_id},
+                        const updateOne = `UPDATE Offers_Users SET
                         name = '${name}',
                         phone = '${phone}',
                         type = '${type}',
@@ -36,7 +37,7 @@ export default (req: Request, res: Response) => {
                         friendliness = '${friendliness}',
                         satisfaction = '${satisfaction}',
                         accountcreated = '${accountcreated}'
-                                                WHERE id=${user_id}`;
+                                                WHERE user_id=${user_id}`;
                         connection.query(updateOne, (err, result) => {
                             if (err) res.json({
                                 code: 500,

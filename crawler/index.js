@@ -18,9 +18,11 @@ const API_REQUEST = {
 	OFFERS_USERS: "/offers_user",
 	OFFER_PREFS: "/offers_preferences",
 	SEARCH_TERMS: "/offers_searchproperties",
+	BLACKLISTED_TERMS: "/offers_blacklist",
 	OFFERS_VIEWS: "/offers_views",
 	OFFERS_USER: "/offers_users",
 	OFFERS_IMAGES: "/offers_images",
+	OFFER_IMAGES_BY_OFFERID: "/offers_images/offer/",
 	OFFER_STATUS: "/offers_status",
 	OFFER_LOGS: "/offers_logs",
 	DELETE_OFFER: "/offers/byextuser"
@@ -151,6 +153,11 @@ const main = async () => {
 	//filtering by active => true
 	const searchTermns = response.data.result.filter(termn => termn.active)
 
+	//* Getting the Blacklisted words
+	response = await getData(API_URL + API_REQUEST.BLACKLISTED_TERMS, reqCredentials)
+	//filtering by active => true
+	const blacklistedTermns = response.data.result.filter(termn => termn.active)
+
 	// =================================================
 	// * OPENING THE BROWSER
 	// =================================================
@@ -257,25 +264,32 @@ const main = async () => {
 				browser: browser,
 				url: offerPage,
 				id: id,
-				location: location
+				location: location,
+				blacklistedTermns : blacklistedTermns
 			}
 			const scraperesult = await scraperOrderPage(scraperobject)
-			const { external_id } = scraperesult
+			const { external_id, blacklistetterm } = scraperesult
+			if(blacklistetterm) {
+				console.log(`!! Offer contains Blacklisted Term ${blacklistetterm}, SKIP`);
+				continue;
+			}
+
 			//*Checking if the offer exists
 			resultofferexisting = await getData(API_URL + API_REQUEST.OFFER_BY_EXTERNALID + external_id, reqCredentials)
 			// If the offer exists
 			if (resultofferexisting.data.result && resultofferexisting.data.result.length > 0) {
 				//* Checking if the objects are equals between each other
 				const resultofferexistingofferinfo = resultofferexisting.data.result[0].offerinfo
-				const resultimagesexisting = resultofferexisting.data.result[0].images.filter(Boolean)
+				let offer_id = resultofferexistingofferinfo.id;
+				const resultimagesexistingresponse = await getData(API_URL + API_REQUEST.OFFER_IMAGES_BY_OFFERID + offer_id, reqCredentials)
+				const resultimagesexisting = resultimagesexistingresponse.data.result[0].images;
 				const imagesurls = resultimagesexisting.length > 0 ? resultimagesexisting.map(img => img.imageurl) : []
-
 				const newoffer = scraperesult.offer
 				const images = scraperesult.images
 				const diffimages = getDiffFromArray(imagesurls, images)
 
 				if (!areEquals(resultofferexistingofferinfo, newoffer)) {
-					let offer_id = resultofferexistingofferinfo.id;
+
 					const offerViews = scraperesult.offerViews
 					const updatedKeys = getDiff(resultofferexistingofferinfo, newoffer)
 					newoffer["id"] = offer_id
@@ -319,8 +333,8 @@ const main = async () => {
 						}
 						await downloadImages(objDownloadImages)
 						await storeData(API_URL + API_REQUEST.OFFER_STATUS, status, reqCredentials)
-						console.log("+ Updating images")
-						Log(LOGLEVEL, "+ Updating images", reqCredentials)
+						console.log(`+ Added ${diffimages.length} new images`)
+						Log(LOGLEVEL, `+ Added ${diffimages.length} new images`, reqCredentials)
 					}
 				}
 			} else {
@@ -353,7 +367,7 @@ const main = async () => {
 				console.log("* Storing the user information...")
 				Log(LOGLEVEL, "* Storing the user information...", reqCredentials)
 				let userresponse = await storeData(API_URL + API_REQUEST.OFFERS_USER, user, reqCredentials)
-				// console.log({res: userresponse.data, user});
+				console.log({res: userresponse.data, user});
 
 				//* Saving the status infor that we created a new offer
 				console.log("* Storing the status of offer creation...")
@@ -404,7 +418,8 @@ const main = async () => {
 			url: url,
 			id: searchproperties_id,
 			location: locationgroup,
-			externalId: external_id
+			externalId: external_id,
+			blacklistedTermns : blacklistedTermns
 		}
 		localOfferUrls.push(url)
 		const scraperesult = await scraperOrderPage(scraperobject)

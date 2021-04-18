@@ -49,6 +49,7 @@ import offers_properties from "./routes/offers_properties";
 import offers_logs from "./routes/offers_logs";
 import offers_accounts from "./routes/offers_accounts";
 import offers_messagetexts from "./routes/offers_messagetexts";
+import offers_blacklist from "./routes/offers_blacklist";
 
 import progress_routes from './routes/progressdetails';
 
@@ -120,6 +121,7 @@ app.use('/offers_properties', offers_properties);
 app.use('/offers_logs', offers_logs);
 app.use('/offers_accounts', offers_accounts);
 app.use('/offers_messagetexts', offers_messagetexts);
+app.use('/offers_blacklist', offers_blacklist);
 
 app.use('/progressdetails', progress_routes);
 

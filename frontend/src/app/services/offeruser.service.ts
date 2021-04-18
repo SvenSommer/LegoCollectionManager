@@ -17,6 +17,12 @@ export class OfferUserService {
       httpHeader.set("Access-Control-Allow-Origin", "*");
       return this.http.get<any>(`${environment.baseUrl}offers_users/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     } 
+    
+    getOffersByUserId(id): Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}offers/userid/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    } 
 
 
 }

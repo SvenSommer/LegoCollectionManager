@@ -41,7 +41,7 @@ const offerDescriptionSelector = "#viewad-description .l-container";
  * @returns 
  */
 const scraperOrderPage = async (args) => {
-	const { browser, url: offerurl, id, location, externalId } = args
+	const { browser, url: offerurl, id, location, externalId, blacklistedTermns } = args
 	console.log("=================================================")
 	// =================================================
 	// * Opening the url in another tab
@@ -87,6 +87,18 @@ const scraperOrderPage = async (args) => {
 		return {
 			external_id: externalId,
 			deleted_by_user: false
+		}
+	}
+
+	for (const term of blacklistedTermns) {
+		const regex =  new RegExp("\\b"+term.word + "\\b",'gi');
+		if (regex.test(offerUrl)) {
+			await page.close()	
+			return {
+				external_id: externalId,
+				deleted_by_user: false,
+				blacklistetterm: term.word
+			}
 		}
 	}
 
