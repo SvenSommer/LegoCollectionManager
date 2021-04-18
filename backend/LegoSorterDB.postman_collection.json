@@ -597,7 +597,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"offer_id\": 48,\r\n    \"setno\": \"375\",\r\n    \"amount\": 1,\r\n    \"comments\":\"test\"\r\n}",
+									"raw": "{\r\n    \"offer_id\": 510,\r\n    \"setno\": \"6175\",\r\n    \"amount\": 1,\r\n    \"comments\":\"test\",\r\n    \"request_id\": \"8\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -611,6 +611,36 @@
 									],
 									"path": [
 										"offers_possiblesets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create possible Set Copy",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"offer_id\": 510,\r\n    \"setno\": \"6175\",\r\n    \"amount\": 1,\r\n    \"comments\":\"test\",\r\n    \"request_id\": \"8\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/progressdetails/1618681306004_7165",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"progressdetails",
+										"1618681306004_7165"
 									]
 								}
 							},
@@ -1099,7 +1129,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"user_id\": 11376516,\r\n    \"name\": \"Patrick Technau\",\r\n    \"type\": \"Privater Nutzer\",\r\n    \"offerscount\": 12,\r\n    \"friendliness\":\"Freundlich\",\r\n    \"satisfaction\":\"OK\",\r\n    \"accountcreated\": \"2012-08-30 00:00:00\"\r\n}",
+									"raw": "{\r\n    \"user_id\": 11376516,\r\n    \"name\": \"Patrick Technau\",\r\n    \"phone\":\"1485415\",\r\n    \"type\": \"Privater Nutzer\",\r\n    \"offerscount\": 12,\r\n    \"friendliness\":\"Freundlich\",\r\n    \"satisfaction\":\"OK\",\r\n    \"accountcreated\": \"2012-08-30 00:00:00\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"

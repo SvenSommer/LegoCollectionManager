@@ -12,11 +12,10 @@ export default (req: Request, res: Response) => {
             notes
         } = req.body;
         if (offer_id) {
-            const showAll = `SELECT *
+            const findById = `SELECT *
             FROM Offers_Properties WHERE offer_id = ${offer_id};`
-            connection.query(showAll, (err, result:any) => {
+            connection.query(findById, (err, result:any) => {
                 if(result.length > 0){
-                    console.log("Properties found!")
                     const id = result[0].id;
                     const updateOne = `UPDATE Offers_Properties SET offer_id = ${offer_id},
                     weight_kg = ${weight_kg},
@@ -39,7 +38,6 @@ export default (req: Request, res: Response) => {
                     }
                 });
             } else {
-                console.log("No Properties found!")
                 const createProperties = `INSERT INTO Offers_Properties(offer_id,
                     weight_kg,
                     instructions,
