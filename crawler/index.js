@@ -294,8 +294,8 @@ const main = async () => {
 					const updatedKeys = getDiff(resultofferexistingofferinfo, newoffer)
 					newoffer["id"] = offer_id
 					//* Saving the view count
-					console.log("* Storing the view count")
-					Log(LOGLEVEL, "* Storing the view count", reqCredentials)
+					console.log("* Adding new view count")
+					Log(LOGLEVEL, "* Adding new view count", reqCredentials)
 					let object = {
 						offer_id,
 						viewcount: offerViews
@@ -309,7 +309,7 @@ const main = async () => {
 
 					//*Setting the status for changes
 					for (const updatedelement of updatedKeys) {
-						if (updatedelement === "id") continue
+						if (updatedelement === "id" || updatedelement === "deletedByExtUser") continue
 						let status = {
 							offer_id: offer_id,
 							status: "updated " + updatedelement
