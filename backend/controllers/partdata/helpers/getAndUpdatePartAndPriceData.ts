@@ -10,6 +10,12 @@ export async function getAndUpdatePartAndPriceData(type: any, partnumber: any, c
         setTimeout(() => {
             blApi.bricklinkClient.getCatalogItem(type, partnumber, colorid)
                 .then(function (partinfo: any) {
+                    if (!partinfo || !partinfo.name) {
+                        reject({
+                            code: 500,
+                            message: 'Some error occurred',
+                        });
+                    }
                     GlobalVariable.apiCounter--;
                     setTimeout(() => {
                         blApi.bricklinkClient.getPriceGuide(type, partnumber,
@@ -19,6 +25,12 @@ export async function getAndUpdatePartAndPriceData(type: any, partnumber: any, c
                                 region: 'europe',
                                 guide_type: 'stock'
                             }).then(function (priceinfostockdata: any) {
+                                if (!priceinfostockdata || !priceinfostockdata.qty_avg_price) {
+                                    reject({
+                                        code: 500,
+                                        message: 'Some error occurred',
+                                    });
+                                }
                                 GlobalVariable.apiCounter--;
                                 setTimeout(async () => {
                                     await blApi.bricklinkClient.getPriceGuide(type, partnumber,

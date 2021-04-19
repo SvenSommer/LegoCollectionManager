@@ -464,7 +464,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="setDownloadingRequestData && setDownloadingRequestData.length > 0">
                             <div class="col-sm-12">
                                 <table class="table table table-hover table-sm datatable">
                                     <tr>
@@ -475,7 +475,7 @@
                                             Status
                                         </th>
                                         <th>
-                                            Progress {{setDownloadingRequestData.length}}
+                                            Progress
                                         </th>
                                     </tr>
                                     <tr *ngFor="let item of setDownloadingRequestData">
@@ -503,11 +503,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
 
 

@@ -15,11 +15,12 @@ export default (req: Request, res: Response) => {
             comments,
             instructions,
             condition,
-            status = 10
+            status = 10,
+            requestId
         } = req.body;
 
         if (collectionid &&
-            setnumber) {
+            setnumber && requestId) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const { username } = decoded;
@@ -58,7 +59,7 @@ export default (req: Request, res: Response) => {
                                 errorMessage: process.env.DEBUG && err
                             });
                             else {
-                                GetAndUpsertSetDataByNo(setnumber, userid, "New Request Id").then(function () {
+                                GetAndUpsertSetDataByNo(setnumber, userid, requestId).then(function () {
                                     res.json({
                                         code: 201,
                                         message: 'Expected set created!'
@@ -82,7 +83,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'Setnumber, Instructions and collectionid are required!'
+                message: 'Setnumber, Instructions, requestId and collectionid are required!'
             });
         }
     } catch (e) {
