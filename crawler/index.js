@@ -18,9 +18,11 @@ const API_REQUEST = {
 	OFFERS_USERS: "/offers_user",
 	OFFER_PREFS: "/offers_preferences",
 	SEARCH_TERMS: "/offers_searchproperties",
+	BLACKLISTED_TERMS: "/offers_blacklist",
 	OFFERS_VIEWS: "/offers_views",
 	OFFERS_USER: "/offers_users",
 	OFFERS_IMAGES: "/offers_images",
+	OFFER_IMAGES_BY_OFFERID: "/offers_images/offer/",
 	OFFER_STATUS: "/offers_status",
 	OFFER_LOGS: "/offers_logs",
 	DELETE_OFFER: "/offers/byextuser"
@@ -33,7 +35,7 @@ exports.API_REQUEST = API_REQUEST
 // =================================================
 const { getToken, toNumber, areEquals, getDiff, getDiffFromArray, downloadImages, getFromPreferences } = require("./utils")
 const { Log } = require("./services/log")
-const toMillis = require("readable-to-ms")
+// const toMillis = require("readable-to-ms")
 const { deleteData } = require("./services/deleteData")
 
 // =================================================
@@ -58,13 +60,17 @@ const buttonPriceSelector = ".button-iconized"
 const offerPerPageSelector = "li > article a.ellipsis";
 let scheduleTime = "10 minutes";
 
-scheduleTime = toMillis(scheduleTime)
+// scheduleTime = toMillis(scheduleTime)
 
 
 // =================================================
 // * Initializing the scrapper
 // =================================================
 const main = async () => {
+	//Writing the current PID of this script
+	const fs = require("fs")
+	const currentPid = process.pid.toString()
+	fs.writeFileSync("pid.log", currentPid)
 	// IMPORTS
 	const puppeteer = require('puppeteer-extra')
 
@@ -147,6 +153,11 @@ const main = async () => {
 	//filtering by active => true
 	const searchTermns = response.data.result.filter(termn => termn.active)
 
+	//* Getting the Blacklisted words
+	response = await getData(API_URL + API_REQUEST.BLACKLISTED_TERMS, reqCredentials)
+	//filtering by active => true
+	const blacklistedTermns = response.data.result.filter(termn => termn.active)
+
 	// =================================================
 	// * OPENING THE BROWSER
 	// =================================================
@@ -179,42 +190,6 @@ const main = async () => {
 		handleClose(`Request exception: ${e.message} - Line:${e.stack}`)
 	})
 
-	// =================================================
-	// * CHECKING OFFERS FROM DATABASE
-	// =================================================
-	const localOfferUrls = []
-	//* Getting all the offers from the database
-	let { data: localOffers } = await getData(API_URL + API_REQUEST.OFFERS, reqCredentials)
-	localOffers = localOffers.result.filter(offer => offer.deletedByExtUser === null && offer.deleted === null).map(offer => ({ offer: offer.offerinfo }))
-	// console.log({ localOffers });
-	//* Checking the offers from yesterday
-	console.log("* Checking ", localOffers.length, " offers")
-	Log(LOGLEVEL, "* Checking " + localOffers.length + " offers", reqCredentials)
-	for (const { offer } of localOffers) {
-		let { url, searchproperties_id, locationgroup, external_id, id } = offer
-		//*Scrapper configuration
-		const scraperobject = {
-			browser: browser,
-			url: url,
-			id: searchproperties_id,
-			location: locationgroup,
-			externalId: external_id
-		}
-		localOfferUrls.push(url)
-		const scraperesult = await scraperOrderPage(scraperobject)
-		const { deleted_by_user } = scraperesult
-		if (deleted_by_user) {
-			console.log("# Updating the offer " + external_id + " [" + id + "] " + ", is not longer available")
-			// console.log({ external_id, deleted_by_user });
-			Log(LOGLEVEL, "# Updating the offer, is not longer available", reqCredentials)
-			await deleteData(API_URL + API_REQUEST.DELETE_OFFER + "/" + id, reqCredentials)
-			// console.log(offer);
-		}
-	} //url in localoffers
-
-	console.log();
-	console.log("================================================= X =================================================");
-	console.log();
 	// throw new Error("die")
 	// =================================================
 	// * CHECKING NEW OFFERS
@@ -289,25 +264,32 @@ const main = async () => {
 				browser: browser,
 				url: offerPage,
 				id: id,
-				location: location
+				location: location,
+				blacklistedTermns : blacklistedTermns
 			}
 			const scraperesult = await scraperOrderPage(scraperobject)
-			const { external_id } = scraperesult
+			const { external_id, blacklistetterm } = scraperesult
+			if(blacklistetterm) {
+				console.log(`!! Offer contains Blacklisted Term ${blacklistetterm}, SKIP`);
+				continue;
+			}
+
 			//*Checking if the offer exists
 			resultofferexisting = await getData(API_URL + API_REQUEST.OFFER_BY_EXTERNALID + external_id, reqCredentials)
 			// If the offer exists
 			if (resultofferexisting.data.result && resultofferexisting.data.result.length > 0) {
 				//* Checking if the objects are equals between each other
 				const resultofferexistingofferinfo = resultofferexisting.data.result[0].offerinfo
-				const resultimagesexisting = resultofferexisting.data.result[0].images.filter(Boolean)
+				let offer_id = resultofferexistingofferinfo.id;
+				const resultimagesexistingresponse = await getData(API_URL + API_REQUEST.OFFER_IMAGES_BY_OFFERID + offer_id, reqCredentials)
+				const resultimagesexisting = resultimagesexistingresponse.data.result[0].images;
 				const imagesurls = resultimagesexisting.length > 0 ? resultimagesexisting.map(img => img.imageurl) : []
-
 				const newoffer = scraperesult.offer
 				const images = scraperesult.images
 				const diffimages = getDiffFromArray(imagesurls, images)
 
 				if (!areEquals(resultofferexistingofferinfo, newoffer)) {
-					let offer_id = resultofferexistingofferinfo.id;
+
 					const offerViews = scraperesult.offerViews
 					const updatedKeys = getDiff(resultofferexistingofferinfo, newoffer)
 					newoffer["id"] = offer_id
@@ -351,8 +333,8 @@ const main = async () => {
 						}
 						await downloadImages(objDownloadImages)
 						await storeData(API_URL + API_REQUEST.OFFER_STATUS, status, reqCredentials)
-						console.log("+ Updating images")
-						Log(LOGLEVEL, "+ Updating images", reqCredentials)
+						console.log(`+ Added ${diffimages.length} new images`)
+						Log(LOGLEVEL, `+ Added ${diffimages.length} new images`, reqCredentials)
 					}
 				}
 			} else {
@@ -385,7 +367,7 @@ const main = async () => {
 				console.log("* Storing the user information...")
 				Log(LOGLEVEL, "* Storing the user information...", reqCredentials)
 				let userresponse = await storeData(API_URL + API_REQUEST.OFFERS_USER, user, reqCredentials)
-				// console.log({res: userresponse.data, user});
+				console.log({res: userresponse.data, user});
 
 				//* Saving the status infor that we created a new offer
 				console.log("* Storing the status of offer creation...")
@@ -414,26 +396,44 @@ const main = async () => {
 
 	}// for search term in searchTermns
 
+	console.log();
+	console.log("================================================= X =================================================");
+	console.log();
+	// =================================================
+	// * CHECKING OFFERS FROM DATABASE
+	// =================================================
+	const localOfferUrls = []
+	//* Getting all the offers from the database
+	let { data: localOffers } = await getData(API_URL + API_REQUEST.OFFERS, reqCredentials)
+	localOffers = localOffers.result.filter(offer => offer.deletedByExtUser === null && offer.deleted === null).map(offer => ({ offer: offer.offerinfo }))
+	// console.log({ localOffers });
+	//* Checking the offers from yesterday
+	console.log("* Checking ", localOffers.length, " offers")
+	Log(LOGLEVEL, "* Checking " + localOffers.length + " offers", reqCredentials)
+	for (const { offer } of localOffers) {
+		let { url, searchproperties_id, locationgroup, external_id, id } = offer
+		//*Scrapper configuration
+		const scraperobject = {
+			browser: browser,
+			url: url,
+			id: searchproperties_id,
+			location: locationgroup,
+			externalId: external_id,
+			blacklistedTermns : blacklistedTermns
+		}
+		localOfferUrls.push(url)
+		const scraperesult = await scraperOrderPage(scraperobject)
+		const { deleted_by_user } = scraperesult
+		if (deleted_by_user) {
+			console.log("# Updating the offer " + external_id + " [" + id + "] " + ", is not longer available")
+			// console.log({ external_id, deleted_by_user });
+			Log(LOGLEVEL, "# Updating the offer, is not longer available", reqCredentials)
+			await deleteData(API_URL + API_REQUEST.DELETE_OFFER + "/" + id, reqCredentials)
+			// console.log(offer);
+		}
+	} //url in localoffers
+
 	await handleClose("* Closing the browser")
 }
-//comment this test if you want to check the schedule task
-main() //test
-// =================================================
-// * Setting the scheduler
-// =================================================
-//uncomment this to see and enable the schedule
-// (async () => {
-// 	const { getCurrentCron } = require("./services/getCurrentCron")
-// 	let timeStartMillis = Date.now()
-// 	let nextStop = timeStartMillis + scheduleTime;
-// 	while (true) {
-// 		let nowMillis = Date.now()
-// 		if (nowMillis === nextStop) {
-// 			await main()
-// 			nowMillis = Date.now()
-// 			scheduleTime = await getCurrentCron()
-// 			scheduleTime = toMillis(scheduleTime)
-// 			nextStop = nowMillis + scheduleTime
-// 		}
-// 	}
-// })()
+
+main()

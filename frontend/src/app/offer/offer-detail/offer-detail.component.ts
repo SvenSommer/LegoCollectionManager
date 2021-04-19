@@ -69,6 +69,7 @@ export class OfferDetailComponent implements OnInit {
   public isSetFormSubmitted = false;
   public viewChartData: ViewChartData;
   public statusData: any;
+  public imageData: any;
   public possiblesetData: any;
   public propertiesData: any;
 
@@ -88,6 +89,7 @@ export class OfferDetailComponent implements OnInit {
         this.properties = new OfferPropertiesModel(this.offerid);
         this.bindData();
         this.getAllViews();
+        this.getAllImages();
         this.getAllStatus();
         this.getAllPossiblesets();
         this.getUserCategoriesList();
@@ -207,6 +209,24 @@ export class OfferDetailComponent implements OnInit {
         console.log(error.name + ' ' + error.message);
       }
     );
+  } 
+  
+  getAllImages() {
+    this.offerService.getImagesbyOfferId(this.offerid).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            this.imageData = data.body.result[0];
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
   }
 
 
@@ -278,6 +298,7 @@ export class OfferDetailComponent implements OnInit {
 
     setInterval(() => {
       this.getProgressDetails();
+
     }, 1000);
 
     this.offerService.saveNewPossibleSets(this.newpossiblesetDetail).subscribe(
@@ -361,7 +382,7 @@ export class OfferDetailComponent implements OnInit {
     }
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
-        this.offerService.deletePossibleSetBySetId(data.possibleset_id).subscribe(
+        this.offerService.deletePossibleSetBySetId(data.id).subscribe(
           (data) => {
             if (data) {
               if (data.body && data.body.code == 200) {

@@ -12,20 +12,21 @@ export class UserDetailComponent implements OnInit {
 
 
   public userDetails;
+  public offerDetails;
 
   public offerColumns = [
     { title: 'Images', name: 'images', size: '120', minSize: '120', datatype: { type: 'imagesoffers'}},
-    { title: 'Title', name: 'title', size: '20%', minSize: '120' },
-    { title: 'Description', name: 'description', size: '20%', minSize: '120' },
-    { title: 'Price', name: 'price', size: '20%', minSize: '120', datatype: { type: 'price' } },
-    { title: 'Price Type', name: 'pricetype', size: '20%', minSize: '120' },
-    { title: 'Zipcode', name: 'zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },
-    { title: 'Locality', name: 'locality', size: '25', minSize: '25' },
-    { title: 'Shipping', name: 'shipping', size: '40', minSize: '40' },
-    { title: 'Seller', name: 'name', size: '40', minSize: '40' },
-    { title: 'Offer Date', name: 'datecreated', size: '100', minSize: '100', datatype: { type: 'date' } },
-    { title: 'created', name: 'created', size: '100', minSize: '100', datatype: { type: 'datetime' } },
-    { title: 'deletedbyUser', name: 'deletedByExtUser', size: '100', minSize: '100', datatype: { type: 'datetime' } },
+    { title: 'Title', name: 'offerinfo.title', size: '20%', minSize: '120' },
+    { title: 'Description', name: 'offerinfo.description', size: '20%', minSize: '120' },
+    { title: 'Price', name: 'offerinfo.price', size: '20%', minSize: '120', datatype: { type: 'price' } },
+    { title: 'Price Type', name: 'offerinfo.pricetype', size: '20%', minSize: '120' },
+    { title: 'Zipcode', name: 'offerinfo.zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },
+    { title: 'Locality', name: 'offerinfo.locality', size: '25', minSize: '25' },
+    { title: 'Shipping', name: 'offerinfo.shipping', size: '40', minSize: '40' },
+    { title: 'Seller', name: 'offerinfo.name', size: '40', minSize: '40' },
+    { title: 'Offer Date', name: 'offerinfo.datecreated', size: '100', minSize: '100', datatype: { type: 'date' } },
+    { title: 'created', name: 'offerinfo.created', size: '100', minSize: '100', datatype: { type: 'datetime' } },
+    { title: 'deletedbyUser', name: 'offerinfo.deletedByExtUser', size: '100', minSize: '100', datatype: { type: 'datetime' } },
   ];
   constructor(private activatedRoute: ActivatedRoute,
     private offerUserService: OfferUserService,
@@ -33,12 +34,12 @@ export class UserDetailComponent implements OnInit {
 
 
   public userid = 0;
+  public externaluserid = 0;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.userid = params['id'];
       if (this.userid > 0) {
         this.bindData();
-
       }
     });
   }
@@ -47,9 +48,32 @@ export class UserDetailComponent implements OnInit {
     this.offerUserService.getUserDetail(this.userid).subscribe(
       (data) => {
         if (data) {
-          console.log(data)
+         
           if (data.body && data.body.code == 200) {
             this.userDetails = data.body.result[0];
+            console.log(this.userDetails)
+            this.externaluserid = this.userDetails.user_id;
+            this.getOffers();
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  getOffers() {
+    this.offerUserService.getOffersByUserId(this.externaluserid).subscribe(
+      (data) => {
+        if (data) {
+          
+          if (data.body && data.body.code == 200) {
+            this.offerDetails = data.body.result;
+            console.log(this.offerDetails)
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -63,6 +87,6 @@ export class UserDetailComponent implements OnInit {
   }
 
   onOfferRowClick(data) {
-    this.router.navigateByUrl("/offerdetail/" + data.id).then((bool) => { }).catch()
+    this.router.navigateByUrl("/offerdetail/" + data.offerinfo.id).then((bool) => { }).catch()
   }
 }

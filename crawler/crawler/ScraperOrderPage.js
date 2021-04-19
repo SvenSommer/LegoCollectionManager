@@ -41,7 +41,7 @@ const offerDescriptionSelector = "#viewad-description .l-container";
  * @returns 
  */
 const scraperOrderPage = async (args) => {
-	const { browser, url: offerurl, id, location, externalId } = args
+	const { browser, url: offerurl, id, location, externalId, blacklistedTermns } = args
 	console.log("=================================================")
 	// =================================================
 	// * Opening the url in another tab
@@ -50,7 +50,7 @@ const scraperOrderPage = async (args) => {
 	console.log("Opening the offer page: ", offerurl)
 	// Log(LOGLEVEL, "Opening the offer page: " + offerurl, reqCredentials)
 	try {
-		await page.goto(offerurl, { waitUntil: "networkidle2", timeout: 5 * 60 * 1000 })
+		await page.goto(offerurl, { waitUntil: "networkidle2", timeout: 0.5 * 60 * 1000 })
 	} catch (error) {
 		console.log("!! This page can't be loaded, SKIP ", offerurl);
 		// Log(LOGLEVEL, "!! This page can't be loaded, SKIP " + offerurl, reqCredentials)
@@ -59,7 +59,7 @@ const scraperOrderPage = async (args) => {
 			deleted_by_user: true
 		}
 	}
-	await page.waitForTimeout(1500)
+	await page.waitForTimeout(200)
 	if (await page.$(notificationSelector)) {
 		await page.$eval(closeNotificationSelector, el => el.click())
 	}
@@ -73,23 +73,33 @@ const scraperOrderPage = async (args) => {
 	// Log(LOGLEVEL, "Offer title: " + await page.title(), reqCredentials)
 	const offerUrl = page.url()
 
-	//*Trying to get the title of the offer
-	try {
-		await page.waitForSelector(offerTitleSelector, { timeout: 12000 })
-	} catch (error) {
-		console.log(`!! Error: Cannot detect the title of the offer ${id}|${externalId}, is deleted by user`);
-		// Log(LOGLEVEL, "!! Error: Cannot detect the title of the offer, maybe is deleted by user", reqCredentials)
-		const currentUrl = page.url()
-		console.log(currentUrl);
-		// Log(LOGLEVEL, currentUrl, reqCredentials)
-		// console.log("* Closing the tab")
-		// // Log(LOGLEVEL, "* Closing the tab", reqCredentials)
-		// await page.close()
+	//* Checking if the article is available
+	if (/deleted_ad/gi.test(offerUrl)) {
+		console.log(offerUrl);
+		await page.close()	
 		return {
 			external_id: externalId,
 			deleted_by_user: true
 		}
+	} else if (externalId) {
+		console.log("* The offer still available");
+		await page.close()
+		return {
+			external_id: externalId,
+			deleted_by_user: false
+		}
+	}
 
+	for (const term of blacklistedTermns) {
+		const regex =  new RegExp("\\b"+term.word + "\\b",'gi');
+		if (regex.test(offerUrl)) {
+			await page.close()	
+			return {
+				external_id: externalId,
+				deleted_by_user: false,
+				blacklistetterm: term.word
+			}
+		}
 	}
 
 	const offerTitle = await page.$eval(offerTitleSelector, el => el.innerText.trim())
@@ -136,7 +146,7 @@ const scraperOrderPage = async (args) => {
 		// const user_link = await page.$eval(userIdSelector, el => el.click())
 		const user_link = await page.$eval(userIdSelector, el => el.href)
 		try {
-			await page.goto(user_link, {timeout: 5000})
+			await page.goto(user_link, { timeout: 5000 })
 			await page.waitForTimeout(1000)
 			await page.reload()
 			await page.waitForTimeout(1000)

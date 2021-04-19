@@ -117,6 +117,21 @@ export class CollectionDetailComponent implements OnInit {
     ]
   };
 
+  public setsAndPartsInfo = {
+    title: 'Expected Sets & Parts',
+    rowData: [
+      { key: 'expected_sets.sumSet', name: 'Sets Identified', dataType:{type:'number'}},
+      { key: 'expected_sets.sumMin_price', name: 'All Sets Price (Min)', dataType:{type:'price'}},
+      { key: 'expected_sets.sumAvg_price', name: 'All Sets Price (Avg)', dataType:{type:'price'}},
+      { key: 'expected_sets.sumMax_price', name: 'All Sets Price (Max)', dataType:{type:'price'}},
+      { key: 'expected_parts.sumItemsWeight_g', name: 'Sum Parts Weight', dataType:{type:'weight', unit:"g"}},
+      { key: 'expected_parts.sumPartsQuantity', name: 'Sum Parts Count'},
+      { key: 'expected_parts.sumMinifigQuantity', name: 'Sum Minifigs Count'},
+      { key: 'expected_parts.sumItemsQty_avg_price_sold', name: 'All part Price (sold)', dataType:{type:'price'}},
+      { key: 'expected_parts.sumItemsQty_avg_price_stock', name: 'All part Price (stock)', dataType:{type:'price'}}
+    ]
+  };
+
   public runsData: any;
   public expectedSets: any;
   public suggestedSets: any;
@@ -251,6 +266,12 @@ export class CollectionDetailComponent implements OnInit {
 
   onRunCellClick(data) {
     this.router.navigateByUrl("/rundetail/" + data.run_id).then((bool) => { }).catch()
+  }
+
+
+  onExpectedSetCellClick(data){
+    console.log(data)
+    this.router.navigateByUrl("/setdetail/" + data.setinfo.id).then((bool) => { }).catch()
   }
 
   getExpectedSets() {
@@ -422,7 +443,7 @@ export class CollectionDetailComponent implements OnInit {
 
   public onDeleteClick() {
     let options = {
-      title: 'Are you sure you want to delete this?',
+      title: 'Are you sure you want to delete this collection?',
       confirmLabel: 'Okay',
       declineLabel: 'Cancel'
     }
@@ -433,9 +454,9 @@ export class CollectionDetailComponent implements OnInit {
           (data) => {
             if (data) {
               if (data.body && data.body.code == 200) {
-                // Message should be data.body.message
-                this.toastr.success("Record Deleted Successfully.");
-                this.router.navigateByUrl("/collection");
+               // Message should be data.body.message
+               this.toastr.success("Record deleted successfully.");
+               this.router.navigateByUrl("/collection");
               }
               else if (data.body && data.body.code == 403) {
                 this.router.navigateByUrl("/login");
@@ -485,7 +506,41 @@ export class CollectionDetailComponent implements OnInit {
   arrayRemove(arr, value) {
 
     return arr.filter(function (ele) {
-      return ele != value;
+      return ele != value;});
+    
+    }
+
+
+  onRowExpectedSetDeleteClick(data){
+    let options = {
+      title: 'Are you sure you want to delete this?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel'
+    }
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+
+        this.collectionService.deleteExpectedSetBySetId(data.id).subscribe(
+          (data) => {
+            if (data) {
+              if (data.body && data.body.code == 200) {
+               // Message should be data.body.message
+               this.toastr.success("Set deleted successfully.");
+               this.bindData();
+               this.getExpectedSets();
+              }
+              else if (data.body && data.body.code == 403) {
+                this.router.navigateByUrl("/login");
+              }
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+      } else {
+        console.log('Cancel');
+      }
     });
   }
 }

@@ -4,17 +4,19 @@ import connection from "../../../database_connection";
 
 export default (req: Request, res: Response) => {
     try {
-        const {
+        let {
             id,
             user_id,
             name,
+            phone,
             type,
             offerscount,
             friendliness,
             satisfaction,
             accountcreated
         } = req.body;
-
+        if (!phone)
+            phone = 'unknown';
         if (id &&
             user_id &&
             name &&
@@ -22,16 +24,17 @@ export default (req: Request, res: Response) => {
             offerscount &&
             friendliness &&
             satisfaction &&
-            accountcreated) {
-                const updateOffer = `UPDATE Offers_Users SET user_id = ${user_id},
+            accountcreated) {   
+                               const updateOne = `UPDATE Offers_Users SET user_id = ${user_id},
                 name = '${name}',
+                phone = '${phone}',
                 type = '${type}',
                 offerscount = ${offerscount},
                 friendliness = '${friendliness}',
                 satisfaction = '${satisfaction}',
                 accountcreated = '${accountcreated}'
-                                        WHERE id=${id}`;
-                connection.query(updateOffer, (err, result) => {
+                WHERE id=${id}`;
+                connection.query(updateOne, (err, result) => {
                     if (err) res.json({
                         code: 500,
                         message: 'Couldn\'t updated the users',
@@ -49,7 +52,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'Missing Parameter: id, user_id, name, type, offerscount, friendliness, satisfaction and accountcreated are required!'
+                message: 'Missing Parameter: id, user_id, name, phone,  type, offerscount, friendliness, satisfaction and accountcreated are required!'
             });
         }
     } catch (e) {

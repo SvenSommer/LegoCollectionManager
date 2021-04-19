@@ -49,6 +49,7 @@ import offers_properties from "./routes/offers_properties";
 import offers_logs from "./routes/offers_logs";
 import offers_accounts from "./routes/offers_accounts";
 import offers_messagetexts from "./routes/offers_messagetexts";
+import offers_blacklist from "./routes/offers_blacklist";
 
 import progress_routes from './routes/progressdetails';
 

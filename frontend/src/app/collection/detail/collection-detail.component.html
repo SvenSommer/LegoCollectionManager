@@ -26,120 +26,7 @@
 
             </div>
             <app-card-table [cardColumns]="purchaseInfo" [cardData]="collectionDetails"></app-card-table>
-            <!--  <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Purchase Information</h4>
-                        <table *ngIf="collectionDetails" class="div2 table table-hover table-sm datatable" role="grid">
-                            <tr>
-                                <td>
-                                    Origin
-                                </td>
-                                <td>
-                                    <a [href]="collectionDetails.collectioninfo.origin_url" (click)="onExternalClick(collectionDetails)">
-                                        {{collectionDetails.collectioninfo.origin}}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Seller
-                                </td>
-                                <td>
-                                    {{collectionDetails.collectioninfo.seller}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Weight
-                                </td>
-                                <td>
-                                        {{collectionDetails.collectioninfo.weight_kg}} kg
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Cost<br>
-                                    (per Weight)
-                                </td>
-                                <td>
-                                    {{collectionDetails.collectioninfo.cost}}&#8364; ( Incl. porto {{collectionDetails.collectioninfo.porto}}&#8364; ) <br>
-                                    {{collectionDetails.collectioninfo.cost_per_kilo}}         &#8364; / kg
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Purchased
-                                </td>
-                                <td>
-                                    {{collectionDetails.collectioninfo.purchase_date | date:'dd.MM.yyyy' }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Created
-                                </td>
-                                <td>
-                                    {{collectionDetails.created | date:'dd.MM.yyyy' }}
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
-            </div> -->
-            <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Sets & Parts</h4>
-                        <table *ngIf="collectionDetails" class="div2 table table-hover table-sm datatable" role="grid">
-                            <tr>
-                                <td>
-                                    Sets Identified
-                                </td>
-                                <td>
-                                    {{collectionDetails.expected_sets.sumSet }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Sum Parts Weight
-                                </td>
-                                <td>
-                                    {{collectionDetails.expected_parts.sumItemsWeight_g/1000}} kg
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Sum Parts Count
-                                </td>
-                                <td>
-                                    {{collectionDetails.expected_parts.sumPartsQuantity}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Sum Minifigs Count
-                                </td>
-                                <td>
-                                    {{collectionDetails.expected_parts.sumMinifigQuantity}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    All part Price
-                                </td>
-                                <td>
-                                    sold {{collectionDetails.expected_sets.sumItemsQty_avg_price_sold}}&#8364;
-                                    <br>
-                                    stock {{collectionDetails.expected_sets.sumItemsQty_avg_price_stock }}&#8364;
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
+            <app-card-table [cardColumns]="setsAndPartsInfo" [cardData]="collectionDetails"></app-card-table>
         </div>
     </div>
 
@@ -340,8 +227,12 @@
                                 <div class="col-sm-12"
                                     *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
                                     <div>
+<<<<<<< HEAD
                                         <ng-table [isActionVisible]="false" [columns]="expSetsColumns"
                                             [data]="expectedSets.sets">
+=======
+                                        <ng-table (rowCellClick)="onExpectedSetCellClick($event)" [isActionVisible]="true" [isDeleteVisible]="true" (rowDeleteClick)="onRowExpectedSetDeleteClick($event)" [isEditVisible]="false" [columns]="expSetsColumns" [data]="expectedSets.sets">
+>>>>>>> master
                                         </ng-table>
                                     </div>
                                 </div>
