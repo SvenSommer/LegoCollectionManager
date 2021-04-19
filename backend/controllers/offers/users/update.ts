@@ -4,7 +4,7 @@ import connection from "../../../database_connection";
 
 export default (req: Request, res: Response) => {
     try {
-        const {
+        let {
             id,
             user_id,
             name,
@@ -15,17 +15,17 @@ export default (req: Request, res: Response) => {
             satisfaction,
             accountcreated
         } = req.body;
-
+        if (!phone)
+            phone = 'unknown';
         if (id &&
             user_id &&
             name &&
-            phone && 
             type &&
             offerscount &&
             friendliness &&
             satisfaction &&
-            accountcreated) {
-                const updateOne = `UPDATE Offers_Users SET user_id = ${user_id},
+            accountcreated) {   
+                               const updateOne = `UPDATE Offers_Users SET user_id = ${user_id},
                 name = '${name}',
                 phone = '${phone}',
                 type = '${type}',

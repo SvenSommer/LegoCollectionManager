@@ -13,6 +13,12 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
     return new Promise(function (resolve, reject) {
         blApi.bricklinkClient.getItemSubset(blApi.ItemType.Set, setnumber + "-1", { break_minifigs: false })
             .then(function (subsetData: any) {
+                if (!subsetData || subsetData.length <= 0) {
+                    reject({
+                        code: 500,
+                        message: 'Some error occurred',
+                    });
+                }
                 InsertProgressDetail(request_id, 15, "Sub Set Data Downloaded");
                 var totalCount = 0;
                 var incrementCount = 1;
@@ -97,14 +103,14 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
 export function makeRequest(entry: any, callback: any) {
     UpsertPartDataByNo(entry.item.no, entry.color_id, entry.item.type, entry.userid).then(function (data) {
         GlobalVariable.incrementCount++;
-        if(GlobalVariable.totalCount > 0){
-            let percentage = GlobalVariable.incrementCount/((GlobalVariable.totalCount+2)/2) * 100;
-            console.log(`success, downloaded: ${percentage}%` );
+        if (GlobalVariable.totalCount > 0) {
+            let percentage = GlobalVariable.incrementCount / ((GlobalVariable.totalCount + 2) / 2) * 100;
+            console.log(`success, downloaded: ${percentage}%`);
             InsertProgressDetail(entry.request_id, percentage * 0.8 + 15, "Part Data Downloading.");
         }
         if (GlobalVariable.totalCount > 0 && GlobalVariable.incrementCount > (GlobalVariable.totalCount / 2)) {
             GlobalVariable.totalCount = 0;
-            
+
         }
         callback();
     });

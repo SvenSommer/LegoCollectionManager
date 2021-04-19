@@ -278,8 +278,8 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-12" *ngIf="offerDetails">
-                                <ng-container *ngFor="let image of offerDetails.offerinfo.images">
+                            <div class="col-sm-12" *ngIf="imageData">
+                                <ng-container *ngFor="let image of imageData.images">
                                     <img class="img-thumbnail rounded float-left" [style.height.px]="150"
                                         [src]="image.imageurl" (click)="onImgClick(image)" />
                                 </ng-container>
@@ -464,7 +464,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="row">
+                        <div class="row" *ngIf="setDownloadingRequestData && setDownloadingRequestData.length > 0">
                             <div class="col-sm-12">
                                 <table class="table table table-hover table-sm datatable">
                                     <tr>
@@ -475,7 +475,7 @@
                                             Status
                                         </th>
                                         <th>
-                                            Progress {{setDownloadingRequestData.length}}
+                                            Progress
                                         </th>
                                     </tr>
                                     <tr *ngFor="let item of setDownloadingRequestData">
@@ -503,11 +503,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
 
 

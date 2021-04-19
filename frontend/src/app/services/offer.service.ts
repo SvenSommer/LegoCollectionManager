@@ -44,6 +44,12 @@ export class OfferService {
       return this.http.get<any>(`${environment.baseUrl}offers_status/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }  
 
+    getImagesbyOfferId(id): Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}offers_images/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }  
+
     getProprtiesByOfferId(id): Observable<any> {
       let httpHeader = new HttpHeaders();
       httpHeader.set("Access-Control-Allow-Origin", "*");

@@ -69,6 +69,7 @@ export class OfferDetailComponent implements OnInit {
   public isSetFormSubmitted = false;
   public viewChartData: ViewChartData;
   public statusData: any;
+  public imageData: any;
   public possiblesetData: any;
   public propertiesData: any;
 
@@ -88,6 +89,7 @@ export class OfferDetailComponent implements OnInit {
         this.properties = new OfferPropertiesModel(this.offerid);
         this.bindData();
         this.getAllViews();
+        this.getAllImages();
         this.getAllStatus();
         this.getAllPossiblesets();
         this.getUserCategoriesList();
@@ -197,6 +199,24 @@ export class OfferDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.statusData = data.body.result;
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  } 
+  
+  getAllImages() {
+    this.offerService.getImagesbyOfferId(this.offerid).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            this.imageData = data.body.result[0];
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");

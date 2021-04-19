@@ -4,6 +4,7 @@ import ShowAllOffersFromInterest from '../controllers/offers/showFromInterest';
 import UpdateOfferById from '../controllers/offers/update';
 import GetSingleOfferById from '../controllers/offers/single';
 import GetSingleOfferByExternalid from '../controllers/offers/singleByExternalid';
+import ShowOffersByUserid from '../controllers/offers/showByUserid';
 import DeleteSingleOfferById from '../controllers/offers/delete';
 import MarkDeletedOfferById from '../controllers/offers/markDeletedByUser';
 import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
@@ -18,8 +19,10 @@ route.get(`/frominterest`, UserAuthMiddleware, ShowAllOffersFromInterest);
 route.post(``, AdminAuthMiddleware, CreateOffer);
 //Show info about a specific offer
 route.get(`/:id`, UserAuthMiddleware, GetSingleOfferById);
-//SHow Info about a specific offer by external id
+//Show Info about a specific offer by external id
 route.get(`/externalid/:id`, UserAuthMiddleware, GetSingleOfferByExternalid);
+//Show Info about a specific offer by user id
+route.get(`/userid/:userid`, UserAuthMiddleware, ShowOffersByUserid);
 //Update a particular offer
 route.put(`/:id`, AdminAuthMiddleware, UpdateOfferById);
 //Delete a particular offer
