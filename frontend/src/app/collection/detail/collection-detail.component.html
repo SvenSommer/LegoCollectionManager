@@ -227,12 +227,7 @@
                                 <div class="col-sm-12"
                                     *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
                                     <div>
-<<<<<<< HEAD
-                                        <ng-table [isActionVisible]="false" [columns]="expSetsColumns"
-                                            [data]="expectedSets.sets">
-=======
                                         <ng-table (rowCellClick)="onExpectedSetCellClick($event)" [isActionVisible]="true" [isDeleteVisible]="true" (rowDeleteClick)="onRowExpectedSetDeleteClick($event)" [isEditVisible]="false" [columns]="expSetsColumns" [data]="expectedSets.sets">
->>>>>>> master
                                         </ng-table>
                                     </div>
                                 </div>
