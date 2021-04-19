@@ -52,26 +52,31 @@ export default (req: Request, res: Response) => {
                                 errorMessage: process.env.DEBUG && err
                             });
                             else {
-                                console.log("Start on: " + new Date());
-                                InsertProgressDetail(request_id, 5, "Download Started");
-                                GetAndUpsertSetDataByNo(setno, userid, request_id).then(function (data) {
-                                    if (data) {
-                                        InsertProgressDetail(request_id, 100, "All Data Downloaded.");
-                                        console.log("End on: " + new Date());
+                                try {
+                                    console.log("Start on: " + new Date());
+                                    InsertProgressDetail(request_id, 2, "Download Started");
+                                    GetAndUpsertSetDataByNo(setno, userid, request_id).then(function (data) {
+                                        if (data) {
+                                            InsertProgressDetail(request_id, 100, "All Data Downloaded.");
+                                            console.log("End on: " + new Date());
+                                            GlobalVariable.apiCounter = 0;
+                                            res.json({
+                                                code: 201,
+                                                message: 'Possible Set added and Setdata downloaded!'
+                                            });
+                                        }
+                                    }, function (err) {
                                         GlobalVariable.apiCounter = 0;
                                         res.json({
-                                            code: 201,
-                                            message: 'Possible Set added and Setdata downloaded!'
+                                            code: 500,
+                                            message: 'Couldn\'t create the Set',
+                                            errorMessage: process.env.DEBUG && err
                                         });
-                                    }
-                                }, function (err) {
-                                    GlobalVariable.apiCounter = 0;
-                                    res.json({
-                                        code: 500,
-                                        message: 'Couldn\'t create the Set',
-                                        errorMessage: process.env.DEBUG && err
                                     });
-                                });
+                                }
+                                catch (ex) {
+                                    console.log("error");
+                                }
                             }
                         })
                     }

@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CollectionModel } from 'src/app/models/collection-model';
 import { RunEditComponent } from 'src/app/run/run-edit/run-edit.component';
 import { CollectionService } from 'src/app/services/collection.service';
+import { OfferService } from 'src/app/services/offer.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 import { CollectionEditComponent } from '../edit/collection-edit.component';
 
@@ -27,6 +28,8 @@ export class CollectionDetailComponent implements OnInit {
   public collectionDetails;
   public collectionSummary;
   public uniqueDetails;
+  public setDownloadingRequestData = [];
+  public requestList = new Array<string>();
 
   public runsColumns = [
     { title: 'Run #', name: 'run_no', size: '30', minSize: '30' },
@@ -103,14 +106,14 @@ export class CollectionDetailComponent implements OnInit {
   public purchaseInfo = {
     title: 'Purchase Information',
     rowData: [
-      { key: 'collectioninfo.origin', name: 'Origin', dataType:{type:'link', target: 'collectioninfo.origin_url'}},
-      { key: 'collectioninfo.seller', name: 'Seller'},
-      { key: 'collectioninfo.weight_kg', name: 'Weight', dataType:{type:'weight'}},
-      { key: 'collectioninfo.cost', name: 'Cost(per Weight)', dataType:{type:'price'}},
-      { key: 'collectioninfo.cost_per_kilo', name: 'Cost Per Kilo', dataType:{type:'price_per_kilo'}},
-      { key: 'collectioninfo.porto', name: 'Porto', dataType:{type:'price'}},
-      { key: 'collectioninfo.purchase_date', name: 'Purchased', dataType:{type:'date'}},
-      { key: 'created', name: 'Created', dataType:{type:'date'}},
+      { key: 'collectioninfo.origin', name: 'Origin', dataType: { type: 'link', target: 'collectioninfo.origin_url' } },
+      { key: 'collectioninfo.seller', name: 'Seller' },
+      { key: 'collectioninfo.weight_kg', name: 'Weight', dataType: { type: 'weight' } },
+      { key: 'collectioninfo.cost', name: 'Cost(per Weight)', dataType: { type: 'price' } },
+      { key: 'collectioninfo.cost_per_kilo', name: 'Cost Per Kilo', dataType: { type: 'price_per_kilo' } },
+      { key: 'collectioninfo.porto', name: 'Porto', dataType: { type: 'price' } },
+      { key: 'collectioninfo.purchase_date', name: 'Purchased', dataType: { type: 'date' } },
+      { key: 'created', name: 'Created', dataType: { type: 'date' } },
     ]
   };
 
@@ -142,11 +145,12 @@ export class CollectionDetailComponent implements OnInit {
     "setnumber": "",
     "comments": "",
     "instructions": "",
-    "condition": ""
+    "condition": "",
+    "requestId": ""
   };
   public newRunDetail = {
-    "id":0,
-    "no":500,
+    "id": 0,
+    "no": 500,
     "collection_id": 0,
     "sorter_id": 1,
     "imagefolder": "/partimages/collection1/run500/"
@@ -157,7 +161,8 @@ export class CollectionDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private collectionService: CollectionService,
     private router: Router, private toastr: ToastrService,
-    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
+    private ngxBootstrapConfirmService: NgxBootstrapConfirmService,
+    private offerService: OfferService) { }
 
   public id = 0;
   ngOnInit(): void {
@@ -246,20 +251,20 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   onCreateNewRunClick() {
-      this.collectionService.getRunsNextnoByCollectionid(this.id).subscribe(
-        (data) => {
-          if (data) {
-            if(data.body && data.body.code == 200){
-              this.newRunDetail.no = data.body.result[0].next_runno;
-              this.runEdit.open(this.newRunDetail);
-            }
+    this.collectionService.getRunsNextnoByCollectionid(this.id).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            this.newRunDetail.no = data.body.result[0].next_runno;
+            this.runEdit.open(this.newRunDetail);
           }
         }
-      );
+      }
+    );
   }
 
 
-  onRunCellClick(data){
+  onRunCellClick(data) {
     this.router.navigateByUrl("/rundetail/" + data.run_id).then((bool) => { }).catch()
   }
 
@@ -375,6 +380,14 @@ export class CollectionDetailComponent implements OnInit {
     if (!form.valid) {
       return;
     }
+
+    this.newSetDetails.requestId = Date.now().toString() + "_" + this.newSetDetails.setnumber;
+    this.requestList.push(this.newSetDetails.requestId);
+
+    setInterval(() => {
+      this.getProgressDetails();
+    }, 1000);
+
     this.collectionService.saveNewSets(this.newSetDetails).subscribe(
       (data) => {
         if (data) {
@@ -385,7 +398,8 @@ export class CollectionDetailComponent implements OnInit {
               "setnumber": "",
               "comments": "",
               "instructions": "",
-              "condition": ""
+              "condition": "",
+              "requestId": ""
             };
             this.isSetFormSubmitted = false;
             form.reset();
@@ -416,8 +430,7 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   public onExternalClick(data) {
-    if(data && data.origin_url)
-    {
+    if (data && data.origin_url) {
       let url: string = '';
       if (!/^http[s]?:\/\//.test(data.origin_url)) {
         url += 'http://';
@@ -428,7 +441,7 @@ export class CollectionDetailComponent implements OnInit {
     }
   }
 
-  public onDeleteClick(){
+  public onDeleteClick() {
     let options = {
       title: 'Are you sure you want to delete this collection?',
       confirmLabel: 'Okay',
@@ -459,6 +472,44 @@ export class CollectionDetailComponent implements OnInit {
       }
     });
   }
+
+  getProgressDetails() {
+    if (!this.requestList || this.requestList.length <= 0) {
+      return;
+    }
+
+    this.offerService.getProgressDetails(this.requestList.join(",")).subscribe(
+      (data) => {
+        if (data.body && data.body.code == 200) {
+          this.setDownloadingRequestData = Object.assign([], data.body.result);
+
+
+          for (var i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
+            var setNo = this.setDownloadingRequestData[i].request_id.lastIndexOf("_");
+            this.setDownloadingRequestData[i].setNo = this.setDownloadingRequestData[i].request_id.substr(setNo + 1);
+
+            if (this.setDownloadingRequestData[i].progress == 100) {
+              // var index = this.setDownloadingRequestData.filter(m=>m.progress <= this.newpossiblesetDetail.request_id);
+              this.requestList = this.arrayRemove(this.requestList, this.setDownloadingRequestData[i].request_id);
+              this.setDownloadingRequestData.splice(i, 1);
+              i++;
+            }
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  arrayRemove(arr, value) {
+
+    return arr.filter(function (ele) {
+      return ele != value;});
+    
+    }
+
 
   onRowExpectedSetDeleteClick(data){
     let options = {
