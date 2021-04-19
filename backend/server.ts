@@ -52,83 +52,101 @@ import offers_messagetexts from "./routes/offers_messagetexts";
 
 import progress_routes from './routes/progressdetails';
 
-const corsOpts = {
-    origin: ['http://localhost:3001','http://localhost:4200'],
-    credentials: true,
-    methods: [
-        'GET',
-        'POST',
-        'PUT',
-        'DELETE',
-        'PATCH'
-    ],
+var cluster = require('cluster');
+if (cluster.isMaster) {
+    cluster.fork();
 
-    allowedHeaders: [
-        'Content-Type',
-    ],
-};
-
-/*
-* Initializing Middlewares
-*/
-dotenv.config();
-app.use(cors(corsOpts));
-// app.use(cors());
-// app.options("*")
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(cookieParser());
-
-/*
-* Middleware Routes
-*/
-app.use('/users', user);
-app.use('/collections', collection);
-app.use('/setdata', setdata);
-app.use('/partdata', partdata);
-app.use('/categories', category);
-app.use('/colors', color);
-app.use('/partimages', partimage);
-app.use('/pricedata', pricedata);
-app.use('/expectedsets', expectedset);
-app.use('/identifiedimages', identifiedimage);
-app.use('/identifiedparts', identifiedpart);
-app.use('/runs', run);
-app.use('/runstatus', runstatus);
-app.use('/sorters', sorter);
-app.use('/valves', valve);
-app.use('/scales', scale);
-app.use('/pushers', pushers);
-app.use('/status', status);
-app.use('/subsetdata', subsetdata);
-app.use('/suggestedsets', suggestedset);
-app.use('/supersetdata', supersetdata);
-app.use('/types', types);
-app.use('/usergroups', usergroups);
-app.use('/sortedsets', sortedsets);
-app.use('/sortedparts', sortedparts);
-app.use('/offers', offers);
-app.use('/offers_images', offers_images);
-app.use('/offers_preferences', offers_preferences);
-app.use('/offers_searchproperties', offers_searchproperties);
-app.use('/offers_users', offers_users);
-app.use('/offers_users_categories', offers_users_categories);
-app.use('/offers_views', offers_views);
-app.use('/offers_status', offers_status);
-app.use('/offers_possiblesets', offers_possiblesets);
-app.use('/offers_properties', offers_properties);
-app.use('/offers_logs', offers_logs);
-app.use('/offers_accounts', offers_accounts);
-app.use('/offers_messagetexts', offers_messagetexts);
-
-app.use('/progressdetails', progress_routes);
-
-
-const PORT = process.env.PORT || 4000;
-connection.getConnection((err) => {
-    if(err) throw err;
-    app.listen(PORT, () => {
-        console.log(`Server started, PORT: ${PORT}`);
-        console.log(`Connected to DB`)
+    cluster.on('exit', function (worker: any, code: any, signal: any) {
+        cluster.fork();
     });
-})
+}
+
+if (cluster.isWorker) {
+    // put your code here
+
+    const corsOpts = {
+        origin: ['http://localhost:3001', 'http://localhost:4200'],
+        credentials: true,
+        methods: [
+            'GET',
+            'POST',
+            'PUT',
+            'DELETE',
+            'PATCH'
+        ],
+
+        allowedHeaders: [
+            'Content-Type',
+        ],
+    };
+
+    /*
+    * Initializing Middlewares
+    */
+    dotenv.config();
+    app.use(cors(corsOpts));
+    // app.use(cors());
+    // app.options("*")
+    app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(cookieParser());
+
+    /*
+    * Middleware Routes
+    */
+    app.use('/users', user);
+    app.use('/collections', collection);
+    app.use('/setdata', setdata);
+    app.use('/partdata', partdata);
+    app.use('/categories', category);
+    app.use('/colors', color);
+    app.use('/partimages', partimage);
+    app.use('/pricedata', pricedata);
+    app.use('/expectedsets', expectedset);
+    app.use('/identifiedimages', identifiedimage);
+    app.use('/identifiedparts', identifiedpart);
+    app.use('/runs', run);
+    app.use('/runstatus', runstatus);
+    app.use('/sorters', sorter);
+    app.use('/valves', valve);
+    app.use('/scales', scale);
+    app.use('/pushers', pushers);
+    app.use('/status', status);
+    app.use('/subsetdata', subsetdata);
+    app.use('/suggestedsets', suggestedset);
+    app.use('/supersetdata', supersetdata);
+    app.use('/types', types);
+    app.use('/usergroups', usergroups);
+    app.use('/sortedsets', sortedsets);
+    app.use('/sortedparts', sortedparts);
+    app.use('/offers', offers);
+    app.use('/offers_images', offers_images);
+    app.use('/offers_preferences', offers_preferences);
+    app.use('/offers_searchproperties', offers_searchproperties);
+    app.use('/offers_users', offers_users);
+    app.use('/offers_users_categories', offers_users_categories);
+    app.use('/offers_views', offers_views);
+    app.use('/offers_status', offers_status);
+    app.use('/offers_possiblesets', offers_possiblesets);
+    app.use('/offers_properties', offers_properties);
+    app.use('/offers_logs', offers_logs);
+    app.use('/offers_accounts', offers_accounts);
+    app.use('/offers_messagetexts', offers_messagetexts);
+
+    app.use('/progressdetails', progress_routes);
+
+    process.on('uncaughtException', err => {
+        // To DO :: Here we can check err and call the delete functions.
+        console.error('There was an uncaught error', err);
+        process.exit(1) //mandatory (as per the Node.js docs)
+    });
+
+    const PORT = process.env.PORT || 4000;
+    connection.getConnection((err) => {
+        if (err) throw err;
+        app.listen(PORT, () => {
+            console.log(`Server started, PORT: ${PORT}`);
+            console.log(`Connected to DB`)
+        });
+    });
+}

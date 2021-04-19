@@ -6,15 +6,17 @@
 <div class="row mb-3" *ngIf="collectionDetails">
     <div class="col-lg-4">
         <div class="card mb-3">
-           <div class="card-body text-center shadow">
-                <img (click)="onImgClick(collectionDetails)" height="160px" [src]="collectionDetails.collectioninfo.thumbnail_url" />
-           </div>
+            <div class="card-body text-center shadow">
+                <img (click)="onImgClick(collectionDetails)" height="160px"
+                    [src]="collectionDetails.collectioninfo.thumbnail_url" />
+            </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="text-primary font-weight-bold m-0">Properties</h6>
                 <div class="dropdown no-arrow">
-                    <a class="btn btzn-link btn-sm" title="edit" aria-expanded="false"  type="button" (click)="onEditClick()">
+                    <a class="btn btzn-link btn-sm" title="edit" aria-expanded="false" type="button"
+                        (click)="onEditClick()">
                         <i class="fas fa-edit text-gray-400"></i>
                     </a>
                     <a class="pl-1 text-danger" title="Delete" (click)="onDeleteClick()">
@@ -24,7 +26,7 @@
 
             </div>
             <app-card-table [cardColumns]="purchaseInfo" [cardData]="collectionDetails"></app-card-table>
-          <!--  <div class="card-body">
+            <!--  <div class="card-body">
                 <div class="card">
                     <div class="card-body">
                         <h4>Purchase Information</h4>
@@ -148,7 +150,8 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h6 class="text-primary font-weight-bold m-0">Runs</h6>
                         <div class="dropdown no-arrow">
-                            <button class="btn btzn-link btn-sm " title="Create new Run" aria-expanded="false"  type="button" (click)="onCreateNewRunClick()" >
+                            <button class="btn btzn-link btn-sm " title="Create new Run" aria-expanded="false"
+                                type="button" (click)="onCreateNewRunClick()">
                                 <i class="fas fa-plus text-gray-400"></i>
                             </button>
                         </div>
@@ -189,8 +192,7 @@
                                 </app-card>
                             </div>
                             <div class="col-md mb-2">
-                                <app-card [title]="'Unlabeled Parts / Colors'" [showProgressbar]="false"
-                                    [data]="{color: 'secondary',
+                                <app-card [title]="'Unlabeled Parts / Colors'" [showProgressbar]="false" [data]="{color: 'secondary',
                                     identified: runsData.summarized[0].partno_not_yet_identified,
                                     total: runsData.summarized[0].colorid_not_yet_identified}">
                                 </app-card>
@@ -198,7 +200,8 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12" *ngIf="runsData && runsColumns">
-                                <ng-table (rowCellClick)="onRunCellClick($event)" [isActionVisible]="false" [columns]="runsColumns" [data]="runsData">
+                                <ng-table (rowCellClick)="onRunCellClick($event)" [isActionVisible]="false"
+                                    [columns]="runsColumns" [data]="runsData">
                                 </ng-table>
                             </div>
                         </div>
@@ -210,20 +213,22 @@
                     <div class="card shoadow mb-4">
                         <div class="card-header d-flex align-items-center">
                             <div class="dropdown btn-group pr-2">
-                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle"
+                                    data-toggle="dropdown">
                                     Sets
                                 </button>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" (click)="getExpectedSets()">Expected</a>
-                                            <a class="dropdown-item" (click)="getSuggestedSets()">Suggested</a>
-                                            <a class="dropdown-item">Incomplete</a>
-                                            <a class="dropdown-item">Complete</a>
-                                            <a class="dropdown-item">Inserated</a>
-                                            <a class="dropdown-item">Sold</a>
+                                    <a class="dropdown-item" (click)="getSuggestedSets()">Suggested</a>
+                                    <a class="dropdown-item">Incomplete</a>
+                                    <a class="dropdown-item">Complete</a>
+                                    <a class="dropdown-item">Inserated</a>
+                                    <a class="dropdown-item">Sold</a>
                                 </div>
                             </div>
                             <div class="dropdown btn-group pr-2">
-                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle"
+                                    data-toggle="dropdown">
                                     Parts
                                 </button>
                                 <div class="dropdown-menu">
@@ -233,7 +238,8 @@
                                 </div>
                             </div>
                             <div class="dropdown btn-group">
-                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle" data-toggle="dropdown">
+                                <button type="button" class="btn text-primary font-weight-bold m-0 dropdown-toggle"
+                                    data-toggle="dropdown">
                                     Minifigs
                                 </button>
                                 <div class="dropdown-menu">
@@ -245,7 +251,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <div class="text-uppercase text-secondary font-weight-bold text-xs justify-content-between align-items-center mb-4 pt-2 m-0">
+                                    <div
+                                        class="text-uppercase text-secondary font-weight-bold text-xs justify-content-between align-items-center mb-4 pt-2 m-0">
                                         <span>{{currentTab}}</span>
                                     </div>
                                     <div *ngIf="currentTab == 'Expected Sets'">
@@ -258,8 +265,9 @@
                                                             <i class="fa"
                                                                 [ngClass]="{'fa-angle-double-right': !isMoreFieldOpenForSet, 'fa-angle-double-down':isMoreFieldOpenForSet }"></i>
                                                         </span>
-                                                        <input type="text" required class="form-control col-sm" id="exampleInputEmail1"
-                                                            #setNum="ngModel" name="setNumber" [(ngModel)]="newSetDetails.setnumber"
+                                                        <input type="text" required class="form-control col-sm"
+                                                            id="exampleInputEmail1" #setNum="ngModel" name="setNumber"
+                                                            [(ngModel)]="newSetDetails.setnumber"
                                                             placeholder="Enter set number">
                                                     </div>
                                                     <div class="row m-0">
@@ -274,14 +282,16 @@
                                                     <div class="row m-0" *ngIf="isMoreFieldOpenForSet">
                                                         <div class="col-sm-1"></div>
                                                         <div class="col-sm m-0 p-0">
-                                                            <input type="text" [(ngModel)]="newSetDetails.comments" name="comments"
-                                                                class="form-group form-control" id="exampleInputEmail1"
-                                                                placeholder="Enter comments">
-                                                            <input type="text" [(ngModel)]="newSetDetails.instructions" name="instructions"
-                                                                class="form-group form-control" id="exampleInputEmail1"
+                                                            <input type="text" [(ngModel)]="newSetDetails.comments"
+                                                                name="comments" class="form-group form-control"
+                                                                id="exampleInputEmail1" placeholder="Enter comments">
+                                                            <input type="text" [(ngModel)]="newSetDetails.instructions"
+                                                                name="instructions" class="form-group form-control"
+                                                                id="exampleInputEmail1"
                                                                 placeholder="Enter instructions">
-                                                            <input type="text" [(ngModel)]="newSetDetails.condition" name="condition"
-                                                                class="form-group form-control" id="exampleInputEmail1"
+                                                            <input type="text" [(ngModel)]="newSetDetails.condition"
+                                                                name="condition" class="form-group form-control"
+                                                                id="exampleInputEmail1"
                                                                 placeholder="Enter set conditions">
                                                         </div>
                                                     </div>
@@ -296,33 +306,74 @@
 
                                     </div>
                                 </div>
-                                <div class="col-sm-12" *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
+
+                                <div class="col-sm-12"
+                                    *ngIf="setDownloadingRequestData && setDownloadingRequestData.length > 0">
+                                    <table class="table table table-hover table-sm datatable">
+                                        <tr>
+                                            <th>
+                                                Set No
+                                            </th>
+                                            <th>
+                                                Status
+                                            </th>
+                                            <th>
+                                                Progress
+                                            </th>
+                                        </tr>
+                                        <tr *ngFor="let item of setDownloadingRequestData">
+                                            <td>
+                                                {{item.setNo}}
+                                            </td>
+                                            <td>
+                                                {{item.status}}
+                                            </td>
+                                            <td>
+                                                <ngb-progressbar type="success" [value]="item.progress"
+                                                    [animated]="true">
+                                                    {{item.progress}}% </ngb-progressbar>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="col-sm-12"
+                                    *ngIf="expectedSets && expSetsColumns && currentTab == 'Expected Sets'">
                                     <div>
-                                        <ng-table [isActionVisible]="false" [columns]="expSetsColumns" [data]="expectedSets.sets">
+                                        <ng-table [isActionVisible]="false" [columns]="expSetsColumns"
+                                            [data]="expectedSets.sets">
                                         </ng-table>
                                     </div>
                                 </div>
-                                <div class="col-sm-12" *ngIf="suggestedSets && suggSetsColumns && currentTab == 'Suggested Sets'">
-                                    <div >
-                                        <ng-table [isActionVisible]="false" [columns]="suggSetsColumns" [data]="suggestedSets">
+                                <div class="col-sm-12"
+                                    *ngIf="suggestedSets && suggSetsColumns && currentTab == 'Suggested Sets'">
+                                    <div>
+                                        <ng-table [isActionVisible]="false" [columns]="suggSetsColumns"
+                                            [data]="suggestedSets">
                                         </ng-table>
                                     </div>
                                 </div>
-                                <div class="col-sm-12" *ngIf="expectedParts && ExpPartsColumns && currentTab == 'Expected Parts'">
-                                    <div >
-                                        <ng-table [isActionVisible]="false" [columns]="ExpPartsColumns" [data]="expectedParts">
+                                <div class="col-sm-12"
+                                    *ngIf="expectedParts && ExpPartsColumns && currentTab == 'Expected Parts'">
+                                    <div>
+                                        <ng-table [isActionVisible]="false" [columns]="ExpPartsColumns"
+                                            [data]="expectedParts">
                                         </ng-table>
                                     </div>
                                 </div>
-                                <div class="col-sm-12" *ngIf="unsettedParts && UnsettedPartsColumns && currentTab == 'Unsetted Parts'">
-                                    <div >
-                                        <ng-table [isActionVisible]="false" [columns]="UnsettedPartsColumns" [data]="unsettedParts">
+                                <div class="col-sm-12"
+                                    *ngIf="unsettedParts && UnsettedPartsColumns && currentTab == 'Unsetted Parts'">
+                                    <div>
+                                        <ng-table [isActionVisible]="false" [columns]="UnsettedPartsColumns"
+                                            [data]="unsettedParts">
                                         </ng-table>
                                     </div>
                                 </div>
-                                <div class="col-sm-12" *ngIf="expectedMinifigs && ExpMinifigsColumns && currentTab == 'Expected Minifigs'">
-                                    <div >
-                                        <ng-table [isActionVisible]="false" [columns]="ExpMinifigsColumns" [data]="expectedMinifigs">
+                                <div class="col-sm-12"
+                                    *ngIf="expectedMinifigs && ExpMinifigsColumns && currentTab == 'Expected Minifigs'">
+                                    <div>
+                                        <ng-table [isActionVisible]="false" [columns]="ExpMinifigsColumns"
+                                            [data]="expectedMinifigs">
                                         </ng-table>
                                     </div>
                                 </div>
@@ -345,7 +396,7 @@
 
 <app-modal-popup size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
     <img [src]="imgPopupURL" />
-  </app-modal-popup>
+</app-modal-popup>
 
 <app-collection-edit (collectionAdded)="addNewCollection($event)" #collectionEdit></app-collection-edit>
 <app-run-edit (runAdded)="onCreateNewRunClick()" #runEdit></app-run-edit>
