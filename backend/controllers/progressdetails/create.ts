@@ -8,12 +8,14 @@ export default (req: Request, res: Response) => {
     try {
         const {token} = req.cookies;
         const {
-            request_id,
+            task_id,
+            information,
             progress,
             status
         } = req.body;
 
-        if  (request_id &&
+        if  (task_id &&
+            information &&
             progress &&
             status
              ) {
@@ -31,12 +33,14 @@ export default (req: Request, res: Response) => {
                     else {
                         const {id} = result[0];
                         const insertOne = `INSERT INTO ProgressDetail (
-                            request_id,
+                            task_id,
+                            information,
                             progress,
                             status,
                             created)
                             VALUES (
-                                '${request_id}',
+                                ${task_id},
+                                '${information}',
                                 ${progress},
                                 '${status}',
                                 NOW())`;

@@ -4908,7 +4908,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n      \"request_id\":1,\r\n            \"progress\" : 10,\r\n            \"status\" : \"test\"\r\n}",
+									"raw": "{\r\n      \"task_id\":17,\r\n      \"information\": \"{\\\"offer_id\\\":\\\"844\\\",\\\"setno\\\":\\\"8880\\\",\\\"amount\\\":1,\\\"comments\\\":\\\"\\\",\\\"download_prices\\\":true,\\\"report_progress\\\":true}\",\r\n      \"progress\" : 100,\r\n       \"status\" : \"Downloading Setdata\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4961,7 +4961,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type_id\":1,\r\n    \"information\": \"{ \\\"setno\\\" : 8882, \\\"download_prices\\\": true, \\\"report_progress\\\": true}\"\r\n}",
+							"raw": "{\r\n    \"type_id\":1,\r\n    \"origin\": \"{\\\"offerid\\\":\\\"844\\\"}\",\r\n    \"information\": \"{\\\"offerid\\\":\\\"844\\\",\\\"setno\\\":\\\"747\\\",\\\"amount\\\":1,\\\"comments\\\":\\\"\\\",\\\"download_prices\\\":true,\\\"report_progress\\\":true}\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
