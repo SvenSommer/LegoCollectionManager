@@ -8,18 +8,21 @@ export default (req: Request, res: Response) => {
         const {token} = req.cookies;
         const {
             id,
+            origin,
             type_id,
             information,
             status_id
         } = req.body;
 
         if (id &&
+            origin && 
             type_id &&
             information &&
             status_id) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const updateOne = `UPDATE Tasks SET type_id = ${type_id},
+                                            origin = '${origin}',
                                             information = '${information}',
                                             status_id = ${status_id}
                                             WHERE id=${id}`;
@@ -45,7 +48,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'id, type_id, information and status_id are required!'
+                message: 'id, type_id, origin, information and status_id are required!'
             });
         }
     } catch (e) {

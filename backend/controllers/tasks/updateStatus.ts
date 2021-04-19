@@ -30,6 +30,11 @@ export default (req: Request, res: Response) => {
                     finished = NOW()
                     WHERE id=${id}`;
                 }
+                if(status_id == 4) {
+                    updateOne = `UPDATE Tasks SET status_id = ${status_id},
+                    finished = NOW()
+                    WHERE id=${id}`;
+                }
                 connection.query(updateOne, (err, result) => {
                     if (err) {
                         console.log("Couldn\'t update Task" + err)

@@ -9,10 +9,12 @@ export default (req: Request, res: Response) => {
         const {token} = req.cookies;
         const {
            type_id,
+           origin,
            information
         } = req.body;
 
         if  (type_id &&
+            origin &&
         information
              ) {
             //@ts-ignore
@@ -29,10 +31,12 @@ export default (req: Request, res: Response) => {
                     else {
                         const {id} = result[0];
                         const createOne = `INSERT INTO Tasks(type_id,
+                            origin,
                             information,
                             status_id)
                             VALUES(
                             ${type_id},
+                            '${origin}',
                             '${information}',
                             1)`;
                             connection.query(createOne, (err, result:any) => {
