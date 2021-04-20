@@ -1,6 +1,6 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PossiblesetModel } from '../models/possibleset-model';
 import { OfferPropertiesModel } from '../models/offer_properties-model';
@@ -56,7 +56,7 @@ export class OfferService {
       return this.http.get<any>(`${environment.baseUrl}offers_properties/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
     
-    saveNewPossibleSets(model): Observable<any> {
+    saveNewPossibleSets(model:PossiblesetModel): Observable<any> {
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       })
@@ -99,9 +99,5 @@ export class OfferService {
       return this.http.delete<any>(`${environment.baseUrl}offers_possiblesets/` + id, { withCredentials: true, headers: headers, observe: 'response' });
     }
 
-    getProgressDetails(requestIds): Observable<any> {
-      let httpHeader = new HttpHeaders();
-      httpHeader.set("Access-Control-Allow-Origin", "*");
-      return this.http.get<any>(`${environment.baseUrl}progressdetails/` + requestIds, { withCredentials: true, headers: httpHeader, observe: 'response' });
-    }
-}
+  
+}  

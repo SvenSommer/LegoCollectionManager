@@ -18,6 +18,7 @@ const API_REQUEST = {
 	OFFERS_USERS: "/offers_user",
 	OFFER_PREFS: "/offers_preferences",
 	SEARCH_TERMS: "/offers_searchproperties",
+	BLACKLISTED_TERMS: "/offers_blacklist",
 	OFFERS_VIEWS: "/offers_views",
 	OFFERS_USER: "/offers_users",
 	OFFERS_IMAGES: "/offers_images",
@@ -42,7 +43,6 @@ const { deleteData } = require("./services/deleteData")
 // =================================================
 const MAX_PAGES = 5
 const acceptCookiesSelector = "#gdpr-banner-accept"
-const denyCookies = ".Actionarea .button-secondary"
 
 const onlyPickUpSelector = "section.browsebox-attribute > div > ul > li:nth-child(2) > a"
 const inputSearchSelector = "#site-search-query"
@@ -64,6 +64,10 @@ const buttonPriceSelector = ".button-iconized"
 const nextPageSelector = ".pagination .pagination-next"
 
 const offerPerPageSelector = "li > article a.ellipsis";
+const offerPerPageSelector = "li > article a.ellipsis";
+let scheduleTime = "10 minutes";
+
+// scheduleTime = toMillis(scheduleTime)
 
 
 // =================================================
@@ -322,11 +326,11 @@ const main = async () => {
 			// If the offer exists
 			if (resultofferexisting.data.result && resultofferexisting.data.result.length > 0) {
 				//* Checking if the objects are equals between each other
+				const resultofferexistingofferinfo = resultofferexisting.data.result[0].offerinfo
 				let offer_id = resultofferexistingofferinfo.id;
 				const resultimagesexistingresponse = await getData(API_URL + API_REQUEST.OFFER_IMAGES_BY_OFFERID + offer_id, reqCredentials)
 				const resultimagesexisting = resultimagesexistingresponse.data.result[0].images;
 				const imagesurls = resultimagesexisting.length > 0 ? resultimagesexisting.map(img => img.imageurl) : []
-
 				const newoffer = scraperesult.offer
 				const images = scraperesult.images
 				const diffimages = getDiffFromArray(imagesurls, images)
@@ -337,8 +341,8 @@ const main = async () => {
 					const updatedKeys = getDiff(resultofferexistingofferinfo, newoffer)
 					newoffer["id"] = offer_id
 					//* Saving the view count
-					console.log("* Storing the view count")
-					Log(LOGLEVEL, "* Storing the view count", reqCredentials)
+					console.log("* Adding new view count")
+					Log(LOGLEVEL, "* Adding new view count", reqCredentials)
 					let object = {
 						offer_id,
 						viewcount: offerViews
@@ -352,7 +356,7 @@ const main = async () => {
 
 					//*Setting the status for changes
 					for (const updatedelement of updatedKeys) {
-						if (updatedelement === "id") continue
+						if (updatedelement === "id" || updatedelement === "deletedByExtUser") continue
 						let status = {
 							offer_id: offer_id,
 							status: "updated " + updatedelement

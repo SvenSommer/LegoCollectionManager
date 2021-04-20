@@ -15,12 +15,11 @@ export default (req: Request, res: Response) => {
             comments,
             instructions,
             condition,
-            status = 10,
-            requestId
+            status = 10
         } = req.body;
 
         if (collectionid &&
-            setnumber && requestId) {
+            setnumber) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const { username } = decoded;
@@ -59,22 +58,29 @@ export default (req: Request, res: Response) => {
                                 errorMessage: process.env.DEBUG && err
                             });
                             else {
-                                GetAndUpsertSetDataByNo(setnumber, userid, requestId).then(function () {
-                                    res.json({
-                                        code: 201,
-                                        message: 'Expected set created!'
-                                    });
-                                }, function (err) {
-                                    res.json({
-                                        code: 500,
-                                        message: 'Some error occurred',
-                                    });
-                                }).catch(function () {
-                                    res.json({
-                                        code: 500,
-                                        message: 'Some error occurred',
-                                    });
+                                res.json({
+                                    code: 201,
+                                    message: `Set ${setnumber} to collectionid ${collectionid} added!`,
                                 });
+
+
+                                //TODO: Move into a seperate service triggered by a entry in the task table
+                                // GetAndUpsertSetDataByNo(setnumber, userid).then(function () {
+                                //     res.json({
+                                //         code: 201,
+                                //         message: 'Expected set created!'
+                                //     });
+                                // }, function (err) {
+                                //     res.json({
+                                //         code: 500,
+                                //         message: 'Some error occurred',
+                                //     });
+                                // }).catch(function () {
+                                //     res.json({
+                                //         code: 500,
+                                //         message: 'Some error occurred',
+                                //     });
+                                // });
                             }
                         })
                     }

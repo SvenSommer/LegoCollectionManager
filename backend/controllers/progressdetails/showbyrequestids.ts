@@ -22,11 +22,11 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         var ids = "'" + id.split( "," ).join( "','" ) + "'";
-                        const showAll = `select * from ProgressDetail where id in(select max(id) from ProgressDetail where request_id in (${ids})  group by request_id);`
+                        const showAll = `Select * from ProgressDetail where id in(select max(id) from ProgressDetail where task_id in (${ids}) group by task_id);`
                         connection.query(showAll, (err, result) => {
                             if (err) res.json({
                                 code: 500,
-                                message: 'Some error occurred while fetching Users',
+                                message: 'Some error occurred while fetching ProgressDetail',
                                 errorMessage: process.env.DEBUG && err
                             });
                             else {

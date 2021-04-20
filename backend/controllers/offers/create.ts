@@ -53,7 +53,7 @@ export default (req: Request, res: Response) => {
                         '${type}',
                         `+ connection.escape(shipping) + `,
                          ${user_id},
-                        '${description.replace("'","`").replace("'","`")}')`;
+                        ` + connection.escape(description) + `)`;
                 connection.query(createOffer, (err, result:any) => {
                     if (err){ 
                         console.log(createOffer)
