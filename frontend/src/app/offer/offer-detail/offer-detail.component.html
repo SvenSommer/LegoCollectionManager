@@ -279,9 +279,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12" *ngIf="imageData">
-                                <ng-container *ngFor="let image of imageData.images">
+                                <ng-container *ngFor="let image of imageData.images; index as i;">
                                     <img class="img-thumbnail rounded float-left" [style.height.px]="150"
-                                        [src]="image.imageurl" (click)="onImgClick(image)" />
+                                        [src]="image.imageurl" (click)="onImgClick(image, i)" />
                                 </ng-container>
                             </div>
                         </div>
@@ -510,5 +510,15 @@
 
 
 <app-modal-popup [title]="imgPopupName" size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
-    <img [src]="imgPopupURL" width="100%" />
+  <div class="main-image-container">
+    <i class="fas fa-chevron-left text-gray-400" (click)="onArrowClick(true)"></i>
+    <img [src]="imgPopupURL" width="90%"/>
+    <i class="fas fa-chevron-right text-gray-400" (click)="onArrowClick(false)"></i>
+  </div>
+  <div class="thumbnail-container">
+    <ng-container *ngFor="let image of imageData.images; index as i;">
+      <img class="img-thumbnail rounded float-left" [ngClass]="{'img-thumbnail-selected': i==selectedImageIndex}"
+           [src]="image.imageurl" (click)="onImgClick(image, i)"/>
+    </ng-container>
+  </div>
 </app-modal-popup>

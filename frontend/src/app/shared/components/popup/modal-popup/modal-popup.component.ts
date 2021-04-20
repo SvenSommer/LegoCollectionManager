@@ -10,9 +10,9 @@ export class ModalPopupComponent implements OnInit {
 
   constructor(private modalService: NgbModal) { }
 
-  @ViewChild('mymodal') modal: any
-  @Input('title') title = '';
-  @Input('size') size = 'lg';
+  @ViewChild('mymodal') modal: any;
+  @Input() title = '';
+  @Input() size = 'lg';
   @Output() public closeEvent: EventEmitter<any> = new EventEmitter();
 
 
