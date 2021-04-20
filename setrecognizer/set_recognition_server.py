@@ -64,9 +64,12 @@ def solution_inference(img: np.ndarray) -> dict:
     return res
 
 
-@app.route('/api/inference/url/', methods=['GET'])
+@app.route('/api/inference/url', methods=['POST'])
 def solution_inference_by_url():
-    image_url_str = request.args.get('image')
+    request_data = request.get_json()
+    if 'url' not in request_data.keys():
+        abort(405)
+    image_url_str = request_data['url']
 
     image = None
     try:
@@ -83,9 +86,12 @@ def solution_inference_by_url():
     return jsonify(solution_inference(image))
 
 
-@app.route('/api/inference/path/', methods=['GET'])
+@app.route('/api/inference/path', methods=['POST'])
 def solution_inference_by_path():
-    image_path_str = request.args.get('path')
+    request_data = request.get_json()
+    if 'path' not in request_data.keys():
+        abort(405)
+    image_path_str = request_data['path']
 
     image = None
     try:
