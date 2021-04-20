@@ -25,7 +25,8 @@ const API_REQUEST = {
 	OFFER_STATUS: "/offers_status",
 	OFFER_LOGS: "/offers_logs",
 	DELETE_OFFER: "/offers/byextuser",
-	ACCOUNTS: "/offers_accounts/1"
+	ACCOUNTS: "/offers_accounts/1",
+	OFFER_IMAGES_BY_OFFERID : "/offers_images/offer/"
 
 }
 exports.API_REQUEST = API_REQUEST
@@ -64,8 +65,6 @@ const buttonPriceSelector = ".button-iconized"
 const nextPageSelector = ".pagination .pagination-next"
 
 const offerPerPageSelector = "li > article a.ellipsis";
-const offerPerPageSelector = "li > article a.ellipsis";
-let scheduleTime = "10 minutes";
 
 // scheduleTime = toMillis(scheduleTime)
 
