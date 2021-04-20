@@ -38,10 +38,11 @@ def solution_inference(img: np.ndarray) -> dict:
     }
 
     for i in range(np.random.randint(0, 10)):
-        x = np.random.randint(0, img.shape[1])
-        y = np.random.randint(0, img.shape[0])
-        w = np.random.randint(img.shape[1] // 10, img.shape[1] - x - 1)
-        h = np.random.randint(img.shape[0] // 10, img.shape[0] - y - 1)
+        w = np.random.randint(img.shape[1] // 10, 2 * img.shape[1] // 3)
+        h = np.random.randint(img.shape[0] // 10, 2 * img.shape[0] // 3)
+
+        x = np.random.randint(0, img.shape[1] - w - 1)
+        y = np.random.randint(0, img.shape[0] - h - 1)
 
         number = reduce(
             lambda s1, s2: s1 + s2,
