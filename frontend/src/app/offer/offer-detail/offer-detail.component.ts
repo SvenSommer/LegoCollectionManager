@@ -20,6 +20,7 @@ export class OfferDetailComponent implements OnInit {
   public imgPopupURL = '';
   public imgPopupName = '';
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
+  public isPopupOpen = false;
 
   public offerDetails;
   public possiblesetDetails;
@@ -28,12 +29,12 @@ export class OfferDetailComponent implements OnInit {
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' } },
-  ]
+  ];
 
   public statusColumns = [
     { title: 'Status', name: 'status', size: '65', minSize: '65' },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' } },
-  ]
+  ];
 
   public possiblesetColumns = [
     { title: 'Amount', name: 'amount', size: '40', minSize: '40', datatype: { type: 'number' } },
@@ -54,12 +55,12 @@ export class OfferDetailComponent implements OnInit {
 
   public isMoreFieldOpenForSet = false;
   public newpossiblesetDetail = {
-    "offer_id": 0,
-    "setno": "",
-    "amount": 1,
-    "comments": "",
-    "request_id": ""
-  }
+    offer_id: 0,
+    setno: '',
+    amount: 1,
+    comments: '',
+    request_id: ''
+  };
 
   public setDownloadingRequestData = [];
   public requestList = new Array<string>();
@@ -72,17 +73,18 @@ export class OfferDetailComponent implements OnInit {
   public imageData: any;
   public possiblesetData: any;
   public propertiesData: any;
+  public offerid = 0;
+  public selectedImageIndex = -1;
 
   constructor(private activatedRoute: ActivatedRoute,
-    private offerService: OfferService,
-    private router: Router, private toastr: ToastrService,
-    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
+              private offerService: OfferService,
+              private router: Router, private toastr: ToastrService,
+              private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
-  public offerid = 0;
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(params => {
-      this.offerid = params['id'];
+      this.offerid = params.id;
       if (this.offerid > 0) {
         this.newpossiblesetDetail.offer_id = this.offerid;
 
@@ -104,12 +106,13 @@ export class OfferDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.offerDetails = data.body.result[0];
-            if (this.offerDetails.propertyinfo != null)
-              this.properties = this.offerDetails.propertyinfo
+            if (this.offerDetails.propertyinfo != null) {
+              this.properties = this.offerDetails.propertyinfo;
+            }
             this.user_category.id = this.offerDetails.userinfo.id;
           }
           else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+            this.router.navigateByUrl('/login');
           }
         }
       },
@@ -120,11 +123,11 @@ export class OfferDetailComponent implements OnInit {
   }
 
   public onDeleteClick() {
-    let options = {
+    const options = {
       title: 'Are you sure you want to delete this?',
       confirmLabel: 'Okay',
       declineLabel: 'Cancel'
-    }
+    };
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
         console.log('Okay');
@@ -133,11 +136,11 @@ export class OfferDetailComponent implements OnInit {
             if (data) {
               if (data.body && data.body.code == 200) {
                 // Message should be data.body.message
-                this.toastr.success("Record Deleted Successfully.");
-                this.router.navigateByUrl("/offer");
+                this.toastr.success('Record Deleted Successfully.');
+                this.router.navigateByUrl('/offer');
               }
               else if (data.body && data.body.code == 403) {
-                this.router.navigateByUrl("/login");
+                this.router.navigateByUrl('/login');
               }
             }
           },
@@ -153,7 +156,7 @@ export class OfferDetailComponent implements OnInit {
 
   public onExternalClick(data) {
     if (data && data.url) {
-      let url: string = '';
+      let url = '';
       if (!/^http[s]?:\/\//.test(data.url)) {
         url += 'http://';
       }
@@ -167,7 +170,7 @@ export class OfferDetailComponent implements OnInit {
     this.offerService.getViewsByOfferid(this.offerid).subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200) {
+          if (data.body && data.body.code === 200) {
             const result = data.body.result as RawViewData[];
             const viewCounts = result.map(rawDataNode => rawDataNode.viewcount);
             this.viewChartData = {
@@ -182,8 +185,8 @@ export class OfferDetailComponent implements OnInit {
               }]
             };
           }
-          else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
           }
         }
       },
@@ -197,11 +200,11 @@ export class OfferDetailComponent implements OnInit {
     this.offerService.getStatusByOfferid(this.offerid).subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200) {
+          if (data.body && data.body.code === 200) {
             this.statusData = data.body.result;
           }
-          else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
           }
         }
       },
@@ -209,17 +212,17 @@ export class OfferDetailComponent implements OnInit {
         console.log(error.name + ' ' + error.message);
       }
     );
-  } 
-  
+  }
+
   getAllImages() {
     this.offerService.getImagesbyOfferId(this.offerid).subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200) {
+          if (data.body && data.body.code === 200) {
             this.imageData = data.body.result[0];
           }
-          else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
           }
         }
       },
@@ -234,11 +237,11 @@ export class OfferDetailComponent implements OnInit {
     this.offerService.getPossiblesetsByOfferid(this.offerid).subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200) {
+          if (data.body && data.body.code === 200) {
             this.possiblesetData = data.body.result;
           }
-          else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
           }
         }
       },
@@ -252,11 +255,11 @@ export class OfferDetailComponent implements OnInit {
     this.offerService.getUserCategories().subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200) {
+          if (data.body && data.body.code === 200) {
             this.userCategoryList = data.body.result;
           }
-          else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
           }
         }
       },
@@ -268,19 +271,19 @@ export class OfferDetailComponent implements OnInit {
 
   callUserCategory(value) {
     this.user_category.category_id = value;
-    console.log(this.user_category)
+    console.log(this.user_category);
     this.offerService.updateUserCategory(this.user_category).subscribe(
       (data) => {
-        if (data.body.code == 201 || data.body.code == 200) {
+        if (data.body.code === 201 || data.body.code === 200) {
           this.toastr.success(data.body.message);
-          this.router.navigateByUrl("/offer");
+          this.router.navigateByUrl('/offer');
         }
         else {
           this.toastr.error(data.body.message);
         }
       },
       (error: HttpErrorResponse) => {
-        //console.log('[getUSers] error : ', error);
+        // console.log('[getUSers] error : ', error);
         console.log(error.name + ' ' + error.message);
       }
     );
@@ -291,8 +294,8 @@ export class OfferDetailComponent implements OnInit {
     if (!form.valid) {
       return;
     }
-    this.newpossiblesetDetail.setno.replace(/ /g, "");
-    this.newpossiblesetDetail.request_id = Date.now().toString() + "_" + this.newpossiblesetDetail.setno;
+    this.newpossiblesetDetail.setno.replace(/ /g, '');
+    this.newpossiblesetDetail.request_id = Date.now().toString() + '_' + this.newpossiblesetDetail.setno;
     this.requestList.push(this.newpossiblesetDetail.request_id);
     console.log(this.newpossiblesetDetail);
 
@@ -305,21 +308,21 @@ export class OfferDetailComponent implements OnInit {
       (data) => {
 
         if (data) {
-          if (data.body && data.body.code == 201) {
+          if (data.body && data.body.code === 201) {
             this.toastr.success(data.body.message);
             this.newpossiblesetDetail = {
-              "offer_id": this.offerid,
-              "setno": "",
-              "amount": 0,
-              "comments": "",
-              "request_id": ""
+              offer_id: this.offerid,
+              setno: '',
+              amount: 0,
+              comments: '',
+              request_id: ''
             };
             this.isSetFormSubmitted = false;
             form.reset();
             this.getAllPossiblesets();
           }
-          else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
           }
           else if (data.body && data.body.message) {
             this.toastr.error(data.body.message);
@@ -333,15 +336,17 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onRowPossibleSetClick(data) {
-    console.log(data)
-    if (data.id != null)
-      this.router.navigateByUrl("/setdetail/" + data.set_id).then((bool) => { }).catch()
+    console.log(data);
+    if (data.id != null) {
+      this.router.navigateByUrl('/setdetail/' + data.set_id).then((bool) => { }).catch();
+    }
   }
 
   onUserDetailsClick(user_id) {
-    console.log(user_id)
-    if (user_id != null)
-      this.router.navigateByUrl("/offeruser/" + user_id).then((bool) => { }).catch()
+    console.log(user_id);
+    if (user_id != null) {
+      this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
+    }
   }
 
   getProgressDetails() {
@@ -349,17 +354,17 @@ export class OfferDetailComponent implements OnInit {
       return;
     }
 
-    this.offerService.getProgressDetails(this.requestList.join(",")).subscribe(
+    this.offerService.getProgressDetails(this.requestList.join(',')).subscribe(
       (data) => {
-        if (data.body && data.body.code == 200) {
+        if (data.body && data.body.code === 200) {
           this.setDownloadingRequestData = Object.assign([], data.body.result);
 
 
-          for (var i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
-            var setNo = this.setDownloadingRequestData[i].request_id.lastIndexOf("_");
+          for (let i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
+            const setNo = this.setDownloadingRequestData[i].request_id.lastIndexOf('_');
             this.setDownloadingRequestData[i].setNo = this.setDownloadingRequestData[i].request_id.substr(setNo + 1);
 
-            if (this.setDownloadingRequestData[i].progress == 100) {
+            if (this.setDownloadingRequestData[i].progress === 100) {
               // var index = this.setDownloadingRequestData.filter(m=>m.progress <= this.newpossiblesetDetail.request_id);
               this.requestList = this.arrayRemove(this.requestList, this.setDownloadingRequestData[i].request_id);
               this.setDownloadingRequestData.splice(i, 1);
@@ -375,24 +380,24 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onRowPossibleSetDeleteClick(data) {
-    let options = {
+    const options = {
       title: 'Are you sure you want to delete this?',
       confirmLabel: 'Okay',
       declineLabel: 'Cancel'
-    }
+    };
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
         this.offerService.deletePossibleSetBySetId(data.id).subscribe(
           (data) => {
             if (data) {
-              if (data.body && data.body.code == 200) {
+              if (data.body && data.body.code === 200) {
                 // Message should be data.body.message
-                this.toastr.success("Set Deleted Successfully.");
+                this.toastr.success('Set Deleted Successfully.');
                 this.bindData();
                 this.getAllPossiblesets();
               }
-              else if (data.body && data.body.code == 403) {
-                this.router.navigateByUrl("/login");
+              else if (data.body && data.body.code === 403) {
+                this.router.navigateByUrl('/login');
               }
             }
           },
@@ -409,13 +414,19 @@ export class OfferDetailComponent implements OnInit {
   public onImgPopupClose() {
     this.imgPopupURL = '';
     this.imgPopupName = '';
+    this.isPopupOpen = false;
   }
 
-  public onImgClick(image) {
-    console.log(image)
+  public onImgClick(image, index: number) {
+    console.log(image);
     this.imgPopupURL = image.imageurl;
     this.imgPopupName = image.path;
-    this.imagePopup.open();
+    this.selectedImageIndex = index;
+
+    if (!this.isPopupOpen) {
+      this.imagePopup.open();
+      this.isPopupOpen = true;
+    }
   }
 
   onSaveProperties(propertiesForm: NgForm) {
@@ -427,7 +438,7 @@ export class OfferDetailComponent implements OnInit {
 
     this.offerService.upsertProperties(this.properties).subscribe(
       (data) => {
-        if (data.body.code == 201 || data.body.code == 200) {
+        if (data.body.code === 201 || data.body.code === 200) {
           this.toastr.success(data.body.message);
         }
         else {
@@ -435,7 +446,7 @@ export class OfferDetailComponent implements OnInit {
         }
       },
       (error: HttpErrorResponse) => {
-        //console.log('[getUSers] error : ', error);
+        // console.log('[getUSers] error : ', error);
         console.log(error.name + ' ' + error.message);
       }
     );
@@ -443,8 +454,20 @@ export class OfferDetailComponent implements OnInit {
 
   arrayRemove(arr, value) {
 
-    return arr.filter(function (ele) {
-      return ele != value;
+    return arr.filter(function(ele) {
+      return ele !== value;
     });
+  }
+
+  onArrowClick(isLeft: boolean) {
+    const nextIndex = this.selectedImageIndex + (isLeft ?  -1 : 1);
+    const images = this.imageData.images;
+
+    if (images.length > nextIndex - 1 && nextIndex > -1) {
+      this.imgPopupURL = images[nextIndex].imageurl;
+      this.imgPopupName = images[nextIndex].path;
+      this.selectedImageIndex = nextIndex;
+    }
+
   }
 }

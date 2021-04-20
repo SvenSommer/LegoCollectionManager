@@ -1,0 +1,31 @@
+.main-image-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fa-chevron-left, .fa-chevron-right {
+  font-size: 45px;
+  opacity: 0.7;
+}
+
+.fa-chevron-left, .fa-chevron-right:hover {
+  cursor: pointer;
+}
+
+.thumbnail-container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px 35px 0 35px;
+  flex-wrap: wrap;
+}
+
+.thumbnail-container .img-thumbnail {
+  height: 100px;
+  width: 139px;
+}
+
+.thumbnail-container .img-thumbnail-selected {
+  border: 2px solid rgba(90, 94, 101, 0.92);
+}
