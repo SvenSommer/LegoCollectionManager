@@ -54,8 +54,7 @@ def solution_inference(img: np.ndarray) -> dict:
                     x / img.shape[1],
                     y / img.shape[0],
                     w / img.shape[1],
-                    h / img.shape[0],
-                    number
+                    h / img.shape[0]
                 ],
                 'number': number
             }
