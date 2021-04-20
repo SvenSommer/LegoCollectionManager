@@ -64,7 +64,7 @@ def solution_inference(img: np.ndarray) -> dict:
     return res
 
 
-@app.route('/api/inference/', methods=['GET'])
+@app.route('/api/inference/url/', methods=['GET'])
 def solution_inference_by_url():
     image_url_str = request.args.get('image')
 
@@ -77,6 +77,24 @@ def solution_inference_by_url():
     except Exception as e:
         logging.error(
             'From method solution_inference_by_url(image_url), {}'.format(e)
+        )
+        abort(408)
+
+    return jsonify(solution_inference(image))
+
+
+@app.route('/api/inference/path/', methods=['GET'])
+def solution_inference_by_path():
+    image_path_str = request.args.get('path')
+
+    image = None
+    try:
+        image = np.array(
+            Image.open(image_path_str).convert('RGB')
+        )
+    except Exception as e:
+        logging.error(
+            'From method solution_inference_by_path(image_url), {}'.format(e)
         )
         abort(408)
 
