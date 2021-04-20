@@ -43,18 +43,18 @@ export default (req: Request, res: Response) => {
                 const updateOffer = `UPDATE Offers SET external_id = ${external_id},
                                         url = '${url}',
                                         searchproperties_id = ${searchproperties_id},
-                                        title = '${title.replace("'","`").replace("'","`")}',
+                                        title = ` + connection.escape(title) + `,
                                         price = ${price},
                                         pricetype = '${pricetype}',
                                         currency = '${currency}',
-                                        locationgroup = '${locationgroup.replace("'","`").replace("'","`")}',
-                                        locality = '${locality.replace("'","`").replace("'","`")}',
-                                        zipcode = '${zipcode.replace("'","`").replace("'","`")}',
+                                        locationgroup = ` + connection.escape(locationgroup) + `,
+                                        locality = ` + connection.escape(locality) + `,
+                                        zipcode = ` + connection.escape(zipcode) + `,
                                         datecreated = '${datecreated}',
                                         type = '${type}',
                                         shipping = '${shipping}',
                                         user_id = ${user_id},
-                                        description = '${description.replace("'","`").replace("'","`")}'
+                                        description = ` + connection.escape(description) + `
                                         WHERE id=${id}`;
                 connection.query(updateOffer, (err, result) => {
                     if (err) { 
