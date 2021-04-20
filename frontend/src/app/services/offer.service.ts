@@ -69,6 +69,18 @@ export class OfferService {
       return this.http.get<any>(`${environment.baseUrl}offers_possiblesets/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }  
     
+    getMessagetexts(): Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}offers_messagetexts`, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }   
+    
+    getAccounts(): Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}offers_accounts`, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
+
     getUserCategories(): Observable<any> {
       let httpHeader = new HttpHeaders();
       httpHeader.set("Access-Control-Allow-Origin", "*");

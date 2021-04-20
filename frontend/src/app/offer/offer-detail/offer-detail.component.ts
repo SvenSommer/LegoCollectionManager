@@ -11,6 +11,7 @@ import { RawViewData, ViewChartData } from './offer-detail.model';
 import { UserCategoryModel } from 'src/app/models/usercategory-model';
 import { TaskModel } from 'src/app/models/task-model';
 import { TaskService } from 'src/app/services/task.service';
+import { MessageTextModel } from 'src/app/models/messagetext-model';
 
 @Component({
   selector: 'app-offer-detail',
@@ -27,6 +28,8 @@ export class OfferDetailComponent implements OnInit {
   public offerDetails;
   public possiblesetDetails;
   public userCategoryList: Array<any>;
+  public messageAccountList: Array<MessageTextModel>;
+  public messageTextList: Array<any>;
 
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
@@ -56,7 +59,14 @@ export class OfferDetailComponent implements OnInit {
   ];
 
   public isMoreFieldOpenForSet = false;
+  public task_origin = {
+     offer_id : 0
+  }
 
+  public newMessage = {
+    "account_id": 2,
+    "messagetext_id": 2
+  }
 
   public newpossiblesetDetail = {
     "offer_id": 0,
@@ -93,6 +103,7 @@ export class OfferDetailComponent implements OnInit {
       this.offerid = params.id;
       if (this.offerid > 0) {
         this.newpossiblesetDetail.offer_id = this.offerid;
+        this.task_origin.offer_id = this.offerid;
 
         this.properties = new OfferPropertiesModel(this.offerid);
         this.bindData();
@@ -101,6 +112,8 @@ export class OfferDetailComponent implements OnInit {
         this.getAllStatus();
         this.getAllPossiblesets();
         this.getUserCategoriesList();
+        this.getAccounts();
+        this.getMessagetexts();
       }
     });
 
@@ -275,9 +288,47 @@ export class OfferDetailComponent implements OnInit {
     );
   }
 
+  getMessagetexts() {
+    this.offerService.getMessagetexts().subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code === 200) {
+            this.messageTextList = data.body.result;
+          }
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  getAccounts() {
+    console.log("getting accopunts")
+    this.offerService.getAccounts().subscribe(
+      (data) => {
+        if (data) {
+          console.log(data.body)
+          if (data.body && data.body.code === 200) {
+
+            this.messageAccountList = data.body.result;
+          }
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
   callUserCategory(value) {
     this.user_category.category_id = value;
-    console.log(this.user_category);
     this.offerService.updateUserCategory(this.user_category).subscribe(
       (data) => {
         if (data.body.code === 201 || data.body.code === 200) {
@@ -301,17 +352,15 @@ export class OfferDetailComponent implements OnInit {
       return;
     }
     this.newpossiblesetDetail.setno.replace(/ /g, "");
-    var task_origin = {
-      offerid : this.offerid,
-    }
+    
 
     var new_task : TaskModel = {
       type_id : 1,
-      origin : JSON.stringify(task_origin),
+      origin : JSON.stringify(this.task_origin),
       information :  JSON.stringify(this.newpossiblesetDetail)
     }
 
-    this.taskService.createDownloadSetTask(new_task).subscribe(
+    this.taskService.createNewTask(new_task).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 201) {
@@ -482,6 +531,50 @@ export class OfferDetailComponent implements OnInit {
     );
   }
 
+  onSentMessage(messageForm: NgForm) {
+    if (!messageForm.valid) {
+      return;
+    }
+
+    var messageinfo = {
+      offer_id : this.offerid,
+      account : this.messageAccountList.find(i => i.id == this.newMessage.account_id),
+      messagetext : this.messageTextList.find(i => i.id == this.newMessage.messagetext_id)
+    }
+    var new_task : TaskModel = {
+      type_id : 3,
+      origin : JSON.stringify(this.task_origin),
+      information : JSON.stringify(messageinfo)
+    }
+    console.log(new_task)
+    this.taskService.createNewTask(new_task).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 201) {
+            this.requestList.push(data.body.task_id);   
+
+            this.toastr.success(data.body.message);
+            messageForm.reset();
+            setInterval(() => {
+              this.getProgressDetails();
+            }, 1000);
+
+          }
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+          else if (data.body && data.body.message) {
+            this.toastr.error(data.body.message);
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+         
+  }
+ 
   arrayRemove(arr, value) {
 
     return arr.filter(function(ele) {

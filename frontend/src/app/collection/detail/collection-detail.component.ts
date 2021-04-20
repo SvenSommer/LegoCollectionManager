@@ -375,7 +375,7 @@ export class CollectionDetailComponent implements OnInit {
       this.getProgressDetails();
     }, 1000);
 
-    this.taskService.createDownloadSetTask(new_task).subscribe(
+    this.taskService.createNewTask(new_task).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 201) {

@@ -11,7 +11,7 @@ export class TaskService {
     constructor(private http: HttpClient) {
     }
 
-    createDownloadSetTask(model: TaskModel): Observable<any> {
+    createNewTask(model: TaskModel): Observable<any> {
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       })
