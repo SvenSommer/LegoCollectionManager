@@ -133,6 +133,7 @@ if (cluster.isWorker) {
     app.use('/offers_logs', offers_logs);
     app.use('/offers_accounts', offers_accounts);
     app.use('/offers_messagetexts', offers_messagetexts);
+    app.use('/offers_blacklist', offers_blacklist);
 
     app.use('/progressdetails', progress_routes);
 
