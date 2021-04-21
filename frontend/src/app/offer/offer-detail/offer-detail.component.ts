@@ -100,7 +100,7 @@ export class OfferDetailComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(params => {
-      this.offerid = params.id;
+      this.offerid = parseInt(params.id, 10);
       if (this.offerid > 0) {
         this.newpossiblesetDetail.offer_id = this.offerid;
         this.task_origin.offer_id = this.offerid;
@@ -352,7 +352,7 @@ export class OfferDetailComponent implements OnInit {
       return;
     }
     this.newpossiblesetDetail.setno.replace(/ /g, "");
-    
+
 
     var new_task : TaskModel = {
       type_id : 1,
@@ -362,9 +362,10 @@ export class OfferDetailComponent implements OnInit {
 
     this.taskService.createNewTask(new_task).subscribe(
       (data) => {
+
         if (data) {
           if (data.body && data.body.code == 201) {
-            this.requestList.push(data.body.task_id);   
+            this.requestList.push(data.body.task_id);
 
             this.toastr.success(data.body.message);
             this.newpossiblesetDetail = {
@@ -551,7 +552,7 @@ export class OfferDetailComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 201) {
-            this.requestList.push(data.body.task_id);   
+            this.requestList.push(data.body.task_id);
 
             this.toastr.success(data.body.message);
             messageForm.reset();
@@ -572,9 +573,9 @@ export class OfferDetailComponent implements OnInit {
         console.log(error.name + ' ' + error.message);
       }
     );
-         
+
   }
- 
+
   arrayRemove(arr, value) {
 
     return arr.filter(function(ele) {
@@ -593,4 +594,32 @@ export class OfferDetailComponent implements OnInit {
     }
 
   }
+
+  getOffer(isNext: boolean) {
+    let offersIds: number[] = [];
+
+    this.offerService.getOffers().subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code === 200) {
+            offersIds = data.body.result.map(
+              offer => offer.id
+            );
+
+            const currentOfferIndex = offersIds.indexOf(this.offerid);
+            const nextOfferIndex = currentOfferIndex + (isNext ? 1 : -1);
+
+            if (nextOfferIndex < offersIds.length && nextOfferIndex > -1) {
+              this.router.navigateByUrl('/offerdetail/' + offersIds[nextOfferIndex]);
+            }
+          } else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+      }
+    );
+  }
+
 }

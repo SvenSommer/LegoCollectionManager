@@ -1,6 +1,10 @@
 <div class="container-fluid" *ngIf="offerDetails">
     <div class="d-sm-flex justify-content-between align-items-center mb-4 pt-2">
         <h3 class="text-dark mb-0">{{offerDetails.offerinfo.title}}</h3>
+      <div class="navigation-buttons-container">
+        <i class="fas fa-arrow-left button"  (click)="getOffer(false)"></i>
+        <i class="fas fa-arrow-right button" (click)="getOffer(true)"></i>
+      </div>
     </div>
 </div>
 <div class="row mb-3" *ngIf="offerDetails">
@@ -343,7 +347,7 @@
                                                                 </select>
                                                             </td>
                                                         </tr>
-                                                    
+
                                                     </table>
                                                     <div class="row">
                                                         <div class="col-sm-12">
