@@ -539,6 +539,7 @@ export class OfferDetailComponent implements OnInit {
 
     var messageinfo = {
       offer_id : this.offerid,
+      url : this.offerDetails.offerinfo.url,
       account : this.messageAccountList.find(i => i.id == this.newMessage.account_id),
       messagetext : this.messageTextList.find(i => i.id == this.newMessage.messagetext_id)
     }

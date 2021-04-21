@@ -379,8 +379,6 @@ export class CollectionDetailComponent implements OnInit {
       information :  JSON.stringify(setinformation)
     }
 
-
-
     setInterval(() => {
       this.getProgressDetails();
     }, 1000);
