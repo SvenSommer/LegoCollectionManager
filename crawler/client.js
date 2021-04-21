@@ -186,10 +186,10 @@ const main = async () => {
 			console.log("* The form is available, fullfilling the form...");
 			// Log(LOGLEVEL, "* The form is available, fullfilling the form...", reqCredentials)
 			console.log("taskinfo.messagetext", taskinfo.messagetext)
-			console.log("taskinfo.account.username", taskinfo.account.username)
-			console.log("taskinfo.account.phone", taskinfo.account.phone)
 			await page.type(messageFormSelector,  taskinfo.messagetext)
+			console.log("taskinfo.account.username", taskinfo.account.username)
 			await page.type(nameInputSelector,  taskinfo.account.username)
+			console.log("taskinfo.account.phone", taskinfo.account.phone)
 			await page.type(phoneInputSelector,  taskinfo.account.phone)
 			console.log("* The form is complete, sending the message...");
 			// Log(LOGLEVEL, "* The form is complete, sending the message...", reqCredentials)
