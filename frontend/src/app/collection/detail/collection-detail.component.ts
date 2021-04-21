@@ -363,10 +363,20 @@ export class CollectionDetailComponent implements OnInit {
       collectionid : this.collectionid,
     }
 
+    var setinformation = {
+      collectionid : this.collectionid,
+      setno : this.newSetDetails.setnumber,
+      comments : this.newSetDetails.comments,
+      instructions : this.newSetDetails.instructions,
+      condition : this.newSetDetails.condition,
+      download_prices : this.newSetDetails.download_prices,
+      report_progress : this.newSetDetails.report_progress
+    }
+
     var new_task : TaskModel = {
       type_id : 1,
       origin : JSON.stringify(task_origin),
-      information :  JSON.stringify(this.newSetDetails)
+      information :  JSON.stringify(setinformation)
     }
 
 
