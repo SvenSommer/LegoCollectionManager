@@ -4,6 +4,7 @@
 const LOGLEVEL = "INFO"
 // const { Log } = require('./services/log')
 const { storeData } = require("./services/storeData")
+const { updateData } = require("./services/updateData")
 const { getData } = require("./services/getData")
 const { getToken } = require("./utils")
 // =================================================
@@ -185,17 +186,19 @@ const main = async () => {
 		if (await page.$(contactFormSelector)) {
 			console.log("* The form is available, fullfilling the form...");
 			// Log(LOGLEVEL, "* The form is available, fullfilling the form...", reqCredentials)
-			console.log("taskinfo.messagetext", taskinfo.messagetext)
-			await page.type(messageFormSelector,  taskinfo.messagetext)
-			console.log("taskinfo.account.username", taskinfo.account.username)
+			//console.log("taskinfo.messagetext", taskinfo.messagetext.message)
+			await page.type(messageFormSelector,  taskinfo.messagetext.message)
 			await page.type(nameInputSelector,  taskinfo.account.username)
-			console.log("taskinfo.account.phone", taskinfo.account.phone)
+			await page.type(phoneInputSelector,  "")
 			await page.type(phoneInputSelector,  taskinfo.account.phone)
 			console.log("* The form is complete, sending the message...");
 			// Log(LOGLEVEL, "* The form is complete, sending the message...", reqCredentials)
-			// await page.$eval(submitFormSelector, el => el.click()) //Nachricht senden
+			await page.$eval(submitFormSelector, el => el.click()) //Nachricht se
 			console.log("* The message has sended");
 			// Log(LOGLEVEL, "* The message has sended", reqCredentials)
+			// Set task as completed
+			//console.log(await updateData(API_URL + `/tasks/${task_id}/status`, {"id":task_id,"status_id" : 3}, reqCredentials).data)
+			// console.log({res: storePropertiesResult.data});
 		}
 
 		await handleClose("* Closing the browser")
@@ -203,15 +206,3 @@ const main = async () => {
 
 }
 main();
-
-/* const [url, email, password, userName, userPhone, message] = process.argv.slice(2)
-const params = [url, email, password, userName, userPhone, message]
-//* Validation
-const areValids = params.every(val => val !== undefined)
-if (areValids && params.length === 6) {
-	const args = { url, email, password, userName, userPhone, message }
-	main(args)
-}else{
-	console.log("The arguments are not complete, or in the wrong order (url, email, password, name, phone, message)");
-}
- */
