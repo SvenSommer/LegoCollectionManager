@@ -63,7 +63,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'type, information and status are required!'
+                message: 'type, information, progress and status are required!'
             });
         }
     } catch (e) {

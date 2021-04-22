@@ -62,3 +62,4 @@ tools/gulp-tasks/cldr/cldr-data/
 /crawler/offerimages
 /frontend/src/assets/partimages
 /frontend/partimages
+/download-worker/.env
