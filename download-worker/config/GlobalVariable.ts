@@ -5,7 +5,7 @@ export class GlobalVariable {
     public static cookie: any;
     public static userId = 1;
     public static setDownloadLimit = 1;
-    public static subSetDownloadLimit = 6;
+    public static subSetDownloadLimit = 5;
     public static currentSetData: any;
 }
 
