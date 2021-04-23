@@ -338,7 +338,7 @@
                                                                 Text
                                                             </td>
                                                             <td>
-                                                                <select ngModel name="messagetext_id" id="messagetext_id"
+                                                                <select name="messagetext_id" id="messagetext_id"
                                                                 class="form-control input-group" #status="ngModel"
                                                                 [(ngModel)]="newMessage.messagetext_id" #t>
                                                                     <option *ngFor="let text of messageTextList" [value]="text.id">
@@ -347,9 +347,9 @@
                                                                 </select>
                                                             </td>
                                                         </tr>
-
                                                     </table>
-                                                    <div class="row">
+                                                  <span>{{getMessageText(newMessage.messagetext_id)}}</span>
+                                                  <div class="row">
                                                         <div class="col-sm-12">
                                                             <button type="submit" class="btn btn-primary">Send Message</button>
                                                         </div>
@@ -572,7 +572,7 @@
     <img [src]="imgPopupURL" width="90%"/>
     <i class="fas fa-chevron-right text-gray-400" (click)="onArrowClick(false)"></i>
   </div>
-  <div class="thumbnail-container">
+  <div class="thumbnail-container" *ngIf="!!imageData">
     <ng-container *ngFor="let image of imageData.images; index as i;">
       <img class="img-thumbnail rounded float-left" [ngClass]="{'img-thumbnail-selected': i==selectedImageIndex}"
            [src]="image.imageurl" (click)="onImgClick(image, i)"/>
