@@ -510,12 +510,13 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onSaveProperties(propertiesForm: NgForm) {
+    console.log(propertiesForm);
     if (!propertiesForm.valid) {
       return;
     }
     this.properties.offer_id = this.offerid;
 
-
+    console.log(this.properties);
     this.offerService.upsertProperties(this.properties).subscribe(
       (data) => {
         if (data.body.code === 201 || data.body.code === 200) {
@@ -625,7 +626,7 @@ export class OfferDetailComponent implements OnInit {
 
 
   getMessageText(messagetextId: number): string {
-    const messageText = this.messageTextList.find(i => i.id == messagetextId);
+    const messageText = this.messageTextList ? this.messageTextList.find(i => i.id == messagetextId) : null;
     return messageText ? messageText.message : '';
   }
 }
