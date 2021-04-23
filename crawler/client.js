@@ -56,7 +56,7 @@ const main = async () => {
 	const AdblockerPlugin = require('puppeteer-extra-plugin-adblocker')
 	puppeteer.use(AdblockerPlugin({ blockTrackers: true }))
 
-	const headless = true
+	const headless = process.argv.some(arg => arg === "vi") ? false : true
 	// Launch browser  & init page
 	const browser = await puppeteer.launch({
 		headless: headless,
@@ -96,38 +96,38 @@ const main = async () => {
 
 	//* Getting the open tasks
 	let tasks = await getData(API_URL + API_REQUEST.OPEN_TAKS, reqCredentials)
+
+	// =================================================
+	// * OPENING THE BROWSER
+	// =================================================
+	const page = await browser.newPage()
+	await page.setCacheEnabled(false)
+	await page.setDefaultTimeout(15 * 60 * 1000)
+
+	// Handling all errors
+	const handleClose = async (message = "Closing the browser on unexpected Error") => {
+		console.log(message)
+		// Log("ERROR", message, reqCredentials)
+		for (const page of await browser.pages()) {
+			if (!await page.isClosed()) {
+				await page.close();
+			}
+		}
+		process.exit(1)
+	}
+
+	process.on("uncaughtException", (e) => {
+		handleClose(`Uncaught Exception ${e.message}`)
+	})
+
+	process.on("unhandledRejection", (e) => {
+		//e.stack returns the line of the script with the error
+		handleClose(`Request exception: ${e.message} - Line:${e.stack}`)
+	})
 	for (const task of tasks.data.result) {
 
 		const task_id = task.id;
 		const taskinfo = JSON.parse(task.information)
-		// =================================================
-		// * OPENING THE BROWSER
-		// =================================================
-		const page = await browser.newPage()
-		await page.setCacheEnabled(false)
-		await page.setDefaultTimeout(15 * 60 * 1000)
-
-		// Handling all errors
-		const handleClose = async (message = "Closing the browser on unexpected Error") => {
-			console.log(message)
-			// Log("ERROR", message, reqCredentials)
-			for (const page of await browser.pages()) {
-				if (!await page.isClosed()) {
-					await page.close();
-				}
-			}
-			process.exit(1)
-		}
-
-		process.on("uncaughtException", (e) => {
-			handleClose(`Uncaught Exception ${e.message}`)
-		})
-
-		process.on("unhandledRejection", (e) => {
-			//e.stack returns the line of the script with the error
-			handleClose(`Request exception: ${e.message} - Line:${e.stack}`)
-		})
-
 		// const {url, account, messagetext} = taskinfo;
 		// const {email, password, userName, userPhone} = account;
 		//* Starting the process
@@ -172,7 +172,7 @@ const main = async () => {
 		}
 		if (formAvailable) {
 			await page.type(emailSelector, taskinfo.account.email)
-			await page.type(passwordSelector,  taskinfo.account.password)
+			await page.type(passwordSelector, taskinfo.account.password)
 			await page.$eval(submitLoginSelector, el => el.click())
 			await page.waitForTimeout(2000)
 			console.log("* Login success");
@@ -184,13 +184,16 @@ const main = async () => {
 		await page.waitForTimeout(2000)
 
 		if (await page.$(contactFormSelector)) {
+			console.log("* Cleaning the form");
+			await page.evaluate((selectors) => {
+				selectors.forEach(sel => document.querySelector(sel).value = "")
+			}, [messageFormSelector, nameInputSelector, phoneInputSelector])
 			console.log("* The form is available, fullfilling the form...");
 			// Log(LOGLEVEL, "* The form is available, fullfilling the form...", reqCredentials)
 			//console.log("taskinfo.messagetext", taskinfo.messagetext.message)
-			await page.type(messageFormSelector,  taskinfo.messagetext.message)
-			await page.type(nameInputSelector,  taskinfo.account.username)
-			await page.type(phoneInputSelector,  "")
-			await page.type(phoneInputSelector,  taskinfo.account.phone)
+			await page.type(messageFormSelector, taskinfo.messagetext.message)
+			await page.type(nameInputSelector, taskinfo.account.username)
+			await page.type(phoneInputSelector, taskinfo.account.phone)
 			console.log("* The form is complete, sending the message...");
 			// Log(LOGLEVEL, "* The form is complete, sending the message...", reqCredentials)
 			await page.$eval(submitFormSelector, el => el.click()) //Nachricht se
@@ -201,8 +204,8 @@ const main = async () => {
 			// console.log({res: storePropertiesResult.data});
 		}
 
-		await handleClose("* Closing the browser")
-	}
+	}//for task in tasks
+	await handleClose("* Closing the browser")
 
 }
 main();
