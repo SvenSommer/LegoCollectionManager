@@ -622,4 +622,10 @@ export class OfferDetailComponent implements OnInit {
     );
   }
 
+
+
+  getMessageText(messagetextId: number): string {
+    const messageText = this.messageTextList.find(i => i.id == messagetextId);
+    return messageText ? messageText.message : '';
+  }
 }
