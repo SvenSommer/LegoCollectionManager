@@ -15,6 +15,7 @@ export function GetTaskData() {
     transport.get<any>(process.env.API_URL + 'tasks/type/1/open', { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(async res => {
       //console.log(res.data);
       if (res.data.code == 200) {
+        GlobalVariable.currentSetData = res.data.result;
         DownloadSetDataMain(res.data.result).then(data => {
           resolve(data);
         });
@@ -29,7 +30,7 @@ export function GetTaskData() {
 
 export function DownloadSetDataMain(data: any) {
   return new Promise(function (resolve, reject) {
-    async.eachLimit(data, 2, makeSingleRequest, function (err: any) {
+    async.eachLimit(data, GlobalVariable.setDownloadLimit, makeSingleRequest, function (err: any) {
       resolve(true);
     });
   });
@@ -57,3 +58,13 @@ export function makeSingleRequest(entry: any, callback: any) {
     callback();
   }
 };
+
+
+export function ReInitAfterError() {
+  if (GlobalVariable.currentSetData) {
+    console.log("Making all download set to open " + GlobalVariable.currentSetData.length);
+    GlobalVariable.currentSetData.forEach(function (element: any) {
+      UpdateTaskStatus(element.id, 1, element.information);
+    });
+  }
+}

@@ -5,6 +5,7 @@ const Client = api.Client,
     Category = api.Category,
     Color = api.Color;
     
+    
 var bricklinkClient = new Client({
     "consumer_key": process.env.BRICKLINK_CONSUMERKEY,
     "consumer_secret": process.env.BRICKLINK_CONSUMERSECRET,
