@@ -11,6 +11,7 @@ import { SorterComponent } from './sorter/sorter.component';
 import { SorterDetailComponent } from './sorter/detail/sorter-detail.component';
 import { RunDetailComponent } from './run/run-detail/run-detail.component';
 import { PreferencesComponent } from './preferences/preferences.component';
+import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 import { ColorsComponent } from './colors/colors.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path:'hardware',component:SorterComponent,canActivate:[AuthenticationGuard]},
   {path:'sortersdetail/:id',component:SorterDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'preferences',component:PreferencesComponent,canActivate:[AuthenticationGuard]},
+  {path:'preferences/partnamesfrequency',component:PartnamefrequencyComponent,canActivate:[AuthenticationGuard]},
   {path:'colors',component:ColorsComponent,canActivate:[AuthenticationGuard]},
   {path:'categories',component:CategoriesComponent,canActivate:[AuthenticationGuard]},
   {path:'prices',component:PricesComponent,canActivate:[AuthenticationGuard]},

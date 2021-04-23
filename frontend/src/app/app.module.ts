@@ -63,6 +63,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 import { CardTableComponent } from './shared/components/card-table/card-table.component';
 import { AccountsComponent } from './offer/accounts/accounts.component';
+import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 
 
 @NgModule({
@@ -115,6 +116,7 @@ import { AccountsComponent } from './offer/accounts/accounts.component';
     UserDetailComponent,
     CardTableComponent,
     AccountsComponent,
+    PartnamefrequencyComponent,
   ],
   imports: [
     BrowserModule,

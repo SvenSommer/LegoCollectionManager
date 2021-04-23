@@ -1,4 +1,5 @@
 import DownloadPartData from '../controllers/partdata/download';
+import CreatePartnameFrequency from '../controllers/partdata/partnames_frequency/create';
 import ShowAllPartData from '../controllers/partdata/show';
 import RefreshPartDataById from '../controllers/partdata/refresh';
 import GetSinglePartDataById from '../controllers/partdata/single';
@@ -12,6 +13,7 @@ const route = Router();
 route.get(``, UserAuthMiddleware, ShowAllPartData);
 //Download a new setDetail
 route.post(``, AdminAuthMiddleware, DownloadPartData);
+route.post(`/partnamefrequency`, AdminAuthMiddleware, CreatePartnameFrequency);
 //Show info about a setDetail
 route.get(`/:id`, UserAuthMiddleware, GetSinglePartDataById);
 //Refresh info of a particular setDetail
