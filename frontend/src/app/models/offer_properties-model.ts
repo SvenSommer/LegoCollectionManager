@@ -2,7 +2,7 @@ export class OfferPropertiesModel {
     public offer_id: number;
     public weight_kg: number;
     public instructions: boolean;
-    public minifigs: string;
+    public minifigs: boolean;
     public boxes: boolean;
     public notes: string;
     public created: string;

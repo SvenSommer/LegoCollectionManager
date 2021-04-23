@@ -511,9 +511,7 @@ export class OfferDetailComponent implements OnInit {
 
   onSaveProperties(propertiesForm: NgForm) {
     console.log(propertiesForm);
-    if (!propertiesForm.valid) {
-      return;
-    }
+
     this.properties.offer_id = this.offerid;
 
     console.log(this.properties);
