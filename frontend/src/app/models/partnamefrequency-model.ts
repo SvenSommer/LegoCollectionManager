@@ -1,17 +1,15 @@
 export class PartnameFrequencyModel {
     public wordposition: number;
     public word: string;
-    public nearwords: Array<NearWords>;
+//    public nearwords: Array<NearWords>;
     public counter: number;
-    public overallcounter: number;
 
     constructor(data = null) {
         if (data) {
             this.wordposition = data.wordposition;
             this.word = data.word;
-            this.nearwords = data.nearWords;
+       //     this.nearwords = data.nearWords;
             this.counter = data.counter;
-            this.overallcounter = data.overallcounter;
         }
     }
 }
@@ -32,17 +30,15 @@ export class NearWords {
 export class PartnameFrequencyModelExport {
     public wordposition: number;
     public word: string;
-    public nearwords: string;
+//    public nearwords: string;
     public counter: number;
-    public overallcounter: number;
 
     constructor(data = null) {
         if (data) {
             this.wordposition = data.wordposition;
             this.word = data.word;
-            this.nearwords = data.nearWords;
+  //          this.nearwords = data.nearWords;
             this.counter = data.counter;
-            this.overallcounter = data.overallcounter;
         }
     }
 }

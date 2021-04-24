@@ -13,7 +13,7 @@ const route = Router();
 
 //List all setDetails
 route.get(``, UserAuthMiddleware, ShowAllPartData);
-route.get(`/aggregatedbypartno`, UserAuthMiddleware, ShowAllPartDataAggregatedbypartno);
+route.get(`/aggregatedbypartno/:searchwords`, UserAuthMiddleware, ShowAllPartDataAggregatedbypartno);
 route.get(`/partnamefrequency`, UserAuthMiddleware, ShowAllPartNameFrequency);
 //Download a new setDetail
 route.post(``, AdminAuthMiddleware, DownloadPartData);

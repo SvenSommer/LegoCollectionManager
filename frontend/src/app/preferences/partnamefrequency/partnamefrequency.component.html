@@ -1,11 +1,16 @@
 <div class="container-fluid">
     <h3 class="text-dark mb-4 pt-2">Names Frequency</h3>
 
-    <div *ngIf="partNameFrequencyData">
-        <ng-container *ngFor="let data of partNameFrequencyData">
-            <button class="btn btn-primary btn-sm mr-1" (click)="showNextNames(data)">{{data.word}}</button>
+    <div *ngIf="activeButtons">
+        <ng-container *ngFor="let data of activeButtons">
+            <button class="btn btn-primary btn-sm mr-1" (click)="showNextNames(data)">{{data.word}} ({{data.counter}})</button>
           </ng-container>
-
+          <div>
+            <ng-container *ngFor="let word of searchwords">
+                <label class="mr-1">{{word}}</label>
+              </ng-container>    
+          </div>
+         
     </div>
 
     <div class="card shadow mb-4">
@@ -21,9 +26,15 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="row">
+           <!--  <div class="row">
                 <div class="col-sm-12" *ngIf="countdata && countcolumns">
                     <ng-table [allowSearch]="false" [isActionVisible]="false" [columns]="countcolumns" [data]="countdata">
+                </ng-table>
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-12" *ngIf="partdata && partcolumns">
+                    <ng-table [inputSearchTerm]="combinedsearchword" [allowSearch]="false" [isActionVisible]="false" [columns]="partcolumns" [data]="partdata">
                 </ng-table>
                 </div>
             </div>
