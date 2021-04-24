@@ -53,6 +53,17 @@ export class RunDetailComponent implements OnInit {
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' }},
   ];
 
+  public overviewInfo = {
+    title: 'Overview',
+    rowData: [
+      { key: 'name', name: 'Collection'},
+      { key: 'sorterinfo.name', name: 'Sorter'},
+      { key: 'status.name', name: 'Status'},
+      { key: 'parts_identified_by_cnn', name: 'Parts identified By Cnn'},
+      { key: 'parts_identified_by_human', name: 'Parts identified By Human'}
+    ]
+  };
+
   public newSortedSetDetail = {
     "id":0,
     "run_id":0,

@@ -40,7 +40,8 @@
 
                 </div>
             </div>
-            <div class="card-body">
+            <app-card-table *ngIf="runDetails" [cardColumns]="overviewInfo" [cardData]="runDetails"></app-card-table>
+            <!-- <div class="card-body">
                 <div class="card">
                     <div class="card-body">
                         <h4>Overview</h4>
@@ -89,7 +90,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-lg-8">

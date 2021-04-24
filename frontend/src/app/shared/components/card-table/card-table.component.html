@@ -30,6 +30,11 @@
                           {{cardInfo.value}}
                       </a>
                   </td>
+                  <td *ngSwitchCase="'set_detail_link'">
+                      <a href="https://www.bricklink.com/v2/catalog/catalogitem.page?S={{cardData.no}}#T=S&O={%22ss%22:%22DE%22,%22cond%22:%22U%22,%22ii%22:0,%22is%22:0,%22iconly%22:0}" (click)="onExternalClick(cardInfo.target)">
+                          {{cardInfo.value}}
+                      </a>
+                  </td>
                   <td *ngSwitchCase="'date'">
                     {{cardInfo.value | date:'dd.MM.yyyy'}}
                   </td>
@@ -37,7 +42,7 @@
                     {{cardInfo.value | date:'dd.MM.yyyy HH:mm'}}
                   </td>
                   <td *ngSwitchCase="'weight'">
-                    {{cardInfo.value}} kg
+                    {{cardInfo.value}} {{cardInfo?.dataType?.unit == 'g' ? cardInfo?.dataType?.unit : 'kg'}}
                   </td>
                   <td *ngSwitchCase="'select'">
                     <select ngModel name="usercategory_id" id="usercategory_id"
