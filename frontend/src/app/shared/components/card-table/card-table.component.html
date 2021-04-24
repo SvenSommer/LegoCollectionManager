@@ -13,6 +13,23 @@
                           {{cardInfo.value}}
                       </a>
                   </td>
+                  <td *ngSwitchCase="'no_link'">
+                      <a class="pl-1" [title]="cardInfo.title" (click)="onUserDetailsClick(cardInfo.target)">
+                          {{cardInfo.value}}
+                      </a>
+                  </td>
+                  <td *ngSwitchCase="'icon_link'">
+                      {{cardInfo.value}}
+                      <a class="pl-1" [title]="cardInfo.title"
+                          (click)="onUserDetailsClick(cardInfo.target)">
+                          <i class="fas fa-info-circle text-gray-400"></i>
+                      </a>
+                  </td>
+                  <td *ngSwitchCase="'external_link'">
+                      <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{cardData?.user_id}}" (click)="onExternalClick(cardInfo.target)">
+                          {{cardInfo.value}}
+                      </a>
+                  </td>
                   <td *ngSwitchCase="'date'">
                     {{cardInfo.value | date:'dd.MM.yyyy'}}
                   </td>
@@ -21,6 +38,15 @@
                   </td>
                   <td *ngSwitchCase="'weight'">
                     {{cardInfo.value}} kg
+                  </td>
+                  <td *ngSwitchCase="'select'">
+                    <select ngModel name="usercategory_id" id="usercategory_id"
+                        class="form-control input-group" #status="ngModel"
+                        [(ngModel)]="cardData.usercategory.id" #t>
+                        <option *ngFor="let category of selectOptionList" [value]="category.id">
+                            {{ category.category }}
+                        </option>
+                    </select>
                   </td>
                   <td *ngSwitchCase="'price'">
                     <span *ngIf="cardData?.offerinfo?.pricetype">{{cardData?.offerinfo?.pricetype}} <br></span>

@@ -77,21 +77,32 @@ export class OfferDetailComponent implements OnInit {
       { key: 'deletedByExtUser', name: 'Deleted By User', dataType:{type:'dateTime'}}
     ]
   };
-  // public offerInfo = {
-  //   title: '',
-  //   rowData: [
-  //     { key: 'offerinfo.external_id', name: 'External Id', dataType:{type:'link', target: 'offerinfo.url'}},
-  //     { key: 'userinfo.name', name: 'Seller', dataType:{type:'price'}},
-  //     { key: 'userinfo.type', name: 'Type', dataType:{type:'price'}},
-  //     { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select'}},
-  //     { key: 'userinfo.offerscount', name: 'Available Offers'},
-  //     { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers'},
-  //     { key: 'userinfo.id', name: 'User Id'},
-  //     { key: 'userinfo.friendliness', name: 'Friendliness'},
-  //     { key: 'userinfo.satisfaction', name: 'Satisfaction'},
-  //     { key: 'userinfo.accountcreated', name: 'Account Created', dataType:{type:'date'}}
-  //   ]
-  // };
+  public sellerInfo = {
+    title: '',
+    rowData: [
+      { key: 'userinfo.user_id', name: 'External User Id', dataType:{type:'external_link', target: 'offerinfo.url'}},
+      { key: 'userinfo.name', name: 'Seller',title: 'See details',dataType:{type:'no_link', target: 'userinfo.id'}},
+      { key: 'userinfo.type', name: 'Type'},
+      { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select'}},
+      { key: 'userinfo.offerscount', name: 'Available Offers'},
+      { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers',title: 'See details',dataType:{type:'icon_link', target: 'userinfo.id'}},
+      { key: 'userinfo.id', name: 'User Id'},
+      { key: 'userinfo.friendliness', name: 'Friendliness'},
+      { key: 'userinfo.satisfaction', name: 'Satisfaction'},
+      { key: 'userinfo.accountcreated', name: 'Account Created', dataType:{type:'date'}}
+    ]
+  };
+
+  public searchPropertiesInfo = {
+    title: '',
+    rowData: [
+      { key: 'searchpropertyinfo.searchterm', name: 'Searchterm'},
+      { key: 'searchpropertyinfo.location', name: 'Location'},
+      { key: 'searchpropertyinfo.pricemin', name: 'Price (Min)'},
+      { key: 'searchpropertyinfo.pricemax', name: 'Price (Max)'},
+      { key: 'searchpropertyinfo.onlypickup', name: 'Only Pickup'}
+    ]
+  };
 
   public isMoreFieldOpenForSet = false;
   public task_origin = {

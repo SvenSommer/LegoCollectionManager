@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-table',
@@ -8,10 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CardTableComponent implements OnInit {
   @Input() cardColumns: any;
   @Input() cardData: any;
+  @Input() selectOptionList: any;
 
   purchaseInfo: any;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.buildTableData(this.cardData);
@@ -42,6 +44,13 @@ export class CardTableComponent implements OnInit {
           item['target']= this.getProperty(item.dataType?.target, cardData)
         }
     });
+  }
+
+  onUserDetailsClick(user_id) {
+    console.log(user_id);
+    if (user_id != null) {
+      this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
+    }
   }
 
   getProperty( propertyName, object ) {
