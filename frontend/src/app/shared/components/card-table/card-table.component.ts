@@ -30,6 +30,10 @@ export class CardTableComponent implements OnInit {
     }
   }
 
+  showProperty(cardInfo): boolean{
+    return (cardInfo?.dataType?.type !== 'sumAmount' && cardInfo?.hide !== 'True');
+  }
+
   buildTableData(cardData){
       this.cardColumns.rowData.forEach(item => {
         item["value"] = this.getProperty(item.key, cardData)
@@ -45,11 +49,11 @@ export class CardTableComponent implements OnInit {
       length = parts.length,
       i,
       property = object || this;
-  
+
     for ( i = 0; i < length; i++ ) {
       property = property[parts[i]];
     }
-  
+
     return property;
   }
 

@@ -4,7 +4,7 @@
           <h4>{{cardColumns.title}}</h4>
           <table *ngIf="cardColumns" class="div2 table table-hover table-sm datatable" role="grid">
               <tr *ngFor="let cardInfo of cardColumns.rowData">
-                <ng-container [ngSwitch]="cardInfo?.dataType?.type">
+                <ng-container  *ngIf="showProperty(cardInfo)" [ngSwitch]="cardInfo?.dataType?.type">
                   <td>
                     {{cardInfo.name}}
                   </td>
@@ -16,17 +16,34 @@
                   <td *ngSwitchCase="'date'">
                     {{cardInfo.value | date:'dd.MM.yyyy'}}
                   </td>
+                  <td *ngSwitchCase="'dateTime'">
+                    {{cardInfo.value | date:'dd.MM.yyyy HH:mm'}}
+                  </td>
                   <td *ngSwitchCase="'weight'">
                     {{cardInfo.value}} kg
                   </td>
                   <td *ngSwitchCase="'price'">
+                    <span *ngIf="cardData?.offerinfo?.pricetype">{{cardData?.offerinfo?.pricetype}} <br></span>
                     <span [innerHtml]="cardInfo.value"></span> &#8364;
-                  </td> 
+                  </td>
                   <td *ngSwitchCase="'price_per_kilo'">
                     <span [innerHtml]="cardInfo.value"></span> &#8364;/kg
                   </td>
                   <td *ngSwitchDefault>
                     {{cardInfo.value}}
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="cardInfo?.dataType?.type == 'sumAmount' && cardData?.expectedSets?.sumAmount > 0">
+                  <td>
+                    {{cardInfo.name}}
+                  </td>
+                  <td>
+                      {{cardData.expectedSets.sumAmount}} <br>
+                      Min price {{cardData.expectedSets.sumMin_price}} € <br>
+                      Avg_price {{cardData.expectedSets.sumAvg_price}} € <br>
+                      Parts {{cardData.expectedSets.sumComplete_part_count}} <br>
+                      Minifigs {{cardData.expectedSets.sumComplete_minifigs_count}} <br>
                   </td>
                 </ng-container>
               </tr>

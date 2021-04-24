@@ -58,6 +58,41 @@ export class OfferDetailComponent implements OnInit {
     { title: 'Identified', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
   ];
 
+  public offerInfo = {
+    title: '',
+    rowData: [
+      { key: 'offerinfo.external_id', name: 'External Id', dataType:{type:'link', target: 'offerinfo.url'}},
+      { key: 'offerinfo.price', name: 'Price', dataType:{type:'price'}},
+      { key: 'offerinfo.pricetype', name: 'Price Type', hide: 'True'},
+      { key: 'expectedSets.sumAmount', name: 'Expected Sets', dataType:{type:'sumAmount'}},
+      { key: 'expectedSets.sumMin_price', name: 'Min price', hide: 'True'},
+      { key: 'expectedSets.sumAvg_price', name: 'Avg_price', hide: 'True'},
+      { key: 'expectedSets.sumComplete_part_count', name: 'Parts', hide: 'True'},
+      { key: 'expectedSets.sumComplete_minifigs_count', name: 'Minifigs', hide: 'True'},
+      { key: 'offerinfo.locationgroup', name: 'Location Group'},
+      { key: 'offerinfo.locality', name: 'Locality'},
+      { key: 'offerinfo.zipcode', name: 'Zipcode'},
+      { key: 'offerinfo.shipping', name: 'Shipping'},
+      { key: 'offerinfo.created', name: 'Created', dataType:{type:'dateTime'}},
+      { key: 'deletedByExtUser', name: 'Deleted By User', dataType:{type:'dateTime'}}
+    ]
+  };
+  // public offerInfo = {
+  //   title: '',
+  //   rowData: [
+  //     { key: 'offerinfo.external_id', name: 'External Id', dataType:{type:'link', target: 'offerinfo.url'}},
+  //     { key: 'userinfo.name', name: 'Seller', dataType:{type:'price'}},
+  //     { key: 'userinfo.type', name: 'Type', dataType:{type:'price'}},
+  //     { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select'}},
+  //     { key: 'userinfo.offerscount', name: 'Available Offers'},
+  //     { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers'},
+  //     { key: 'userinfo.id', name: 'User Id'},
+  //     { key: 'userinfo.friendliness', name: 'Friendliness'},
+  //     { key: 'userinfo.satisfaction', name: 'Satisfaction'},
+  //     { key: 'userinfo.accountcreated', name: 'Account Created', dataType:{type:'date'}}
+  //   ]
+  // };
+
   public isMoreFieldOpenForSet = false;
   public task_origin = {
      offer_id : 0
