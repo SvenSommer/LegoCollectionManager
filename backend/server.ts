@@ -56,7 +56,7 @@ import task from "./routes/task";
 import progress_routes from './routes/progressdetails';
 
 const corsOpts = {
-    origin: ['http://localhost:3001','http://localhost:4200'],
+    origin: ['http://localhost:3001', 'http://localhost:4200', 'http://localhost:3002'],
     credentials: true,
     methods: [
         'GET',
@@ -79,8 +79,15 @@ app.use(cors(corsOpts));
 // app.use(cors());
 // app.options("*")
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// app.use(function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     next();
+// });
 
 /*
 * Middleware Routes
@@ -132,7 +139,7 @@ app.use('/progressdetails', progress_routes);
 
 const PORT = process.env.PORT || 4000;
 connection.getConnection((err) => {
-    if(err) throw err;
+    if (err) throw err;
     app.listen(PORT, () => {
         console.log(`Server started, PORT: ${PORT}`);
         console.log(`Connected to DB`)
