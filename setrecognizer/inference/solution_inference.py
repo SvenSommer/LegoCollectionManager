@@ -91,16 +91,19 @@ class LegoSetRecognitionSystem(object):
             for _i in range(len(detection[0]))
         ]
 
-    def get_set_number(self, detection_crop: np.ndarray):
+    def get_set_number(self, detection_crop: np.ndarray) -> tuple:
         _, texts, confs = self.ocr_model.pipeline_inference(detection_crop)
         result_number = ''
+        confidence = 0
         for i, text in enumerate(texts):
             filtered_text = filter_text_string(text)
             filtered_text = filtered_text.replace(' ', '')
             if filtered_text.isdecimal() and len(filtered_text) > 2:
                 if len(filtered_text) > len(result_number):
                     result_number = filtered_text
-        return None if len(result_number) == 0 else result_number
+                    confidence = confs[i]
+        return (None, 0) if len(result_number) == 0 else \
+            (result_number, confidence)
 
     def __call__(self, image: np.ndarray):
         result_sets_detections = []
@@ -109,7 +112,7 @@ class LegoSetRecognitionSystem(object):
             _x1, _y1, _x2, _y2 = set_rectangle
             _crop = image[_y1:_y2, _x1:_x2].copy()
 
-            set_number = self.get_set_number(_crop)
+            set_number, text_conf = self.get_set_number(_crop)
 
             if set_number is None:
                 top_1_image = get_top_k_image_from_google_search(
@@ -117,7 +120,7 @@ class LegoSetRecognitionSystem(object):
                     _crop
                 )
                 if len(top_1_image) > 0:
-                    set_number = self.get_set_number(top_1_image[0])
+                    set_number, text_conf = self.get_set_number(top_1_image[0])
 
             if set_number is not None:
                 result_sets_detections.append(
@@ -128,7 +131,8 @@ class LegoSetRecognitionSystem(object):
                             (_x2 - _x1) / image.shape[1],
                             (_y2 - _y1) / image.shape[0]
                         ],
-                        'number': set_number
+                        'number': set_number,
+                        'confidence': rect_conf * text_conf
                     }
                 )
 

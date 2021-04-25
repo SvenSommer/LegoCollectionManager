@@ -9,14 +9,14 @@ if platform == 'darwin':
 import sys
 yolo_detector_path = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
-    '../training/yolov3/'
+    '../data/yolov3/'
 )
 sys.path.append(yolo_detector_path)
 
-from training.yolov3.models import *
-from training.yolov3.utils.parse_config import parse_data_cfg
-from training.yolov3.utils.datasets import *
-from training.yolov3.utils.utils import *
+from data.yolov3.models import *
+from data.yolov3.utils.parse_config import parse_data_cfg
+from data.yolov3.utils.datasets import *
+from data.yolov3.utils.utils import *
 
 
 class YoloDetector:

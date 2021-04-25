@@ -1,18 +1,13 @@
 import cv2
 import base64
-import json
-from multiprocessing import Pool
 import numpy as np
-import time
 from timeit import default_timer as timer
-from selenium.common.exceptions \
-    import NoSuchElementException, WebDriverException
+from selenium.common.exceptions import WebDriverException
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.options import Options
 import os
 import tempfile
-from tqdm import tqdm
 from PIL import Image
 import requests
 
