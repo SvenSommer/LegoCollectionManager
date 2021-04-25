@@ -452,12 +452,12 @@ export class OfferDetailComponent implements OnInit {
     }
   }
 
-  onUserDetailsClick(user_id) {
-    console.log(user_id);
-    if (user_id != null) {
-      this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
-    }
-  }
+  // onUserDetailsClick(user_id) {
+  //   console.log(user_id);
+  //   if (user_id != null) {
+  //     this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
+  //   }
+  // }
 
   getProgressDetails() {
     if (!this.requestList || this.requestList.length <= 0) {

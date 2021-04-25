@@ -18,6 +18,12 @@
                           {{cardInfo.value}}
                       </a>
                   </td>
+                  <td *ngSwitchCase="'status_link'">
+                    <a href="javascript:void(0);">
+                      {{cardInfo?.value}}
+                    </a>
+                    <span  *ngIf="cardInfo?.target"  class="status-type" [ngClass]="!cardInfo?.target ? 'bg-success' : 'bg-danger'"></span>
+                  </td>
                   <td *ngSwitchCase="'icon_link'">
                       {{cardInfo.value}}
                       <a class="pl-1" [title]="cardInfo.title"
@@ -26,7 +32,11 @@
                       </a>
                   </td>
                   <td *ngSwitchCase="'external_link'">
-                      <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{cardData?.user_id}}" (click)="onExternalClick(cardInfo.target)">
+                      <!-- <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{cardData?.user_id}}"
+                      (click)="onExternalClick(cardInfo.target)">
+                          {{cardInfo.value}}
+                      </a> -->
+                      <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{cardData?.user_id}}">
                           {{cardInfo.value}}
                       </a>
                   </td>
