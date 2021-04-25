@@ -7,7 +7,6 @@ import json
 import time
 import requests
 from PIL import Image
-from functools import reduce
 
 from inference.solution_inference import \
     FunctionServingWrapper, LegoSetRecognitionSystem

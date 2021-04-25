@@ -72,7 +72,8 @@ class LegoSetRecognitionSystem(object):
 
         browser_options = Options()
         browser_options.add_argument('--headless')
-        browser_options.add_argument('--start-maximized')
+        browser_options.add_argument('--no-sandbox')
+        browser_options.add_argument('--disable-dev-shm-usage')
         self.driver = webdriver.Chrome(
             options=browser_options,
             executable_path=os.path.join(
@@ -103,12 +104,23 @@ class LegoSetRecognitionSystem(object):
                     result_number = filtered_text
                     confidence = confs[i]
         return (None, 0) if len(result_number) == 0 else \
-            (result_number, confidence)
+            (result_number, float(confidence))
 
     def __call__(self, image: np.ndarray):
         result_sets_detections = []
 
-        for set_rectangle, rect_conf in self.get_detections(image):
+        boxes_detections = self.get_detections(image)
+        if len(boxes_detections) == 0:
+            set_number, text_conf = self.get_set_number(image)
+            return [
+                {
+                    'box': [0, 0, 1, 1],
+                    'number': set_number,
+                    'confidence': float(text_conf)
+                }
+            ] if set_number is not None else []
+
+        for set_rectangle, rect_conf in boxes_detections:
             _x1, _y1, _x2, _y2 = set_rectangle
             _crop = image[_y1:_y2, _x1:_x2].copy()
 

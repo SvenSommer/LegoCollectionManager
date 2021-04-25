@@ -24,8 +24,17 @@ class YoloDetector:
         self.device = device
         self.img_size = config['img_size']
         self.model = Darknet(config['cfg'], self.img_size)
+
+        checkpoint = torch.load(config['weights'], map_location=device)
+        # delete unmatched total_ops total_params
+        state_dict = []
+        for n, p in checkpoint['model'].items():
+            if "total_ops" not in n and "total_params" not in n:
+                state_dict.append((n, p))
+        state_dict = dict(state_dict)
+
         self.model.load_state_dict(
-            torch.load(config['weights'], map_location=device)['model']
+            state_dict
         )
 
         self.model.fuse()
