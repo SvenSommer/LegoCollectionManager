@@ -2,3 +2,10 @@ Pillow==8.1.0
 requests==2.25.1
 Flask==1.1.2
 numpy==1.20.1
+opencv-python
+pyyaml
+paddlepaddle==2.0.0 -i https://mirror.baidu.com/pypi/simple
+imgaug
+pyclipper
+lmdb
+selenium
