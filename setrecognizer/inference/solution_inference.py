@@ -132,16 +132,17 @@ class LegoSetRecognitionSystem(object):
                             (_y2 - _y1) / image.shape[0]
                         ],
                         'number': set_number,
-                        'confidence': rect_conf * text_conf
+                        'confidence': float(rect_conf * text_conf)
                     }
                 )
 
         return result_sets_detections
 
 
-example_image = 'data/images/48.jpg'
-img = cv2.cvtColor(cv2.imread(example_image), cv2.COLOR_BGR2RGB)
+if __name__ == '__main__':
+    example_image = 'data/images/48.jpg'
+    img = cv2.cvtColor(cv2.imread(example_image), cv2.COLOR_BGR2RGB)
 
-set_recognition_system = FunctionServingWrapper(LegoSetRecognitionSystem())
+    set_recognition_system = FunctionServingWrapper(LegoSetRecognitionSystem())
 
-print(set_recognition_system(img))
+    print(set_recognition_system(img))

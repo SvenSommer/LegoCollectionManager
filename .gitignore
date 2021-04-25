@@ -6,6 +6,7 @@ partimages/*
 
 setrecognizer/data/
 setrecognizer/data/*
+__pycache__
 
 /dist/
 /bazel-out
