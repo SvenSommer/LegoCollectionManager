@@ -4,6 +4,9 @@ partimages/*
 
 .DS_STORE
 
+setrecognizer/data/
+setrecognizer/data/*
+
 /dist/
 /bazel-out
 /integration/bazel/bazel-*
