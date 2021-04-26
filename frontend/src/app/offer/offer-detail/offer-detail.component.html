@@ -301,8 +301,10 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-12" *ngIf="offerDetails">
-                                            <div [innerHTML]="offerDetails.offerinfo.description | linkSetnumbers">
-                                            </div>
+                                            <span *ngFor="let desc of offerDescriptionSplitBySets; index as i">
+                                                <span [innerHTML]="desc"></span>
+                                                <a *ngIf="this.recognizeSets[i]" class='badge badge-info' (click)="onSetClick(this.recognizeSets[i])">+{{this.recognizeSets[i]}}</a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -381,7 +383,7 @@
                                                                 Weight (kg)
                                                             </td>
                                                             <td>
-                                                                <input type="number" required #name="ngModel"
+                                                                <input type="number" step="0.01" required #name="ngModel"
                                                                     [(ngModel)]="properties.weight_kg"
                                                                     class="form-control" id="weight_kg"
                                                                     name="weight_kg">
@@ -392,7 +394,7 @@
                                                                 Boxes
                                                             </td>
                                                             <td>
-                                                                <input type="text" required #name="ngModel"
+                                                                <input type="checkbox" #name="ngModel"
                                                                     [(ngModel)]="properties.boxes" class="form-control"
                                                                     id="boxes" name="boxes">
                                                             </td>
@@ -403,7 +405,7 @@
                                                                 Instructions
                                                             </td>
                                                             <td>
-                                                                <input type="text" required #name="ngModel"
+                                                                <input type="checkbox" #name="ngModel"
                                                                     [(ngModel)]="properties.instructions"
                                                                     class="form-control" id="instructions"
                                                                     name="instructions">
@@ -415,9 +417,9 @@
                                                                 Minifigs
                                                             </td>
                                                             <td>
-                                                                <input type="text" required #name="ngModel"
+                                                                <input type="checkbox" #name="ngModel"
                                                                     [(ngModel)]="properties.minifigs"
-                                                                    class="form-control" id="notes" name="notes">
+                                                                    class="form-control" id="minifigs" name="minifigs">
                                                             </td>
                                                         </tr>
                                                         <tr>
