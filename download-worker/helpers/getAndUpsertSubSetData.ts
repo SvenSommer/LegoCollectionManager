@@ -8,7 +8,7 @@ import { UpdateSetPartCount } from './updateSetPartCount';
 const blApi = require("../config/bl.api.js");
 var async = require("async");
 
-export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: any, information: any) {
+export function GetAndUpsertSubSetData(setnumber: any, userid: any, task_id: any, information: any) {
     const delay = process.env.DELAY_TIME || 100;
     return new Promise(function (resolve, reject) {
         blApi.bricklinkClient.getItemSubset(blApi.ItemType.Set, setnumber + "-1", { break_minifigs: false })
@@ -19,7 +19,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
                         message: 'Some error occurred',
                     });
                 }
-                InsertProgressDetail(request_id, 15, "Sub Set Data Downloaded", information);
+                InsertProgressDetail(task_id, 15, "Sub Set Data Downloaded", information);
                 var totalCount = 0;
                 var incrementCount = 1;
                 console.log(delay);
@@ -29,7 +29,6 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
                         totalCount++;
                         incrementCount++;
                         entry.userid = userid;
-                        entry.request_id = request_id;
                         entry.information = information;
                         sets.push(entry);
                         const insertSubSetData = `INSERT INTO Subsets (
@@ -50,7 +49,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
                                                     ${setnumber},
                                                     ${subsetdataEntry.match_no},
                                                     '${entry.item.no}',
-                                                    '${entry.item.name.replace("'", "`").replace("'", "`")}',
+                                                    `+ connection.escape(entry.item.name) + `,
                                                     '${entry.item.type}',
                                                     ${entry.item.category_id},
                                                     ${entry.color_id},
@@ -78,7 +77,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, request_id: 
                         reject(err);
                     }
                     else {
-                        InsertProgressDetail(request_id, 96, "Part Data Downloaded.", information);
+                        InsertProgressDetail(task_id, 96, "Part Data Downloaded.", information);
                         console.log("Updating the set part count and minifig count");
                         UpdateSetPartCount(setnumber).then(function (data) {
                             if (data) {

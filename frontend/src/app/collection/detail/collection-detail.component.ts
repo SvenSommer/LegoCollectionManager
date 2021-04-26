@@ -360,7 +360,7 @@ export class CollectionDetailComponent implements OnInit {
     }
     this.newSetDetails.setnumber.replace(/ /g, "");
     var task_origin = {
-      collectionid : this.collectionid,
+      collection_id : this.collectionid,
     }
 
     var setinformation = {
@@ -486,31 +486,17 @@ export class CollectionDetailComponent implements OnInit {
           for (var i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
             var info = JSON.parse(this.setDownloadingRequestData[i].information)
             this.setDownloadingRequestData[i].setNo = info.setno;
+            this.setDownloadingRequestData[i].name = info.name;
+            this.setDownloadingRequestData[i].image_url = info.image_url;
             var task_id = this.setDownloadingRequestData[i].task_id;
             if (this.setDownloadingRequestData[i].progress == 100) {
-              this.collectionService.saveNewSets(info).subscribe(
-                (data) => {
-                  console.log(data)
-                  if (data) {
-                    if (data.body && data.body.code == 201) {
-                      // Message should be data.body.message
-                      this.toastr.success(`Set ${info.setno} successfully downloaded.`);
-                      this.requestList = this.arrayRemove(this.requestList, task_id);
-                      this.setDownloadingRequestData = [];
-                      i++;
-                      this.bindData();
-                      this.getExpectedSets();
-                    }
-                    else if (data.body && data.body.code == 403) {
-                      this.router.navigateByUrl("/login");
-                    }
-                    else
-                      console.log(data.body)
-                  }
-                },
-                (error: HttpErrorResponse) => {
-                  console.log(error.name + ' ' + error.message);
-                });
+              // Message should be data.body.message
+              this.toastr.success(`Set ${info.setno} successfully downloaded.`);
+              this.requestList = this.arrayRemove(this.requestList, task_id);
+              this.setDownloadingRequestData = [];
+              i++;
+              this.bindData();
+              this.getExpectedSets(); 
             }
           }
         }

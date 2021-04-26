@@ -40,7 +40,7 @@ export default (req: Request, res: Response) => {
                             created)
                             VALUES (
                                 ${task_id},
-                                '${information}',
+                                `+ connection.escape(information) + `,
                                 ${progress},
                                 '${status}',
                                 NOW())`;

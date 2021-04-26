@@ -28,7 +28,7 @@ export default (req: Request, res: Response) => {
                     });
                     else {
                         const origin = {
-                            origin : offer_id
+                            "offer_id" : offer_id
                         }
                         const information = {
                             image_id : result.insertId,

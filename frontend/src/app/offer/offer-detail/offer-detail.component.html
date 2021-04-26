@@ -528,7 +528,13 @@
                                 <table class="table table table-hover table-sm datatable">
                                     <tr>
                                         <th>
+                                            Image
+                                        </th>
+                                        <th>
                                             Set No
+                                        </th>
+                                        <th>
+                                            Name
                                         </th>
                                         <th>
                                             Status
@@ -539,13 +545,20 @@
                                     </tr>
                                     <tr *ngFor="let item of setDownloadingRequestData">
                                         <td>
+                                            <img [src]="item.image_url" width="80px"/>
+                                        </td>
+                                        <td>
                                             {{item.setNo}}
+                                        </td>
+                                        <td>
+                                            {{item.name}}
                                         </td>
                                         <td>
                                             {{item.status}}
                                         </td>
                                         <td>
-                                            <ngb-progressbar type="success" [value]="item.progress" [animated]="true">
+                                            <ngb-progressbar type="success" [value]="item.progress"
+                                                [animated]="true">
                                                 {{item.progress}}% </ngb-progressbar>
                                         </td>
                                     </tr>

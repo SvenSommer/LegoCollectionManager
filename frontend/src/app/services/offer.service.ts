@@ -56,13 +56,6 @@ export class OfferService {
       return this.http.get<any>(`${environment.baseUrl}offers_properties/offer/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
-    saveNewPossibleSets(model:PossiblesetModel): Observable<any> {
-      let headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-      return this.http.post<PossiblesetModel>(`${environment.baseUrl}offers_possiblesets`, model, { withCredentials: true, headers: headers, observe: 'response' });
-    }
-
     getPossiblesetsByOfferid(id): Observable<any> {
       let httpHeader = new HttpHeaders();
       httpHeader.set("Access-Control-Allow-Origin", "*");

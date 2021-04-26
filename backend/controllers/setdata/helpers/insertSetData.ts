@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import connection from "../../../database_connection";
 
 export function InsertSetData(setnumber: any, setinfo: any, priceinfo: any, id: any): Promise<any> {
@@ -50,3 +50,4 @@ export function InsertSetData(setnumber: any, setinfo: any, priceinfo: any, id: 
         });
     });
 }
+ */

@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import { GlobalVariable } from '../../../config/GlobalVariable';
 import connection from "../../../database_connection";
 import { UpsertPriceData } from '../../pricedata/helpers/upsertPriceData';
@@ -84,3 +84,4 @@ export async function getAndUpdatePartAndPriceData(type: any, partnumber: any, c
         }, (GlobalVariable.apiCounter++) * parseInt(delay.toString()));
     });
 }
+ */

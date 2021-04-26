@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import { Token_encodeInterface } from '../middleware/token_encode.interface';
-import { GetAndUpsertSetDataByNo } from '../setdata/helpers/upsertSetDataByNo';
 
 
 export default (req: Request, res: Response) => {
@@ -11,7 +10,7 @@ export default (req: Request, res: Response) => {
         const { token } = req.cookies;
         const {
             collectionid,
-            setnumber,
+            setno,
             comments,
             instructions,
             condition,
@@ -19,7 +18,7 @@ export default (req: Request, res: Response) => {
         } = req.body;
 
         if (collectionid &&
-            setnumber) {
+            setno) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
                 const { username } = decoded;
@@ -44,7 +43,7 @@ export default (req: Request, res: Response) => {
                                                   createdBy)
                                                   VALUES(
                                                           ${collectionid},
-                                                         '${setnumber}',
+                                                         '${setno}',
                                                          '${comments}',
                                                          '${instructions}',
                                                          '${condition}',
@@ -60,27 +59,10 @@ export default (req: Request, res: Response) => {
                             else {
                                 res.json({
                                     code: 201,
-                                    message: `Set ${setnumber} to collectionid ${collectionid} added!`,
+                                    message: `Set ${setno} to collectionid ${collectionid} added!`,
                                 });
 
 
-                                //TODO: Move into a seperate service triggered by a entry in the task table
-                                // GetAndUpsertSetDataByNo(setnumber, userid).then(function () {
-                                //     res.json({
-                                //         code: 201,
-                                //         message: 'Expected set created!'
-                                //     });
-                                // }, function (err) {
-                                //     res.json({
-                                //         code: 500,
-                                //         message: 'Some error occurred',
-                                //     });
-                                // }).catch(function () {
-                                //     res.json({
-                                //         code: 500,
-                                //         message: 'Some error occurred',
-                                //     });
-                                // });
                             }
                         })
                     }
@@ -89,7 +71,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'Setnumber, Instructions, requestId and collectionid are required!'
+                message: 'collectionid and setno are required!'
             });
         }
     } catch (e) {

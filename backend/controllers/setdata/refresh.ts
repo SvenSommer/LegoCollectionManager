@@ -1,4 +1,4 @@
-import { Console } from 'console';
+/* import { Console } from 'console';
 import { Request, Response } from 'express';
 //@ts-ignore
 import jwt from 'jsonwebtoken';
@@ -83,3 +83,4 @@ export default (req: Request, res: Response) => {
 }
 
 
+ */

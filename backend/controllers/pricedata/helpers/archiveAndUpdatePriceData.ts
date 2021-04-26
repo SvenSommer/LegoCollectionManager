@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import { GlobalVariable } from '../../../config/GlobalVariable';
 import connection from "../../../database_connection";
 import { GetAndUpdatePriceData } from './getAndUpdatePriceData';
@@ -47,3 +47,4 @@ export async function ArchiveAndUpdatePriceData(priceid: any, priceresult: any, 
         });
     });
 }
+ */

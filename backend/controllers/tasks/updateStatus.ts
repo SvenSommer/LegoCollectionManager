@@ -48,7 +48,7 @@ export default (req: Request, res: Response) => {
                     else {
                         res.json({
                             code: 200,
-                            message: 'Task updated!'
+                            message: `Task ${id} updated to status ${status_id} updated!`
                         });
                     }
                 })

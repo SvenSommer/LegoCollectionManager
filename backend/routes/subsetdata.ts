@@ -1,4 +1,3 @@
-import DownloadSubsetData from '../controllers/subsetdata/download';
 import ShowAllSubsetData from '../controllers/subsetdata/show';
 import ShowAllPartsByCollectionId from '../controllers/subsetdata/showPartsByCollectionId';
 import ShowAllMinifigsByCollectionId from '../controllers/subsetdata/showMinifigsByCollectionId';
@@ -27,8 +26,6 @@ route.get(`/setid/:setid/minifigs`, UserAuthMiddleware, ShowAllMinifigDataBySeti
 route.get(`/setno/:setnumber/parts`, UserAuthMiddleware, ShowAllPartDataBySetno);
 //List expected Minifigs by setno
 route.get(`/setno/:setnumber/minifigs`, UserAuthMiddleware, ShowAllMinifigDataBySetno);
-//Download a new SubsetData
-route.post(``, AdminAuthMiddleware, DownloadSubsetData);
 //Show info about a SubsetData
 route.get(`/:id`, UserAuthMiddleware, GetSingleSubsetDataById);
 //Delete a particular SubsetData

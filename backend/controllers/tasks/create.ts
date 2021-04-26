@@ -3,6 +3,7 @@ import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
 import {Token_encodeInterface} from '../middleware/token_encode.interface';
+import { InsertProgressDetail } from '../progressdetails/helpers/createprogressdetails';
 
 export default (req: Request, res: Response) => {
     try {
@@ -36,9 +37,14 @@ export default (req: Request, res: Response) => {
                         errorMessage: process.env.DEBUG && err
                     });
                     else {
+                        let message = 'new Task created';
+                        if(type_id == 1){
+                            message = `Setno ${JSON.parse(information).setno} queued for download` 
+                        }
+                        InsertProgressDetail(result.insertId, 1, "Task queued.",information);
                         res.json({
                             code: 201,
-                            message: 'new Task created',
+                            message: message,
                             task_id: result.insertId
                         });
                     }

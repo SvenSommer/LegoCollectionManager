@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import connection from "../../../database_connection";
 
 const blApi = require("../../../config/bl.api.js");
@@ -52,3 +52,4 @@ export function GetAndUpdateSetData(no: any, userid: any, setid: any): Promise<a
             });
     });
 }
+ */

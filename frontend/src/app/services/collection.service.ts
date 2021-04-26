@@ -85,13 +85,6 @@ export class CollectionService {
     return this.http.get<any>(`${environment.baseUrl}subsetdata/collection/` + id + '/minifigs', { withCredentials: true, headers: httpHeader, observe: 'response' });
   }
 
-  saveNewSets(model): Observable<any> {
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    })
-    return this.http.post<CollectionModel>(`${environment.baseUrl}expectedsets`, model, { withCredentials: true, headers: headers, observe: 'response' });
-  }
-
   deleteCollection(id): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
