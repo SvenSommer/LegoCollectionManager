@@ -30,7 +30,8 @@ export class OfferDetailComponent implements OnInit {
   public userCategoryList: Array<any>;
   public messageAccountList: Array<MessageTextModel>;
   public messageTextList: Array<any>;
-
+  public offerDescriptionSplitBySets: string[] = [];
+  public recognizeSets: string[] = [];
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' } },
@@ -125,8 +126,10 @@ export class OfferDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.offerDetails = data.body.result[0];
+            this.splitBySets();
             if (this.offerDetails.propertyinfo != null) {
               this.properties = this.offerDetails.propertyinfo;
+              console.log(this.properties);
             }
             this.user_category.id = this.offerDetails.userinfo.id;
           }
@@ -510,8 +513,6 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onSaveProperties(propertiesForm: NgForm) {
-    console.log(propertiesForm);
-
     this.properties.offer_id = this.offerid;
 
     console.log(this.properties);
@@ -621,10 +622,25 @@ export class OfferDetailComponent implements OnInit {
     );
   }
 
-
+  splitBySets() {
+    const offerDescription: string = this.offerDetails.offerinfo.description;
+    const splitBySets = offerDescription.substring(4, offerDescription.length - 4)
+      .split(/"[^"]*"|'[^']*'|(\d{4,5})/g);
+    splitBySets.forEach(((value, index) => {
+      if (index % 2 === 0) {
+        this.offerDescriptionSplitBySets.push(value);
+      } else {
+        this.recognizeSets.push(value);
+      }
+    }));
+  }
 
   getMessageText(messagetextId: number): string {
     const messageText = this.messageTextList ? this.messageTextList.find(i => i.id == messagetextId) : null;
     return messageText ? messageText.message : '';
+  }
+
+  onSetClick(setNumber: string) {
+    console.log('set: ', setNumber);
   }
 }

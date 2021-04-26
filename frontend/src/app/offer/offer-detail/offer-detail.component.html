@@ -301,8 +301,10 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-sm-12" *ngIf="offerDetails">
-                                            <div [innerHTML]="offerDetails.offerinfo.description | linkSetnumbers">
-                                            </div>
+                                            <span *ngFor="let desc of offerDescriptionSplitBySets; index as i">
+                                                <span [innerHTML]="desc"></span>
+                                                <a *ngIf="this.recognizeSets[i]" class='badge badge-info' (click)="onSetClick(this.recognizeSets[i])">+{{this.recognizeSets[i]}}</a>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -415,9 +417,9 @@
                                                                 Minifigs
                                                             </td>
                                                             <td>
-                                                                <input type="checkbox" required #name="ngModel"
+                                                                <input type="checkbox" #name="ngModel"
                                                                     [(ngModel)]="properties.minifigs"
-                                                                    class="form-control" id="notes" name="notes">
+                                                                    class="form-control" id="minifigs" name="minifigs">
                                                             </td>
                                                         </tr>
                                                         <tr>
