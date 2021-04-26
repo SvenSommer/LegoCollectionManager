@@ -1,0 +1,9 @@
+.container-fluid {
+  height: 100%;
+}
+.container-fluid .card {
+  height: calc(100% - 95px);
+}
+.card-body, .row, .col-sm-12 {
+  height: 100%;
+}

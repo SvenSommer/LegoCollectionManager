@@ -69,9 +69,13 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
-
+import { AgGridModule } from 'ag-grid-angular';
+import { OfferGridComponent } from './offer/offer-grid/offer-grid.component';
+import { ImagesCellComponent } from './offer/offer-grid/images-cell/images-cell.component';
+import { TitleCellComponent } from './offer/offer-grid/title-cell/title-cell.component';
+import { DescriptionCellComponent } from './offer/offer-grid/description-cell/description-cell.component';
+import { DeleteCellComponent } from './offer/offer-grid/delete-cell/delete-cell.component';
 
 
 @NgModule({
@@ -125,6 +129,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     CardTableComponent,
     AccountsComponent,
     PartnamefrequencyComponent,
+    OfferGridComponent,
+    ImagesCellComponent,
+    TitleCellComponent,
+    DescriptionCellComponent,
+    DeleteCellComponent
   ],
   imports: [
     BrowserModule,
@@ -148,8 +157,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatIconModule,
     MatCheckboxModule,
     NgxChartsModule,
+    AgGridModule.withComponents([
+      ImagesCellComponent,
+      TitleCellComponent,
+      DescriptionCellComponent,
+      DeleteCellComponent
+    ])
   ],
-  providers: [AuthGuardService,CollectionService, NgFilterPipe],
+  providers: [AuthGuardService, CollectionService, NgFilterPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

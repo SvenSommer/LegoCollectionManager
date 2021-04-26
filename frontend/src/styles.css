@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
+
 a:hover{
     cursor: pointer;
 }
@@ -12,8 +15,12 @@ body {
     color: #858796;
     text-align: left;
     background-color: #fff;
-  }
+    height: 100%;
+}
 
+html {
+  height: 100%;
+}
 
 .table {
     width: 100%;
