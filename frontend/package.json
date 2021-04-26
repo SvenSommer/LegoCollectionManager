@@ -25,6 +25,8 @@
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@ng-bootstrap/ng-bootstrap": "^6.2.0",
     "@swimlane/ngx-charts": "^17.0.1",
+    "ag-grid-angular": "^25.1.0",
+    "ag-grid-community": "^25.1.0",
     "bootstrap": "^4.6.0",
     "canvas": "^2.7.0",
     "chart.js": "^3.0.2",

@@ -1,0 +1,4 @@
+<ng-container *ngFor="let image of params.data.images">
+  <img class="img-thumbnail rounded float-left" [style.height.px]="80" *ngIf="image != null"
+       [src]="image.imageurl" />
+</ng-container>

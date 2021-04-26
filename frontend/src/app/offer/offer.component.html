@@ -11,10 +11,8 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-sm-12" *ngIf="data && columns">
-                    <ng-table (rowCellClick)="onRowClick($event)" [isActionVisible]="true" [isEditVisible]="false"
-                        [isDeleteVisible]="true" [columns]="columns" [data]="data" (rowDeleteClick)="onRowDeleteClick($event)">
-                    </ng-table>
+              <div class="col-sm-12" *ngIf="data && columns">
+                  <app-offer-grid></app-offer-grid>
                 </div>
             </div>
         </div>

@@ -69,6 +69,13 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+
+import { AgGridModule } from 'ag-grid-angular';
+import { OfferGridComponent } from './offer/offer-grid/offer-grid.component';
+import { ImagesCellComponent } from './offer/offer-grid/images-cell/images-cell.component';
+import { TitleCellComponent } from './offer/offer-grid/title-cell/title-cell.component';
+import { DescriptionCellComponent } from './offer/offer-grid/description-cell/description-cell.component';
+import { DeleteCellComponent } from './offer/offer-grid/delete-cell/delete-cell.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AdvancedSearchComponent } from './shared/components/advanced-search/advanced-search.component';
 import {MatChipsModule} from '@angular/material/chips';
@@ -129,6 +136,11 @@ import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-det
     PartnamefrequencyComponent,
     AdvancedSearchComponent,
     PartdataDetailComponent,
+    OfferGridComponent,
+    ImagesCellComponent,
+    TitleCellComponent,
+    DescriptionCellComponent,
+    DeleteCellComponent
   ],
   imports: [
     BrowserModule,
@@ -153,8 +165,14 @@ import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-det
     MatCheckboxModule,
     MatChipsModule,
     NgxChartsModule,
+    AgGridModule.withComponents([
+      ImagesCellComponent,
+      TitleCellComponent,
+      DescriptionCellComponent,
+      DeleteCellComponent
+    ])
   ],
-  providers: [AuthGuardService,CollectionService, NgFilterPipe],
+  providers: [AuthGuardService, CollectionService, NgFilterPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
