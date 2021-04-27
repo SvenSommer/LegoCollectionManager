@@ -59,6 +59,52 @@ export class OfferDetailComponent implements OnInit {
     { title: 'Identified', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
   ];
 
+  public offerInfo = {
+    title: '',
+    rowData: [
+      { key: 'offerinfo.external_id', name: 'External Id', dataType:{type:'link', target: 'offerinfo.url'}},
+      { key: 'offerinfo.price', name: 'Price', dataType:{type:'price'}},
+      { key: 'offerinfo.pricetype', name: 'Price Type', hide: 'True'},
+      { key: 'expectedSets.sumAmount', name: 'Expected Sets', dataType:{type:'sumAmount'}},
+      { key: 'expectedSets.sumMin_price', name: 'Min price', hide: 'True'},
+      { key: 'expectedSets.sumAvg_price', name: 'Avg_price', hide: 'True'},
+      { key: 'expectedSets.sumComplete_part_count', name: 'Parts', hide: 'True'},
+      { key: 'expectedSets.sumComplete_minifigs_count', name: 'Minifigs', hide: 'True'},
+      { key: 'offerinfo.locationgroup', name: 'Location Group'},
+      { key: 'offerinfo.locality', name: 'Locality'},
+      { key: 'offerinfo.zipcode', name: 'Zipcode'},
+      { key: 'offerinfo.shipping', name: 'Shipping'},
+      { key: 'offerinfo.created', name: 'Created', dataType:{type:'dateTime'}},
+      { key: 'deletedByExtUser', name: 'Deleted By User', dataType:{type:'dateTime'}}
+    ]
+  };
+  public sellerInfo = {
+    title: '',
+    rowData: [
+      { key: 'userinfo.user_id', name: 'External User Id', dataType:{type:'external_link', target: 'offerinfo.url'}},
+      { key: 'userinfo.name', name: 'Seller',title: 'See details',dataType:{type:'no_link', target: 'userinfo.id'}},
+      { key: 'userinfo.type', name: 'Type'},
+      { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select', target: 'SELLER_INFO'}},
+      { key: 'userinfo.offerscount', name: 'Available Offers'},
+      { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers',title: 'See details',dataType:{type:'icon_link', target: 'userinfo.id'}},
+      { key: 'userinfo.id', name: 'User Id'},
+      { key: 'userinfo.friendliness', name: 'Friendliness'},
+      { key: 'userinfo.satisfaction', name: 'Satisfaction'},
+      { key: 'userinfo.accountcreated', name: 'Account Created', dataType:{type:'date'}}
+    ]
+  };
+
+  public searchPropertiesInfo = {
+    title: '',
+    rowData: [
+      { key: 'searchpropertyinfo.searchterm', name: 'Searchterm'},
+      { key: 'searchpropertyinfo.location', name: 'Location'},
+      { key: 'searchpropertyinfo.pricemin', name: 'Price (Min)'},
+      { key: 'searchpropertyinfo.pricemax', name: 'Price (Max)'},
+      { key: 'searchpropertyinfo.onlypickup', name: 'Only Pickup'}
+    ]
+  };
+
   public isMoreFieldOpenForSet = false;
   public task_origin = {
      offer_id : 0
@@ -409,12 +455,12 @@ export class OfferDetailComponent implements OnInit {
     }
   }
 
-  onUserDetailsClick(user_id) {
-    console.log(user_id);
-    if (user_id != null) {
-      this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
-    }
-  }
+  // onUserDetailsClick(user_id) {
+  //   console.log(user_id);
+  //   if (user_id != null) {
+  //     this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
+  //   }
+  // }
 
   getProgressDetails() {
     if (!this.requestList || this.requestList.length <= 0) {
@@ -430,14 +476,14 @@ export class OfferDetailComponent implements OnInit {
             this.setDownloadingRequestData[i].name = info.name;
             this.setDownloadingRequestData[i].image_url = info.image_url;
             var task_id = this.setDownloadingRequestData[i].task_id;
-            if (this.setDownloadingRequestData[i].progress == 100) {         
+            if (this.setDownloadingRequestData[i].progress == 100) {
               // Message should be data.body.message
               this.toastr.success(`Set ${info.setno} successfully downloaded.`);
               this.requestList = this.arrayRemove(this.requestList, task_id);
               this.setDownloadingRequestData = [];
               i++;
               this.bindData();
-              this.getAllPossiblesets();     
+              this.getAllPossiblesets();
             }
           }
         }

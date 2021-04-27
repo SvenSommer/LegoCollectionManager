@@ -131,7 +131,8 @@
 
                 </div>
             </div>
-            <div class="card-body">
+            <app-card-table *ngIf="sorterDetails" [cardColumns]="litferInfo" [cardData]="sorterDetails"></app-card-table>
+            <!-- <div class="card-body">
                 <div class="card">
                     <div class="card-body">
                         <h4>Litfer</h4>
@@ -142,9 +143,9 @@
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);">
-                                        {{sorterDetails.lifter_status_url}}
+                                        {{sorterDetails.sorterinfo.lifter_status_url}}
                                     </a>
-                                    <span class="status-type" [ngClass]="!sorterDetails.lifter_status_url ? 'bg-success' : 'bg-danger'"></span>
+                                    <span class="status-type" [ngClass]="!sorterDetails.sorterinfo.lifter_status_url ? 'bg-success' : 'bg-danger'"></span>
                                 </td>
                             </tr>
                             <tr>
@@ -153,7 +154,7 @@
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);">
-                                        {{sorterDetails.lifter_update_url}}
+                                        {{sorterDetails.sorterinfo.lifter_update_url}}
                                     </a>
                                 </td>
                             </tr>
@@ -163,15 +164,16 @@
                                 </td>
                                 <td>
                                     <a href="javascript:void(0);">
-                                        {{sorterDetails.lifter_alterspeed_url}}
+                                        {{sorterDetails.sorterinfo.lifter_alterspeed_url}}
                                     </a>
                                 </td>
                             </tr>
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="card-body">
+            </div> -->
+            <app-card-table *ngIf="sorterDetails" [cardColumns]="feederInfo" [cardData]="sorterDetails"></app-card-table>
+            <!-- <div class="card-body">
                 <div class="card">
                     <div class="card-body">
                         <h4>Feeder</h4>
@@ -209,8 +211,9 @@
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="card-body">
+            </div> -->
+            <app-card-table *ngIf="sorterDetails" [cardColumns]="conveyorInfo" [cardData]="sorterDetails"></app-card-table>
+            <!-- <div class="card-body">
                 <div class="card">
                     <div class="card-body">
                         <h4>Conveyor</h4>
@@ -248,7 +251,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-lg-9">

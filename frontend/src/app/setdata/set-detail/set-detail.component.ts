@@ -30,8 +30,8 @@ export class SetDetailComponent implements OnInit {
     { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
 
   ];
-  public partData: any; 
-  
+  public partData: any;
+
   public minifigColumns = [
     { title: 'Image', name: 'partinfo.thumbnail_url', size: '80', minSize: '80', datatype: { type: 'image' } },
     { title: 'Part', name: 'partinfo.part_no', size: '30', minSize: '30' },
@@ -41,6 +41,22 @@ export class SetDetailComponent implements OnInit {
     { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
 
   ];
+
+  public purchaseInfo = {
+    title: 'Purchase Information',
+    rowData: [
+      { key: 'setinfo.no', name: 'Setno',dataType:{type:'set_detail_link', target: 'no'}},
+      { key: 'setinfo.year', name: 'Year'},
+      { key: 'setinfo.weight_g', name: 'Weight',dataType:{type:'weight', unit:"g"}},
+      { key: 'setinfo.size', name: 'Size'},
+      { key: 'setinfo.min_price', name: 'Min Price', dataType: { type: 'price' }},
+      { key: 'setinfo.max_price', name: 'Max Price', dataType: { type: 'price' }},
+      { key: 'setinfo.avg_price', name: 'avg Price', dataType: { type: 'price' }},
+      { key: 'created', name: 'Created', dataType: { type: 'date' }}
+    ]
+  };
+
+
   public minifigData: any;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -84,7 +100,7 @@ export class SetDetailComponent implements OnInit {
       if (!/^http[s]?:\/\//.test(data.origin_url)) {
         url += 'http://';
       }
-  
+
       url += data.origin_url;
       window.open(url, '_blank');
     }

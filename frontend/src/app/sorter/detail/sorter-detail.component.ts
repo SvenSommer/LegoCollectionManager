@@ -58,6 +58,31 @@ export class SorterDetailComponent implements OnInit {
     { title: 'Created', name: 'created', size: '100', minSize: '60', datatype: { type: 'date' } },
   ];
 
+  public litferInfo = {
+    title: 'Litfer',
+    rowData: [
+      { key: 'sorterinfo.lifter_status_url', name: 'Status',dataType:{type:'status_link', target: 'sorterinfo.lifter_status_url'}},
+      { key: 'sorterinfo.lifter_update_url', name: 'Update',dataType:{type:'status_link'}},
+      { key: 'sorterinfo.lifter_alterspeed_url', name: 'Speed Change',dataType:{type:'status_link'}}
+    ]
+  };
+  public feederInfo = {
+    title: 'Feeder',
+    rowData: [
+      { key: 'sorterinfo.vfeeder_status_url', name: 'Status',dataType:{type:'status_link'}},
+      { key: 'sorterinfo.vfeeder_update_url', name: 'Update',dataType:{type:'status_link'}},
+      { key: 'sorterinfo.vfeeder_alterspeed_url', name: 'Speed Change',dataType:{type:'status_link'}}
+    ]
+  };
+  public conveyorInfo = {
+    title: 'Conveyor',
+    rowData: [
+      { key: 'sorterinfo.conveyor_status_url', name: 'Status',dataType:{type:'status_link'}},
+      { key: 'sorterinfo.conveyor_update_url', name: 'Update',dataType:{type:'status_link'}},
+      { key: 'sorterinfo.conveyor_alterspeed_url', name: 'Speed Change',dataType:{type:'status_link'}}
+    ]
+  };
+
   public pushersData: any;
   public valvesData: any;
   public scalesData: any;

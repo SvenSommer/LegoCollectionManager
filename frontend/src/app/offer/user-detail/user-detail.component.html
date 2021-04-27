@@ -8,8 +8,9 @@
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="text-primary font-weight-bold m-0">User Information</h6>
-            </div>         
-            <div class="card-body">
+            </div>
+            <app-card-table *ngIf="userDetails" [cardColumns]="userInfo" [cardData]="userDetails"></app-card-table>
+            <!-- <div class="card-body">
                 <div class="card">
                     <div class="card-body">
                         <table *ngIf="userDetails" class="div2 table table-hover table-sm datatable" role="grid">
@@ -57,7 +58,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                        Recorded Offers                                   
+                                        Recorded Offers
                                 </td>
                                 <td >
                                     {{userDetails.userinfo.sumOffersRecorded}}
@@ -91,7 +92,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="col-lg-9">

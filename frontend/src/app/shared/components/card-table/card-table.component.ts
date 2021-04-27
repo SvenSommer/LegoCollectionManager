@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-card-table',
@@ -8,10 +9,13 @@ import { Component, Input, OnInit } from '@angular/core';
 export class CardTableComponent implements OnInit {
   @Input() cardColumns: any;
   @Input() cardData: any;
+  @Input() selectOptionList: any;
+
+  @Output() onSelctionChange = new EventEmitter<any>();
 
   purchaseInfo: any;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.buildTableData(this.cardData);
@@ -30,6 +34,10 @@ export class CardTableComponent implements OnInit {
     }
   }
 
+  showProperty(cardInfo): boolean{
+    return (cardInfo?.dataType?.type !== 'sumAmount' && cardInfo?.hide !== 'True');
+  }
+
   buildTableData(cardData){
       this.cardColumns.rowData.forEach(item => {
         item["value"] = this.getProperty(item.key, cardData)
@@ -40,17 +48,29 @@ export class CardTableComponent implements OnInit {
     });
   }
 
+  onUserDetailsClick(user_id) {
+    console.log(user_id);
+    if (user_id != null) {
+      this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
+    }
+  }
+
   getProperty( propertyName, object ) {
     var parts = propertyName.split( "." ),
       length = parts.length,
       i,
       property = object || this;
-  
+
     for ( i = 0; i < length; i++ ) {
       property = property[parts[i]];
     }
-  
+
     return property;
+  }
+
+  onOptionChange(type, date: any): void {
+    if(type == 'SELLER_INFO')
+    this.onSelctionChange.emit(date);
   }
 
 }
