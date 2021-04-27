@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,8 @@ export class CardTableComponent implements OnInit {
   @Input() cardColumns: any;
   @Input() cardData: any;
   @Input() selectOptionList: any;
+
+  @Output() onSelctionChange = new EventEmitter<any>();
 
   purchaseInfo: any;
 
@@ -64,6 +66,10 @@ export class CardTableComponent implements OnInit {
     }
 
     return property;
+  }
+
+  onOptionChange(date: any): void {
+    this.onSelctionChange.emit(date);
   }
 
 }

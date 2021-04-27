@@ -115,7 +115,7 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="text-primary font-weight-bold m-0">Seller Information</h6>
             </div>
-            <app-card-table [cardColumns]="sellerInfo" [cardData]="offerDetails" [selectOptionList]="userCategoryList"></app-card-table>
+            <app-card-table [cardColumns]="sellerInfo" (onSelctionChange)="callUserCategory($event)" [cardData]="offerDetails" [selectOptionList]="userCategoryList"></app-card-table>
             <!-- <div class="card-body">
                 <div class="card">
                     <div class="card-body">
