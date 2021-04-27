@@ -68,7 +68,8 @@ export class CardTableComponent implements OnInit {
     return property;
   }
 
-  onOptionChange(date: any): void {
+  onOptionChange(type, date: any): void {
+    if(type == 'SELLER_INFO')
     this.onSelctionChange.emit(date);
   }
 

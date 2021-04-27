@@ -58,7 +58,7 @@
                     <select ngModel name="usercategory_id" id="usercategory_id"
                         class="form-control input-group" #status="ngModel"
                         [(ngModel)]="cardData.usercategory.id" #t
-                        (change)="onOptionChange(t.value)">
+                        (change)="onOptionChange(cardInfo?.dataType?.target, t.value)">
                         <option *ngFor="let category of selectOptionList" [value]="category.id">
                             {{ category.category }}
                         </option>

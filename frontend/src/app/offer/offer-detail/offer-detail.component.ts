@@ -84,7 +84,7 @@ export class OfferDetailComponent implements OnInit {
       { key: 'userinfo.user_id', name: 'External User Id', dataType:{type:'external_link', target: 'offerinfo.url'}},
       { key: 'userinfo.name', name: 'Seller',title: 'See details',dataType:{type:'no_link', target: 'userinfo.id'}},
       { key: 'userinfo.type', name: 'Type'},
-      { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select'}},
+      { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select', target: 'SELLER_INFO'}},
       { key: 'userinfo.offerscount', name: 'Available Offers'},
       { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers',title: 'See details',dataType:{type:'icon_link', target: 'userinfo.id'}},
       { key: 'userinfo.id', name: 'User Id'},
@@ -476,14 +476,14 @@ export class OfferDetailComponent implements OnInit {
             this.setDownloadingRequestData[i].name = info.name;
             this.setDownloadingRequestData[i].image_url = info.image_url;
             var task_id = this.setDownloadingRequestData[i].task_id;
-            if (this.setDownloadingRequestData[i].progress == 100) {         
+            if (this.setDownloadingRequestData[i].progress == 100) {
               // Message should be data.body.message
               this.toastr.success(`Set ${info.setno} successfully downloaded.`);
               this.requestList = this.arrayRemove(this.requestList, task_id);
               this.setDownloadingRequestData = [];
               i++;
               this.bindData();
-              this.getAllPossiblesets();     
+              this.getAllPossiblesets();
             }
           }
         }
