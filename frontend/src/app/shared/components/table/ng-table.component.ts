@@ -31,6 +31,8 @@ export class NgTableComponent implements OnInit, OnChanges {
   public numPages = 1;
   public length = 0;
   public searchTerm:string;
+  @Input() public inputSearchTerm:string;
+
   private resultData: Array<any> = [];
 
   //Table values
@@ -94,6 +96,11 @@ export class NgTableComponent implements OnInit, OnChanges {
     if (changes != null && changes.data != null && changes.data.currentValue != null) {
       this.onChangeTable(this.config);
     }
+    if(this.inputSearchTerm){
+      this.search(this.resultData,this.inputSearchTerm) ;
+      this.searchTerm = this.inputSearchTerm
+    }
+
   }
 
   public get columns(): Array<any> {

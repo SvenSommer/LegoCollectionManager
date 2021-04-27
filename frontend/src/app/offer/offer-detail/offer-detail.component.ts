@@ -400,18 +400,19 @@ export class OfferDetailComponent implements OnInit {
     if (!form.valid) {
       return;
     }
+    this.addSetToPotentialSets();
+    form.reset();
+  }
+
+  private addSetToPotentialSets() {
     this.newpossiblesetDetail.setno.replace(/ /g, "");
-
-
-    var new_task : TaskModel = {
-      type_id : 1,
-      origin : JSON.stringify(this.task_origin),
-      information :  JSON.stringify(this.newpossiblesetDetail)
-    }
-
+    var new_task: TaskModel = {
+      type_id: 1,
+      origin: JSON.stringify(this.task_origin),
+      information: JSON.stringify(this.newpossiblesetDetail)
+    };
     this.taskService.createNewTask(new_task).subscribe(
       (data) => {
-
         if (data) {
           if (data.body && data.body.code == 201) {
             this.requestList.push(data.body.task_id);
@@ -426,7 +427,6 @@ export class OfferDetailComponent implements OnInit {
               "report_progress": true
             };
             this.isSetFormSubmitted = false;
-            form.reset();
             this.getAllPossiblesets();
 
             setInterval(() => {
@@ -674,6 +674,7 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onSetClick(setNumber: string) {
-    console.log('set: ', setNumber);
+    this.newpossiblesetDetail.setno = setNumber;
+    this.addSetToPotentialSets();
   }
 }
