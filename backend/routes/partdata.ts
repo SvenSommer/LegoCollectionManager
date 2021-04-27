@@ -11,7 +11,7 @@ const route = Router();
 
 //List all setDetails
 route.get(``, UserAuthMiddleware, ShowAllPartData);
-route.get(`/aggregatedbypartno`, UserAuthMiddleware, ShowAllPartDataAggregatedbypartno);
+route.get(`/aggregatedbypartno/:searchwords`, UserAuthMiddleware, ShowAllPartDataAggregatedbypartno);
 route.get(`/partnamefrequency`, UserAuthMiddleware, ShowAllPartNameFrequency);
 //SaveData from Name analysis
 route.post(`/partnamefrequency`, AdminAuthMiddleware, CreatePartnameFrequency);

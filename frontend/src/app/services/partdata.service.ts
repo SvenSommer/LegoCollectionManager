@@ -24,15 +24,15 @@ export class PartdataService {
         return this.http.get<any>(`${environment.baseUrl}partdata`, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
-    getStoredPartnameFrequency(): Observable<any> {
-        let httpHeader = new HttpHeaders();
-        httpHeader.set("Access-Control-Allow-Origin", "*");
-        return this.http.get<any>(`${environment.baseUrl}partdata/partnamefrequency`, { withCredentials: true, headers: httpHeader, observe: 'response' });
-    }
+    // getStoredPartnameFrequency(): Observable<any> {
+    //     let httpHeader = new HttpHeaders();
+    //     httpHeader.set("Access-Control-Allow-Origin", "*");
+    //     return this.http.get<any>(`${environment.baseUrl}partdata/partnamefrequency`, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    // }
 
-    getPartdataAggegratedByPartnumber(): Observable<any> {
+    getPartdataAggegratedByPartnumber(reqSearchwords): Observable<any> {
         let httpHeader = new HttpHeaders();
         httpHeader.set("Access-Control-Allow-Origin", "*");
-        return this.http.get<any>(`${environment.baseUrl}partdata/aggregatedbypartno`, { withCredentials: true, headers: httpHeader, observe: 'response' });
+        return this.http.get<any>(`${environment.baseUrl}partdata/aggregatedbypartno/` + reqSearchwords, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 }
