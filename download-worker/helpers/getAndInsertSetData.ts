@@ -13,7 +13,7 @@ export function GetAndInsertSetData(setnumber: any, userid: any): Promise<any> {
                     .then(function (priceinfo: any) {
                         InsertSetData(setnumber, setinfo, priceinfo, userid).then(function (data) {
                             if (data) {
-                                resolve(data);
+                                resolve(setinfo);
                             }
                         }, function (err) {
                             reject(err);

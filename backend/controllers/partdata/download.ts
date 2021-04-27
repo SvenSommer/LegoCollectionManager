@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+/* import { Request, Response } from 'express';
 //@ts-ignore
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
@@ -62,3 +62,4 @@ export default (req: Request, res: Response) => {
 
 
 
+ */

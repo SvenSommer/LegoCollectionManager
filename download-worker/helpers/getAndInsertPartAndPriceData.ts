@@ -45,7 +45,7 @@ export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid
                                             createdBy)
                                             VALUES(
                                             '${partinfo.no}',
-                                            '${partinfo.name.replace("'", "`").replace("'", "`")}',
+                                            `+ connection.escape(partinfo.name) + `,
                                             '${type}',
                                              ${partinfo.category_id},
                                              ${colorid},
@@ -67,6 +67,7 @@ export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid
                                                     errorMessage: process.env.DEBUG && err
                                                 });
                                                 console.log(err)
+                                                console.log(createPartData)
                                             }
                                             else {
                                                 const region = 'europe';

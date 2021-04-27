@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import connection from "../../../database_connection";
 
 export function UpdateSetMinifigCount(setnumber: any) {
@@ -31,3 +31,4 @@ export function UpdateSetMinifigCount(setnumber: any) {
         });
     });
 }
+ */

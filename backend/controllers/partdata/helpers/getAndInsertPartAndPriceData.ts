@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import connection from "../../../database_connection";
 import { PriceInfo } from "../../../models/model";
 import { UpsertPriceData } from '../../pricedata/helpers/upsertPriceData';
@@ -102,3 +102,4 @@ export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid
 
     });
 }
+ */

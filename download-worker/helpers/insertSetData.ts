@@ -22,7 +22,7 @@ export function InsertSetData(setnumber: any, setinfo: any, priceinfo: any, id: 
             createdBy)
             VALUES(
             '${setnumber}',
-            '${setinfo.name.replace("'", "`").replace("'", "`")}',
+            `+ connection.escape(setinfo.name) + `,
              ${setinfo.category_id},
             '${setinfo.year_released}',
              ${setinfo.weight},

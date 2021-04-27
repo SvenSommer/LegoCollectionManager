@@ -1,4 +1,4 @@
-import { Console } from 'console';
+/* import { Console } from 'console';
 import {Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
@@ -128,4 +128,4 @@ export default (req: Request, res: Response) => {
             error: e
         });
     }
-}
+} */

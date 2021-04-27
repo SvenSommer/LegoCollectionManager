@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import { rejects } from 'node:assert';
 import { resolve } from 'node:path';
 import { GlobalVariable } from '../../../config/GlobalVariable';
@@ -53,3 +53,4 @@ export async function UpsertPriceData(partnumber: any, colorid: any, type: any, 
         });
     });
 }
+ */

@@ -43,7 +43,7 @@ export async function getAndUpdatePartAndPriceData(type: any, partnumber: any, c
                                             }).then(function (priceinfosolddata: any) {
                                                 GlobalVariable.apiCounter--;
                                                 const updatePartData = `UPDATE Partdata SET 
-                                                            name = '${partinfo.name.replace("'", "`").replace("'", "`")}',
+                                                            name = `+ connection.escape(partinfo.name) + `,
                                                             category_id = '${partinfo.category_id}',
                                                             year = '${partinfo.year_released}',
                                                             weight_g = '${partinfo.weight}',

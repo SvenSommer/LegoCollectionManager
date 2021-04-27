@@ -1,6 +1,5 @@
 import { InsertPriceData } from "./insertPriceData";
 const blApi = require("../config/bl.api.js");
-import { Response } from 'express';
 import { PriceInfo } from "../models/model";
 
 export async function GetAndInsertPriceData(condition: any, type: any, partnumber: any, colorid: any, region: any, guide_type: any, userid: any): Promise<any> {

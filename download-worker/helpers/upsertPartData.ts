@@ -17,13 +17,14 @@ export async function UpsertPartDataByNo(partnumber: any, colorid: any, type: an
                 if (partresult !== 'undefined' && partresult.length > 0) {
                     const { id: partid } = partresult[0];
                     console.log(`Part already in Parts Table with id ${partid}`);
-                    getAndUpdatePartAndPriceData(type, partnumber, colorid, userid, partid).then(function (data) {
+                    resolve(true)
+                   /*  getAndUpdatePartAndPriceData(type, partnumber, colorid, userid, partid).then(function (data) {
                         if (data) {
                             resolve(data);
                         }
                     }, function (err) {
                         reject(err);
-                    });
+                    }); */
                 }
                 else {
                     console.log(`Part not existend in Part Table yet type: ${type} partnumber: ${partnumber} colorid:${colorid} userid: ${userid}`)

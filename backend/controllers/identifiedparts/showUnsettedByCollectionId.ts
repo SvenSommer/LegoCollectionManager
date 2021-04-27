@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import connection from "../../database_connection";
-import { UpsertPartDataByNo } from '../partdata/helpers/upsertPartData';
+//import { UpsertPartDataByNo } from '../partdata/helpers/upsertPartData';
 
 export default (req: Request, res: Response) => {
     const { collectionid: collectionid } = req.params;
@@ -15,7 +15,9 @@ export default (req: Request, res: Response) => {
         else {
             result.forEach(function (row: any) {
                 if (row.name == undefined)
-                    UpsertPartDataByNo(row.partNo, row.color_id, "PART", 0);
+                console.log("TODO: download part " + row.name)
+                // TODO: Dowlnoad the partinfo here via task 
+                  //  UpsertPartDataByNo(row.partNo, row.color_id, "PART", 0);
             });
 
 

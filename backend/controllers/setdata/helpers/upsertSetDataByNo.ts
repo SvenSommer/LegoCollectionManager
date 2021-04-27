@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import connection from "../../../database_connection";
 import { InsertProgressDetail } from '../../progressdetails/helpers/createprogressdetails';
 import { GetAndUpsertSubSetData } from '../../subsetdata/helpers/getAndUpsertSubSetData';
@@ -66,3 +66,4 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, request_
         });
     });
 }
+ */

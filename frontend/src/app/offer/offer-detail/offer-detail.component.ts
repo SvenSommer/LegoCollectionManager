@@ -30,7 +30,8 @@ export class OfferDetailComponent implements OnInit {
   public userCategoryList: Array<any>;
   public messageAccountList: Array<MessageTextModel>;
   public messageTextList: Array<any>;
-
+  public offerDescriptionSplitBySets: string[] = [];
+  public recognizeSets: string[] = [];
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' } },
@@ -171,8 +172,10 @@ export class OfferDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.offerDetails = data.body.result[0];
+            this.splitBySets();
             if (this.offerDetails.propertyinfo != null) {
               this.properties = this.offerDetails.propertyinfo;
+              console.log(this.properties);
             }
             this.user_category.id = this.offerDetails.userinfo.id;
           }
@@ -470,31 +473,17 @@ export class OfferDetailComponent implements OnInit {
           for (var i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
             var info = JSON.parse(this.setDownloadingRequestData[i].information)
             this.setDownloadingRequestData[i].setNo = info.setno;
+            this.setDownloadingRequestData[i].name = info.name;
+            this.setDownloadingRequestData[i].image_url = info.image_url;
             var task_id = this.setDownloadingRequestData[i].task_id;
-            if (this.setDownloadingRequestData[i].progress == 100) {
-              this.offerService.saveNewPossibleSets(info).subscribe(
-                (data) => {
-                  console.log(data)
-                  if (data) {
-                    if (data.body && data.body.code == 201) {
-                      // Message should be data.body.message
-                      this.toastr.success(`Set ${info.setno} successfully downloaded.`);
-                      this.requestList = this.arrayRemove(this.requestList, task_id);
-                      this.setDownloadingRequestData = [];
-                      i++;
-                      this.bindData();
-                      this.getAllPossiblesets();
-                    }
-                    else if (data.body && data.body.code == 403) {
-                      this.router.navigateByUrl("/login");
-                    }
-                    else
-                      console.log(data.body)
-                  }
-                },
-                (error: HttpErrorResponse) => {
-                  console.log(error.name + ' ' + error.message);
-                });
+            if (this.setDownloadingRequestData[i].progress == 100) {         
+              // Message should be data.body.message
+              this.toastr.success(`Set ${info.setno} successfully downloaded.`);
+              this.requestList = this.arrayRemove(this.requestList, task_id);
+              this.setDownloadingRequestData = [];
+              i++;
+              this.bindData();
+              this.getAllPossiblesets();     
             }
           }
         }
@@ -556,12 +545,9 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onSaveProperties(propertiesForm: NgForm) {
-    if (!propertiesForm.valid) {
-      return;
-    }
     this.properties.offer_id = this.offerid;
 
-
+    console.log(this.properties);
     this.offerService.upsertProperties(this.properties).subscribe(
       (data) => {
         if (data.body.code === 201 || data.body.code === 200) {
@@ -669,10 +655,25 @@ export class OfferDetailComponent implements OnInit {
     );
   }
 
-
+  splitBySets() {
+    const offerDescription: string = this.offerDetails.offerinfo.description;
+    const splitBySets = offerDescription.substring(4, offerDescription.length - 4)
+      .split(/"[^"]*"|'[^']*'|(\d{4,5})/g);
+    splitBySets.forEach(((value, index) => {
+      if (index % 2 === 0) {
+        this.offerDescriptionSplitBySets.push(value);
+      } else {
+        this.recognizeSets.push(value);
+      }
+    }));
+  }
 
   getMessageText(messagetextId: number): string {
-    const messageText = this.messageTextList.find(i => i.id == messagetextId);
+    const messageText = this.messageTextList ? this.messageTextList.find(i => i.id == messagetextId) : null;
     return messageText ? messageText.message : '';
+  }
+
+  onSetClick(setNumber: string) {
+    console.log('set: ', setNumber);
   }
 }

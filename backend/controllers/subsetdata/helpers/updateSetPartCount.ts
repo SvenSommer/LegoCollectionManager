@@ -1,4 +1,4 @@
-import connection from "../../../database_connection";
+/* import connection from "../../../database_connection";
 
 export function UpdateSetPartCount(setnumber: any) {
     return new Promise(function (resolve, reject) {
@@ -30,3 +30,4 @@ export function UpdateSetPartCount(setnumber: any) {
         });
     });
 }
+ */

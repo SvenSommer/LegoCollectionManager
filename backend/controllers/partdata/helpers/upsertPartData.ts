@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import connection from "../../../database_connection";
 import { getAndInsertPartAndPriceData } from './getAndInsertPartAndPriceData';
 import { getAndUpdatePartAndPriceData } from './getAndUpdatePartAndPriceData';
@@ -58,3 +58,4 @@ export function UpdatePartDataById(partid: any, res: Response<any, Record<string
         }
     });
 }
+ */
