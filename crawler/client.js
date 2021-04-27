@@ -33,7 +33,7 @@ const closeLoginSelector = ".login-overlay a.overlay-close"
 const modalSelector = "#vap-ovrly-secure"
 const buttonCloseModal = "#vap-ovrly-secure .mfp-close"
 
-const loginButtonSelector = "nav li a"
+const loginButtonSelector = "#site-signin > nav > ul > li:nth-child(3) > a"
 const emailSelector = "#login-email"
 const passwordSelector = "#login-password"
 const submitLoginSelector = "#login-submit"
@@ -66,7 +66,7 @@ const main = async () => {
 			"--disable-web-security",
 			"--disable-features=IsolateOrigins,site-per-process",
 			"--start-maximized",
-			"--user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'",
+			// "--user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'",
 		],
 		ignoreHTTPSErrors: true,
 	});
@@ -102,6 +102,7 @@ const main = async () => {
 	// =================================================
 	const page = await browser.newPage()
 	await page.setCacheEnabled(false)
+	await page.setUserAgent('5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
 	await page.setDefaultTimeout(15 * 60 * 1000)
 
 	// Handling all errors
@@ -171,9 +172,27 @@ const main = async () => {
 			formAvailable = false
 		}
 		if (formAvailable) {
-			await page.type(emailSelector, taskinfo.account.email)
-			await page.type(passwordSelector, taskinfo.account.password)
+			console.log("* Fullfilling with credentials");
+			await page.type(emailSelector, taskinfo.account.email, { delay: 150 })
+			await page.type(passwordSelector, taskinfo.account.password, { delay: 150 })
 			await page.$eval(submitLoginSelector, el => el.click())
+			console.log("* Sending creds");
+			await page.waitForTimeout(2500)
+
+			//if 403 => Go back and make the login again
+			if (await page.$(".outcomebox-error")) {
+				console.log("!! 403 message, going back to the login");
+				await page.goBack({ waitUntil: "networkidle2", timeout: 30000 })
+				await page.evaluate((selectors) => {
+					selectors.forEach(sel => document.querySelector(sel).value = "")
+				}, [emailSelector, passwordSelector])
+
+				console.log("* Fullfilling the credentials");
+				await page.type(emailSelector, taskinfo.account.email, { delay: 150 })
+				await page.type(passwordSelector, taskinfo.account.password, { delay: 150 })
+				console.log("* Sending creds");
+				await page.$eval(submitLoginSelector, el => el.click())
+			}
 			await page.waitForTimeout(2000)
 			console.log("* Login success");
 			// Log(LOGLEVEL, "* Login success", reqCredentials)
@@ -182,7 +201,6 @@ const main = async () => {
 		//* Going to the main page
 		await page.goto(taskinfo.url, { waitUntil: "networkidle2" })
 		await page.waitForTimeout(2000)
-
 		if (await page.$(contactFormSelector)) {
 			console.log("* Cleaning the form");
 			await page.evaluate((selectors) => {
@@ -196,6 +214,7 @@ const main = async () => {
 			await page.type(phoneInputSelector, taskinfo.account.phone)
 			console.log("* The form is complete, sending the message...");
 			// Log(LOGLEVEL, "* The form is complete, sending the message...", reqCredentials)
+
 			await page.$eval(submitFormSelector, el => el.click()) //Nachricht se
 			console.log("* The message has sended");
 			// Log(LOGLEVEL, "* The message has sended", reqCredentials)
