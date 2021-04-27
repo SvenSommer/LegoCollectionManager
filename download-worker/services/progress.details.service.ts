@@ -21,8 +21,7 @@ export function UpdateTaskStatus(task_id: any, status: any, information: any) {
         "status_id": status,
         "information": information
     }, { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(data => {
-        console.log(data.data);
-        if (data.data.code == 200) {
+        if (data.data.code != 200) {
             console.log(data.data.message);
         }
     });

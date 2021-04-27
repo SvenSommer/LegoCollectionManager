@@ -36,8 +36,6 @@ export function DownloadSetDataMain(data: any) {
 }
 
 export function makeSingleRequest(entry: any, callback: any) {
-
-  console.log(entry);
   var req_information = JSON.parse(entry.information);
   var req_origin = JSON.parse(entry.origin);
 
@@ -80,7 +78,6 @@ function AddSetToCallingInstance(req_origin: any, req_information: any) {
     addNewSetForEntity(JSON.stringify(req_information), 'offers_possiblesets');
   } else {
     console.log("Error: Unable to parse origin of Set!")
-    console.log("req_origin", req_origin)
   }
 }
 
@@ -89,10 +86,7 @@ export function addNewSetForEntity(req_information: any, endpoint:string) {
   axios.post<any>(url, req_information, 
   { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(data => {
       console.log(data.data);
-      if (data.data.code == 200) {
-          console.log(data.data.message);
-      }else
-      {
+      if (data.data.code != 200) {
         console.log(data.data.message);
       }
   });

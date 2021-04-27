@@ -54,7 +54,7 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, task_id:
                     console.log(`Set not existend in Set Table yet setnumber: ${setnumber}, userid: ${userid}`)
                     GetAndInsertSetData(setnumber, userid).then(function (setinfo) {
                         enrichInformationWithSetinfo(setinfo);
-                        InsertProgressDetail(task_id, 10, "Set Data Downloaded", information);
+                        InsertProgressDetail(task_id, 10, "Starting Set Data Download", information);
                         GetAndUpsertSubSetData(setnumber, userid, task_id, information).then(function (data) {
                             if (data) {
                                 resolve(data);

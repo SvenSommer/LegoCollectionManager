@@ -22,7 +22,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, task_id: any
                 InsertProgressDetail(task_id, 15, "Sub Set Data Downloaded", information);
                 var totalCount = 0;
                 var incrementCount = 1;
-                console.log(delay);
+               // console.log(delay);
                 var sets = new Array<any>();
                 subsetData.forEach(function (subsetdataEntry: any) {
                     subsetdataEntry["entries"].forEach(function (entry: any) {
@@ -30,6 +30,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, task_id: any
                         incrementCount++;
                         entry.userid = userid;
                         entry.information = information;
+                        entry.task_id = task_id;
                         sets.push(entry);
                         const insertSubSetData = `INSERT INTO Subsets (
                                                 setNo,
@@ -105,8 +106,9 @@ export function makeRequest(entry: any, callback: any) {
         GlobalVariable.incrementCount++;
         if (GlobalVariable.totalCount > 0) {
             let percentage = GlobalVariable.incrementCount / ((GlobalVariable.totalCount + 2) / 2) * 100;
-            console.log(`success, downloaded: ${percentage}%`);
-            InsertProgressDetail(entry.request_id, percentage * 0.8 + 15, "Part Data Downloading.", entry.information);
+            //console.log(`success, downloaded: ${percentage}%`);
+
+            InsertProgressDetail( entry.task_id, percentage * 0.8 + 15, "Part Data Downloading.", entry.information);
         }
         if (GlobalVariable.totalCount > 0 && GlobalVariable.incrementCount > (GlobalVariable.totalCount / 2)) {
             GlobalVariable.totalCount = 0;
