@@ -8,9 +8,9 @@
           <div>
             <ng-container *ngFor="let word of searchwords">
                 <label class="mr-1">{{word}}</label>
-              </ng-container>    
+              </ng-container>
           </div>
-         
+
     </div>
 
     <div class="card shadow mb-4">
@@ -31,7 +31,7 @@
             </div> -->
             <div class="row">
                 <div class="col-sm-12" *ngIf="partdata && partcolumns">
-                    <ng-table [inputSearchTerm]="combinedsearchword" [allowSearch]="false" [isActionVisible]="false" [columns]="partcolumns" [data]="partdata">
+                    <ng-table [allowSearch]="false" [isActionVisible]="false" [columns]="partcolumns" [data]="partdata">
                 </ng-table>
                 </div>
             </div>

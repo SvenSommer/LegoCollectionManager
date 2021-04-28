@@ -141,3 +141,18 @@ label {
 .mr-18 {
   margin-right: 18px;
 }
+
+#color_codes .mat-tab-body-content {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: 20px;
+}
+
+#color_codes .mat-tab-label, .mat-tab-label-active{
+  min-width: 0!important;
+  padding-top: 3px!important;
+  margin: 3px!important;
+  height: 35px !important;
+  background: #d3b9b9;
+ }

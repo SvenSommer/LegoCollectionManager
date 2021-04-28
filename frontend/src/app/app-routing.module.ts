@@ -11,7 +11,6 @@ import { SorterComponent } from './sorter/sorter.component';
 import { SorterDetailComponent } from './sorter/detail/sorter-detail.component';
 import { RunDetailComponent } from './run/run-detail/run-detail.component';
 import { PreferencesComponent } from './preferences/preferences.component';
-import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 import { ColorsComponent } from './colors/colors.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { PricesComponent } from './prices/prices.component';
@@ -21,6 +20,7 @@ import { OfferComponent } from './offer/offer.component';
 import { OfferDetailComponent } from './offer/offer-detail/offer-detail.component';
 import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 import { UserDetailComponent } from './offer/user-detail/user-detail.component';
+import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 
 const routes: Routes = [
 

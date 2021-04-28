@@ -82,6 +82,7 @@ export class LabelpartsComponent implements OnInit {
 
 
   public colorData: any;
+  public colorsList = [];
 
 
 
@@ -97,22 +98,22 @@ export class LabelpartsComponent implements OnInit {
 
   HandleKeyInput(key) {
     console.log(key)
-  
+
     switch (key) {
-      case "ArrowRight": 
+      case "ArrowRight":
         this.onNextPartClick()
         break;
-      case "ArrowLeft": 
+      case "ArrowLeft":
         this.onPrevoiusPartClick();
         break;
-        
-      case "Delete": 
+
+      case "Delete":
           this.onDeleteIdentifiedPartClick(this.current_partid)
-        break;        
-      case "0": 
+        break;
+      case "0":
           this.onToogleAllDeleted(this.identifiedpartsData[this.currentpart_of_run])
         break;
-    
+
       default:
         break;
     }
@@ -121,7 +122,7 @@ export class LabelpartsComponent implements OnInit {
 
 styleImage(partimage): Object {
     if (partimage.deleted!=null){
-        return {'opacity': '0.4', 
+        return {'opacity': '0.4',
         'background-color': '#ad0303',
         'filter': 'alpha(opacity=40)'}
     }
@@ -158,8 +159,8 @@ styleImage(partimage): Object {
   }
 
   onToggleDeleted(partimage){
-    if(partimage.deleted==null){ 
-      console.log("delete") 
+    if(partimage.deleted==null){
+      console.log("delete")
       this.partimageService.markPartimageAsDeletedById(partimage.id).subscribe(
         (data) => {
           this.refreshImages(data);
@@ -167,9 +168,9 @@ styleImage(partimage): Object {
         (error: HttpErrorResponse) => {
           console.log(error.name + ' ' + error.message);
         }
-      ); 
+      );
     } else {
-      console.log("undelete") 
+      console.log("undelete")
       this.partimageService.markPartimageAsNotDeletedById(partimage.id).subscribe(
         (data) => {
           this.refreshImages(data);
@@ -177,7 +178,7 @@ styleImage(partimage): Object {
         (error: HttpErrorResponse) => {
           console.log(error.name + ' ' + error.message);
         }
-      ); 
+      );
   }
 
   }
@@ -231,8 +232,8 @@ styleImage(partimage): Object {
         console.log(error.name + ' ' + error.message);
       }
     );
-  } 
-  
+  }
+
   getAllColordata() {
     this.identifiedpartsService.getColordata().subscribe(
       (data) => {
@@ -240,6 +241,28 @@ styleImage(partimage): Object {
           if (data.body && data.body.code == 200) {
             console.log( data.body.result[0])
             this.colorData = data.body.result;
+
+
+            let flags = [], colorTypesList = [], l = this.colorData.length, i;
+            for( i=0; i<l; i++) {
+                if( flags[this.colorData[i].color_type]) continue;
+                flags[this.colorData[i].color_type] = true;
+                colorTypesList.push(this.colorData[i].color_type);
+            }
+
+            colorTypesList.forEach(item => {
+              let obj = {
+                label: '',
+                props: []
+              };
+              obj.label = item;
+              this.colorData.forEach(element => {
+                if(item == element.color_type){
+                  obj.props.push(element);
+                }
+              });
+              this.colorsList.push(obj);
+            });
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -251,7 +274,7 @@ styleImage(partimage): Object {
       }
     );
   }
-  
+
 
   private refreshCurrentPartid() {
     if(this.identifiedpartsData)

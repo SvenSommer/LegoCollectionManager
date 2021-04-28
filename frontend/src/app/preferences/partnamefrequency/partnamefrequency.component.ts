@@ -31,7 +31,7 @@ export class PartnamefrequencyComponent implements OnInit {
     ]
 
     public partdata: any;
-    
+
     public partdataAggregated: any;
     public partNameFrequencyData : Array<PartnameFrequencyModel> = [];
     public activeButtons : any = [];
@@ -44,9 +44,9 @@ export class PartnamefrequencyComponent implements OnInit {
       { title: 'nearwords', name: 'nearwords', size: '5%', minSize: '50'},
       { title: 'counter', name: 'counter', size: '5%', minSize: '50'},
       { title: 'overallcounter', name: 'overallcounter', size: '5%', minSize: '50'},
-    ] 
+    ]
 
- 
+
 
   ngOnInit(): void {
     this.getPartdata();
@@ -55,9 +55,40 @@ export class PartnamefrequencyComponent implements OnInit {
 
   showNextNames(clickedword: any){
     this.searchwords.push(clickedword.word);
-    this.removeFromSearchwords("none");   
+    this.removeFromSearchwords("none");
+    this.getFilteredRestaurants(this.searchwords);
     this.combinedsearchword = this.searchwords.join(" ")
     this.getPartdataAggegratedByPartnumber()
+  }
+
+    getFilteredRestaurants(list) {
+      let tableList = this.partdata;
+      const keys = Object.keys(this.partdata[0]);
+      list.forEach((element,index) => {
+        element = element.toUpperCase();
+        let result = this.partdata.filter(
+          (v) =>
+            v &&
+            keys.some((k) => {
+              if(v[k] && v[k].constructor && v[k].constructor.name !== 'Object') {
+                return v[k] && v[k].toString().toUpperCase().indexOf(element) >= 0;
+              }
+              else{
+                if(v[k]){
+                  let b = Object.keys(v[k]).some((e)=>{
+                    return v[k] && v[k][e] && v[k][e].toString().toUpperCase().indexOf(element) >= 0;
+                  })
+                  return b;
+                }
+              }
+            })
+        );
+        this.partdata = result;
+        if(index === list.length - 1){
+          this.partdata = [];
+          this.partdata = result;
+        }
+      });
   }
 
   private removeFromSearchwords(str: string) {
@@ -114,14 +145,14 @@ export class PartnamefrequencyComponent implements OnInit {
          return;
       let partname = part.name;
       replacements.forEach(repl => {
-         partname = partname.replaceAll(repl.search, repl.replace)   
+         partname = partname.replaceAll(repl.search, repl.replace)
       });
-      
+
       const splitpartname = partname.split(/[\s,]+/)
       let wordposition = 1
-      
+
       splitpartname.forEach((word, index) => {
-        
+
           if(!this.isEmpty(word) && !this.isSetnumber(word)) {
 
             existingentry_EveryPosition = this.partNameFrequencyData.filter(function(item){
@@ -146,7 +177,7 @@ export class PartnamefrequencyComponent implements OnInit {
       });
       namecounter++;
     });
-    console.log( this.partNameFrequencyData)
+    // console.log( this.partNameFrequencyData)
 
     this.partNameFrequencyData = this.partNameFrequencyData.sort(this.sortByCount).slice(0, 20);
     this.activeButtons = [];
@@ -154,7 +185,7 @@ export class PartnamefrequencyComponent implements OnInit {
       if(!this.searchwords.includes(element.word))
       replacements.forEach(repl => {
         if(repl.undo)
-          element.word = element.word.replace(repl.replace, repl.search)   
+          element.word = element.word.replace(repl.replace, repl.search)
      });
         this.activeButtons.push({
           "word" : element.word,
