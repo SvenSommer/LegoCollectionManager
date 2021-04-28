@@ -4,13 +4,11 @@ import connection from "../../database_connection";
 export default (req: Request, res: Response) => {
     const { searchwords } = req.params;
     console.log("searchwords",searchwords)
-    let showAll = `SELECT json_arrayagg(color_id) as colors, no, name FROM LegoSorterDB.Partdata
-    GROUP BY no, name`
+    let showAll = `SELECT * FROM LegoSorterDB.partdata_parts_perPartno`
     if(searchwords && !searchwords.includes('none')){
         var names = "'%" + searchwords.split( "," ).join( "%') AND NAME LIKE ('%" ) + "%'";
-        showAll = `SELECT json_arrayagg(color_id) as colors, no, name FROM LegoSorterDB.Partdata
-        WHERE NAME LIKE (${names})
-        GROUP BY no, name`
+        showAll = `SELECT * FROM LegoSorterDB.partdata_parts_perPartno
+        WHERE NAME LIKE (${names})`
     }
     console.log(showAll)
     connection.query(showAll, (err, result) => {
