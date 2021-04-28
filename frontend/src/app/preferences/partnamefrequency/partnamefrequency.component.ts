@@ -89,6 +89,36 @@ export class PartnamefrequencyComponent implements OnInit {
       console.log(this.partdataAggregated)
   }
 
+    getFilteredRestaurants(list) {
+      let tableList = this.partdata;
+      const keys = Object.keys(this.partdata[0]);
+      list.forEach((element,index) => {
+        element = element.toUpperCase();
+        let result = this.partdata.filter(
+          (v) =>
+            v &&
+            keys.some((k) => {
+              if(v[k] && v[k].constructor && v[k].constructor.name !== 'Object') {
+                return v[k] && v[k].toString().toUpperCase().indexOf(element) >= 0;
+              }
+              else{
+                if(v[k]){
+                  let b = Object.keys(v[k]).some((e)=>{
+                    return v[k] && v[k][e] && v[k][e].toString().toUpperCase().indexOf(element) >= 0;
+                  })
+                  return b;
+                }
+              }
+            })
+        );
+        this.partdata = result;
+        if(index === list.length - 1){
+          this.partdata = [];
+          this.partdata = result;
+        }
+      });
+  }
+
   private removeFromSearchwords(str: string) {
     const index = this.searchwords.indexOf(str, 0);
     if (index > -1) {
