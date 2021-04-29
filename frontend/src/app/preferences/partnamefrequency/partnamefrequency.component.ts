@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NearWords as NearWord, PartnameFrequencyModel, PartnameFrequencyModelExport as PartnameFrequencyExportModel } from '../../models/partnamefrequency-model';
+import { PartnameFrequencyCachingModel, PartnameFrequencyModel } from '../../models/partnamefrequency-model';
 import { PartdataService } from '../../services/partdata.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-partnamefrequency',
@@ -12,6 +13,7 @@ import { PartdataService } from '../../services/partdata.service';
 export class PartnamefrequencyComponent implements OnInit {
 
   constructor(private partdataService: PartdataService,
+     private toastr: ToastrService,
     private router: Router) { }
 
     public partcolumns = [
@@ -86,7 +88,6 @@ export class PartnamefrequencyComponent implements OnInit {
           this.partdataAggregated = result;
         }
       });
-      console.log(this.partdataAggregated)
   }
 
   private removeFromSearchwords(str: string) {
@@ -107,110 +108,144 @@ export class PartnamefrequencyComponent implements OnInit {
   }
 
   countNames() {
+
+    //CheckForCache
+    this.partdataService.searchCacheEntry(this.searchwords.join(",")).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+          
+            if(data.body.result[0]){
+              console.log("Found Cache for searchwords " + this.searchwords);
+              let buttons = data.body.result[0];
+              let words = JSON.parse(buttons.activeButtonsWords)
+              let numbers = JSON.parse(buttons.activeButtonsNumbers)
+              this.activeButtonsNumbers = numbers;
+              this.activeButtonsWords = words;
+            }  else
+            {
+              console.log("No Cache Found for searchwords " + this.searchwords);
+              this.calculateActiveButtons();
+            }
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+
+  private calculateActiveButtons() {
     this.partNameFrequencyData = [];
-    let existingentry_EveryPosition : Array<PartnameFrequencyModel>;
-    var replacements:any = [
-      {"search":";", "replace":" ", "undo": false},
-      {"search":"Pattern", "replace":" ", "undo": false},
-      {"search":"Sticker", "replace":" ", "undo": false},
-      {"search":" Sheet ", "replace":" ", "undo": false},
-      {"search":" Set ", "replace":" ", "undo": false},
-      {"search":" of ", "replace":" ", "undo": false},
-      {"search":"with ", "replace":"with_", "undo": true},
-      {"search":" and ", "replace":" ", "undo": false},
-      {"search":" for ", "replace":" ", "undo": false},
-      {"search":"/", "replace":" ", "undo": false},
-      {"search":"&", "replace":" ", "undo": false},
-      {"search":" on ", "replace":" ", "undo": false},
-      {"search":"Minifigure", "replace":"", "undo": false},
-      {"search":"-", "replace":" ", "undo": false},
-      {"search":" x", "replace":"_x", "undo": true},
-      {"search":" Side", "replace":"_Side", "undo": true},
-      {"search":" Hole", "replace":"_Hole", "undo": true},
-      {"search":"(", "replace":" ", "undo": false},
-      {"search":"#39", "replace":" ", "undo": false},
-      {"search":"#40", "replace":" ", "undo": false},
-      {"search":")", "replace":" ", "undo": false},
-      {"search":"#41", "replace":" ", "undo": false},
-      {"search":"`", "replace":" ", "undo": false},
-      {"search":"'", "replace":" ", "undo": false},
-    ]
-    let numberofnamesToWork = 10000
-    let numberofSuggestions = 30
+    let existingentry_EveryPosition: Array<PartnameFrequencyModel>;
+    var replacements: any = [
+      { "search": ";", "replace": " ", "undo": false },
+      { "search": "Pattern", "replace": " ", "undo": false },
+      { "search": "Sticker", "replace": " ", "undo": false },
+      { "search": " Sheet ", "replace": " ", "undo": false },
+      { "search": " Set ", "replace": " ", "undo": false },
+      { "search": " of ", "replace": " ", "undo": false },
+      { "search": "with ", "replace": "with_", "undo": true },
+      { "search": " and ", "replace": " ", "undo": false },
+      { "search": " for ", "replace": " ", "undo": false },
+      { "search": "/", "replace": " ", "undo": false },
+      { "search": "&", "replace": " ", "undo": false },
+      { "search": " on ", "replace": " ", "undo": false },
+      { "search": "Minifigure", "replace": "", "undo": false },
+      { "search": "-", "replace": " ", "undo": false },
+      { "search": " x", "replace": "_x", "undo": true },
+      { "search": " Side", "replace": "_Side", "undo": true },
+      { "search": " Hole", "replace": "_Hole", "undo": true },
+      { "search": "(", "replace": " ", "undo": false },
+      { "search": "#39", "replace": " ", "undo": false },
+      { "search": "#40", "replace": " ", "undo": false },
+      { "search": ")", "replace": " ", "undo": false },
+      { "search": "#41", "replace": " ", "undo": false },
+      { "search": "`", "replace": " ", "undo": false },
+      { "search": "'", "replace": " ", "undo": false },
+    ];
+    let numberofnamesToWork = 100000;
+    let numberofSuggestions = 30;
     let namecounter = 1;
-  //  console.log("Calculating words of "+    this.partdataAggregated.length  + " part names. Limit " + numberofnamesToWork );
+    //  console.log("Calculating words of "+    this.partdataAggregated.length  + " part names. Limit " + numberofnamesToWork );
     this.partdataAggregated.forEach(part => {
-      if(namecounter > numberofnamesToWork )
-         return;
+      if (namecounter > numberofnamesToWork)
+        return;
       let partname = part.name;
       replacements.forEach(repl => {
-         partname = partname.replaceAll(repl.search, repl.replace)
+        partname = partname.replaceAll(repl.search, repl.replace);
       });
 
-      const splitpartname = partname.split(/[\s,]+/)
-      let wordposition = 1
+      const splitpartname = partname.split(/[\s,]+/);
+      let wordposition = 1;
 
       splitpartname.forEach((word, index) => {
 
-          if(!this.isEmpty(word) && !this.isSetnumber(word)) {
+        if (!this.isEmpty(word) && !this.isSetnumber(word)) {
 
-            existingentry_EveryPosition = this.partNameFrequencyData.filter(function(item){
-              if(item.word.toUpperCase() === word.toUpperCase())
-                return true;
+          existingentry_EveryPosition = this.partNameFrequencyData.filter(function (item) {
+            if (item.word.toUpperCase() === word.toUpperCase())
+              return true;
+          });
+
+          //Somewhere this word appeared already
+          if (existingentry_EveryPosition.length > 0) {
+            existingentry_EveryPosition.forEach((existing_entry) => {
+              existing_entry.counter++;
             });
-
-            //Somewhere this word appeared already
-            if(existingentry_EveryPosition.length > 0 ) {
-              existingentry_EveryPosition.forEach((existing_entry) => {
-                  existing_entry.counter++
-              })
-            }
-
-            if(existingentry_EveryPosition.length < 1 ) {
-              this.partNameFrequencyData.push({"wordposition": wordposition
-                ,"word" : word
-                ,"counter" : 1});
-            }
-          wordposition++;
           }
+
+          if (existingentry_EveryPosition.length < 1) {
+            this.partNameFrequencyData.push({
+              "wordposition": wordposition,
+              "word": word,
+              "counter": 1
+            });
+          }
+          wordposition++;
+        }
       });
       namecounter++;
     });
     // console.log( this.partNameFrequencyData)
-
     let partNameFrequencyDataWords = this.partNameFrequencyData.sort(this.sortByCount).slice(0, numberofSuggestions);
     let partNameFrequencyNumbers = this.partNameFrequencyData.sort(this.sortByCount).slice(0, 40);
     this.activeButtonsWords = [];
     this.activeButtonsNumbers = [];
     partNameFrequencyDataWords.forEach(element => {
-      if(!this.searchwords.includes(element.word)) {
-      replacements.forEach(repl => {
-        if(repl.undo)
-          element.word = element.word.replace(repl.replace, repl.search)
+      if (!this.searchwords.includes(element.word)) {
+        replacements.forEach(repl => {
+          if (repl.undo)
+            element.word = element.word.replace(repl.replace, repl.search);
         });
-        if(!/\d/.test(element.word))
-        this.activeButtonsWords.push({
-          "word" : element.word,
-          "counter" : element.counter
-        })
+        if (!/\d/.test(element.word))
+          this.activeButtonsWords.push({
+            "word": element.word,
+            "counter": element.counter
+          });
       }
     });
     partNameFrequencyNumbers.forEach(element => {
-      if(!this.searchwords.includes(element.word)) {
-      replacements.forEach(repl => {
-        if(repl.undo)
-          element.word = element.word.replace(repl.replace, repl.search)
+      if (!this.searchwords.includes(element.word)) {
+        replacements.forEach(repl => {
+          if (repl.undo)
+            element.word = element.word.replace(repl.replace, repl.search);
         });
-        if(/\d/.test(element.word))
-        this.activeButtonsNumbers.push({
-          "word" : element.word,
-          "counter" : element.counter
-        })
+        if (/\d/.test(element.word))
+          this.activeButtonsNumbers.push({
+            "word": element.word,
+            "counter": element.counter
+          });
       }
     });
-    this.activeButtonsNumbers = this.activeButtonsNumbers.sort((a: { word: number; }, b: { word: number; }) => a.word < b.word ? -1 : a.word > b.word ? 1 : 0)
+    this.activeButtonsNumbers = this.activeButtonsNumbers.sort((a: { word: number; }, b: { word: number; }) => a.word < b.word ? -1 : a.word > b.word ? 1 : 0);
+    this.WriteButtonToCache()
   }
-
 
   private isEmpty(str) {
     return (!str || str.length === 0 );
@@ -225,14 +260,11 @@ export class PartnamefrequencyComponent implements OnInit {
   }
 
   getPartdataAggegratedByPartnumber() {
-   // console.log( "getPartdataAggegratedByPartnumber with searchwords " + this.searchwords.join(","))
     this.partdataService.getPartdataAggegratedByPartnumber(this.searchwords.join(",")).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.partdataAggregated = data.body.result;
-            console.log(this.partdataAggregated)
-           // console.log("Found " + this.partdataAggregated.length + " parts" );
             this.countNames()
           }
           else if (data.body && data.body.code == 403) {
@@ -255,5 +287,33 @@ export class PartnamefrequencyComponent implements OnInit {
   onSearchtermEnter(){
    this.RefreshSearch(this.newsearchword);
     this.newsearchword = "";
+  }
+
+  WriteButtonToCache(){
+    let dataToStore : PartnameFrequencyCachingModel = {
+      searchwords: this.searchwords.join(","),
+      activeButtonsNumbers: JSON.stringify(this.activeButtonsNumbers),
+      activeButtonsWords: JSON.stringify(this.activeButtonsWords)
+    };
+
+    this.partdataService.createCacheEntry(dataToStore).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 201) {
+            this.toastr.success(data.body.message);
+
+          }
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+          else if (data.body && data.body.message) {
+            this.toastr.error(data.body.message);
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
   }
 }

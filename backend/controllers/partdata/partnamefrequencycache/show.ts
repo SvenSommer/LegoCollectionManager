@@ -2,8 +2,10 @@ import {Request, Response} from 'express';
 import connection from "../../../database_connection";
 
 export default (req: Request, res: Response) => {
-    const showAll = `SELECT * FROM LegoSorterDB.Partnames_Frequency 
-    order by wordposition, overallcounter desc LIMIT 10;`
+    const { searchwords } = req.params;
+    console.log("searchwords",searchwords)
+    const showAll = `SELECT * FROM LegoSorterDB.PartnameFrequency_Cache
+    WHERE searchwords = '${searchwords}'`
     connection.query(showAll, (err, result) => {
         if (err) res.json({
             code: 500,
