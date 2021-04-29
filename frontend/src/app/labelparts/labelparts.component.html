@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="row">
+                        <div class="row" *ngIf="identifiedpartsData && identifiedpartsData.length > 0">
                             <ng-container *ngFor='let index of [1,2,3,4,5,6,7,9,10]'>
                                 <img class="img-thumbnail rounded float-left" [style.height.px]="50"
                                 [src]="identifiedpartsData[currentpart_of_run+index].partimages[0].path"
@@ -26,7 +26,7 @@
                             </ng-container>
                         </div>
                         <hr>
-                        <div class="row">
+                        <div class="row" *ngIf="identifiedpartsData && identifiedpartsData.length > 0">
                             <ng-container *ngFor="let partimage of identifiedpartsData[currentpart_of_run].partimages">
                                 <img class="img-thumbnail rounded float-left" [style.height.px]="150"
                                 [src]="partimage.path" (click)="onToggleDeleted(partimage)"
@@ -62,18 +62,62 @@
                     <div class="col-ms-12 card shadow mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Colors</h6>
+                            <div>
+                              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="no-border">
+                                <mat-icon>more_vert</mat-icon>
+                              </button>
+                              <mat-menu [hasBackdrop]="false" #menu="matMenu" class="menu_dropdown">
+                                <!-- <mat-form-field appearance="fill">
+                                  <mat-label>Favorite food</mat-label>
+                                  <mat-select>
+                                    <mat-option *ngFor="let partcount of partCountsRange" [value]="partcount">
+                                      {{partcount}}
+                                    </mat-option>
+                                  </mat-select>
+                                </mat-form-field> -->
+                                <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="d-flex">
+                                  <mat-checkbox class="example-margin"></mat-checkbox>
+                                  <select mat-menu-item class="full-width border">
+                                    <option>Select</option>
+                                    <option *ngFor="let partcount of partCountsRange">{{partcount}}</option>
+                                  </select>
+                                </div>
+
+                                <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="d-flex m-t-10">
+                                  <mat-checkbox class="example-margin"></mat-checkbox>
+                                  <select mat-menu-item class="full-width border">
+                                    <option>Select</option>
+                                    <option *ngFor="let dt of colorData">{{dt.year_from}}</option>
+                                  </select>
+                                </div>
+
+                                <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="d-flex m-t-10">
+                                  <mat-checkbox class="example-margin"></mat-checkbox>
+                                  <select mat-menu-item class="full-width border">
+                                    <option>Select</option>
+                                    <option *ngFor="let dt of colorData">{{dt.year_to}}</option>
+                                  </select>
+                                </div>
+                              </mat-menu>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div *ngIf="colorData && colorColumns">
+                        <div class="card-body" id="color_codes">
+                            <div *ngIf="colorData && colorColumns" class="menu_top">
                                 <!-- <div class="col-sm-12" *ngIf="colorData && colorColumns"> -->
                                     <!-- <ng-table [isActionVisible]="false" [columns]="colorColumns" [data]="colorData">
                                 </ng-table> -->
-                                  <mat-tab-group class="col-sm-12" dynamicHeight id="color_codes">
+
+                                  <mat-tab-group animationDuration="0ms" class="col-sm-12" dynamicHeight (selectedTabChange)="onTabChanged($event, colorsList)">
                                     <mat-tab class="row" *ngFor="let color of colorsList" label="{{color.label}}">
-                                      <div *ngFor="let col of color.props" class="example-small-box mat-elevation-z4" [title]="col.color_name" [ngStyle]="{'background-color': '#' + col.color_code}">
+                                      <div *ngFor="let col of color.props" (click)="pickColor(col)" class="example-small-box mat-elevation-z4" [title]="col.color_name" [ngStyle]="{'background-color': '#' + col.color_code}">
+                                      </div>
+                                      <div class="text-center full-width" *ngIf="color.props.length <= 0">
+                                        No Colors found
                                       </div>
                                     </mat-tab>
                                   </mat-tab-group>
+
+
                               <!-- </div> -->
                           </div>
                       </div>

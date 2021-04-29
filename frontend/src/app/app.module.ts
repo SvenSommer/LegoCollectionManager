@@ -65,6 +65,12 @@ import { CardTableComponent } from './shared/components/card-table/card-table.co
 import { AccountsComponent } from './offer/accounts/accounts.component';
 import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 
 
@@ -137,6 +143,10 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatInputModule,
     MatTabsModule,
     MatSlideToggleModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatIconModule,
+    MatCheckboxModule,
     NgxChartsModule,
   ],
   providers: [AuthGuardService,CollectionService, NgFilterPipe],
