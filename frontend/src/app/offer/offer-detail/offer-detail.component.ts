@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
 import { OfferPropertiesModel } from 'src/app/models/offer_properties-model';
 import { RawViewData, ViewChartData } from './offer-detail.model';
 import { UserCategoryModel } from 'src/app/models/usercategory-model';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-offer-detail',
@@ -20,7 +21,6 @@ export class OfferDetailComponent implements OnInit {
   public imgPopupURL = '';
   public imgPopupName = '';
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
-  public isPopupOpen = false;
 
   public offerDetails;
   public possiblesetDetails;
@@ -78,6 +78,7 @@ export class OfferDetailComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
               private offerService: OfferService,
+              private modalService: NgbModal,
               private router: Router, private toastr: ToastrService,
               private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
@@ -414,18 +415,15 @@ export class OfferDetailComponent implements OnInit {
   public onImgPopupClose() {
     this.imgPopupURL = '';
     this.imgPopupName = '';
-    this.isPopupOpen = false;
   }
 
   public onImgClick(image, index: number) {
-    console.log(image);
     this.imgPopupURL = image.imageurl;
     this.imgPopupName = image.path;
     this.selectedImageIndex = index;
 
-    if (!this.isPopupOpen) {
+    if (!this.modalService.hasOpenModals()) {
       this.imagePopup.open();
-      this.isPopupOpen = true;
     }
   }
 
