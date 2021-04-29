@@ -12,6 +12,7 @@ import { UserCategoryModel } from 'src/app/models/usercategory-model';
 import { TaskModel } from 'src/app/models/task-model';
 import { TaskService } from 'src/app/services/task.service';
 import { MessageTextModel } from 'src/app/models/messagetext-model';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-offer-detail',
@@ -23,7 +24,6 @@ export class OfferDetailComponent implements OnInit {
   public imgPopupURL = '';
   public imgPopupName = '';
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
-  public isPopupOpen = false;
 
   public offerDetails;
   public possiblesetDetails;
@@ -139,10 +139,11 @@ export class OfferDetailComponent implements OnInit {
   public selectedImageIndex = -1;
 
   constructor(private activatedRoute: ActivatedRoute,
-    private offerService: OfferService,
-    private taskService: TaskService,
-    private router: Router, private toastr: ToastrService,
-    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
+              private offerService: OfferService,
+              private modalService: NgbModal,
+               private taskService: TaskService,
+              private router: Router, private toastr: ToastrService,
+              private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   ngOnInit(): void {
 
@@ -529,18 +530,15 @@ export class OfferDetailComponent implements OnInit {
   public onImgPopupClose() {
     this.imgPopupURL = '';
     this.imgPopupName = '';
-    this.isPopupOpen = false;
   }
 
   public onImgClick(image, index: number) {
-    console.log(image);
     this.imgPopupURL = image.imageurl;
     this.imgPopupName = image.path;
     this.selectedImageIndex = index;
 
-    if (!this.isPopupOpen) {
+    if (!this.modalService.hasOpenModals()) {
       this.imagePopup.open();
-      this.isPopupOpen = true;
     }
   }
 
