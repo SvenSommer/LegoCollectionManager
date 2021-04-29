@@ -19,6 +19,7 @@ const userCreationDateSelector = "section > header > span:nth-child(5)"
 const userOffersSelector = "section > header > span:nth-child(7)"
 const userSatisfactionSelector = ".badges-iconlist li"
 const userFriendlySelector = ".badges-iconlist li:nth-of-type(2)"
+const userPhoneSelector = "#viewad-contact-phone"
 
 const offerImagesSelector = "#viewad-product .galleryimage-element img"
 const offerTitleSelector = "#viewad-title"
@@ -140,6 +141,11 @@ const scraperOrderPage = async (args) => {
 	//* Saving the images urls
 	const imagesUrls = await page.$$eval(offerImagesSelector, els => els.map(img => img.src))
 
+	let userPhone = "unknown"
+	if(await page.$(userPhoneSelector)){
+		userPhone = await page.$eval(userPhoneSelector, el => el.innerText.trim())
+	}
+
 	//* Getting the information from the user
 	let user_Id = ""
 	if (await page.$(userIdSelector)) {
@@ -197,7 +203,8 @@ const scraperOrderPage = async (args) => {
 		offerscount: offerscount,
 		friendliness: friendliness,
 		satisfaction: satisfaction,
-		accountcreated: accountcreated
+		accountcreated: accountcreated,
+		phone: userPhone
 	}
 
 	// Preparing the offer object

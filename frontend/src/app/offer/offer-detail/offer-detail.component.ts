@@ -9,6 +9,9 @@ import { NgForm } from '@angular/forms';
 import { OfferPropertiesModel } from 'src/app/models/offer_properties-model';
 import { RawViewData, ViewChartData } from './offer-detail.model';
 import { UserCategoryModel } from 'src/app/models/usercategory-model';
+import { TaskModel } from 'src/app/models/task-model';
+import { TaskService } from 'src/app/services/task.service';
+import { MessageTextModel } from 'src/app/models/messagetext-model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -25,7 +28,10 @@ export class OfferDetailComponent implements OnInit {
   public offerDetails;
   public possiblesetDetails;
   public userCategoryList: Array<any>;
-
+  public messageAccountList: Array<MessageTextModel>;
+  public messageTextList: Array<any>;
+  public offerDescriptionSplitBySets: string[] = [];
+  public recognizeSets: string[] = [];
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' } },
@@ -53,14 +59,70 @@ export class OfferDetailComponent implements OnInit {
     { title: 'Identified', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
   ];
 
-  public isMoreFieldOpenForSet = false;
-  public newpossiblesetDetail = {
-    offer_id: 0,
-    setno: '',
-    amount: 1,
-    comments: '',
-    request_id: ''
+  public offerInfo = {
+    title: '',
+    rowData: [
+      { key: 'offerinfo.external_id', name: 'External Id', dataType:{type:'link', target: 'offerinfo.url'}},
+      { key: 'offerinfo.price', name: 'Price', dataType:{type:'price'}},
+      { key: 'offerinfo.pricetype', name: 'Price Type', hide: 'True'},
+      { key: 'expectedSets.sumAmount', name: 'Expected Sets', dataType:{type:'sumAmount'}},
+      { key: 'expectedSets.sumMin_price', name: 'Min price', hide: 'True'},
+      { key: 'expectedSets.sumAvg_price', name: 'Avg_price', hide: 'True'},
+      { key: 'expectedSets.sumComplete_part_count', name: 'Parts', hide: 'True'},
+      { key: 'expectedSets.sumComplete_minifigs_count', name: 'Minifigs', hide: 'True'},
+      { key: 'offerinfo.locationgroup', name: 'Location Group'},
+      { key: 'offerinfo.locality', name: 'Locality'},
+      { key: 'offerinfo.zipcode', name: 'Zipcode'},
+      { key: 'offerinfo.shipping', name: 'Shipping'},
+      { key: 'offerinfo.created', name: 'Created', dataType:{type:'dateTime'}},
+      { key: 'deletedByExtUser', name: 'Deleted By User', dataType:{type:'dateTime'}}
+    ]
   };
+  public sellerInfo = {
+    title: '',
+    rowData: [
+      { key: 'userinfo.user_id', name: 'External User Id', dataType:{type:'external_link', target: 'offerinfo.url'}},
+      { key: 'userinfo.name', name: 'Seller',title: 'See details',dataType:{type:'no_link', target: 'userinfo.id'}},
+      { key: 'userinfo.type', name: 'Type'},
+      { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select', target: 'SELLER_INFO'}},
+      { key: 'userinfo.offerscount', name: 'Available Offers'},
+      { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers',title: 'See details',dataType:{type:'icon_link', target: 'userinfo.id'}},
+      { key: 'userinfo.id', name: 'User Id'},
+      { key: 'userinfo.friendliness', name: 'Friendliness'},
+      { key: 'userinfo.satisfaction', name: 'Satisfaction'},
+      { key: 'userinfo.accountcreated', name: 'Account Created', dataType:{type:'date'}}
+    ]
+  };
+
+  public searchPropertiesInfo = {
+    title: '',
+    rowData: [
+      { key: 'searchpropertyinfo.searchterm', name: 'Searchterm'},
+      { key: 'searchpropertyinfo.location', name: 'Location'},
+      { key: 'searchpropertyinfo.pricemin', name: 'Price (Min)'},
+      { key: 'searchpropertyinfo.pricemax', name: 'Price (Max)'},
+      { key: 'searchpropertyinfo.onlypickup', name: 'Only Pickup'}
+    ]
+  };
+
+  public isMoreFieldOpenForSet = false;
+  public task_origin = {
+     offer_id : 0
+  }
+
+  public newMessage = {
+    "account_id": 2,
+    "messagetext_id": 2
+  }
+
+  public newpossiblesetDetail = {
+    "offer_id": 0,
+    "setno": "",
+    "amount": 1,
+    "comments": "",
+    "download_prices": true,
+    "report_progress": true
+  }
 
   public setDownloadingRequestData = [];
   public requestList = new Array<string>();
@@ -79,15 +141,17 @@ export class OfferDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private offerService: OfferService,
               private modalService: NgbModal,
+               private taskService: TaskService,
               private router: Router, private toastr: ToastrService,
               private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(params => {
-      this.offerid = params.id;
+      this.offerid = parseInt(params.id, 10);
       if (this.offerid > 0) {
         this.newpossiblesetDetail.offer_id = this.offerid;
+        this.task_origin.offer_id = this.offerid;
 
         this.properties = new OfferPropertiesModel(this.offerid);
         this.bindData();
@@ -96,6 +160,8 @@ export class OfferDetailComponent implements OnInit {
         this.getAllStatus();
         this.getAllPossiblesets();
         this.getUserCategoriesList();
+        this.getAccounts();
+        this.getMessagetexts();
       }
     });
 
@@ -107,8 +173,10 @@ export class OfferDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.offerDetails = data.body.result[0];
+            this.splitBySets();
             if (this.offerDetails.propertyinfo != null) {
               this.properties = this.offerDetails.propertyinfo;
+              console.log(this.properties);
             }
             this.user_category.id = this.offerDetails.userinfo.id;
           }
@@ -270,9 +338,47 @@ export class OfferDetailComponent implements OnInit {
     );
   }
 
+  getMessagetexts() {
+    this.offerService.getMessagetexts().subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code === 200) {
+            this.messageTextList = data.body.result;
+          }
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  getAccounts() {
+    console.log("getting accopunts")
+    this.offerService.getAccounts().subscribe(
+      (data) => {
+        if (data) {
+          console.log(data.body)
+          if (data.body && data.body.code === 200) {
+
+            this.messageAccountList = data.body.result;
+          }
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
   callUserCategory(value) {
     this.user_category.category_id = value;
-    console.log(this.user_category);
     this.offerService.updateUserCategory(this.user_category).subscribe(
       (data) => {
         if (data.body.code === 201 || data.body.code === 200) {
@@ -295,32 +401,39 @@ export class OfferDetailComponent implements OnInit {
     if (!form.valid) {
       return;
     }
-    this.newpossiblesetDetail.setno.replace(/ /g, '');
-    this.newpossiblesetDetail.request_id = Date.now().toString() + '_' + this.newpossiblesetDetail.setno;
-    this.requestList.push(this.newpossiblesetDetail.request_id);
-    console.log(this.newpossiblesetDetail);
+    this.addSetToPotentialSets();
+    form.reset();
+  }
 
-    setInterval(() => {
-      this.getProgressDetails();
-
-    }, 1000);
-
-    this.offerService.saveNewPossibleSets(this.newpossiblesetDetail).subscribe(
+  private addSetToPotentialSets() {
+    this.newpossiblesetDetail.setno.replace(/ /g, "");
+    var new_task: TaskModel = {
+      type_id: 1,
+      origin: JSON.stringify(this.task_origin),
+      information: JSON.stringify(this.newpossiblesetDetail)
+    };
+    this.taskService.createNewTask(new_task).subscribe(
       (data) => {
-
         if (data) {
-          if (data.body && data.body.code === 201) {
+          if (data.body && data.body.code == 201) {
+            this.requestList.push(data.body.task_id);
+
             this.toastr.success(data.body.message);
             this.newpossiblesetDetail = {
-              offer_id: this.offerid,
-              setno: '',
-              amount: 0,
-              comments: '',
-              request_id: ''
+              "offer_id": this.offerid,
+              "setno": "",
+              "amount": 1,
+              "comments": "",
+              "download_prices": true,
+              "report_progress": true
             };
             this.isSetFormSubmitted = false;
-            form.reset();
             this.getAllPossiblesets();
+
+            setInterval(() => {
+              this.getProgressDetails();
+            }, 1000);
+
           }
           else if (data.body && data.body.code === 403) {
             this.router.navigateByUrl('/login');
@@ -343,33 +456,35 @@ export class OfferDetailComponent implements OnInit {
     }
   }
 
-  onUserDetailsClick(user_id) {
-    console.log(user_id);
-    if (user_id != null) {
-      this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
-    }
-  }
+  // onUserDetailsClick(user_id) {
+  //   console.log(user_id);
+  //   if (user_id != null) {
+  //     this.router.navigateByUrl('/offeruser/' + user_id).then((bool) => { }).catch();
+  //   }
+  // }
 
   getProgressDetails() {
     if (!this.requestList || this.requestList.length <= 0) {
       return;
     }
-
-    this.offerService.getProgressDetails(this.requestList.join(',')).subscribe(
+    this.taskService.getProgressDetails(this.requestList.join(",")).subscribe(
       (data) => {
         if (data.body && data.body.code === 200) {
           this.setDownloadingRequestData = Object.assign([], data.body.result);
-
-
-          for (let i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
-            const setNo = this.setDownloadingRequestData[i].request_id.lastIndexOf('_');
-            this.setDownloadingRequestData[i].setNo = this.setDownloadingRequestData[i].request_id.substr(setNo + 1);
-
-            if (this.setDownloadingRequestData[i].progress === 100) {
-              // var index = this.setDownloadingRequestData.filter(m=>m.progress <= this.newpossiblesetDetail.request_id);
-              this.requestList = this.arrayRemove(this.requestList, this.setDownloadingRequestData[i].request_id);
-              this.setDownloadingRequestData.splice(i, 1);
+          for (var i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
+            var info = JSON.parse(this.setDownloadingRequestData[i].information)
+            this.setDownloadingRequestData[i].setNo = info.setno;
+            this.setDownloadingRequestData[i].name = info.name;
+            this.setDownloadingRequestData[i].image_url = info.image_url;
+            var task_id = this.setDownloadingRequestData[i].task_id;
+            if (this.setDownloadingRequestData[i].progress == 100) {
+              // Message should be data.body.message
+              this.toastr.success(`Set ${info.setno} successfully downloaded.`);
+              this.requestList = this.arrayRemove(this.requestList, task_id);
+              this.setDownloadingRequestData = [];
               i++;
+              this.bindData();
+              this.getAllPossiblesets();
             }
           }
         }
@@ -428,12 +543,9 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onSaveProperties(propertiesForm: NgForm) {
-    if (!propertiesForm.valid) {
-      return;
-    }
     this.properties.offer_id = this.offerid;
 
-
+    console.log(this.properties);
     this.offerService.upsertProperties(this.properties).subscribe(
       (data) => {
         if (data.body.code === 201 || data.body.code === 200) {
@@ -448,6 +560,51 @@ export class OfferDetailComponent implements OnInit {
         console.log(error.name + ' ' + error.message);
       }
     );
+  }
+
+  onSentMessage(messageForm: NgForm) {
+    if (!messageForm.valid) {
+      return;
+    }
+
+    var messageinfo = {
+      offer_id : this.offerid,
+      url : this.offerDetails.offerinfo.url,
+      account : this.messageAccountList.find(i => i.id == this.newMessage.account_id),
+      messagetext : this.messageTextList.find(i => i.id == this.newMessage.messagetext_id)
+    }
+    var new_task : TaskModel = {
+      type_id : 3,
+      origin : JSON.stringify(this.task_origin),
+      information : JSON.stringify(messageinfo)
+    }
+    console.log(new_task)
+    this.taskService.createNewTask(new_task).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 201) {
+            this.requestList.push(data.body.task_id);
+
+            this.toastr.success(data.body.message);
+            messageForm.reset();
+            setInterval(() => {
+              this.getProgressDetails();
+            }, 1000);
+
+          }
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+          else if (data.body && data.body.message) {
+            this.toastr.error(data.body.message);
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+
   }
 
   arrayRemove(arr, value) {
@@ -467,5 +624,55 @@ export class OfferDetailComponent implements OnInit {
       this.selectedImageIndex = nextIndex;
     }
 
+  }
+
+  getOffer(isNext: boolean) {
+    let offersIds: number[] = [];
+
+    this.offerService.getOffers().subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code === 200) {
+            offersIds = data.body.result.map(
+              offer => offer.id
+            );
+
+            const currentOfferIndex = offersIds.indexOf(this.offerid);
+            const nextOfferIndex = currentOfferIndex + (isNext ? 1 : -1);
+
+            if (nextOfferIndex < offersIds.length && nextOfferIndex > -1) {
+              this.router.navigateByUrl('/offerdetail/' + offersIds[nextOfferIndex]);
+            }
+          } else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+      }
+    );
+  }
+
+  splitBySets() {
+    const offerDescription: string = this.offerDetails.offerinfo.description;
+    const splitBySets = offerDescription.substring(4, offerDescription.length - 4)
+      .split(/"[^"]*"|'[^']*'|(\d{4,5})/g);
+    splitBySets.forEach(((value, index) => {
+      if (index % 2 === 0) {
+        this.offerDescriptionSplitBySets.push(value);
+      } else {
+        this.recognizeSets.push(value);
+      }
+    }));
+  }
+
+  getMessageText(messagetextId: number): string {
+    const messageText = this.messageTextList ? this.messageTextList.find(i => i.id == messagetextId) : null;
+    return messageText ? messageText.message : '';
+  }
+
+  onSetClick(setNumber: string) {
+    this.newpossiblesetDetail.setno = setNumber;
+    this.addSetToPotentialSets();
   }
 }

@@ -4,7 +4,7 @@
           <h4>{{cardColumns.title}}</h4>
           <table *ngIf="cardColumns" class="div2 table table-hover table-sm datatable" role="grid">
               <tr *ngFor="let cardInfo of cardColumns.rowData">
-                <ng-container [ngSwitch]="cardInfo?.dataType?.type">
+                <ng-container  *ngIf="showProperty(cardInfo)" [ngSwitch]="cardInfo?.dataType?.type">
                   <td>
                     {{cardInfo.name}}
                   </td>
@@ -13,20 +13,79 @@
                           {{cardInfo.value}}
                       </a>
                   </td>
+                  <td *ngSwitchCase="'no_link'">
+                      <a class="pl-1" [title]="cardInfo.title" (click)="onUserDetailsClick(cardInfo.target)">
+                          {{cardInfo.value}}
+                      </a>
+                  </td>
+                  <td *ngSwitchCase="'status_link'">
+                    <a href="javascript:void(0);">
+                      {{cardInfo?.value}}
+                    </a>
+                    <span  *ngIf="cardInfo?.target"  class="status-type" [ngClass]="!cardInfo?.target ? 'bg-success' : 'bg-danger'"></span>
+                  </td>
+                  <td *ngSwitchCase="'icon_link'">
+                      {{cardInfo.value}}
+                      <a class="pl-1" [title]="cardInfo.title"
+                          (click)="onUserDetailsClick(cardInfo.target)">
+                          <i class="fas fa-info-circle text-gray-400"></i>
+                      </a>
+                  </td>
+                  <td *ngSwitchCase="'external_link'">
+                      <!-- <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{cardData?.user_id}}"
+                      (click)="onExternalClick(cardInfo.target)">
+                          {{cardInfo.value}}
+                      </a> -->
+                      <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{cardData?.user_id}}">
+                          {{cardInfo.value}}
+                      </a>
+                  </td>
+                  <td *ngSwitchCase="'set_detail_link'">
+                      <a href="https://www.bricklink.com/v2/catalog/catalogitem.page?S={{cardData.no}}#T=S&O={%22ss%22:%22DE%22,%22cond%22:%22U%22,%22ii%22:0,%22is%22:0,%22iconly%22:0}" (click)="onExternalClick(cardInfo.target)">
+                          {{cardInfo.value}}
+                      </a>
+                  </td>
                   <td *ngSwitchCase="'date'">
                     {{cardInfo.value | date:'dd.MM.yyyy'}}
                   </td>
+                  <td *ngSwitchCase="'dateTime'">
+                    {{cardInfo.value | date:'dd.MM.yyyy HH:mm'}}
+                  </td>
                   <td *ngSwitchCase="'weight'">
-                    {{cardInfo.value}} kg
+                    {{cardInfo.value}} {{cardInfo?.dataType?.unit == 'g' ? cardInfo?.dataType?.unit : 'kg'}}
+                  </td>
+                  <td *ngSwitchCase="'select'">
+                    <select ngModel name="usercategory_id" id="usercategory_id"
+                        class="form-control input-group" #status="ngModel"
+                        [(ngModel)]="cardData.usercategory.id" #t
+                        (change)="onOptionChange(cardInfo?.dataType?.target, t.value)">
+                        <option *ngFor="let category of selectOptionList" [value]="category.id">
+                            {{ category.category }}
+                        </option>
+                    </select>
                   </td>
                   <td *ngSwitchCase="'price'">
+                    <span *ngIf="cardData?.offerinfo?.pricetype">{{cardData?.offerinfo?.pricetype}} <br></span>
                     <span [innerHtml]="cardInfo.value"></span> &#8364;
-                  </td> 
+                  </td>
                   <td *ngSwitchCase="'price_per_kilo'">
                     <span [innerHtml]="cardInfo.value"></span> &#8364;/kg
                   </td>
                   <td *ngSwitchDefault>
                     {{cardInfo.value}}
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="cardInfo?.dataType?.type == 'sumAmount' && cardData?.expectedSets?.sumAmount > 0">
+                  <td>
+                    {{cardInfo.name}}
+                  </td>
+                  <td>
+                      {{cardData.expectedSets.sumAmount}} <br>
+                      Min price {{cardData.expectedSets.sumMin_price}} € <br>
+                      Avg_price {{cardData.expectedSets.sumAvg_price}} € <br>
+                      Parts {{cardData.expectedSets.sumComplete_part_count}} <br>
+                      Minifigs {{cardData.expectedSets.sumComplete_minifigs_count}} <br>
                   </td>
                 </ng-container>
               </tr>

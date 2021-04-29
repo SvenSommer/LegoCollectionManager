@@ -5,9 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { ToastrService } from 'ngx-toastr';
 import { CollectionModel } from 'src/app/models/collection-model';
+import { TaskModel } from 'src/app/models/task-model';
 import { RunEditComponent } from 'src/app/run/run-edit/run-edit.component';
 import { CollectionService } from 'src/app/services/collection.service';
-import { OfferService } from 'src/app/services/offer.service';
+import { TaskService } from 'src/app/services/task.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 import { CollectionEditComponent } from '../edit/collection-edit.component';
 
@@ -146,7 +147,8 @@ export class CollectionDetailComponent implements OnInit {
     "comments": "",
     "instructions": "",
     "condition": "",
-    "requestId": ""
+    "download_prices": true,
+    "report_progress": true
   };
   public newRunDetail = {
     "id": 0,
@@ -162,15 +164,15 @@ export class CollectionDetailComponent implements OnInit {
     private collectionService: CollectionService,
     private router: Router, private toastr: ToastrService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService,
-    private offerService: OfferService) { }
+    private taskService: TaskService) { }
 
-  public id = 0;
+  public collectionid = 0;
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      this.id = params['id'];
-      if (this.id > 0) {
-        this.newSetDetails.collectionid = this.id;
-        this.newRunDetail.collection_id = this.id;
+      this.collectionid = params['id'];
+      if (this.collectionid > 0) {
+        this.newSetDetails.collectionid = this.collectionid;
+        this.newRunDetail.collection_id = this.collectionid;
         this.bindData();
         this.getAllRuns();
         this.getExpectedSets();
@@ -178,34 +180,10 @@ export class CollectionDetailComponent implements OnInit {
     });
   }
 
-  // buildTableData(collectionDetails){
-  //   let keys = Object.keys(collectionDetails);
-  //   let collectionkeys = Object.keys(collectionDetails.collectioninfo);
-  //   this.purchaseInfo.rowData.forEach(item => {
-  //     keys.forEach(key => {
-  //       if(key == item.key){
-  //         item['value'] = collectionDetails[key];
-  //       }
-  //     });
-  //     collectionkeys.forEach(key => {
-  //       if(key == item.key){
-  //         item['value'] = collectionDetails.collectioninfo[key];
-  //       }
-  //       if(item.dataType?.target){
-  //         item['target']= collectionDetails.collectioninfo[item.dataType?.target];
-  //       }
-  //       if(key == item.key && item.key == 'cost'){
-  //         item['value'] = collectionDetails.collectioninfo.cost + ' &#8364; ( Incl. porto '  + collectionDetails.collectioninfo.porto + '&#8364; )' + '<br>' +
-  //                       collectionDetails.collectioninfo.cost_per_kilo + ' &#8364;';
-  //       }
-  //     });
-  //   });
 
-  //   console.log('this.purchaseInfo:::::::::::::',this.purchaseInfo)
-  // }
 
   bindData() {
-    this.collectionService.getCollectionById(this.id).subscribe(
+    this.collectionService.getCollectionById(this.collectionid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -233,7 +211,7 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   getAllRuns() {
-    this.collectionService.getRuns(this.id).subscribe(
+    this.collectionService.getRuns(this.collectionid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -251,7 +229,7 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   onCreateNewRunClick() {
-    this.collectionService.getRunsNextnoByCollectionid(this.id).subscribe(
+    this.collectionService.getRunsNextnoByCollectionid(this.collectionid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -277,7 +255,7 @@ export class CollectionDetailComponent implements OnInit {
   getExpectedSets() {
     // this.currentTab = '';
 
-    this.collectionService.getExpectedSets(this.id).subscribe(
+    this.collectionService.getExpectedSets(this.collectionid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -296,7 +274,7 @@ export class CollectionDetailComponent implements OnInit {
   }
 
   getSuggestedSets() {
-    this.collectionService.getSuggestedSets(this.id).subscribe(
+    this.collectionService.getSuggestedSets(this.collectionid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -316,7 +294,7 @@ export class CollectionDetailComponent implements OnInit {
 
   getExpectedParts() {
 
-    this.collectionService.getExpectedParts(this.id).subscribe(
+    this.collectionService.getExpectedParts(this.collectionid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -336,7 +314,7 @@ export class CollectionDetailComponent implements OnInit {
 
   getUnsettedParts() {
 
-    this.collectionService.getUnsettedParts(this.id).subscribe(
+    this.collectionService.getUnsettedParts(this.collectionid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -357,7 +335,7 @@ export class CollectionDetailComponent implements OnInit {
 
   getExpectedMinifigs() {
 
-    this.collectionService.getExpectedMinifigs(this.id).subscribe(
+    this.collectionService.getExpectedMinifigs(this.collectionid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -380,26 +358,47 @@ export class CollectionDetailComponent implements OnInit {
     if (!form.valid) {
       return;
     }
+    this.newSetDetails.setnumber.replace(/ /g, "");
+    var task_origin = {
+      collection_id : this.collectionid,
+    }
 
-    this.newSetDetails.requestId = Date.now().toString() + "_" + this.newSetDetails.setnumber;
-    this.requestList.push(this.newSetDetails.requestId);
+    var setinformation = {
+      collectionid : this.collectionid,
+      setno : this.newSetDetails.setnumber,
+      comments : this.newSetDetails.comments,
+      instructions : this.newSetDetails.instructions,
+      condition : this.newSetDetails.condition,
+      download_prices : this.newSetDetails.download_prices,
+      report_progress : this.newSetDetails.report_progress
+    }
+
+    var new_task : TaskModel = {
+      type_id : 1,
+      origin : JSON.stringify(task_origin),
+      information :  JSON.stringify(setinformation)
+    }
 
     setInterval(() => {
       this.getProgressDetails();
     }, 1000);
 
-    this.collectionService.saveNewSets(this.newSetDetails).subscribe(
+    this.taskService.createNewTask(new_task).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 201) {
+            this.requestList.push(data.body.task_id);
+
             this.toastr.success(data.body.message);
+
             this.newSetDetails = {
-              "collectionid": this.id,
+              "collectionid": this.collectionid,
               "setnumber": "",
               "comments": "",
               "instructions": "",
               "condition": "",
-              "requestId": ""
+              "download_prices": true,
+              "report_progress": true
             };
             this.isSetFormSubmitted = false;
             form.reset();
@@ -407,6 +406,9 @@ export class CollectionDetailComponent implements OnInit {
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
+          }
+          else if (data.body && data.body.message) {
+            this.toastr.error(data.body.message);
           }
         }
       },
@@ -450,7 +452,7 @@ export class CollectionDetailComponent implements OnInit {
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
         console.log('Okay');
-        this.collectionService.deleteCollection(this.id).subscribe(
+        this.collectionService.deleteCollection(this.collectionid).subscribe(
           (data) => {
             if (data) {
               if (data.body && data.body.code == 200) {
@@ -477,22 +479,24 @@ export class CollectionDetailComponent implements OnInit {
     if (!this.requestList || this.requestList.length <= 0) {
       return;
     }
-
-    this.offerService.getProgressDetails(this.requestList.join(",")).subscribe(
+    this.taskService.getProgressDetails(this.requestList.join(",")).subscribe(
       (data) => {
         if (data.body && data.body.code == 200) {
           this.setDownloadingRequestData = Object.assign([], data.body.result);
-
-
           for (var i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
-            var setNo = this.setDownloadingRequestData[i].request_id.lastIndexOf("_");
-            this.setDownloadingRequestData[i].setNo = this.setDownloadingRequestData[i].request_id.substr(setNo + 1);
-
+            var info = JSON.parse(this.setDownloadingRequestData[i].information)
+            this.setDownloadingRequestData[i].setNo = info.setno;
+            this.setDownloadingRequestData[i].name = info.name;
+            this.setDownloadingRequestData[i].image_url = info.image_url;
+            var task_id = this.setDownloadingRequestData[i].task_id;
             if (this.setDownloadingRequestData[i].progress == 100) {
-              // var index = this.setDownloadingRequestData.filter(m=>m.progress <= this.newpossiblesetDetail.request_id);
-              this.requestList = this.arrayRemove(this.requestList, this.setDownloadingRequestData[i].request_id);
-              this.setDownloadingRequestData.splice(i, 1);
+              // Message should be data.body.message
+              this.toastr.success(`Set ${info.setno} successfully downloaded.`);
+              this.requestList = this.arrayRemove(this.requestList, task_id);
+              this.setDownloadingRequestData = [];
               i++;
+              this.bindData();
+              this.getExpectedSets(); 
             }
           }
         }

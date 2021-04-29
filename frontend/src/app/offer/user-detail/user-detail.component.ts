@@ -28,6 +28,22 @@ export class UserDetailComponent implements OnInit {
     { title: 'created', name: 'offerinfo.created', size: '100', minSize: '100', datatype: { type: 'datetime' } },
     { title: 'deletedbyUser', name: 'offerinfo.deletedByExtUser', size: '100', minSize: '100', datatype: { type: 'datetime' } },
   ];
+
+   public userInfo = {
+    title: '',
+    rowData: [
+      { key: 'userinfo.user_id', name: 'External User Id', dataType:{type:'external_link', target: 'user_id'}},
+      { key: 'userinfo.name', name: 'Seller'},
+      { key: 'userinfo.type', name: 'Type'},
+      { key: 'userinfo.category', name: 'Category'},
+      { key: 'userinfo.offerscount', name: 'Available Offers'},
+      { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers'},
+      { key: 'userinfo.friendliness', name: 'Friendliness'},
+      { key: 'userinfo.satisfaction', name: 'Satisfaction'},
+      { key: 'userinfo.accountcreated', name: 'Account Created', dataType:{type:'date'}}
+    ]
+  };
+
   constructor(private activatedRoute: ActivatedRoute,
     private offerUserService: OfferUserService,
     private router: Router, private toastr: ToastrService) { }
@@ -48,7 +64,7 @@ export class UserDetailComponent implements OnInit {
     this.offerUserService.getUserDetail(this.userid).subscribe(
       (data) => {
         if (data) {
-         
+
           if (data.body && data.body.code == 200) {
             this.userDetails = data.body.result[0];
             console.log(this.userDetails)
@@ -70,7 +86,7 @@ export class UserDetailComponent implements OnInit {
     this.offerUserService.getOffersByUserId(this.externaluserid).subscribe(
       (data) => {
         if (data) {
-          
+
           if (data.body && data.body.code == 200) {
             this.offerDetails = data.body.result;
             console.log(this.offerDetails)

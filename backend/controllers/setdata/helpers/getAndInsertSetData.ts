@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import { InsertSetData } from './insertSetData';
 const blApi = require("../../../config/bl.api.js");
 
@@ -19,3 +19,4 @@ export function GetAndInsertSetData(setnumber: any, userid: any): Promise<any> {
             });
     });
 }
+ */

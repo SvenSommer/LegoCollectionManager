@@ -22,10 +22,11 @@ const API_REQUEST = {
 	OFFERS_VIEWS: "/offers_views",
 	OFFERS_USER: "/offers_users",
 	OFFERS_IMAGES: "/offers_images",
-	OFFER_IMAGES_BY_OFFERID: "/offers_images/offer/",
 	OFFER_STATUS: "/offers_status",
 	OFFER_LOGS: "/offers_logs",
-	DELETE_OFFER: "/offers/byextuser"
+	DELETE_OFFER: "/offers/byextuser",
+	ACCOUNTS: "/offers_accounts/1",
+	OFFER_IMAGES_BY_OFFERID : "/offers_images/offer/"
 
 }
 exports.API_REQUEST = API_REQUEST
@@ -33,7 +34,7 @@ exports.API_REQUEST = API_REQUEST
 // =================================================
 // * imports
 // =================================================
-const { getToken, toNumber, areEquals, getDiff, getDiffFromArray, downloadImages, getFromPreferences } = require("./utils")
+const { getToken, toNumber, areEquals, getDiff, getDiffFromArray, downloadImages, getFromPreferences, flatten } = require("./utils")
 const { Log } = require("./services/log")
 // const toMillis = require("readable-to-ms")
 const { deleteData } = require("./services/deleteData")
@@ -41,9 +42,8 @@ const { deleteData } = require("./services/deleteData")
 // =================================================
 // * Scrapper variables configuration
 // =================================================
-const ONE_MINUTE = 60 * 1000
+const MAX_PAGES = 5
 const acceptCookiesSelector = "#gdpr-banner-accept"
-const denyCookies = ".Actionarea .button-secondary"
 
 const onlyPickUpSelector = "section.browsebox-attribute > div > ul > li:nth-child(2) > a"
 const inputSearchSelector = "#site-search-query"
@@ -53,12 +53,18 @@ const submitSearchSelector = "#site-search-submit"
 const loginSelector = ".login-overlay"
 const closeLoginSelector = ".login-overlay a.overlay-close"
 
+const loginButtonSelector = "#site-signin > nav > ul > li:nth-child(3) > a"
+const emailSelector = "#login-email"
+const passwordSelector = "#login-password"
+const submitLoginSelector = "#login-submit"
+
 const minPriceSelector = "#srchrslt-brwse-price-min"
 const maxPriceSelector = "#srchrslt-brwse-price-max"
 const buttonPriceSelector = ".button-iconized"
 
+const nextPageSelector = ".pagination .pagination-next"
+
 const offerPerPageSelector = "li > article a.ellipsis";
-let scheduleTime = "10 minutes";
 
 // scheduleTime = toMillis(scheduleTime)
 
@@ -101,7 +107,7 @@ const main = async () => {
 			"--disable-web-security",
 			"--disable-features=IsolateOrigins,site-per-process",
 			"--start-maximized",
-			"--user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'",
+		//	"--user-agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36'",
 		],
 		ignoreHTTPSErrors: true,
 	});
@@ -141,9 +147,10 @@ const main = async () => {
 	let { value: imageBasePath } = getFromPreferences("imagebasepath", preferences)
 	imageBasePath = imageBasePath.split("/").filter(Boolean)[0]
 
-	//* Getting the cronjob time
-	scheduleTime = getFromPreferences("active_schedule", preferences)
-	scheduleTime = scheduleTime.value
+	//* Getting the user credentials
+	let users = await getData(API_URL + API_REQUEST.ACCOUNTS, reqCredentials)
+	const { email, password } = users.data.result[0]
+
 	//* Getting the loglevel
 	let { value: LOGLEVEL } = getFromPreferences("loglevel", preferences)
 	LOGLEVEL = LOGLEVEL.toUpperCase()
@@ -166,7 +173,7 @@ const main = async () => {
 	// await page.waitForTimeout(2500)
 	await page.setCacheEnabled(false)
 	await page.setRequestInterception(true);
-	// await page.setUserAgent(userAgent.getRandom())
+	await page.setUserAgent('5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36');
 	await page.setDefaultTimeout(15 * 60 * 1000)
 
 	// Handling all errors
@@ -211,9 +218,55 @@ const main = async () => {
 	await page.waitForTimeout(1500)
 	if (await page.$(loginSelector)) {
 		await page.$eval(closeLoginSelector, el => el.click())
+		await page.waitForTimeout(1000)
 	}
 
+	//* Login with credentials
+	let formAvailable = true
+	await page.$eval(loginButtonSelector, el => el.click())
+	console.log("* Starting the login process");
+	Log(LOGLEVEL, "* Starting the login process", reqCredentials)
+	try {
+		await page.waitForSelector(submitLoginSelector, { timeout: 5000 })
+	} catch (error) {
+		console.log("!! The login form is not available");
+		Log("ERROR", "!! The login form is not available", reqCredentials)
+		formAvailable = false
+	}
+	if (formAvailable) {
+		await page.type(emailSelector, email, { delay: 150 })
+		await page.type(passwordSelector, password, { delay: 150 })
+		await page.$eval(submitLoginSelector, el => el.click())
+		console.log("* Sending creds");
+		await page.waitForTimeout(2500)
 
+		//if 403 => Go back and make the login again
+		if (await page.$(".outcomebox-error")) {
+			console.log("!! 403 message, going back to the login");
+			await page.goBack({ waitUntil: "networkidle2", timeout: 30000 })
+			await page.evaluate((selectors) => {
+				selectors.forEach(sel => document.querySelector(sel).value = "")
+			}, [emailSelector, passwordSelector])
+
+			console.log("* Fullfilling the credentials");
+			await page.type(emailSelector, taskinfo.account.email, { delay: 150 })
+			await page.type(passwordSelector, taskinfo.account.password, { delay: 150 })
+			console.log("* Sending creds");
+			await page.$eval(submitLoginSelector, el => el.click())
+		}
+		await page.waitForTimeout(2000)
+		console.log("* Login success");
+		Log(LOGLEVEL, "* Login success", reqCredentials)
+	}
+
+	//* Going to the main page
+	await page.goto(baseUrl, { waitUntil: "networkidle2" })
+	await page.waitForTimeout(2000)
+
+	//*Login info
+	const loginAs = await page.$eval("#user-email", el => el.innerText.trim())
+	console.log("[*] ", loginAs);
+	Log(LOGLEVEL, "[*] " + loginAs, reqCredentials)
 	// =================================================
 	// * Going over the valid search termns
 	// =================================================
@@ -246,13 +299,24 @@ const main = async () => {
 			await page.waitForTimeout(2000)
 		}
 
-		let offersPerPage = await page.$$eval(offerPerPageSelector, els => els.map(link => link.href))
+		let currentPage = 1
+		let offersPerPage = []
+		//* Collecting the offers urls over the multiple pages (pagination)
+		console.log("* Going over the pagination...");
+		while ((await page.$(nextPageSelector) !== null) && currentPage <= MAX_PAGES) {
+			let offersLinks = await page.$$eval(offerPerPageSelector, els => els.map(link => link.href))
+			offersPerPage.push(offersLinks)
+			await page.$eval(nextPageSelector, el => el.click())
+			await page.waitForTimeout(1500)
+			currentPage++
+		}
+
 		if (offersPerPage.length <= 0) {
 			console.log("!! There are not valid offers, SKIP")
 			Log(LOGLEVEL, "!! There are not valid offers, SKIP", reqCredentials)
 			continue
 		}
-		// offersPerPage = getDiffFromArray(localOfferUrls, offersPerPage)
+		offersPerPage = flatten(offersPerPage)
 
 		console.log(offersPerPage.length, " offers found")
 		Log(LOGLEVEL, offersPerPage.length + " offers found", reqCredentials)
@@ -265,7 +329,7 @@ const main = async () => {
 				url: offerPage,
 				id: id,
 				location: location,
-				blacklistedTermns : blacklistedTermns
+				blacklistedTermns: blacklistedTermns
 			}
 			const scraperesult = await scraperOrderPage(scraperobject)
 			const { external_id, blacklistetterm } = scraperesult
@@ -273,7 +337,6 @@ const main = async () => {
 				console.log(`!! Offer contains Blacklisted Term ${blacklistetterm}, SKIP`);
 				continue;
 			}
-
 			//*Checking if the offer exists
 			resultofferexisting = await getData(API_URL + API_REQUEST.OFFER_BY_EXTERNALID + external_id, reqCredentials)
 			// If the offer exists
@@ -289,13 +352,13 @@ const main = async () => {
 				const diffimages = getDiffFromArray(imagesurls, images)
 
 				if (!areEquals(resultofferexistingofferinfo, newoffer)) {
-
+					let offer_id = resultofferexistingofferinfo.id;
 					const offerViews = scraperesult.offerViews
 					const updatedKeys = getDiff(resultofferexistingofferinfo, newoffer)
 					newoffer["id"] = offer_id
 					//* Saving the view count
-					console.log("* Storing the view count")
-					Log(LOGLEVEL, "* Storing the view count", reqCredentials)
+					console.log("* Adding new view count")
+					Log(LOGLEVEL, "* Adding new view count", reqCredentials)
 					let object = {
 						offer_id,
 						viewcount: offerViews
@@ -309,7 +372,7 @@ const main = async () => {
 
 					//*Setting the status for changes
 					for (const updatedelement of updatedKeys) {
-						if (updatedelement === "id") continue
+						if (updatedelement === "id" || updatedelement === "deletedByExtUser") continue
 						let status = {
 							offer_id: offer_id,
 							status: "updated " + updatedelement
@@ -367,7 +430,7 @@ const main = async () => {
 				console.log("* Storing the user information...")
 				Log(LOGLEVEL, "* Storing the user information...", reqCredentials)
 				let userresponse = await storeData(API_URL + API_REQUEST.OFFERS_USER, user, reqCredentials)
-				console.log({res: userresponse.data, user});
+				// console.log({res: userresponse.data, user});
 
 				//* Saving the status infor that we created a new offer
 				console.log("* Storing the status of offer creation...")

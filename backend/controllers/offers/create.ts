@@ -21,20 +21,6 @@ export default (req: Request, res: Response) => {
             description
         } = req.body;
         if (external_id 
-          /*   url &&
-            searchproperties_id &&
-            title &&
-            price &&
-            pricetype &&
-            currency &&
-            locationgroup &&
-            locality &&
-            zipcode &&
-            datecreated &&
-            type &&
-            shipping &&
-            user_id &&
-            description */
             ) {
                 const createOffer = `INSERT INTO Offers
                 (external_id,
@@ -56,18 +42,18 @@ export default (req: Request, res: Response) => {
                         ${external_id},
                         '${url}',
                         '${searchproperties_id}',
-                        '${title.replace("'","`").replace("'","`")}',
+                        `+ connection.escape(title) + `,
                          ${price},
                         '${pricetype}',
                         '${currency}',
-                        '${locationgroup.replace("'","`").replace("'","`")}',
-                        '${locality.replace("'","`").replace("'","`")}',
-                        '${zipcode.replace("'","`").replace("'","`")}',
+                        `+ connection.escape(locationgroup) + `,
+                        `+ connection.escape(locality) + `,
+                        `+ connection.escape(zipcode) + `,
                         '${datecreated}',
                         '${type}',
-                        '${shipping}',
+                        `+ connection.escape(shipping) + `,
                          ${user_id},
-                        '${description.replace("'","`").replace("'","`")}')`;
+                        ` + connection.escape(description) + `)`;
                 connection.query(createOffer, (err, result:any) => {
                     if (err){ 
                         console.log(createOffer)

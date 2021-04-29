@@ -20,6 +20,7 @@ import { OfferComponent } from './offer/offer.component';
 import { OfferDetailComponent } from './offer/offer-detail/offer-detail.component';
 import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 import { UserDetailComponent } from './offer/user-detail/user-detail.component';
+import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 
 const routes: Routes = [
 
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path:'hardware',component:SorterComponent,canActivate:[AuthenticationGuard]},
   {path:'sortersdetail/:id',component:SorterDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'preferences',component:PreferencesComponent,canActivate:[AuthenticationGuard]},
+  {path:'preferences/partnamesfrequency',component:PartnamefrequencyComponent,canActivate:[AuthenticationGuard]},
   {path:'colors',component:ColorsComponent,canActivate:[AuthenticationGuard]},
   {path:'categories',component:CategoriesComponent,canActivate:[AuthenticationGuard]},
   {path:'prices',component:PricesComponent,canActivate:[AuthenticationGuard]},

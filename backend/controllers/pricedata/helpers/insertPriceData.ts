@@ -1,4 +1,4 @@
-import connection from "../../../database_connection";
+/* import connection from "../../../database_connection";
 import { PriceParams } from "../../../models/model";
 
 export function InsertPriceData(userid: string, priceParams: PriceParams): Promise<any> {
@@ -54,4 +54,4 @@ export function InsertPriceData(userid: string, priceParams: PriceParams): Promi
                 
         });
     });
-}
+} */

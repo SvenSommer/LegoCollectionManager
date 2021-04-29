@@ -328,12 +328,41 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/offers_images",
+									"raw": "{{URL}}/offers_images/offer/837",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
-										"offers_images"
+										"offers_images",
+										"offer",
+										"837"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Detection for Image",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":531741,\r\n    \"detections\": \"[{'box': [0.20044052863436124, 0.00375, 0.4966960352422907, 0.57125], 'number': '18468'}, {'box': [0.09581497797356828, 0.07125, 0.4592511013215859, 0.56125], 'number': '20869'}, {'box': [0.7147577092511013, 0.4125, 0.1222466960352423, 0.535], 'number': '47669'}, {'box': [0.5770925110132159, 0.33, 0.16519823788546256, 0.22625], 'number': '29407'}, {'box': [0.09251101321585903, 0.1025, 0.5495594713656388, 0.17375], 'number': '54379'}, {'box': [0.35462555066079293, 0.20125, 0.5088105726872246, 0.37125], 'number': '92144'}, {'box': [0.8138766519823789, 0.6, 0.14977973568281938, 0.39], 'number': '01292'}, {'box': [0.12665198237885464, 0.1625, 0.3766519823788546, 0.21875], 'number': '26753'}]\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/offers_images/531741",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"offers_images",
+										"531741"
 									]
 								}
 							},
@@ -483,128 +512,6 @@
 					]
 				},
 				{
-					"name": "MessageTexts",
-					"item": [
-						{
-							"name": "Create MessageText",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"message\": \"Hallo, ich finde ihr Angebot sehr interessant und möchte es gerne für meinen Sohn erwerben. Können Sie mir bitte folgende Fragen beantworten. 1. Enthält die Sammlung noch vollständige Sets? 2. Sind die Spielfiguren zu den Sets noch vorhanden? 3. Sind die Anleitungen noch vorhanden? 4.Soll ich bei der Abholung eine eigene Box mitbringen? 5. Was ist das ungefähre Gewicht der Sammlung?\",\r\n    \"active\": 1\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{URL}}/offers_messagetexts",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"offers_messagetexts"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Show all  MessageTexts",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{URL}}/offers_messagetexts",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"offers_messagetexts"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Show single MessageText",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{URL}}/offers_messagetexts/1",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"offers_messagetexts",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update  MessageText",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n   \"id\": 1,\r\n   \"message\": \"Hallo, \\r\\n ich finde ihr Angebot sehr interessant und möchte es gerne für meinen Sohn erwerben. Können Sie mir bitte folgende Fragen beantworten. 1. Enthält die Sammlung noch vollständige Sets? 2. Sind die Spielfiguren zu den Sets noch vorhanden (Haben Sie Fotos)? 3. Sind die Anleitungen noch vorhanden (Fotos verfügbar)? 4. Soll ich bei der Abholung eine eigene Box mitbringen? 5. Was ist das ungefähre Gewicht der Sammlung? Vielen Dank und viele Grüße, Sven\",\r\n    \"active\": 1\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{URL}}/offers_messagetexts/1",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"offers_messagetexts",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete single  MessageText",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{URL}}/offers_properties/11",
-									"host": [
-										"{{URL}}"
-									],
-									"path": [
-										"offers_properties",
-										"11"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
 					"name": "Possible Sets",
 					"item": [
 						{
@@ -614,7 +521,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"offer_id\": 510,\r\n    \"setno\": \"6175\",\r\n    \"amount\": 1,\r\n    \"comments\":\"test\",\r\n    \"request_id\": \"8\"\r\n}",
+									"raw": "{\r\n    \"offer_id\": 578,\r\n    \"setno\": \"42076\",\r\n    \"amount\": 1,\r\n    \"comments\":\"\",\r\n    \"request_id\": \"11\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -686,14 +593,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}/offers_possiblesets/offer/48",
+									"raw": "{{URL}}/offers_possiblesets/offer/510",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"offers_possiblesets",
 										"offer",
-										"48"
+										"510"
 									]
 								}
 							},
@@ -1097,7 +1004,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": " {\r\n            \"id\": 3,\r\n            \"searchterm\": \"Lego Kilo kg\",\r\n            \"location\": \"Berlin\",\r\n            \"pricemin\": null,\r\n            \"pricemax\": null,\r\n            \"onlypickup\": null,\r\n            \"active\": 0,\r\n            \"created\": \"2021-03-28T17:13:13.000Z\"\r\n        }",
+									"raw": " {\r\n            \"id\": 3,\r\n            \"word\": \"Sets\",\r\n            \"active\": 1\r\n        }",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1105,13 +1012,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}/offers_blacklist/1",
+									"raw": "{{URL}}/offers_blacklist/3",
 									"host": [
 										"{{URL}}"
 									],
 									"path": [
 										"offers_blacklist",
-										"1"
+										"3"
 									]
 								}
 							},
@@ -1209,6 +1116,243 @@
 					]
 				},
 				{
+					"name": "Messages",
+					"item": [
+						{
+							"name": "MessageTexts",
+							"item": [
+								{
+									"name": "Create MessageText",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"message\": \"Hallo, ich finde ihr Angebot sehr interessant und möchte es gerne für meinen Sohn erwerben. Können Sie mir bitte folgende Fragen beantworten. 1. Enthält die Sammlung noch vollständige Sets? 2. Sind die Spielfiguren zu den Sets noch vorhanden? 3. Sind die Anleitungen noch vorhanden? 4.Soll ich bei der Abholung eine eigene Box mitbringen? 5. Was ist das ungefähre Gewicht der Sammlung?\",\r\n    \"active\": 1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/offers_messagetexts",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messagetexts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show all  MessageTexts",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/offers_messagetexts",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messagetexts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show single MessageText",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{URL}}/offers_messagetexts/1",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messagetexts",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update  MessageText",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n   \"id\": 1,\r\n   \"message\": \"Hallo, \\r\\n ich finde ihr Angebot sehr interessant und möchte es gerne für meinen Sohn erwerben. Können Sie mir bitte folgende Fragen beantworten. 1. Enthält die Sammlung noch vollständige Sets? 2. Sind die Spielfiguren zu den Sets noch vorhanden (Haben Sie Fotos)? 3. Sind die Anleitungen noch vorhanden (Fotos verfügbar)? 4. Soll ich bei der Abholung eine eigene Box mitbringen? 5. Was ist das ungefähre Gewicht der Sammlung? Vielen Dank und viele Grüße, Sven\",\r\n    \"active\": 1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/offers_messagetexts/1",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messagetexts",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete single  MessageText",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{URL}}/offers_properties/11",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_properties",
+												"11"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Messages",
+							"item": [
+								{
+									"name": "Create Message",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"account_id\":1,\r\n    \"offer_id\":1,\r\n    \"messagetext_id\": 1\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}/offers_messages",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messages"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show all  Messages",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/offers_messages",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messages"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show single Message",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "{{URL}}/offers_messages/1",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messages",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show all  Messages Options",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/offers_messages/options",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messages",
+												"options"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Show all  Messages by Offerid",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}/offers_messages/offer/1",
+											"host": [
+												"{{URL}}"
+											],
+											"path": [
+												"offers_messages",
+												"offer",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
 					"name": "Users",
 					"item": [
 						{
@@ -1268,7 +1412,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"user_id\": 11376516,\r\n    \"name\": \"Patrick Technau\",\r\n    \"phone\":\"1485415\",\r\n    \"type\": \"Privater Nutzer\",\r\n    \"offerscount\": 12,\r\n    \"friendliness\":\"Freundlich\",\r\n    \"satisfaction\":\"OK\",\r\n    \"accountcreated\": \"2012-08-30 00:00:00\"\r\n}",
+									"raw": "{\r\n    \"user_id\": 11376513,\r\n    \"name\": \"Patrick Technau\",\r\n    \"type\": \"Privater Nutzer\",\r\n    \"offerscount\": 12,\r\n    \"friendliness\":\"Freundlich\",\r\n    \"satisfaction\":\"OK\",\r\n    \"accountcreated\": \"2012-08-30 00:00:00\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1604,14 +1748,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}/offers/externalid/1718968309",
+							"raw": "{{URL}}/offers/userid/2591466 ",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"offers",
-								"externalid",
-								"1718968309"
+								"userid",
+								"2591466 "
 							]
 						}
 					},
@@ -1654,13 +1798,13 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{URL}}/offers/113",
+							"raw": "{{URL}}/offers/655",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"offers",
-								"113"
+								"655"
 							]
 						}
 					},
@@ -4892,6 +5036,274 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Progress",
+					"item": [
+						{
+							"name": "Create Progress",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"task_id\":25,\r\n      \"information\": \"{\\\"collectionid\\\":\\\"4\\\",\\\"setnumber\\\":\\\"4439\\\",\\\"comments\\\":\\\"\\\",\\\"instructions\\\":\\\"\\\",\\\"condition\\\":\\\"\\\",\\\"download_prices\\\":true,\\\"report_progress\\\":true}\",\r\n      \"progress\" : 100,\r\n       \"status\" : \"Downloading Setdata\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/progressdetails",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"progressdetails"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show latest Progres by id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{URL}}/progressdetails/2,3,4",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"progressdetails",
+										"2,3,4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type_id\":1,\r\n    \"origin\": \"{\\\"offerid\\\":\\\"844\\\"}\",\r\n    \"information\": \"{\\\"offerid\\\":\\\"844\\\",\\\"setno\\\":\\\"747\\\",\\\"amount\\\":1,\\\"comments\\\":\\\"\\\",\\\"download_prices\\\":true,\\\"report_progress\\\":true}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/tasks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show all Tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/tasks",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show all open Tasks typeid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/tasks/type/2/open",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tasks",
+								"type",
+								"2",
+								"open"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show all Tasks by statusid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/tasks/status/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tasks",
+								"status",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Show single Task",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/tasks/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"type_id\":1,\r\n    \"information\": \"{ \\\"setno\\\" : 8882, \\\"download_prices\\\": true, \\\"report_progress\\\": true}\",\r\n    \"status_id\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/tasks/1",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tasks",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task Status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":1,\r\n    \"status_id\" : 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/tasks/1/status",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tasks",
+								"1",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/tasks/36",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"tasks",
+								"36"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"scraper\",\r\n    \"password\": \"pw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/users/login",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [

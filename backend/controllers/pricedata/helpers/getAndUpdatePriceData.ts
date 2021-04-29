@@ -1,4 +1,4 @@
-import { Response } from 'express';
+/* import { Response } from 'express';
 import connection from "../../../database_connection";
 const blApi = require("../../../config/bl.api.js");
 
@@ -38,3 +38,4 @@ export function GetAndUpdatePriceData(type: any, partnumber: any, con: any, colo
             });
     });
 }
+ */

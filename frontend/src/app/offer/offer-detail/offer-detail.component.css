@@ -28,3 +28,33 @@
 .thumbnail-container .img-thumbnail-selected {
   border: 2px solid rgba(90, 94, 101, 0.92);
 }
+
+.navigation-buttons-container {
+  display: flex;
+}
+
+.navigation-buttons-container .button {
+  display: flex;
+  justify-content: space-around;
+  line-height: 28px;
+  height: 28px;
+  width: 50px;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e3e6f0;
+  border-radius: .35rem;
+  margin: 0 5px;
+  font-size: 18px;
+}
+
+.navigation-buttons-container .button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+input[type="checkbox"] {
+  outline: 0;
+  height: 28px;
+  box-shadow: none;
+}

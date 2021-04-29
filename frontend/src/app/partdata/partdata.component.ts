@@ -14,7 +14,7 @@ export class PartdataComponent implements OnInit {
     private router: Router) { }
 
 
-    public columns = [
+    public partcolumns = [
       { title: 'Image', name: 'partinfo.thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
       { title: 'Number', name: 'partno', size: '5%', minSize: '50'},
       { title: 'Colorid', name: 'color_id', size: '5%', minSize: '50'},
@@ -29,10 +29,11 @@ export class PartdataComponent implements OnInit {
       { title: 'avg Price (sold)', name: 'partinfo.qty_avg_price_sold', size: '40', minSize: '40', datatype: { type: 'price' } },
       { title: 'Avg Price', name: 'partinfo.avg_price', size: '40', minSize: '40', datatype: { type: 'price' } }
     ]
-    public data: any;
+    public partdata: any;
 
   ngOnInit(): void {
     this.bindData();
+    
   }
 
   bindData() {
@@ -40,7 +41,7 @@ export class PartdataComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.data = data.body.result;
+            this.partdata = data.body.result;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
