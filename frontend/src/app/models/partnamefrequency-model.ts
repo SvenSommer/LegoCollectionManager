@@ -1,7 +1,6 @@
 export class PartnameFrequencyModel {
     public wordposition: number;
     public word: string;
-//    public nearwords: Array<NearWords>;
     public counter: number;
 
     constructor(data = null) {
@@ -27,18 +26,9 @@ export class NearWords {
     }
 }
 
-export class PartnameFrequencyModelExport {
-    public wordposition: number;
-    public word: string;
-//    public nearwords: string;
-    public counter: number;
-
-    constructor(data = null) {
-        if (data) {
-            this.wordposition = data.wordposition;
-            this.word = data.word;
-  //          this.nearwords = data.nearWords;
-            this.counter = data.counter;
-        }
-    }
+export class PartnameFrequencyCachingModel {
+    public searchwords: string;
+    public activeButtonsWords : string;
+    public activeButtonsNumbers : string;
+    
 }

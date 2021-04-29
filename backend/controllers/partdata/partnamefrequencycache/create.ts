@@ -7,45 +7,34 @@ export default (req: Request, res: Response) => {
     try {
         const {token} = req.cookies;
         const {
-            wordposition,
-            word,
-            nearwords,
-            counter,
-            overallcounter
-        } = req.body;
-        if (wordposition &&
-            word &&
-            nearwords &&
-            counter &&
-            overallcounter) {
+            searchwords,
+            activeButtonsWords,
+            activeButtonsNumbers} = req.body;
+        if (searchwords) {
             //@ts-ignore
 
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const createOne = `INSERT INTO Partnames_Frequency(wordposition,
-                    word,
-                    nearwords,
-                    counter,
-                    overallcounter)
+                const createOne = `INSERT INTO PartnameFrequency_Cache(searchwords,
+                    activeButtonsWords,
+                    activeButtonsNumbers)
                     VALUES(
-                    ${wordposition},
-                    `+ connection.escape(word) + `,
-                    `+ connection.escape(nearwords) + `,
-                    ${counter},
-                    ${overallcounter})`;
+                    `+ connection.escape(searchwords) + `,
+                    `+ connection.escape(activeButtonsWords) + `,
+                    `+ connection.escape(activeButtonsNumbers) + `)`;
 
                 connection.query(createOne, (err) => {
                     if (err) {
                         //console.log(err);
-                        console.log("Err" + err.code + " WORD: "+  word + " Wordposition: " + wordposition);
+                        console.log("Err" + err.code + " searchwords: "+  searchwords + " activeButtonsWords: " + activeButtonsWords);
                         res.json({
                             code: 500,
-                            message: 'Couldn\'t create new Partnames_Frequency',
+                            message: 'Couldn\'t create new PartnameFrequency_Cache',
                             errorMessage: process.env.DEBUG && err
                         });
                     }else {
                         res.json({
                             code: 201,
-                            message: 'new Partnames Frequency created'
+                            message: 'new Cache Entry created'
                         });
                     }
                 })
@@ -53,7 +42,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'wordposition, word, nearwords, counter and overallcounter are required! For '+ " WORD: "+  word + " Wordposition: " + wordposition
+                message: 'searchwords is required!'
             });
         }
     } catch (e) {
