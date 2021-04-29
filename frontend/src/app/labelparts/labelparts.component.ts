@@ -19,10 +19,23 @@ export class LabelpartsComponent implements OnInit {
     this.HandleKeyInput(event.key);
   }
 
-  disableSelect = new FormControl(false);
+  disablePartCount = false;
+  disableMinYear = false;
+  disableMaxYear = false;
+
+  selectedPartCount: any;
+  selectedMinYear: any;
+  selectedMaxYear: any;
+
+  yearFromList: any;
+  yearToList: any;
+
   public identifiedpartsData: any;
   public defaultPartsCount = 1000;
   public partCountsRange = [50,100,200,300,500,1000];
+
+  public selectedValue;
+
   constructor(
     private overlayContainer: OverlayContainer,
     private activatedRoute: ActivatedRoute,
@@ -180,6 +193,16 @@ export class LabelpartsComponent implements OnInit {
     this.refreshCurrentPartid();
   }
 
+  menuOpened() {
+    this.disablePartCount = false;
+    this.disableMinYear = false;
+    this.disableMaxYear = false;
+
+    this.selectedPartCount = '';
+    this.selectedMinYear = '';
+    this.selectedMaxYear = '';
+  }
+
   HandleKeyInput(key) {
     console.log(key);
 
@@ -270,6 +293,39 @@ export class LabelpartsComponent implements OnInit {
     console.log('col::::::::::::::', col.parts_count);
   }
 
+  onChangePartCount(event) {
+    console.log('event::::::::::::::::',event)
+  }
+  onChangeMinYear(event) {
+    console.log('event::::::::::::::::',event)
+  }
+  onChangeMaxYear(event) {
+    console.log('event::::::::::::::::',event)
+  }
+
+  filterYears() {
+    let colorDataCopy = JSON.parse(JSON.stringify(this.colorData));
+    this.yearFromList = colorDataCopy.filter(function (el) {
+      return el.year_from != null;
+    });
+    this.yearToList = colorDataCopy.filter(function (el) {
+      return el.year_to != null;
+    });
+    this.yearFromList = this.yearFromList.sort((a, b) => {
+      if (a.year_from > b.year_from) { return 1; }
+      if (a.year_from < b.year_from) { return -1; }
+      return 0;
+    });
+    this.yearToList = this.yearToList.sort((a, b) => {
+      if (a.year_to > b.year_to) { return -1; }
+      if (a.year_to < b.year_to) { return 1; }
+      return 0;
+    });
+
+    this.yearFromList =  this.yearFromList.filter((v,i) => this.yearFromList.findIndex(item => item.year_from == v.year_from) === i);
+    this.yearToList =  this.yearToList.filter((v,i) => this.yearToList.findIndex(item => item.year_to == v.year_to) === i);
+  }
+
   onToogleAllDeleted(part) {
     part.partimages.forEach((image) => {
       this.onToggleDeleted(image);
@@ -357,7 +413,7 @@ export class LabelpartsComponent implements OnInit {
           if (data.body && data.body.code == 200) {
             // console.log( data.body.result[0])
             this.colorData = data.body.result;
-            console.log('this.colorData ::::::',this.colorData)
+            // console.log('this.colorData ::::::',this.colorData)
             let flags = [],
               colorTypesList = [],
               l = this.colorData.length,
@@ -384,7 +440,8 @@ export class LabelpartsComponent implements OnInit {
             this.colorsListCopy = JSON.parse(JSON.stringify(this.colorsList));
             const xcopy = this.colorsList;
             this.colorsList[0].props = this.sortBy(xcopy[0].props, this.defaultPartsCount);
-            console.log('this.colorsListCopy:::::::::::',this.colorsListCopy)
+            // console.log('this.colorsList:::::::::::',this.colorsList)
+            this.filterYears();
           } else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl('/login');
           }
