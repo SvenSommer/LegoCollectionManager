@@ -19,243 +19,18 @@
                 </div>
             </div>
             <app-card-table [cardColumns]="offerInfo" [cardData]="offerDetails"></app-card-table>
-            <!-- <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <table *ngIf="offerDetails" class="div2 table table-hover table-sm datatable" role="grid">
-                            <tr>
-                                <td>
-                                    External Id
-                                </td>
-                                <td>
-                                    <a [href]="offerDetails.offerinfo.url" (click)="onExternalClick(offerDetails)">
-                                        {{offerDetails.offerinfo.external_id}}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Price
-                                </td>
-                                <td>
-                                    {{offerDetails.offerinfo.pricetype}} <br>
-
-                                    {{offerDetails.offerinfo.price | currency:'EUR'}}
-                                </td>
-                            </tr>
-                            <tr *ngIf="offerDetails.expectedSets.sumAmount > 0">
-                                <td>
-                                    Expected Sets
-                                </td>
-                                <td>
-                                    {{offerDetails.expectedSets.sumAmount}} <br>
-                                    Min price {{offerDetails.expectedSets.sumMin_price}} € <br>
-                                    Avg_price {{offerDetails.expectedSets.sumAvg_price}} € <br>
-                                    Parts {{offerDetails.expectedSets.sumComplete_part_count}} <br>
-                                    Minifigs {{offerDetails.expectedSets.sumComplete_minifigs_count}} <br>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Location Group
-                                </td>
-                                <td>
-                                    {{offerDetails.offerinfo.locationgroup}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Locality
-                                </td>
-                                <td>
-                                    {{offerDetails.offerinfo.locality}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Zipcode
-                                </td>
-                                <td>
-                                    {{offerDetails.offerinfo.zipcode}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Shipping
-                                </td>
-                                <td>
-                                    {{offerDetails.offerinfo.shipping}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Inserated
-                                </td>
-                                <td>
-                                    {{offerDetails.offerinfo.datecreated | date:'dd.MM.yyyy' }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Deleted By User
-                                </td>
-                                <td>
-                                    {{offerDetails.deletedByExtUser | date:'dd.MM.yyyy HH:mm' }}
-                                </td>
-                            </tr>
-
-
-                        </table>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="text-primary font-weight-bold m-0">Seller Information</h6>
             </div>
             <app-card-table [cardColumns]="sellerInfo" (onSelctionChange)="callUserCategory($event)" [cardData]="offerDetails" [selectOptionList]="userCategoryList"></app-card-table>
-            <!-- <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <table *ngIf="offerDetails" class="div2 table table-hover table-sm datatable" role="grid">
-                            <tr>
-                                <td>
-                                    External User Id
-                                </td>
-                                <td>
-                                    <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{offerDetails.user_id}}"
-                                        (click)="onExternalClick(offerDetails)">
-                                        {{offerDetails.userinfo.user_id}}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Seller
-                                </td>
-                                <td>
-                                    <a class="pl-1" title="See details"
-                                        (click)="onUserDetailsClick(offerDetails.userinfo.id)">{{offerDetails.userinfo.name}}</a>
-                                    <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Type
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.type}} <br>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Category
-                                </td>
-                                <td>
-                                    <select ngModel name="usercategory_id" id="usercategory_id"
-                                        class="form-control input-group" #status="ngModel"
-                                        [(ngModel)]="offerDetails.usercategory.id" #t
-                                        (change)="callUserCategory(t.value)">
-                                        <option *ngFor="let category of userCategoryList" [value]="category.id">
-                                            {{ category.category }}
-                                        </option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Available Offers
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.offerscount}} <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Recorded Offers
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.sumOffersRecorded}}
-                                    <a class="pl-1" title="See details"
-                                        (click)="onUserDetailsClick(offerDetails.userinfo.id)">
-                                        <i class="fas fa-info-circle text-gray-400"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Friendliness
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.friendliness}} <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Satisfaction
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.satisfaction}} <br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Account Created
-                                </td>
-                                <td>
-                                    {{offerDetails.userinfo.accountcreated | date:'dd.MM.yyyy' }}
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h6 class="text-primary font-weight-bold m-0">Searchproperties</h6>
             </div>
             <app-card-table [cardColumns]="searchPropertiesInfo" [cardData]="offerDetails"></app-card-table>
-            <!-- <div class="card-body">
-                <table *ngIf="offerDetails" class="div2 table table-hover table-sm datatable" role="grid">
-                    <tr>
-                        <td>
-                            Searchterm
-                        </td>
-                        <td>
-                            {{offerDetails.searchpropertyinfo.searchterm}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Location
-                        </td>
-                        <td>
-                            {{offerDetails.searchpropertyinfo.location}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Price
-                        </td>
-                        <td>
-                            {{offerDetails.searchpropertyinfo.pricemin}} - {{offerDetails.searchpropertyinfo.pricemax}}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            only Pickup
-                        </td>
-                        <td>
-                            {{offerDetails.searchpropertyinfo.onlypickup}}
-                        </td>
-                    </tr>
-                </table>
-            </div> -->
         </div>
         <div class="card shadow mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -306,7 +81,7 @@
                                         <div class="col-sm-12" *ngIf="offerDetails">
                                             <span *ngFor="let desc of offerDescriptionSplitBySets; index as i">
                                                 <span [innerHTML]="desc"></span>
-                                                <a *ngIf="this.recognizeSets[i]" class='badge badge-info' (click)="onSetClick(this.recognizeSets[i])">+{{this.recognizeSets[i]}}</a>
+                                                <a *ngIf="this.recognizeSets[i]" class='{{this.recognizeSets[i].class}}' (click)="onSetClick(this.recognizeSets[i].value)">+{{this.recognizeSets[i].value}}</a>
                                             </span>
                                         </div>
                                     </div>
