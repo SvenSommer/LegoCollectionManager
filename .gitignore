@@ -4,6 +4,10 @@ partimages/*
 
 .DS_STORE
 
+setrecognizer/data/
+setrecognizer/data/*
+__pycache__
+
 /dist/
 /bazel-out
 /integration/bazel/bazel-*

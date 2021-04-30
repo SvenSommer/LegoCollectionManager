@@ -1,5 +1,5 @@
 from argparse import ArgumentParser, Namespace
-from flask import Flask, jsonify, abort, request, Response
+from flask import Flask, jsonify, abort, request
 import io
 import logging
 import numpy as np
@@ -7,7 +7,9 @@ import json
 import time
 import requests
 from PIL import Image
-from functools import reduce
+
+from inference.solution_inference import \
+    FunctionServingWrapper, LegoSetRecognitionSystem
 
 
 def args_parse() -> Namespace:
@@ -20,6 +22,7 @@ def args_parse() -> Namespace:
 app = Flask(__name__)
 app_log = logging.getLogger('werkzeug')
 app_log.setLevel(logging.ERROR)
+set_recognition_system = FunctionServingWrapper(LegoSetRecognitionSystem())
 
 
 def solution_inference(img: np.ndarray) -> dict:
@@ -31,39 +34,14 @@ def solution_inference(img: np.ndarray) -> dict:
     Returns:
         List with detections in [box, set number] format
     """
+    global set_recognition_system
+
     if img is None:
         abort(409)
 
-    # Now this method returns random values
-    res = {
-        'detections': []
+    return {
+        'detections': set_recognition_system(img)
     }
-
-    for i in range(np.random.randint(0, 10)):
-        w = np.random.randint(img.shape[1] // 10, 2 * img.shape[1] // 3)
-        h = np.random.randint(img.shape[0] // 10, 2 * img.shape[0] // 3)
-
-        x = np.random.randint(0, img.shape[1] - w - 1)
-        y = np.random.randint(0, img.shape[0] - h - 1)
-
-        number = reduce(
-            lambda s1, s2: s1 + s2,
-            [str(k) for k in np.random.randint(0, 10, size=5)]
-        )
-
-        res['detections'].append(
-            {
-                'box': [
-                    x / img.shape[1],
-                    y / img.shape[0],
-                    w / img.shape[1],
-                    h / img.shape[0]
-                ],
-                'number': number
-            }
-        )
-
-    return res
 
 
 def getImageFromUrl(image_url_str):
@@ -79,12 +57,13 @@ def getImageFromUrl(image_url_str):
         )
         abort(408)
     return image
-    
+
+
 def getImageFromPath(image_path):
     image = None
     try:
         image = np.array(
-            Image.open(image_path_str).convert('RGB')
+            Image.open(image_path).convert('RGB')
         )
     except Exception as e:
         logging.error(
@@ -92,6 +71,7 @@ def getImageFromPath(image_path):
         )
         abort(408)
     return image
+
 
 @app.route('/api/solvetasks', methods=['GET'])
 def solvetasks():
@@ -130,6 +110,7 @@ def solvetasks():
         task_counter += 1
     timer_end = time.perf_counter()
     return jsonify({"solvedTasks" : task_counter, "elapsedTime": f"{timer_end - timer_start:0.4f} seconds"  })
+
 
 @app.route('/api/inference/url', methods=['POST'])
 def solution_inference_by_url():
