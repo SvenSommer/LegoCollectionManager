@@ -200,6 +200,11 @@ label {
   }
 }
 
-.disable-backdrop-click .cdk-overlay-backdrop.cdk-overlay-transparent-backdrop.cdk-overlay-backdrop-showing {
-  pointer-events: none;
+.mat-menu-panel {
+  min-width: 200px !important;
+}
+
+.select-label {
+  font-size: 14px;
+  font-weight: 700;
 }

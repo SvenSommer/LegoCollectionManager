@@ -31,7 +31,7 @@ export class OfferDetailComponent implements OnInit {
   public messageAccountList: Array<MessageTextModel>;
   public messageTextList: Array<any>;
   public offerDescriptionSplitBySets: string[] = [];
-  public recognizeSets: string[] = [];
+  public recognizeSets: Array<any> = [];
   public viewColumns = [
     { title: 'Views', name: 'viewcount', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'date', name: 'created', size: '30', minSize: '30', datatype: { type: 'datetime' } },
@@ -357,11 +357,9 @@ export class OfferDetailComponent implements OnInit {
   }
 
   getAccounts() {
-    console.log("getting accopunts")
     this.offerService.getAccounts().subscribe(
       (data) => {
         if (data) {
-          console.log(data.body)
           if (data.body && data.body.code === 200) {
 
             this.messageAccountList = data.body.result;
@@ -485,6 +483,7 @@ export class OfferDetailComponent implements OnInit {
               i++;
               this.bindData();
               this.getAllPossiblesets();
+              this.splitBySets()
             }
           }
         }
@@ -654,14 +653,22 @@ export class OfferDetailComponent implements OnInit {
   }
 
   splitBySets() {
-    const offerDescription: string = this.offerDetails.offerinfo.description;
+    const offerDescription: string = this.offerDetails.offerinfo.title + "<br>" +  this.offerDetails.offerinfo.description;
     const splitBySets = offerDescription.substring(4, offerDescription.length - 4)
       .split(/"[^"]*"|'[^']*'|(\d{4,5})/g);
     splitBySets.forEach(((value, index) => {
       if (index % 2 === 0) {
         this.offerDescriptionSplitBySets.push(value);
       } else {
-        this.recognizeSets.push(value);
+        let set = {
+          "value" : value,
+          "class" : "badge badge-info"
+        }
+
+        if(this.possiblesetData && this.possiblesetData.find(item => item.setno == value)){
+          set['class'] = 'badge badge-success';
+        }
+        this.recognizeSets.push(set);
       }
     }));
   }
