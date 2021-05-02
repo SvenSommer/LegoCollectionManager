@@ -12,6 +12,9 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 sudo apt-get install -y docker-ce
 
+Before building docker image please set parameter 'use_titles_response' in configuration YAML file.
+Set 'True' if you need parse pages titles to find set number.
+
 2. Build docker image
 sudo docker build -t lego_set_recognition_server .
 

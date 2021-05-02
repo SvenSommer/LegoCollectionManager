@@ -6,7 +6,9 @@ import numpy as np
 import json
 import time
 import requests
+import os
 from PIL import Image
+import yaml
 
 from inference.solution_inference import \
     FunctionServingWrapper, LegoSetRecognitionSystem
@@ -22,7 +24,19 @@ def args_parse() -> Namespace:
 app = Flask(__name__)
 app_log = logging.getLogger('werkzeug')
 app_log.setLevel(logging.ERROR)
-set_recognition_system = FunctionServingWrapper(LegoSetRecognitionSystem())
+
+config_filepath = os.path.join(
+    os.path.dirname(__file__),
+    'server_configuration.yml'
+)
+with open(config_filepath, 'r') as config_file:
+    server_config = yaml.safe_load(config_file)
+
+set_recognition_system = FunctionServingWrapper(
+    LegoSetRecognitionSystem(
+        server_config['ServerConfiguration']['use_titles_response']
+    )
+)
 
 
 def solution_inference(img: np.ndarray) -> dict:
