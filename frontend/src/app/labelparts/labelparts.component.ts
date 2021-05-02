@@ -58,6 +58,8 @@ export class LabelpartsComponent implements OnInit {
         this.getAllColordata();
       }
     });
+    this.selectedPartCount = 1000;
+    this.disablePartCount = true;
   }
 
   public identifiedpartsColumns = [
@@ -180,6 +182,7 @@ export class LabelpartsComponent implements OnInit {
   ];
 
   public colorData: any;
+  public errorMsg: any;
   public colorsList = [];
   public colorsListCopy = [];
 
@@ -280,15 +283,16 @@ export class LabelpartsComponent implements OnInit {
   }
 
   clearSelection() {
-    this.disablePartCount = false;
+    this.errorMsg = '';
+    this.disablePartCount = true;
     this.disableMinYear = false;
     this.disableMaxYear = false;
 
-    this.selectedPartCount = '';
+    this.selectedPartCount = 1000;
     this.selectedMinYear = '';
     this.selectedMaxYear = '';
 
-    this.defaultPartsCount = 1000;
+    this.defaultPartsCount = this.selectedPartCount;
     this.filterByPartCount();
   }
 
@@ -307,11 +311,34 @@ export class LabelpartsComponent implements OnInit {
     this.hideColorTabs();
   }
 
-  onChangeMinYear(event) {
-    console.log('event::::::::::::::::',event)
-  }
-  onChangeMaxYear(event) {
-    console.log('event::::::::::::::::',event)
+  selectDateRange() {
+    if(this.selectedMinYear > this.selectedMaxYear) {
+      this.errorMsg = 'Min Year should not be greater than Max Year';
+    }
+    else{
+      this.errorMsg = '';
+      if(this.selectedMinYear && !this.selectedMaxYear && this.selectedPartCount){
+        this.colorsList = this.colorsList.map(p => {
+          p.props = p.props.filter(e=>((e.year_from >= this.selectedMinYear)))
+          return p;
+        });
+      }
+      else if(!this.selectedMinYear && this.selectedMaxYear && this.selectedPartCount){
+        this.colorsList = this.colorsList.map(p => {
+          p.props = p.props.filter(e=>((e.year_to <= this.selectedMaxYear)))
+          return p;
+        });
+      }
+      else if(this.selectedMinYear && this.selectedMaxYear && this.selectedPartCount){
+        if(this.selectedMinYear <= this.selectedMaxYear){
+          this.colorsList = this.colorsList.map(p => {
+            p.props = p.props.filter(e=>((e.year_from >= this.selectedMinYear) && (e.year_to <= this.selectedMaxYear)))
+            return p;
+          });
+        }
+      }
+    }
+    this.hideColorTabs();
   }
 
   hideColorTabs() {
