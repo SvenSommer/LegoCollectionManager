@@ -116,6 +116,8 @@ def solvetasks():
         elif 'path' in information_json.keys():
             path = str(information_json["path"])
             image = getImageFromPath(path)
+        else:
+            abort(408)
 
         # Store the result
         s.put("http://localhost:3001/offers_images/{image_id}", data={'id':image_id,'detections':str(solution_inference(image))})
