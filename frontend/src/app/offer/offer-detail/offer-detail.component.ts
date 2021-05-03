@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
@@ -23,7 +23,11 @@ export class OfferDetailComponent implements OnInit {
   public imgPopupURL = '';
   public imgPopupName = '';
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
+  @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('img') image: ElementRef;
   public isPopupOpen = false;
+  public ctx: CanvasRenderingContext2D;
+  public img: any;
 
   public offerDetails;
   public possiblesetDetails;
@@ -62,10 +66,10 @@ export class OfferDetailComponent implements OnInit {
   public offerInfo = {
     title: '',
     rowData: [
-      { key: 'offerinfo.external_id', name: 'External Id', dataType:{type:'link', target: 'offerinfo.url'}},
-      { key: 'offerinfo.price', name: 'Price', dataType:{type:'price'}},
+      { key: 'offerinfo.external_id', name: 'External Id', dataType: {type: 'link', target: 'offerinfo.url'}},
+      { key: 'offerinfo.price', name: 'Price', dataType: {type: 'price'}},
       { key: 'offerinfo.pricetype', name: 'Price Type', hide: 'True'},
-      { key: 'expectedSets.sumAmount', name: 'Expected Sets', dataType:{type:'sumAmount'}},
+      { key: 'expectedSets.sumAmount', name: 'Expected Sets', dataType: {type: 'sumAmount'}},
       { key: 'expectedSets.sumMin_price', name: 'Min price', hide: 'True'},
       { key: 'expectedSets.sumAvg_price', name: 'Avg_price', hide: 'True'},
       { key: 'expectedSets.sumComplete_part_count', name: 'Parts', hide: 'True'},
@@ -74,23 +78,23 @@ export class OfferDetailComponent implements OnInit {
       { key: 'offerinfo.locality', name: 'Locality'},
       { key: 'offerinfo.zipcode', name: 'Zipcode'},
       { key: 'offerinfo.shipping', name: 'Shipping'},
-      { key: 'offerinfo.created', name: 'Created', dataType:{type:'dateTime'}},
-      { key: 'deletedByExtUser', name: 'Deleted By User', dataType:{type:'dateTime'}}
+      { key: 'offerinfo.created', name: 'Created', dataType: {type: 'dateTime'}},
+      { key: 'deletedByExtUser', name: 'Deleted By User', dataType: {type: 'dateTime'}}
     ]
   };
   public sellerInfo = {
     title: '',
     rowData: [
-      { key: 'userinfo.user_id', name: 'External User Id', dataType:{type:'external_link', target: 'offerinfo.url'}},
-      { key: 'userinfo.name', name: 'Seller',title: 'See details',dataType:{type:'no_link', target: 'userinfo.id'}},
+      { key: 'userinfo.user_id', name: 'External User Id', dataType: {type: 'external_link', target: 'offerinfo.url'}},
+      { key: 'userinfo.name', name: 'Seller', title: 'See details', dataType: {type: 'no_link', target: 'userinfo.id'}},
       { key: 'userinfo.type', name: 'Type'},
       { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select', target: 'SELLER_INFO'}},
       { key: 'userinfo.offerscount', name: 'Available Offers'},
-      { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers',title: 'See details',dataType:{type:'icon_link', target: 'userinfo.id'}},
+      { key: 'userinfo.sumOffersRecorded', name: 'Recorded Offers', title: 'See details', dataType: {type: 'icon_link', target: 'userinfo.id'}},
       { key: 'userinfo.id', name: 'User Id'},
       { key: 'userinfo.friendliness', name: 'Friendliness'},
       { key: 'userinfo.satisfaction', name: 'Satisfaction'},
-      { key: 'userinfo.accountcreated', name: 'Account Created', dataType:{type:'date'}}
+      { key: 'userinfo.accountcreated', name: 'Account Created', dataType: {type: 'date'}}
     ]
   };
 
@@ -108,21 +112,21 @@ export class OfferDetailComponent implements OnInit {
   public isMoreFieldOpenForSet = false;
   public task_origin = {
      offer_id : 0
-  }
+  };
 
   public newMessage = {
-    "account_id": 2,
-    "messagetext_id": 2
-  }
+    account_id: 2,
+    messagetext_id: 2
+  };
 
   public newpossiblesetDetail = {
-    "offer_id": 0,
-    "setno": "",
-    "amount": 1,
-    "comments": "",
-    "download_prices": true,
-    "report_progress": true
-  }
+    offer_id: 0,
+    setno: '',
+    amount: 1,
+    comments: '',
+    download_prices: true,
+    report_progress: true
+  };
 
   public setDownloadingRequestData = [];
   public requestList = new Array<string>();
@@ -139,10 +143,11 @@ export class OfferDetailComponent implements OnInit {
   public selectedImageIndex = -1;
 
   constructor(private activatedRoute: ActivatedRoute,
-    private offerService: OfferService,
-    private taskService: TaskService,
-    private router: Router, private toastr: ToastrService,
-    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
+              private offerService: OfferService,
+              private taskService: TaskService,
+              private cd: ChangeDetectorRef,
+              private router: Router, private toastr: ToastrService,
+              private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   ngOnInit(): void {
 
@@ -288,6 +293,19 @@ export class OfferDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code === 200) {
             this.imageData = data.body.result[0];
+            this.imageData.images.forEach(image => {
+              image.detections = [
+                {
+                  box: {
+                    left: 1,
+                    top: 2,
+                    height: 50,
+                    width: 70
+                  }
+                }
+              ];
+            });
+            console.log(this.imageData);
           }
           else if (data.body && data.body.code === 403) {
             this.router.navigateByUrl('/login');
@@ -356,11 +374,11 @@ export class OfferDetailComponent implements OnInit {
   }
 
   getAccounts() {
-    console.log("getting accopunts")
+    console.log('getting accopunts');
     this.offerService.getAccounts().subscribe(
       (data) => {
         if (data) {
-          console.log(data.body)
+          console.log(data.body);
           if (data.body && data.body.code === 200) {
 
             this.messageAccountList = data.body.result;
@@ -405,8 +423,8 @@ export class OfferDetailComponent implements OnInit {
   }
 
   private addSetToPotentialSets() {
-    this.newpossiblesetDetail.setno.replace(/ /g, "");
-    var new_task: TaskModel = {
+    this.newpossiblesetDetail.setno.replace(/ /g, '');
+    const new_task: TaskModel = {
       type_id: 1,
       origin: JSON.stringify(this.task_origin),
       information: JSON.stringify(this.newpossiblesetDetail)
@@ -419,12 +437,12 @@ export class OfferDetailComponent implements OnInit {
 
             this.toastr.success(data.body.message);
             this.newpossiblesetDetail = {
-              "offer_id": this.offerid,
-              "setno": "",
-              "amount": 1,
-              "comments": "",
-              "download_prices": true,
-              "report_progress": true
+              offer_id: this.offerid,
+              setno: '',
+              amount: 1,
+              comments: '',
+              download_prices: true,
+              report_progress: true
             };
             this.isSetFormSubmitted = false;
             this.getAllPossiblesets();
@@ -466,16 +484,16 @@ export class OfferDetailComponent implements OnInit {
     if (!this.requestList || this.requestList.length <= 0) {
       return;
     }
-    this.taskService.getProgressDetails(this.requestList.join(",")).subscribe(
+    this.taskService.getProgressDetails(this.requestList.join(',')).subscribe(
       (data) => {
         if (data.body && data.body.code === 200) {
           this.setDownloadingRequestData = Object.assign([], data.body.result);
-          for (var i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
-            var info = JSON.parse(this.setDownloadingRequestData[i].information)
+          for (let i = 0; i <= this.setDownloadingRequestData.length - 1; i++) {
+            const info = JSON.parse(this.setDownloadingRequestData[i].information);
             this.setDownloadingRequestData[i].setNo = info.setno;
             this.setDownloadingRequestData[i].name = info.name;
             this.setDownloadingRequestData[i].image_url = info.image_url;
-            var task_id = this.setDownloadingRequestData[i].task_id;
+            const task_id = this.setDownloadingRequestData[i].task_id;
             if (this.setDownloadingRequestData[i].progress == 100) {
               // Message should be data.body.message
               this.toastr.success(`Set ${info.setno} successfully downloaded.`);
@@ -533,16 +551,59 @@ export class OfferDetailComponent implements OnInit {
   }
 
   public onImgClick(image, index: number) {
-    console.log(image);
     this.imgPopupURL = image.imageurl;
     this.imgPopupName = image.path;
     this.selectedImageIndex = index;
 
+    this.afterLoading(image);
     if (!this.isPopupOpen) {
       this.imagePopup.open();
       this.isPopupOpen = true;
     }
   }
+
+  afterLoading(image) {
+    const ctx = this.canvas.nativeElement.getContext('2d');
+    const img = new Image();
+    const canvasPos = this.canvas.nativeElement.getBoundingClientRect();
+
+    img.addEventListener('load', () => {
+      ctx.lineWidth = 3;
+
+      ctx.canvas.width = img.width > 720 ? 720 : img.width;
+      ctx.canvas.height = img.height;
+      ctx.drawImage(img, 0, 0, img.width, img.height,
+        0, 0, img.width > 720 ? 720 : img.width, img.height );
+      ctx.strokeStyle = 'grey';
+      ctx.strokeRect(image.detections[0].box.left, image.detections[0].box.top,
+        image.detections[0].box.width, image.detections[0].box.height);
+    }, false);
+
+    img.src = this.imgPopupURL;
+    this.canvas.nativeElement.addEventListener('click', function(e) {
+      const x = image.detections[0].box.left;
+      const y = image.detections[0].box.top;
+      const w = image.detections[0].box.width;
+      const h = image.detections[0].box.height;
+      console.log(e.clientX, e.clientY);
+      if (
+        x <= e.clientX - canvasPos.left &&
+        e.clientX - canvasPos.left <= x + w &&
+        y <= e.clientY - canvasPos.top &&
+        e.clientY - canvasPos.top <= y + h
+      ) {
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'green';
+        ctx.strokeRect(x, y , w, h);
+      } else {
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'grey';
+        ctx.strokeRect(x, y , w, h);
+      }
+    });
+
+  }
+
 
   onSaveProperties(propertiesForm: NgForm) {
     this.properties.offer_id = this.offerid;
@@ -569,18 +630,18 @@ export class OfferDetailComponent implements OnInit {
       return;
     }
 
-    var messageinfo = {
+    const messageinfo = {
       offer_id : this.offerid,
       url : this.offerDetails.offerinfo.url,
       account : this.messageAccountList.find(i => i.id == this.newMessage.account_id),
       messagetext : this.messageTextList.find(i => i.id == this.newMessage.messagetext_id)
-    }
-    var new_task : TaskModel = {
+    };
+    const new_task: TaskModel = {
       type_id : 3,
       origin : JSON.stringify(this.task_origin),
       information : JSON.stringify(messageinfo)
-    }
-    console.log(new_task)
+    };
+    console.log(new_task);
     this.taskService.createNewTask(new_task).subscribe(
       (data) => {
         if (data) {
@@ -677,4 +738,5 @@ export class OfferDetailComponent implements OnInit {
     this.newpossiblesetDetail.setno = setNumber;
     this.addSetToPotentialSets();
   }
+
 }

@@ -587,7 +587,8 @@
 <app-modal-popup [title]="imgPopupName" size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
   <div class="main-image-container">
     <i class="fas fa-chevron-left text-gray-400" (click)="onArrowClick(true)"></i>
-    <img [src]="imgPopupURL" width="90%"/>
+    <img #img [src]="imgPopupURL" (load)="afterLoading(image)" width="90%" style='position: absolute;' />
+    <canvas #canvas id="canvas" ></canvas>
     <i class="fas fa-chevron-right text-gray-400" (click)="onArrowClick(false)"></i>
   </div>
   <div class="thumbnail-container" *ngIf="!!imageData">
