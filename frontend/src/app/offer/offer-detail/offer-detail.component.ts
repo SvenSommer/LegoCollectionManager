@@ -435,7 +435,7 @@ export class OfferDetailComponent implements OnInit {
     this.taskService.createNewTask(new_task).subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 201) {
+          if (data.body && data.body.code === 201) {
             this.requestList.push(data.body.task_id);
 
             this.toastr.success(data.body.message);
@@ -773,6 +773,9 @@ export class OfferDetailComponent implements OnInit {
   }
 
   splitBySets() {
+    this.offerDescriptionSplitBySets = [];
+    this.recognizeSets = [];
+
     const offerDescription: string = this.offerDetails.offerinfo.title + "<br>" +  this.offerDetails.offerinfo.description;
     const splitBySets = offerDescription.substring(4, offerDescription.length - 4)
       .split(/"[^"]*"|'[^']*'|(\d{4,5})/g);
