@@ -717,6 +717,8 @@ export class OfferDetailComponent implements OnInit {
   }
 
   splitBySets() {
+    this.offerDescriptionSplitBySets = [];
+    this.recognizeSets = [];
     const offerDescription: string = this.offerDetails.offerinfo.description;
     const splitBySets = offerDescription.substring(4, offerDescription.length - 4)
       .split(/"[^"]*"|'[^']*'|(\d{4,5})/g);
