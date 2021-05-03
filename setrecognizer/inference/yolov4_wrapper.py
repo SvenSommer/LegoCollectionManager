@@ -33,9 +33,14 @@ class YoloDetector:
                 state_dict.append((n, p))
         state_dict = dict(state_dict)
 
-        self.model.load_state_dict(
-            state_dict
-        )
+        try:
+            self.model.load_state_dict(
+                state_dict
+            )
+        except Exception as e:
+            self.model.load_state_dict(
+                torch.load(config['weights'], map_location=device)['model']
+            )
 
         self.model.fuse()
         self.model.to(device).eval()

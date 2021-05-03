@@ -1,2 +1,3 @@
 ServerConfiguration:
-  use_titles_response: True
+  detector: 'yolact'  # choose between `yolact` and `yolo`
+  use_titles_response: False

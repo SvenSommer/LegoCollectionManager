@@ -69,6 +69,7 @@ RUN apt -y install libgphoto2-dev libeigen3-dev libhdf5-dev doxygen
 RUN pip3 install torch==1.7.1
 RUN pip3 install torchvision==0.8.2
 RUN pip3 install Cython
+RUN pip3 install pycocotools
 
 # Download third parties
 

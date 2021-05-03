@@ -34,7 +34,8 @@ with open(config_filepath, 'r') as config_file:
 
 set_recognition_system = FunctionServingWrapper(
     LegoSetRecognitionSystem(
-        server_config['ServerConfiguration']['use_titles_response']
+        server_config['ServerConfiguration']['use_titles_response'],
+        server_config['ServerConfiguration']['detector']
     )
 )
 

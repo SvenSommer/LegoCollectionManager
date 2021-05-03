@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from inference.yolov4_wrapper import YoloV4BoxDetector
+from inference.yolact_wrapper import YOLACTModel
 from inference.ocr_wrapper import load_paddle_ocr
 from inference.image_search import get_number_or_top_k_image_from_google_search
 
@@ -60,13 +61,23 @@ def filter_text_string(s: str) -> str:
 
 
 class LegoSetRecognitionSystem(object):
-    def __init__(self, use_titles_response: bool):
-        self.detection_model = YoloV4BoxDetector(
-            config=os.path.join(
-                os.path.dirname(__file__),
-                '../data/yolov4_inference_configuration/yolov4_config.yml'
+    def __init__(self, use_titles_response: bool, detector: str):
+        if detector == 'yolo':
+            self.detection_model = YoloV4BoxDetector(
+                config=os.path.join(
+                    os.path.dirname(__file__),
+                    '../data/yolov4_inference_configuration/yolov4_config.yml'
+                )
             )
-        )
+        elif detector == 'yolact':
+            self.detection_model = YOLACTModel()
+        else:
+            raise RuntimeError(
+                'Don\'t supported detector: {}, '
+                'please select between yolo and yolact'.format(
+                    detector
+                )
+            )
 
         self.ocr_model = load_paddle_ocr()
 
@@ -157,6 +168,8 @@ if __name__ == '__main__':
     example_image = 'data/images/48.jpg'
     img = cv2.cvtColor(cv2.imread(example_image), cv2.COLOR_BGR2RGB)
 
-    set_recognition_system = FunctionServingWrapper(LegoSetRecognitionSystem(False))
+    set_recognition_system = FunctionServingWrapper(
+        LegoSetRecognitionSystem(False, 'yolact')
+    )
 
     print(set_recognition_system(img))
