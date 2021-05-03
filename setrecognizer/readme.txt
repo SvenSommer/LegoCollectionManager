@@ -12,11 +12,20 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 sudo apt-get install -y docker-ce
 
+Before building docker image please set parameter 'use_titles_response' in configuration YAML file.
+Set 'True' if you need parse pages titles to find set number.
+
 2. Build docker image
 sudo docker build -t lego_set_recognition_server .
 
 3. Run server solution:
+sudo docker run -p 5000:5000 --name LegoServer lego_set_recognition_server
+
+(Optional) If you need see server logs use the following command:
 sudo docker run -p 5000:5000 --name LegoServer -it lego_set_recognition_server
 
-4. (Optional) You can test server by the following shell command:
+4. To delete the containse use the following command:
+sudo docker rm LegoServer
+
+5. (Optional) You can test server by the following shell command:
 time curl -H "Content-Type: application/json" -X POST -d '{"url":"https://i.ebayimg.com/00/s/NzU4WDExNDg=/z/OKoAAOSwwNdgcFmR/$_59.JPG"}' http://localhost:5000/api/inference/url
