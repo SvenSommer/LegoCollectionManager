@@ -585,11 +585,20 @@
 
 
 <app-modal-popup [title]="imgPopupName" size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
+  <div class="set-container" *ngIf="!!selectedImage">
+    <ng-container *ngFor="let detection of selectedImage.detections; index as i;">
+      <img class="img-thumbnail rounded float-left" [ngClass]="{'img-set-selected': detection.selected}"
+           [src]="'https://img.bricklink.com/ItemImage/ON/0/' + detection.number + '-1.png'" (click)="onImageSetClick(i)"/>
+    </ng-container>
+  </div>
+
   <div class="main-image-container">
     <i class="fas fa-chevron-left text-gray-400" (click)="onArrowClick(true)"></i>
-    <img [src]="imgPopupURL" width="90%"/>
+    <img #img [src]="imgPopupURL" (load)="afterLoading()" width="90%" style='position: absolute; visibility: hidden;' />
+    <canvas #canvas id="canvas" ></canvas>
     <i class="fas fa-chevron-right text-gray-400" (click)="onArrowClick(false)"></i>
   </div>
+
   <div class="thumbnail-container" *ngIf="!!imageData">
     <ng-container *ngFor="let image of imageData.images; index as i;">
       <img class="img-thumbnail rounded float-left" [ngClass]="{'img-thumbnail-selected': i==selectedImageIndex}"
