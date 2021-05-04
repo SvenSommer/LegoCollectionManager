@@ -58,6 +58,8 @@ export class LabelpartsComponent implements OnInit {
         this.getAllColordata();
       }
     });
+    this.selectedPartCount = 1000;
+    this.disablePartCount = true;
   }
 
   public identifiedpartsColumns = [
@@ -180,6 +182,7 @@ export class LabelpartsComponent implements OnInit {
   ];
 
   public colorData: any;
+  public errorMsg: any;
   public colorsList = [];
   public colorsListCopy = [];
 
@@ -191,16 +194,6 @@ export class LabelpartsComponent implements OnInit {
   onPrevoiusPartClick() {
     this.currentpart_of_run--;
     this.refreshCurrentPartid();
-  }
-
-  menuOpened() {
-    this.disablePartCount = false;
-    this.disableMinYear = false;
-    this.disableMaxYear = false;
-
-    this.selectedPartCount = '';
-    this.selectedMinYear = '';
-    this.selectedMaxYear = '';
   }
 
   HandleKeyInput(key) {
@@ -272,12 +265,7 @@ export class LabelpartsComponent implements OnInit {
     });
   }
 
-  onTabChanged($event, colorsList) {
-    this.colorsList[$event.index].props = this.sortBy(colorsList[$event.index].props, 300);
-  }
-
   sortBy(color: any, limit: number) {
-
     return this.getColorsByPartCount(color, limit).sort((a, b) => {
       if (a.parts_count > b.parts_count) { return -1; }
       if (a.parts_count < b.parts_count) { return 1; }
@@ -291,16 +279,89 @@ export class LabelpartsComponent implements OnInit {
 
   pickColor(col) {
     console.log('col::::::::::::::', col.parts_count);
+
+  }
+
+  clearSelection() {
+    this.errorMsg = '';
+    this.disablePartCount = true;
+    this.disableMinYear = false;
+    this.disableMaxYear = false;
+
+    this.selectedPartCount = 1000;
+    this.selectedMinYear = '';
+    this.selectedMaxYear = '';
+
+    this.defaultPartsCount = this.selectedPartCount;
+    this.filterByPartCount();
   }
 
   onChangePartCount(event) {
-    console.log('event::::::::::::::::',event)
+    this.defaultPartsCount = event;
+    this.filterByPartCount();
   }
-  onChangeMinYear(event) {
-    console.log('event::::::::::::::::',event)
+
+  filterByPartCount(){
+    this.colorsList = [];
+    this.colorsList = JSON.parse(JSON.stringify(this.colorsListCopy));
+    const xcopy = this.colorsList;
+    xcopy.forEach((element,i) => {
+      this.colorsList[i].props = this.sortBy(element.props, this.defaultPartsCount);
+    });
+    this.hideColorTabs();
   }
-  onChangeMaxYear(event) {
-    console.log('event::::::::::::::::',event)
+
+  selectDateRange() {
+    if(this.selectedMinYear > this.selectedMaxYear) {
+      this.errorMsg = 'Min Year should not be greater than Max Year';
+    }
+    else{
+      this.errorMsg = '';
+      if(this.selectedMinYear && !this.selectedMaxYear && this.selectedPartCount){
+        this.colorsList = this.colorsList.map(p => {
+          p.props = p.props.filter(e=>((e.year_from >= this.selectedMinYear)))
+          return p;
+        });
+      }
+      else if(!this.selectedMinYear && this.selectedMaxYear && this.selectedPartCount){
+        this.colorsList = this.colorsList.map(p => {
+          p.props = p.props.filter(e=>((e.year_to <= this.selectedMaxYear)))
+          return p;
+        });
+      }
+      else if(this.selectedMinYear && this.selectedMaxYear && this.selectedPartCount){
+        if(this.selectedMinYear <= this.selectedMaxYear){
+          this.colorsList = this.colorsList.map(p => {
+            p.props = p.props.filter(e=>((e.year_from >= this.selectedMinYear) && (e.year_to <= this.selectedMaxYear)))
+            return p;
+          });
+        }
+      }
+    }
+    this.hideColorTabs();
+  }
+
+  hideColorTabs() {
+    this.colorsList = this.colorsList.filter(e => {
+      return e.props.length != 0;
+    })
+  }
+
+  changeSelection(){
+    if(!this.disablePartCount){
+      this.selectedPartCount = '';
+    }
+    else if(!this.disableMinYear){
+      this.selectedMinYear = '';
+    }
+    else if(!this.disableMaxYear){
+      this.selectedMaxYear = '';
+    }
+
+    if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
+      this.defaultPartsCount = 0;
+      this.filterByPartCount();
+    }
   }
 
   filterYears() {
@@ -411,9 +472,7 @@ export class LabelpartsComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            // console.log( data.body.result[0])
             this.colorData = data.body.result;
-            // console.log('this.colorData ::::::',this.colorData)
             let flags = [],
               colorTypesList = [],
               l = this.colorData.length,
@@ -438,10 +497,8 @@ export class LabelpartsComponent implements OnInit {
               this.colorsList.push(obj);
             });
             this.colorsListCopy = JSON.parse(JSON.stringify(this.colorsList));
-            const xcopy = this.colorsList;
-            this.colorsList[0].props = this.sortBy(xcopy[0].props, this.defaultPartsCount);
-            // console.log('this.colorsList:::::::::::',this.colorsList)
             this.filterYears();
+            this.filterByPartCount();
           } else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl('/login');
           }

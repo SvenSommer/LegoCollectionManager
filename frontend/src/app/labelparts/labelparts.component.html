@@ -63,18 +63,19 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Colors</h6>
                             <div>
-                              <button mat-icon-button (menuClosed)="menuOpened()" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="no-border">
+                              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" class="no-border">
                                 <mat-icon>more_vert</mat-icon>
                               </button>
                               <mat-menu #menu="matMenu" class="menu_dropdown">
 
                                 <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" >
-                                  <label class="select-label">Min Partcount: </label>
+                                  <label class="select-label">Min Partcount:</label>
                                   <div class="d-flex">
-                                    <mat-checkbox [(ngModel)]="disablePartCount" class="example-margin"></mat-checkbox>
-                                    <select mat-menu-item [ngModel]="selectedPartCount" (ngModelChange)="onChangePartCount($event)" [disabled]="!disablePartCount" class="full-width border">
+                                    <mat-checkbox (change)="changeSelection()" [(ngModel)]="disablePartCount" class="example-margin"></mat-checkbox>
+                                    <select mat-menu-item [(ngModel)]="selectedPartCount"
+                                    (change)='onChangePartCount($event.target.value)' [disabled]="!disablePartCount" class="full-width border">
                                       <option value=""></option>
-                                      <option *ngFor="let partcount of partCountsRange">{{partcount}}</option>
+                                      <option *ngFor="let partcount of partCountsRange" [value]="partcount">{{partcount}}</option>
                                     </select>
                                   </div>
                                 </div>
@@ -82,8 +83,8 @@
                                 <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="m-t-10">
                                   <label class="select-label">Min Year:</label>
                                   <div class="d-flex">
-                                    <mat-checkbox [(ngModel)]="disableMinYear" class="example-margin"></mat-checkbox>
-                                    <select mat-menu-item [ngModel]="selectedMinYear" (ngModelChange)="onChangeMinYear($event)" [disabled]="!disableMinYear" class="full-width border">
+                                    <mat-checkbox (change)="changeSelection()" [(ngModel)]="disableMinYear" class="example-margin"></mat-checkbox>
+                                    <select mat-menu-item [(ngModel)]="selectedMinYear" (change)="selectDateRange()" [disabled]="!disableMinYear" class="full-width border">
                                       <option value=""></option>
                                       <option *ngFor="let dt of yearFromList">{{dt.year_from}}</option>
                                     </select>
@@ -93,13 +94,19 @@
                                 <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="m-t-10">
                                   <label class="select-label">Max Year:</label>
                                   <div class="d-flex">
-                                    <mat-checkbox [(ngModel)]="disableMaxYear" class="example-margin"></mat-checkbox>
-                                    <select mat-menu-item [ngModel]="selectedMaxYear" (ngModelChange)="onChangeMaxYear($event)" [disabled]="!disableMaxYear" class="full-width border">
+                                    <mat-checkbox (change)="changeSelection()" [(ngModel)]="disableMaxYear" class="example-margin"></mat-checkbox>
+                                    <select mat-menu-item [(ngModel)]="selectedMaxYear" (change)="selectDateRange()" [disabled]="!disableMaxYear" class="full-width border">
                                       <option value=""></option>
                                       <option *ngFor="let dt of yearToList">{{dt.year_to}}</option>
                                     </select>
                                   </div>
                                 </div>
+
+                                <div *ngIf="errorMsg">
+                                  <small class="danger">{{errorMsg}}</small>
+                                </div>
+
+                                <button mat-raised-button class="btn btn-sm btn-primary clear_btn" (click)="clearSelection()"  color="primary">Clear</button>
                               </mat-menu>
                             </div>
                         </div>
@@ -109,7 +116,7 @@
                                     <!-- <ng-table [isActionVisible]="false" [columns]="colorColumns" [data]="colorData">
                                 </ng-table> -->
 
-                                  <mat-tab-group animationDuration="0ms" class="col-sm-12" dynamicHeight (selectedTabChange)="onTabChanged($event, colorsList)">
+                                  <mat-tab-group animationDuration="0ms" class="col-sm-12" dynamicHeight>
                                     <mat-tab class="row" *ngFor="let color of colorsList" label="{{color.label}}">
                                       <div *ngFor="let col of color.props" (click)="pickColor(col)" class="example-small-box mat-elevation-z4" [title]="col.color_name" [ngStyle]="{'background-color': '#' + col.color_code}">
                                       </div>
