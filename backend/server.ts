@@ -56,7 +56,7 @@ import task from "./routes/task";
 import progress_routes from './routes/progressdetails';
 
 const corsOpts = {
-    origin: ['http://localhost:3001','http://localhost:4200'],
+    origin: ['http://localhost:3001', 'http://localhost:4200', 'http://localhost:3002','http://localhost:5000'],
     credentials: true,
     methods: [
         'GET',
