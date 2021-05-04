@@ -94,10 +94,10 @@ def solvetasks():
     # Login
     s = requests.Session() 
     payload = {'username': 'setrecognition_worker', 'password': 'pass'}
-    s.post("http://localhost:3001/users/login", data=payload)
+    s.post("http://192.168.178.52:3001/users/login", data=payload)
 
     # Get Tasks
-    data_json = s.get("http://localhost:3001/tasks/type/2/open").json()
+    data_json = s.get("http://192.168.178.52:3001/tasks/type/2/open").json()
     tasks = data_json["result"]
     
     #Loop Tasks
@@ -108,7 +108,7 @@ def solvetasks():
         information_json = json.loads(t["information"])
         if 'image_id' not in information_json.keys():
             # Mark task with error status 
-            print(s.put("http://localhost:3001/tasks/{task_id}/status", data={'id':task_id,'status_id':4}).text)
+            print(s.put("http://192.168.178.52:3001/tasks/{task_id}/status", data={'id':task_id,'status_id':4}).text)
         image_id = information_json["image_id"]
 
         if 'imageurl' in information_json.keys():
@@ -121,9 +121,9 @@ def solvetasks():
             abort(408)
 
         # Store the result
-        s.put("http://localhost:3001/offers_images/{image_id}", data={'id':image_id,'detections':str(solution_inference(image))})
+        s.put("http://192.168.178.52:3001/offers_images/{image_id}", data={'id':image_id,'detections':str(solution_inference(image))})
         # Mark task as completed
-        #s.put("http://localhost:3001/tasks/{task_id}/status", data={'id':task_id,'status_id':3})
+        #s.put("http://192.168.178.52:3001/tasks/{task_id}/status", data={'id':task_id,'status_id':3})
         task_counter += 1
     timer_end = time.perf_counter()
     return jsonify({"solvedTasks" : task_counter, "elapsedTime": f"{timer_end - timer_start:0.4f} seconds"  })

@@ -56,7 +56,7 @@ import task from "./routes/task";
 import progress_routes from './routes/progressdetails';
 
 const corsOpts = {
-    origin: ['http://localhost:3001', 'http://localhost:4200', 'http://localhost:3002'],
+    origin: ['http://localhost:3001', 'http://localhost:4200', 'http://localhost:3002','http://localhost:5000'],
     credentials: true,
     methods: [
         'GET',
@@ -82,12 +82,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// app.use(function (req, res, next) {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Credentials', 'true');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     next();
-// });
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 /*
 * Middleware Routes
