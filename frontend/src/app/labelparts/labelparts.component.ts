@@ -347,6 +347,23 @@ export class LabelpartsComponent implements OnInit {
     })
   }
 
+  changeSelection(){
+    if(!this.disablePartCount){
+      this.selectedPartCount = '';
+    }
+    else if(!this.disableMinYear){
+      this.selectedMinYear = '';
+    }
+    else if(!this.disableMaxYear){
+      this.selectedMaxYear = '';
+    }
+
+    if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
+      this.defaultPartsCount = 0;
+      this.filterByPartCount();
+    }
+  }
+
   filterYears() {
     let colorDataCopy = JSON.parse(JSON.stringify(this.colorData));
     this.yearFromList = colorDataCopy.filter(function (el) {
