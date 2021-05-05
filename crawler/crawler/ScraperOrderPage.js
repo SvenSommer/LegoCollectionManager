@@ -188,7 +188,7 @@ const scraperOrderPage = async (args) => {
 	}
 	let satisfaction = "unknown";
 	try {
-		const satisfaction = await page.$eval(userSatisfactionSelector, el => el.innerText.trim())
+		satisfaction = await page.$eval(userSatisfactionSelector, el => el.innerText.trim())
 	} catch (error) {
 		console.log("Error: ", error.message);
 		// Log(LOGLEVEL, "Error: " + error.message, reqCredentials)

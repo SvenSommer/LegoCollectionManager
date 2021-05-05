@@ -345,6 +345,8 @@ const main = async () => {
 				const resultofferexistingofferinfo = resultofferexisting.data.result[0].offerinfo
 				let offer_id = resultofferexistingofferinfo.id;
 				const resultimagesexistingresponse = await getData(API_URL + API_REQUEST.OFFER_IMAGES_BY_OFFERID + offer_id, reqCredentials)
+				//skiping because of empty array
+				if(resultimagesexistingresponse.data.result.length <= 0) continue
 				const resultimagesexisting = resultimagesexistingresponse.data.result[0].images;
 				const imagesurls = resultimagesexisting.length > 0 ? resultimagesexisting.map(img => img.imageurl) : []
 				const newoffer = scraperesult.offer
