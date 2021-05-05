@@ -123,7 +123,8 @@ def solvetasks():
         # Store the result
         s.put("http://192.168.178.52:3001/offers_images/{image_id}", data={'id':image_id,'detections':str(solution_inference(image))})
         # Mark task as completed
-        #s.put("http://192.168.178.52:3001/tasks/{task_id}/status", data={'id':task_id,'status_id':3})
+        s.put("http://192.168.178.52:3001/tasks/{task_id}/status", data={'id':task_id,'status_id':3})
+        print("task " + str(task_id) + " completed." )
         task_counter += 1
     timer_end = time.perf_counter()
     return jsonify({"solvedTasks" : task_counter, "elapsedTime": f"{timer_end - timer_start:0.4f} seconds"  })
