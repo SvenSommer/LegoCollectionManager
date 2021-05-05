@@ -298,7 +298,9 @@ export class LabelpartsComponent implements OnInit {
 
   onChangePartCount(event) {
     this.defaultPartsCount = event;
-    this.filterByPartCount();
+    this.selectedPartCount = event;
+    // this.filterByPartCount();
+    this.selectDateRange();
   }
 
   filterByPartCount(){
@@ -312,7 +314,13 @@ export class LabelpartsComponent implements OnInit {
   }
 
   selectDateRange() {
-    if(this.selectedMinYear > this.selectedMaxYear) {
+    this.colorsList = [];
+    this.colorsList = JSON.parse(JSON.stringify(this.colorsListCopy));
+    const xcopy = this.colorsList;
+    xcopy.forEach((element,i) => {
+      this.colorsList[i].props = this.sortBy(element.props, this.defaultPartsCount);
+    });
+    if(this.selectedMaxYear && this.selectedMinYear > this.selectedMaxYear) {
       this.errorMsg = 'Min Year should not be greater than Max Year';
     }
     else{
@@ -338,6 +346,8 @@ export class LabelpartsComponent implements OnInit {
         }
       }
     }
+
+
     this.hideColorTabs();
   }
 
