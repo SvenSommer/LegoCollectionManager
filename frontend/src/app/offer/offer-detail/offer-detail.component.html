@@ -362,8 +362,14 @@
 <app-modal-popup [title]="imgPopupName" size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
   <div class="set-container" *ngIf="!!selectedImage">
     <ng-container *ngFor="let detection of selectedImage.detections; index as i;">
-      <img class="img-thumbnail rounded float-left" [ngClass]="{'img-set-selected': detection.selected}"
-           [src]="'https://img.bricklink.com/ItemImage/ON/0/' + detection.number + '-1.png'" (click)="onImageSetClick(i)"/>
+      <div class="recognized-sets-container">
+        <img class="img-thumbnail rounded float-left" [ngClass]="{'img-set-selected': detection.selected}"
+             [src]="'https://img.bricklink.com/ItemImage/ON/0/' + detection.number + '-1.png'"
+             (click)="onImageSetClick(i)"/>
+
+        <span class="set-label">Setno: {{detection.number}}</span>
+        <button class="add-set-button btn btn-success" (click)="onSetClick(detection.number)">Add set</button>
+      </div>
     </ng-container>
   </div>
 
