@@ -70,6 +70,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { AdvancedSearchComponent } from './shared/components/advanced-search/advanced-search.component';
 
 
 
@@ -125,6 +126,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     CardTableComponent,
     AccountsComponent,
     PartnamefrequencyComponent,
+    AdvancedSearchComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PartnameFrequencyCachingModel } from '../models/partnamefrequency-model';
@@ -8,6 +8,9 @@ import { PartnameFrequencyCachingModel } from '../models/partnamefrequency-model
     providedIn: 'root'
   })
 export class PartdataService {
+
+    rowData : EventEmitter<any> = new EventEmitter<any>();
+
     constructor(private http: HttpClient) {
     }
 
@@ -35,5 +38,5 @@ export class PartdataService {
         let httpHeader = new HttpHeaders();
         httpHeader.set("Access-Control-Allow-Origin", "*");
         return this.http.get<any>(`${environment.baseUrl}partdata/partnamefrequencycache/` + searchwords, { withCredentials: true, headers: httpHeader, observe: 'response' });
-    } 
+    }
 }

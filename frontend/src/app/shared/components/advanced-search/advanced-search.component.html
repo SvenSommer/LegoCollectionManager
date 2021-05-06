@@ -1,0 +1,38 @@
+
+<div class="card shadow mb-4">
+  <div class="card-header d-flex justify-content-between align-items-center">
+      <h6 class="text-primary font-weight-bold m-0">Part Names</h6>
+  </div>
+  <div class="card-body">
+      <div class="row">
+          <input type="text"  [(ngModel)]="newsearchword"
+          name="searchterm" class="form-group form-control"
+          id="searchterm" placeholder="Enter searchterm" (keyup.enter)="onSearchtermEnter()">
+          <div *ngIf="searchwords[0] != 'none'">
+              <ng-container  *ngFor="let word of searchwords">
+                  <label class="mr-1">{{word}}</label>
+              </ng-container>
+              <button class="btn btn-danger btn-sm mr-1" (click)="clearsearchterm()">clear</button>
+          </div>
+      </div>
+      <div class="row">
+          <div *ngIf="activeButtonsWords">
+              Words
+              <ng-container *ngFor="let data of activeButtonsWords">
+                  <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
+              </ng-container>
+              Numbers
+              <ng-container *ngFor="let data of activeButtonsNumbers">
+                  <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
+              </ng-container>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-12" *ngIf="partdataAggregated && partcolumns">
+              <ng-table [allowSearch]="false" [isActionVisible]="false" [columns]="partcolumns" [data]="partdataAggregated">
+          </ng-table>
+          </div>
+      </div>
+  </div>
+</div>
+

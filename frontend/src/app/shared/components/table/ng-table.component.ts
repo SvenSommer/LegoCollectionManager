@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output, OnInit, OnChanges, ViewChild, V
 import { DatePipe } from '@angular/common';
 import { ModalPopupComponent } from '../popup/modal-popup/modal-popup.component';
 import { NgbdSortableHeader, SortColumn, SortEvent } from './sortable.directive';
+import { PartdataService } from 'src/app/services/partdata.service';
 declare var $: any;
 
 @Component({
@@ -23,7 +24,7 @@ declare var $: any;
 })
 
 export class NgTableComponent implements OnInit, OnChanges {
-  constructor(private datePipe: DatePipe, private ngFilterPipe: NgFilterPipe) { }
+  constructor(private datePipe: DatePipe, private ngFilterPipe: NgFilterPipe, private partdataService: PartdataService) { }
   public page = 1;
   //   @Input() public itemsPerPage = UserConfigurationService.PageSize;
   @Input() public itemsPerPage = 10;
@@ -176,6 +177,10 @@ export class NgTableComponent implements OnInit, OnChanges {
     this.rowEditClick.emit(event);
   }
 
+  public onRowClick(event: any): void {
+    this.partdataService.rowData.emit(event);
+  }
+
   public onImgPopupClose() {
     this.imgPopupURL = '';
     this.imgPopupName = '';
@@ -258,5 +263,4 @@ export class NgTableComponent implements OnInit, OnChanges {
     }
     this.onChangeTable(this.config);
   }
-
 }

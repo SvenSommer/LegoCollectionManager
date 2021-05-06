@@ -17,4 +17,7 @@
   float: right;
 }
 
-
+.color-pos {
+  margin-top: -2px;
+  margin-right: 5px;
+}
