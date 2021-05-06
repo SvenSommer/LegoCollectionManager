@@ -721,6 +721,7 @@ export class OfferDetailComponent implements OnInit {
       this.imgPopupURL = images[nextIndex].imageurl;
       this.imgPopupName = images[nextIndex].path;
       this.selectedImageIndex = nextIndex;
+      this.selectedImage = images[nextIndex];
     }
 
   }
