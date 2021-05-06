@@ -19,7 +19,7 @@ Set 'True' if you need parse pages titles to find set number.
 sudo docker build -t lego_set_recognition_server .
 
 3. Run server solution:
-sudo docker run -p 5000:5000 --name LegoServer lego_set_recognition_server
+sudo docker run -p 5000:5000 --name LegoServer -d lego_set_recognition_server
 
 (Optional) If you need see server logs use the following command:
 sudo docker run -p 5000:5000 --name LegoServer -it lego_set_recognition_server
@@ -29,3 +29,13 @@ sudo docker rm LegoServer
 
 5. (Optional) You can test server by the following shell command:
 time curl -H "Content-Type: application/json" -X POST -d '{"url":"https://i.ebayimg.com/00/s/NzU4WDExNDg=/z/OKoAAOSwwNdgcFmR/$_59.JPG"}' http://localhost:5000/api/inference/url
+
+6. To run LoopCaller in background mode please execute the following shell command:
+screen -dmS LoopCalling bash -c "python3 solvetask_infinite_worker.py --ip=0.0.0.0 --port=5000 --sleep-time=60"
+
+If you need attach to this background process please run the following command:
+screen -dmS LoopCalling bash -c "python3 solvetask_infinite_worker.py --port=5001"
+
+If your system has not screen package please install it by the following commands:
+sudo apt update
+sudo apt install screen
