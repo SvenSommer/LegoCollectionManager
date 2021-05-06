@@ -92,14 +92,14 @@ def getImageFromPath(image_path):
 def solvetasks():
     timer_start = time.perf_counter()
     # Login
-    s = requests.Session() 
+    s = requests.Session()
     payload = {'username': 'setrecognition_worker', 'password': 'pass'}
     s.post("http://localhost:3001/users/login", data=payload)
 
     # Get Tasks
     data_json = s.get("http://localhost:3001/tasks/type/2/open").json()
     tasks = data_json["result"]
-    
+
     #Loop Tasks
     task_counter = 0
 
@@ -107,7 +107,7 @@ def solvetasks():
         task_id = t["id"]
         information_json = json.loads(t["information"])
         if 'image_id' not in information_json.keys():
-            # Mark task with error status 
+            # Mark task with error status
             print(s.put("http://localhost:3001/tasks/{task_id}/status", data={'id':task_id,'status_id':4}).text)
         image_id = information_json["image_id"]
 
