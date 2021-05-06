@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
@@ -7,6 +7,7 @@ import { IdentifiedpartService } from '../services/identifiedpart.service';
 import { PartimageService } from '../services/partimage.service';
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { PartdataService } from '../services/partdata.service';
 
 @Component({
   selector: 'app-labelparts',
@@ -30,11 +31,13 @@ export class LabelpartsComponent implements OnInit {
   yearFromList: any;
   yearToList: any;
 
+  imagePath: string;
+  selectedColor: any;
+  rowData: any;
+
   public identifiedpartsData: any;
   public defaultPartsCount = 1000;
   public partCountsRange = [50,100,200,300,500,1000];
-
-  public selectedValue;
 
   constructor(
     private overlayContainer: OverlayContainer,
@@ -43,6 +46,7 @@ export class LabelpartsComponent implements OnInit {
     private partimageService: PartimageService,
     private router: Router,
     private toastr: ToastrService,
+    private partdataService: PartdataService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService
   ) {}
 
@@ -60,6 +64,10 @@ export class LabelpartsComponent implements OnInit {
     });
     this.selectedPartCount = 1000;
     this.disablePartCount = true;
+
+    this.partdataService.rowData.subscribe((data) => {
+      this.rowData = data;
+    });
   }
 
   public identifiedpartsColumns = [
@@ -278,8 +286,7 @@ export class LabelpartsComponent implements OnInit {
   }
 
   pickColor(col) {
-    console.log('col::::::::::::::', col.parts_count);
-
+    this.selectedColor = col;
   }
 
   clearSelection() {
@@ -298,7 +305,9 @@ export class LabelpartsComponent implements OnInit {
 
   onChangePartCount(event) {
     this.defaultPartsCount = event;
-    this.filterByPartCount();
+    this.selectedPartCount = event;
+    // this.filterByPartCount();
+    this.selectDateRange();
   }
 
   filterByPartCount(){
@@ -312,7 +321,13 @@ export class LabelpartsComponent implements OnInit {
   }
 
   selectDateRange() {
-    if(this.selectedMinYear > this.selectedMaxYear) {
+    this.colorsList = [];
+    this.colorsList = JSON.parse(JSON.stringify(this.colorsListCopy));
+    const xcopy = this.colorsList;
+    xcopy.forEach((element,i) => {
+      this.colorsList[i].props = this.sortBy(element.props, this.defaultPartsCount);
+    });
+    if(this.selectedMaxYear && this.selectedMinYear > this.selectedMaxYear) {
       this.errorMsg = 'Min Year should not be greater than Max Year';
     }
     else{
@@ -338,6 +353,8 @@ export class LabelpartsComponent implements OnInit {
         }
       }
     }
+
+
     this.hideColorTabs();
   }
 
@@ -394,6 +411,7 @@ export class LabelpartsComponent implements OnInit {
   }
 
   onToggleDeleted(partimage) {
+    this.imagePath = partimage.path;
     if (partimage.deleted == null) {
       console.log('delete');
       this.partimageService.markPartimageAsDeletedById(partimage.id).subscribe(

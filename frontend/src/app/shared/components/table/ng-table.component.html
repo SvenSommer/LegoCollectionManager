@@ -33,7 +33,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of rows;let i = index;">
+      <tr *ngFor="let row of rows;let i = index;" (click)="onRowClick(row)">
         <ng-container *ngFor="let column of columns">
           <ng-container [ngSwitch]="column?.datatype?.type">
             <td *ngSwitchCase="'image'"
