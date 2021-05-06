@@ -377,8 +377,8 @@ export class LabelpartsComponent implements OnInit {
 
     if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
       this.defaultPartsCount = 0;
-      this.filterByPartCount();
     }
+    this.filterByPartCount();
   }
 
   filterYears() {
