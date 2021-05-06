@@ -37,7 +37,7 @@
 }
 
 .img-set-selected {
-  border: 2px solid green;
+  border: 2px solid #28a745;
 }
 
 .navigation-buttons-container {
@@ -68,4 +68,11 @@ input[type="checkbox"] {
   outline: 0;
   height: 28px;
   box-shadow: none;
+}
+
+.recognized-sets-container {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin: 5px;
 }

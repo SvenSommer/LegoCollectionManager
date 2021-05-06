@@ -579,17 +579,21 @@ export class OfferDetailComponent implements OnInit {
         ctx.canvas.height = height;
         ctx.drawImage(img, 0, 0, img.width, img.height,
           0, 0, width, height);
-
-        i.detections.forEach(
-          detection => {
-            setTimeout(() => {
-              ctx.lineWidth = 3;
-              ctx.strokeStyle = detection.selected ? 'green' : 'grey';
-              ctx.strokeRect(detection.box.left, detection.box.top,
-                detection.box.width, detection.box.height);
-            }, 500);
-          }
-        );
+        if (i.detections) {
+          i.detections.forEach(
+            detection => {
+              setTimeout(() => {
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = detection.selected ? 'green' : 'grey';
+                ctx.strokeRect(
+                  detection.box.left * width,
+                  detection.box.top * height,
+                  detection.box.width * width,
+                  detection.box.height * height);
+              }, 500);
+            }
+          );
+        }
       },
 
       false);
@@ -598,32 +602,41 @@ export class OfferDetailComponent implements OnInit {
 
 
     this.canvas.nativeElement.addEventListener('click', (e)  => {
+      let hasSelected = false;
       const canvasPos = this.canvas.nativeElement.getBoundingClientRect();
-      i.detections.forEach(
-       detection => {
-         const x = detection.box.left;
-         const y = detection.box.top;
-         const w = detection.box.width;
-         const h = detection.box.height;
+      if (i.detections) {
+        i.detections.forEach(
+          detection => {
+            const x = detection.box.left * this.canvas.nativeElement.width;
+            const y = detection.box.top * this.canvas.nativeElement.height;
+            const w = detection.box.width * this.canvas.nativeElement.width;
+            const h = detection.box.height * this.canvas.nativeElement.height;
 
-         if (x <= e.clientX - canvasPos.left &&
-           e.clientX - canvasPos.left <= x + w &&
-           y <= e.clientY - canvasPos.top &&
-           e.clientY - canvasPos.top <= y + h) {
-           if (!detection.selected) {
-             ctx.lineWidth = 3;
-             ctx.strokeStyle = 'green';
-             ctx.strokeRect(x, y, w, h);
-             detection.selected = true;
-           } else {
-             ctx.lineWidth = 3;
-             ctx.strokeStyle = 'grey';
-             ctx.strokeRect(x, y, w, h);
-             detection.selected = false;
-           }
-         }
-       }
-      );
+            if (x <= e.clientX - canvasPos.left &&
+              e.clientX - canvasPos.left <= x + w &&
+              y <= e.clientY - canvasPos.top &&
+              e.clientY - canvasPos.top <= y + h) {
+              if (!detection.selected && !hasSelected) {
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#28a745';
+                ctx.strokeRect(x, y, w, h);
+                detection.selected = true;
+                hasSelected = true;
+              } else {
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = 'grey';
+                ctx.strokeRect(x, y, w, h);
+                detection.selected = false;
+              }
+            } else {
+              ctx.lineWidth = 3;
+              ctx.strokeStyle = 'grey';
+              ctx.strokeRect(x, y, w, h);
+              detection.selected = false;
+            }
+          }
+        );
+      }
     });
   }
 
@@ -771,21 +784,25 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onImageSetClick(i: number) {
-    this.selectedImage.detections[i].selected = !this.selectedImage.detections[i].selected;
     const ctx = this.canvas.nativeElement.getContext('2d');
-    const x = this.selectedImage.detections[i].box.left;
-    const y = this.selectedImage.detections[i].box.top;
-    const w = this.selectedImage.detections[i].box.width;
-    const h = this.selectedImage.detections[i].box.height;
 
-    if (!this.selectedImage.detections[i].selected) {
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = 'grey';
-      ctx.strokeRect(x, y, w, h);
-    } else {
-      ctx.lineWidth = 3;
-      ctx.strokeStyle = 'green';
-      ctx.strokeRect(x, y, w, h);
+    for (let index = 0; index < this.selectedImage.detections.length; index++) {
+      const x = this.selectedImage.detections[index].box.left * this.canvas.nativeElement.width;
+      const y = this.selectedImage.detections[index].box.top * this.canvas.nativeElement.height;
+      const w = this.selectedImage.detections[index].box.width * this.canvas.nativeElement.width;
+      const h = this.selectedImage.detections[index].box.height * this.canvas.nativeElement.height;
+      if (index !== i) {
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = 'grey';
+        ctx.strokeRect(x, y, w, h);
+        this.selectedImage.detections[index].selected = false;
+
+      } else {
+        this.selectedImage.detections[index].selected = !this.selectedImage.detections[i].selected;
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = this.selectedImage.detections[index].selected ? '#28a745' : 'grey';
+        ctx.strokeRect(x, y, w, h);
+      }
     }
   }
 }
