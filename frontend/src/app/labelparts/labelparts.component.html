@@ -69,7 +69,7 @@
                                 <div class="d-flex"><label class="font-weight-bold m-r-10">Part </label> {{selectedPart?.partname}} ({{selectedPart?.partno}})</div>
                               </div>
                             </div>
-                            <button class="btn btn-sm btn-primary" *ngIf="selectedColor && selectedPart">Label Part</button>
+                            <button class="btn btn-sm btn-primary" *ngIf="selectedColor && selectedPart" (click)="onLabelPartClick()">{{labelbuttoncaption}}</button>
                         </div>
                     </div>
                 </div>

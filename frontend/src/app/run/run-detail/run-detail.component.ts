@@ -11,7 +11,7 @@ import { SortedsetEditComponent } from '../sortedset-edit/sortedset-edit.compone
 import { SortedSetModel } from 'src/app/models/sortedset-model';
 import { IdentifiedpartEditComponent } from '../identifiedpart-edit/identifiedpart-edit.component';
 import { IdentifiedpartService } from 'src/app/services/identifiedpart.service';
-import { IdentifiedPartModel } from 'src/app/models/IdentifiedPartModel';
+import { IdentifiedPartModel } from 'src/app/models/identifiedpart-model';
 
 @Component({
   selector: 'app-run-detail',

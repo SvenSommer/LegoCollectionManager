@@ -27,6 +27,7 @@ export class AdvancedSearchComponent implements OnInit {
     { title: 'Name', name: 'name', size: '20%', minSize: '50'},
     { title: 'Number', name: 'no', size: '5%', minSize: '50'},
     { title: 'use count', name: 'usecount', size: '5%', minSize: '50'},
+    { title: 'colors', name: 'color_ids', size: '5%', minSize: '50'},
   ];
 
 

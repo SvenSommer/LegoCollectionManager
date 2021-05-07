@@ -8,6 +8,7 @@ import { PartimageService } from '../services/partimage.service';
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { PartdataService } from '../services/partdata.service';
+import { IdentifiedPartDBModel } from '../models/identifiedpartdb-model';
 
 @Component({
   selector: 'app-labelparts',
@@ -20,6 +21,7 @@ export class LabelpartsComponent implements OnInit {
     this.HandleKeyInput(event.key);
   }
 
+  labelbuttoncaption = "Label Part"
   disablePartCount = false;
   disableMinYear = false;
   disableMaxYear = false;
@@ -170,18 +172,25 @@ export class LabelpartsComponent implements OnInit {
         filter: 'alpha(opacity=40)',
       };
     }
+    let borderpixel = Math.floor((partimage.score/25))
+    if ( borderpixel < 1) borderpixel = 1;
     if (partimage.score < 50){
       return {
-        'border': '2px solid red'
+        'border': `${borderpixel}px solid blue`,
+        'border-radius': '3px'
       }
     }
-    if (partimage.score > 90){
+    else if (partimage.score > 90){
       return {
-        'border': '2px solid green'
+        'border': `${borderpixel}px solid green`,
+        'border-radius': '3px'
       }
     }
-
-    return {};
+    else
+      return {
+        'border': `${borderpixel}px solid yellow`,
+        'border-radius': '3px'
+      }
   }
 
   onDeleteIdentifiedPartClick(id) {
@@ -240,7 +249,6 @@ export class LabelpartsComponent implements OnInit {
   }
 
   onPredictionClicked(partimage){
-    console.log("partimage",partimage)
     this.selectedPart = { 
       partno : partimage.partno,
       partname : partimage.partname
@@ -252,27 +260,63 @@ export class LabelpartsComponent implements OnInit {
     };
     this.updateSelectedImage();
   }
+  
+  onLabelPartClick(){
+    if(this.selectedColor.color_id != 0) {
+      let identifiedpart : IdentifiedPartDBModel = {
+          id : this.current_partid,
+          run_id : this.runid,
+          no : this.selectedPart.partno,
+          color_id : this.selectedColor.color_id,
+          score : 100,
+          identifier : "human"  
+      }
+
+
+      console.log("identifiedpart to save",identifiedpart)
+
+      this.identifiedpartsService.updatetIdentifiedpart(identifiedpart).subscribe(
+        (data) => {
+          if (data.body.code == 201 || data.body.code == 200) {
+            this.toastr.success(data.body.message);
+            this.getAllScreenedpartsByRunid();
+          }
+          else {
+            this.toastr.error(data.body.message);
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + ' ' + error.message);
+        }
+      );
+     } else{
+      this.toastr.info("Please select a valid color!")
+     }
+
+  }
 
   setLabeledPartInfo(){
     let currentpart = this.identifiedpartsData[
       this.currentpart_of_run
     ];
     console.log("currentpart",currentpart)
-    this.selectedPart = { 
-      partno : currentpart.partno
-    };
+    if(currentpart.partno != null) {
+      this.selectedPart = { 
+        partno : currentpart.partno
+      };
 
-    this.selectedColor = {
-      color_id : currentpart.color_id
-    };
+      this.selectedColor = {
+        color_id : currentpart.color_id
+      };
 
-    this.updateSelectedImage();
-    if(currentpart?.partinfo?.name != null) {
-      this.selectedPart['partname'] =  currentpart.partinfo.name 
-    }
-    else if(currentpart = null)
-      this.clearPartInfo();
+      this.updateSelectedImage();
+      if(currentpart?.partinfo?.name != null) {
+        this.selectedPart['partname'] =  currentpart.partinfo.name 
+      }
+    } else 
+    this.clearPartInfo();
   }
+
   clearPartInfo() {
     this.selectedPart = null;
     this.selectedColor = null;
@@ -508,6 +552,16 @@ export class LabelpartsComponent implements OnInit {
       this.current_partid = this.identifiedpartsData[
         this.currentpart_of_run
       ].id;
+      if(this.identifiedpartsData[
+        this.currentpart_of_run
+      ].partno == null)
+      {
+        this.labelbuttoncaption = "Label Part"
+      }
+      else
+      {
+        this.labelbuttoncaption = "Update Part"
+      }
       this.setLabeledPartInfo();
   }
 }

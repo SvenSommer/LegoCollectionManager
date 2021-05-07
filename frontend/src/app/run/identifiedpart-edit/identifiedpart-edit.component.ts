@@ -3,10 +3,10 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 import { NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { IdentifiedPartModel } from 'src/app/models/IdentifiedPartModel';
 import { IdentifiedpartService } from 'src/app/services/identifiedpart.service';
 import { PartimageService } from 'src/app/services/partimage.service';
 import { Router } from '@angular/router';
+import { IdentifiedPartModel } from 'src/app/models/identifiedpart-model';
 
 @Component({
   selector: 'app-identifiedpart-edit',

@@ -36,7 +36,7 @@ screen -dmS LoopCalling bash -c "python3 solvetask_infinite_worker.py --ip=0.0.0
 If you need attach to this background process please run the following command:
 screen -x LoopCalling
 
-And press keys CTRL + A + D to escape from arrach mode.
+And press keys CTRL + A + D to escape from attach mode.
 
 If your system has not screen package please install it by the following commands:
 sudo apt update
