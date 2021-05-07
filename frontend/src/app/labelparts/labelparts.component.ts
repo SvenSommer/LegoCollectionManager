@@ -32,12 +32,14 @@ export class LabelpartsComponent implements OnInit {
   yearToList: any;
 
   imagePath: string;
+  selectedImagePath : string;
   selectedColor: any;
+  selectedPart: any;
   rowData: any;
 
   public identifiedpartsData: any;
-  public defaultPartsCount = 1000;
-  public partCountsRange = [50,100,200,300,500,1000];
+  public defaultPartsCount = 300;
+  public partCountsRange = [100,300,500,1000,2000];
 
   constructor(
     private overlayContainer: OverlayContainer,
@@ -58,12 +60,12 @@ export class LabelpartsComponent implements OnInit {
       this.runid = params['runid'];
       if (this.runid > 0) {
         this.getAllIdentifiedpartsByRunid();
-        this.getAllPartdata();
         this.getAllColordata();
       }
     });
-    this.selectedPartCount = 1000;
+    this.selectedPartCount = 300;
     this.disablePartCount = true;
+
 
     this.partdataService.rowData.subscribe((data) => {
       this.rowData = data;
@@ -80,7 +82,7 @@ export class LabelpartsComponent implements OnInit {
       datatype: { type: 'images' },
     },
     {
-      title: 'Recignised Part',
+      title: 'Recognised Part',
       name: 'thumbnail_url',
       size: '65',
       minSize: '65',
@@ -97,95 +99,6 @@ export class LabelpartsComponent implements OnInit {
       size: '100',
       minSize: '100',
       datatype: { type: 'date' },
-    },
-  ];
-
-  public partColumns = [
-    {
-      title: 'Image',
-      name: 'partinfo.thumbnail_url',
-      size: '65',
-      minSize: '65',
-      datatype: { type: 'image' },
-    },
-    { title: 'Number', name: 'partno', size: '5%', minSize: '50' },
-    { title: 'Colorid', name: 'color_id', size: '5%', minSize: '50' },
-    { title: 'Type', name: 'type', size: '5%', minSize: '50' },
-    { title: 'Name', name: 'partinfo.name', size: '30%', minSize: '120' },
-    {
-      title: 'Category',
-      name: 'partinfo.category_name',
-      size: '30',
-      minSize: '120',
-    },
-    { title: 'Year', name: 'partinfo.year', size: '30', minSize: '50' },
-    {
-      title: 'Weight(g)',
-      name: 'partinfo.weight_g',
-      size: '40',
-      minSize: '40',
-    },
-    { title: 'Size', name: 'partinfo.size', size: '80', minSize: '80' },
-    {
-      title: 'Obsolete',
-      name: 'partinfo.is_obsolete',
-      size: '50',
-      minSize: '50',
-    },
-    {
-      title: 'avg Price (stock)',
-      name: 'partinfo.qty_avg_price_stock',
-      size: '40',
-      minSize: '40',
-      datatype: { type: 'price' },
-    },
-    {
-      title: 'avg Price (sold)',
-      name: 'partinfo.qty_avg_price_sold',
-      size: '40',
-      minSize: '40',
-      datatype: { type: 'price' },
-    },
-    {
-      title: 'Avg Price',
-      name: 'partinfo.avg_price',
-      size: '40',
-      minSize: '40',
-      datatype: { type: 'price' },
-    },
-  ];
-  public partData: any;
-
-  public colorColumns = [
-    { title: 'Name', name: 'color_name', size: '5%', minSize: '50' },
-    {
-      title: 'Code',
-      name: 'color_code',
-      size: '30%',
-      minSize: '120',
-      datatype: { type: 'color' },
-    },
-    { title: 'Type', name: 'color_type', size: '30', minSize: '120' },
-    {
-      title: 'Parts Count',
-      name: 'parts_count',
-      size: '30',
-      minSize: '50',
-      datatype: { type: 'number' },
-    },
-    {
-      title: 'Year From',
-      name: 'year_from',
-      size: '40',
-      minSize: '40',
-      datatype: { type: 'number' },
-    },
-    {
-      title: 'Year to',
-      name: 'year_to',
-      size: '80',
-      minSize: '80',
-      datatype: { type: 'number' },
     },
   ];
 
@@ -248,6 +161,28 @@ export class LabelpartsComponent implements OnInit {
     return {};
   }
 
+  styleImagePrediction(partimage): Object {
+    if (partimage.deleted != null) {
+      return {
+        opacity: '0.4',
+        'background-color': '#ad0303',
+        filter: 'alpha(opacity=40)',
+      };
+    }
+    if (partimage.score < 50){
+      return {
+        'border': '2px solid red'
+      }
+    }
+    if (partimage.score > 90){
+      return {
+        'border': '2px solid green'
+      }
+    }
+
+    return {};
+  }
+
   onDeleteIdentifiedPartClick(id) {
     let options = {
       title: 'Are you sure you want to delete part?',
@@ -287,15 +222,56 @@ export class LabelpartsComponent implements OnInit {
 
   pickColor(col) {
     this.selectedColor = col;
+    this.updateSelectedImage();
   }
 
-  clearSelection() {
+  updateSelectedImage() {
+ //   this.selectedPart = { partno : "3020"};
+    this.selectedImagePath = this.calculatePartImagePath(this.selectedPart.partno, this.selectedColor.color_id);
+  }
+
+
+  calculatePartImagePath(partno, colorid){
+    return `//img.bricklink.com/P/${colorid}/${partno}.jpg`;
+  }
+
+  onPredictionClicked(partimage){
+    console.log("partimage",partimage)
+    this.selectedPart = { 
+      partno : partimage.partno,
+      partname : partimage.partname
+    };
+    this.selectedColor = {
+      color_id : partimage.colorid, 
+      color_name : partimage.colorname,
+      color_code : partimage.color_code
+    };
+    this.updateSelectedImage();
+  }
+
+  getLabeledPartInfo(){
+    let currentpart = this.identifiedpartsData[
+      this.currentpart_of_run
+    ];
+    this.selectedPart = { 
+      partno : currentpart.partno,
+      partname : currentpart.partinfo.name
+    };
+    this.selectedColor = {
+      color_id : currentpart.color_id
+    };
+
+    this.selectedImagePath = currentpart.partinfo.thumbnail_url;
+  }
+
+  clearColorSelection() {
     this.errorMsg = '';
     this.disablePartCount = true;
     this.disableMinYear = false;
     this.disableMaxYear = false;
 
-    this.selectedPartCount = 1000;
+    this.selectedImagePath = "";
+    this.selectedPartCount = 300;
     this.selectedMinYear = '';
     this.selectedMaxYear = '';
 
@@ -469,24 +445,6 @@ export class LabelpartsComponent implements OnInit {
     );
   }
 
-  getAllPartdata() {
-    this.identifiedpartsService.getPartdata().subscribe(
-      (data) => {
-        if (data) {
-          if (data.body && data.body.code == 200) {
-            // console.log( data.body.result[0])
-            this.partData = data.body.result;
-          } else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl('/login');
-          }
-        }
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + ' ' + error.message);
-      }
-    );
-  }
-
   getAllColordata() {
     this.identifiedpartsService.getColordata().subscribe(
       (data) => {
@@ -535,5 +493,6 @@ export class LabelpartsComponent implements OnInit {
       this.current_partid = this.identifiedpartsData[
         this.currentpart_of_run
       ].id;
+      this.getLabeledPartInfo();
   }
 }

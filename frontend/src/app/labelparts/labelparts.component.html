@@ -28,11 +28,10 @@
                         <hr>
                         <div class="row" *ngIf="identifiedpartsData && identifiedpartsData.length > 0">
                             <ng-container *ngFor="let partimage of identifiedpartsData[currentpart_of_run].partimages">
-                                <img class="img-thumbnail rounded float-left" [style.height.px]="150"
-                                [src]="partimage.path" (click)="onToggleDeleted(partimage)"
-                                [ngStyle]="styleImage(partimage)"
-
-                                />
+                                <div class="img-thumbnail rounded float-left">
+                                  <img class="float-left" [style.height.px]="150" [src]="partimage.path" (click)="onToggleDeleted(partimage)" [ngStyle]="styleImage(partimage)"/>
+                                  <img *ngIf="partimage.partno" class="float-left" [style.height.px]="150" [src]="calculatePartImagePath(partimage.partno, partimage.colorid)" (click)="onPredictionClicked(partimage)" [ngStyle]="styleImagePrediction(partimage)"/>
+                                </div>
                             </ng-container>
                         </div>
                     </div>
@@ -45,17 +44,17 @@
                     <div class="col-ms-12 card shadow mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Label</h6>
+                            <button  *ngIf="currentpart_of_run!=0" class="btn btzn-link btn-sm no-border" aria-expanded="false"  type="button" (click)="onPrevoiusPartClick()">
+                              <i class="fas fa-arrow-left text-gray-400"></i>
+                            </button>
+                            <button class="btn btzn-link btn-sm  no-border " aria-expanded="false"  type="button" (click)="onNextPartClick()">
+                              <i class="fas fa-arrow-right text-gray-400"></i>
+                          </button> 
                         </div>
                         <div class="card-body">
-                            <button  *ngIf="currentpart_of_run!=0" class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="onPrevoiusPartClick()">
-                                <i class="fas fa-arrow-left text-gray-400"></i>
-                            </button>
-                            <!-- <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="onNextPartClick()">
-                                <i class="fas fa-arrow-right text-gray-400"></i>
-                            </button> -->
                             <div class="d-table">
-                              <img *ngIf="imagePath" class="img-thumbnail rounded float-left m-r-10" [style.height.px]="150" [style.width.px]="150"
-                                  [src]="imagePath" alt="Image"
+                              <img *ngIf="selectedImagePath" class="img-thumbnail rounded float-left m-r-10" [style.height.px]="150" 
+                                  [src]="selectedImagePath" alt="Selected Part Image"
                                   />
 
                               <div class="d-flex" *ngIf="selectedColor">
@@ -66,12 +65,11 @@
                                 {{selectedColor?.color_name}} ({{selectedColor?.color_id}})
                               </div>
 
-                              <div *ngIf="rowData">
-                                <div class="d-flex"><label class="font-weight-bold m-r-10">Part no: </label> {{rowData?.no}}</div>
-                                <div class="d-flex"><label class="font-weight-bold m-r-10">Part name: </label> {{rowData?.name}}</div>
+                              <div *ngIf="selectedPart">
+                                <div class="d-flex"><label class="font-weight-bold m-r-10">Part </label> {{selectedPart?.partname}} ({{selectedPart?.partno}})</div>
                               </div>
                             </div>
-                            <button class="m-t-10" *ngIf="selectedColor || rowData">Label Part</button>
+                            <button class="btn btn-sm btn-primary" *ngIf="selectedColor && selectedPart">Label Part</button>
                         </div>
                     </div>
                 </div>
@@ -125,16 +123,12 @@
                                   <small class="danger">{{errorMsg}}</small>
                                 </div>
 
-                                <button mat-raised-button class="btn btn-sm btn-primary clear_btn" (click)="clearSelection()"  color="primary">Clear</button>
+                                <button mat-raised-button class="btn btn-sm btn-primary clear_btn" (click)="clearColorSelection()"  color="primary">Clear</button>
                               </mat-menu>
                             </div>
                         </div>
                         <div class="card-body" id="color_codes">
-                            <div *ngIf="colorData && colorColumns" class="menu_top">
-                                <!-- <div class="col-sm-12" *ngIf="colorData && colorColumns"> -->
-                                    <!-- <ng-table [isActionVisible]="false" [columns]="colorColumns" [data]="colorData">
-                                </ng-table> -->
-
+                            <div *ngIf="colorData" class="menu_top">
                                   <mat-tab-group animationDuration="0ms" class="col-sm-12" dynamicHeight>
                                     <mat-tab class="row" *ngFor="let color of colorsList" label="{{color.label}}">
                                       <div *ngFor="let col of color.props" (click)="pickColor(col)" class="example-small-box mat-elevation-z4" [title]="col.color_name" [ngStyle]="{'background-color': '#' + col.color_code}">
@@ -153,17 +147,6 @@
             <div class="row">
                 <div class="col-lg-12">
                   <app-advanced-search></app-advanced-search>
-                    <!-- <div class="col-ms-12 card shadow mb-4">
-                        <div class="card-header d-flex justify-content-between align-items-center">
-                            <h6 class="text-primary font-weight-bold m-0">Parts</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="col-sm-12" *ngIf="partData && partColumns">
-                                <ng-table [isActionVisible]="false" [columns]="partColumns" [data]="partData">
-                            </ng-table>
-                            </div>
-                        </div>
-                    </div> -->
               </div>
           </div>
     </div>
