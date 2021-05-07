@@ -59,7 +59,7 @@ export class LabelpartsComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.runid = params['runid'];
       if (this.runid > 0) {
-        this.getAllIdentifiedpartsByRunid();
+        this.getAllScreenedpartsByRunid();
         this.getAllColordata();
       }
     });
@@ -113,6 +113,7 @@ export class LabelpartsComponent implements OnInit {
   }
 
   onPrevoiusPartClick() {
+    if (this.currentpart_of_run > 0)
     this.currentpart_of_run--;
     this.refreshCurrentPartid();
   }
@@ -232,7 +233,10 @@ export class LabelpartsComponent implements OnInit {
 
 
   calculatePartImagePath(partno, colorid){
-    return `//img.bricklink.com/P/${colorid}/${partno}.jpg`;
+    if(colorid != 0)
+      return `//img.bricklink.com/P/${colorid}/${partno}.jpg`;
+      else 
+      return `//img.bricklink.com/PL/${partno}.jpg`
   }
 
   onPredictionClicked(partimage){
@@ -249,19 +253,30 @@ export class LabelpartsComponent implements OnInit {
     this.updateSelectedImage();
   }
 
-  getLabeledPartInfo(){
+  setLabeledPartInfo(){
     let currentpart = this.identifiedpartsData[
       this.currentpart_of_run
     ];
+    console.log("currentpart",currentpart)
     this.selectedPart = { 
-      partno : currentpart.partno,
-      partname : currentpart.partinfo.name
+      partno : currentpart.partno
     };
+
     this.selectedColor = {
       color_id : currentpart.color_id
     };
 
-    this.selectedImagePath = currentpart.partinfo.thumbnail_url;
+    this.updateSelectedImage();
+    if(currentpart?.partinfo?.name != null) {
+      this.selectedPart['partname'] =  currentpart.partinfo.name 
+    }
+    else if(currentpart = null)
+      this.clearPartInfo();
+  }
+  clearPartInfo() {
+    this.selectedPart = null;
+    this.selectedColor = null;
+    this.selectedImagePath = null;
   }
 
   clearColorSelection() {
@@ -419,15 +434,15 @@ export class LabelpartsComponent implements OnInit {
     if (data) {
       if (data.body && data.body.code == 200) {
         // Message should be data.body.message
-        this.getAllIdentifiedpartsByRunid();
+        this.getAllScreenedpartsByRunid();
       } else if (data.body && data.body.code == 403) {
         this.router.navigateByUrl('/login');
       }
     }
   }
 
-  getAllIdentifiedpartsByRunid() {
-    this.identifiedpartsService.getIdentifiedpartByRunid(this.runid).subscribe(
+  getAllScreenedpartsByRunid() {
+    this.identifiedpartsService.getScreenedPartsByRunid(this.runid).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -493,6 +508,6 @@ export class LabelpartsComponent implements OnInit {
       this.current_partid = this.identifiedpartsData[
         this.currentpart_of_run
       ].id;
-      this.getLabeledPartInfo();
+      this.setLabeledPartInfo();
   }
 }

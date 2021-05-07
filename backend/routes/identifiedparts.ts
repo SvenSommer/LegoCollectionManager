@@ -1,6 +1,7 @@
 import CreateIdentifiedPart from '../controllers/identifiedparts/create';
 import ShowAllIdentifiedParts from '../controllers/identifiedparts/show';
 import ShowAllIdentifiedPartsByRunId from '../controllers/identifiedparts/showByRunId';
+import ShowAllScreenedPartsByRunId from '../controllers/identifiedparts/showScreenedByRunId';
 import ShowAllUnsettedIdentifiedPartsByCollectionId from '../controllers/identifiedparts/showUnsettedByCollectionId';
 
 import UpdateIdentifiedPartById from '../controllers/identifiedparts/update';
@@ -16,6 +17,7 @@ const route = Router();
 route.get(``, UserAuthMiddleware, ShowAllIdentifiedParts);
 //List all IdentifiedParts by RunId
 route.get(`/run/:runid`, UserAuthMiddleware, ShowAllIdentifiedPartsByRunId);
+route.get(`/run/:runid/screened`, UserAuthMiddleware, ShowAllScreenedPartsByRunId);
 //Show unsetted IdentifiedParts od collectionid
 route.get(`/collection/:collectionid/unsetted`, UserAuthMiddleware, ShowAllUnsettedIdentifiedPartsByCollectionId);
 //Create a new IdentifiedPart

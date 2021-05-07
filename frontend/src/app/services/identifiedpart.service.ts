@@ -16,6 +16,13 @@ export class IdentifiedpartService {
         let httpHeader = new HttpHeaders();
         httpHeader.set("Access-Control-Allow-Origin", "*");
         return this.http.get<any>(`${environment.baseUrl}identifiedparts/run/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    } 
+
+    getScreenedPartsByRunid(id): Observable<any> {
+
+        let httpHeader = new HttpHeaders();
+        httpHeader.set("Access-Control-Allow-Origin", "*");
+        return this.http.get<any>(`${environment.baseUrl}identifiedparts/run/` + id + `/screened`, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
     getIdentifiedpartById(id): Observable<any> {
