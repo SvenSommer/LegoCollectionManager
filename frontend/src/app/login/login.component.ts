@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       (data) => {
         if (data.body.code == 200) {
           localStorage.setItem("SessionUser", this.userName);
-          this.router.navigateByUrl("/collection");
+          this.router.navigateByUrl("/offer");
           this.toastr.success(data.body.message);
         }
         else {

@@ -2,23 +2,30 @@ import axios from "axios";
 import { GlobalVariable } from "../config/GlobalVariable";
 import { InsertProgressDetail, UpdateTaskStatus } from "./progress.details.service";
 import { GetAndUpsertSetDataByNo } from "../helpers/upsertSetDataByNo";
+import { GetAndUpsertKnownColors } from "../helpers/getAndUpsertKnownColors";
 var async = require("async");
 
-export function GetTaskData() {
+export function GetTaskData(tasknummer:number) {
 
   return new Promise(function (resolve, reject) {
     const transport = axios.create({
       withCredentials: true,
     });
 
-    transport.get<any>(process.env.API_URL + 'tasks/type/1/open', { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(async res => {
+    transport.get<any>(process.env.API_URL + `tasks/type/${tasknummer}/open`, { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(async res => {
       //console.log(res.data);
       if (res.data.code == 200) {
-        GlobalVariable.currentSetData = res.data.result;
-        DownloadSetDataMain(res.data.result).then(data => {
-          resolve(data);
-        });
-        // resolve(true);
+        if(tasknummer == 1) {
+          GlobalVariable.currentSetData = res.data.result;
+          DownloadSetDataMain(res.data.result).then(data => {
+            resolve(data);
+          });
+        }
+        else if(tasknummer == 4) {
+          DownloadKnownColors(res.data.result).then(data => {
+            resolve(data);
+          });
+        }
       }
       else {
         reject(false);
@@ -29,13 +36,22 @@ export function GetTaskData() {
 
 export function DownloadSetDataMain(data: any) {
   return new Promise(function (resolve, reject) {
-    async.eachLimit(data, GlobalVariable.setDownloadLimit, makeSingleRequest, function (err: any) {
+    async.eachLimit(data, GlobalVariable.setDownloadLimit, RequestSetdata, function (err: any) {
       resolve(true);
     });
   });
 }
 
-export function makeSingleRequest(entry: any, callback: any) {
+export function DownloadKnownColors(data: any) {
+  return new Promise(function (resolve, reject) {
+    async.eachLimit(data, GlobalVariable.setDownloadLimit, RequestKnownColors, function (err: any) {
+      resolve(true);
+    });
+  });
+}
+
+
+export function RequestSetdata(entry: any, callback: any) {
   var req_information = JSON.parse(entry.information);
   var req_origin = JSON.parse(entry.origin);
 
@@ -59,6 +75,29 @@ export function makeSingleRequest(entry: any, callback: any) {
   }
 };
 
+export function RequestKnownColors(entry: any, callback: any) {
+  var req_information = JSON.parse(entry.information);
+  var req_origin = JSON.parse(entry.origin);
+
+  if (req_information.partno) {
+    UpdateTaskStatus(entry.id, 2, entry.information);
+    InsertProgressDetail(entry.id, 2, "Download Started", entry.information);
+    GetAndUpsertKnownColors(req_information.partno, GlobalVariable.userId, entry.id, entry.information).then(function (data) {
+      InsertProgressDetail(entry.id, 100, "Download Completed", entry.information);
+      UpdateTaskStatus(entry.id, 3, entry.information);
+      callback();
+    }, function (reason) {
+      console.log("error:",reason)
+      UpdateTaskStatus(entry.id, 4, entry.information);
+      callback();
+    });
+  }
+  else {
+    UpdateTaskStatus(entry.id, 4, entry.information);
+    callback();
+  }
+
+}
 
 export function ReInitAfterError() {
   if (GlobalVariable.currentSetData) {

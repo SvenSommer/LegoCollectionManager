@@ -67,3 +67,6 @@ tools/gulp-tasks/cldr/cldr-data/
 /frontend/src/assets/partimages
 /frontend/partimages
 /download-worker/.env
+
+environment.ts
+environment.prod.ts

@@ -8,9 +8,9 @@ export function InsertProgressDetail(task_id: any, progress: any, status: any, i
         "progress": progress,
         "status": status
     }, { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(data => {
-        console.log(data.data);
+        //console.log(data.data);
         if (data.data.code == 200) {
-            console.log(data.data.message);
+          //  console.log(data.data.message);
         }
     });
 }
@@ -22,7 +22,7 @@ export function UpdateTaskStatus(task_id: any, status: any, information: any) {
         "information": information
     }, { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(data => {
         if (data.data.code != 200) {
-            console.log(data.data.message);
+            //console.log(data.data.message);
         }
     });
 }

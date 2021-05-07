@@ -44,11 +44,12 @@ export class RunDetailComponent implements OnInit {
 
   public identifiedpartsColumns = [
     { title: 'Part Images Recorded', name: 'partimages', size: '65', minSize: '65', maxSize: '30%', datatype:{ type: 'images' } },
-    { title: 'Recignised Part', name: 'thumbnail_url', size: '65', minSize: '65' , datatype:{ type: 'image' }},
+    { title: 'Recignised Part', name: 'partinfo.thumbnail_url', size: '65', minSize: '65' , datatype:{ type: 'image' }},
     { title: 'Color', name: 'color_name', size: '30', minSize: '30' },
-    { title: 'Name', name: 'name', size: '120', minSize: '80' },
+    { title: 'Name', name: 'partinfo.name', size: '120', minSize: '80' },
     { title: 'Color Id', name: 'color_id', size: '80', minSize: '80' },
-    { title: 'Partno', name: 'no', size: '80', minSize: '80' },
+    { title: 'Partno', name: 'partno', size: '80', minSize: '80' },
+    { title: 'Score', name: 'score', size: '80', minSize: '80' },
     { title: 'Identifier', name: 'identifier', size: '30', minSize: '30' },
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' }},
   ];
