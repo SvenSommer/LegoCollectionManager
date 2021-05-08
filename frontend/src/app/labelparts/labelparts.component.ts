@@ -37,7 +37,6 @@ export class LabelpartsComponent implements OnInit {
   selectedImagePath : string;
   selectedColor: any;
   selectedPart: any;
-  rowData: any;
 
   public identifiedpartsData: any;
   public defaultPartsCount = 300;
@@ -70,7 +69,7 @@ export class LabelpartsComponent implements OnInit {
 
 
     this.partdataService.rowData.subscribe((data) => {
-      this.rowData = data;
+      this.selectedPart = data;
     });
   }
 
@@ -244,23 +243,23 @@ export class LabelpartsComponent implements OnInit {
   calculatePartImagePath(partno, colorid){
     if(colorid != 0)
       return `//img.bricklink.com/P/${colorid}/${partno}.jpg`;
-      else 
+      else
       return `//img.bricklink.com/PL/${partno}.jpg`
   }
 
   onPredictionClicked(partimage){
-    this.selectedPart = { 
+    this.selectedPart = {
       partno : partimage.partno,
       partname : partimage.partname
     };
     this.selectedColor = {
-      color_id : partimage.colorid, 
+      color_id : partimage.colorid,
       color_name : partimage.colorname,
       color_code : partimage.color_code
     };
     this.updateSelectedImage();
   }
-  
+
   onLabelPartClick(){
     if(this.selectedColor.color_id != 0) {
       let identifiedpart : IdentifiedPartDBModel = {
@@ -269,7 +268,7 @@ export class LabelpartsComponent implements OnInit {
           no : this.selectedPart.partno,
           color_id : this.selectedColor.color_id,
           score : 100,
-          identifier : "human"  
+          identifier : "human"
       }
 
 
@@ -301,7 +300,7 @@ export class LabelpartsComponent implements OnInit {
     ];
     console.log("currentpart",currentpart)
     if(currentpart.partno != null) {
-      this.selectedPart = { 
+      this.selectedPart = {
         partno : currentpart.partno
       };
 
@@ -311,9 +310,9 @@ export class LabelpartsComponent implements OnInit {
 
       this.updateSelectedImage();
       if(currentpart?.partinfo?.name != null) {
-        this.selectedPart['partname'] =  currentpart.partinfo.name 
+        this.selectedPart['partname'] =  currentpart.partinfo.name
       }
-    } else 
+    } else
     this.clearPartInfo();
   }
 
@@ -402,13 +401,13 @@ export class LabelpartsComponent implements OnInit {
   changeSelection(){
     if(!this.disablePartCount){
       this.selectedPartCount = '';
-      this.defaultPartsCount = 0;
+      // this.defaultPartsCount = 0;
     }
     else if(!this.disableMinYear){
-      this.selectedMinYear = '';
+      // this.selectedMinYear = '';
     }
     else if(!this.disableMaxYear){
-      this.selectedMaxYear = '';
+      // this.selectedMaxYear = '';
     }
 
     if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){

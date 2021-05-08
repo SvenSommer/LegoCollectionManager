@@ -44,16 +44,18 @@
                     <div class="col-ms-12 card shadow mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Label</h6>
-                            <button  *ngIf="currentpart_of_run!=0" class="btn btzn-link btn-sm no-border" aria-expanded="false"  type="button" (click)="onPrevoiusPartClick()">
-                              <i class="fas fa-arrow-left text-gray-400"></i>
-                            </button>
-                            <button class="btn btzn-link btn-sm  no-border " aria-expanded="false"  type="button" (click)="onNextPartClick()">
-                              <i class="fas fa-arrow-right text-gray-400"></i>
-                          </button> 
+                            <div>
+                              <button  *ngIf="currentpart_of_run!=0" class="btn btzn-link btn-sm no-border" aria-expanded="false"  type="button" (click)="onPrevoiusPartClick()">
+                                <i class="fas fa-arrow-left text-gray-400"></i>
+                              </button>
+                              <button class="btn btzn-link btn-sm  no-border " aria-expanded="false"  type="button" (click)="onNextPartClick()">
+                                <i class="fas fa-arrow-right text-gray-400"></i>
+                              </button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="d-table">
-                              <img *ngIf="selectedImagePath" class="img-thumbnail rounded float-left m-r-10" [style.height.px]="150" 
+                              <img *ngIf="selectedImagePath" class="img-thumbnail rounded float-left m-r-10" [style.height.px]="150"
                                   [src]="selectedImagePath" alt="Selected Part Image"
                                   />
 
@@ -91,7 +93,7 @@
                                     <mat-checkbox (change)="changeSelection()" [(ngModel)]="disablePartCount" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedPartCount"
                                     (change)='onChangePartCount($event.target.value)' [disabled]="!disablePartCount" class="full-width border">
-                                      <option value=""></option>
+                                      <!-- <option value=""></option> -->
                                       <option *ngFor="let partcount of partCountsRange" [value]="partcount">{{partcount}}</option>
                                     </select>
                                   </div>
@@ -102,8 +104,8 @@
                                   <div class="d-flex">
                                     <mat-checkbox (change)="changeSelection()" [(ngModel)]="disableMinYear" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedMinYear" (change)="selectDateRange()" [disabled]="!disableMinYear" class="full-width border">
-                                      <option value=""></option>
-                                      <option *ngFor="let dt of yearFromList">{{dt.year_from}}</option>
+                                      <!-- <option value=""></option> -->
+                                      <option *ngFor="let dt of yearFromList" [value]="dt.year_from">{{dt.year_from}}</option>
                                     </select>
                                   </div>
                                 </div>
@@ -113,8 +115,8 @@
                                   <div class="d-flex">
                                     <mat-checkbox (change)="changeSelection()" [(ngModel)]="disableMaxYear" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedMaxYear" (change)="selectDateRange()" [disabled]="!disableMaxYear" class="full-width border">
-                                      <option value=""></option>
-                                      <option *ngFor="let dt of yearToList">{{dt.year_to}}</option>
+                                      <!-- <option value=""></option> -->
+                                      <option *ngFor="let dt of yearToList" [value]="dt.year_to">{{dt.year_to}}</option>
                                     </select>
                                   </div>
                                 </div>
