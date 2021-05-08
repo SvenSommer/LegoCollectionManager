@@ -189,8 +189,24 @@ label {
   padding: 6px;
   font-size: 12px;
   border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
  }
+#serach_tabs {
+    .mat-tab-label, .mat-tab-label-active {
+      min-width: 0!important;
+      margin: 3px!important;
+      height: 48px !important;
+      background: #d3b9b9;
+      padding: 15px;
+      font-size: 20px;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+    .mat-tab-body-content {
+      padding: 15px;
+    }
+}
+
 
  .full-width {
    width: 100%;

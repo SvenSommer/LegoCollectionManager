@@ -4,7 +4,7 @@
   <form>
     <div class="row">
       <div class="col-md-6 align-self-center"  *ngIf="config.paging">
-        <p aria-live="polite" *ngIf="rows && rows.length > 0">
+        <p aria-live="polite" *ngIf="rows && rows.length > 0 && !allowSearch">
           Showing {{ (page * itemsPerPage) - itemsPerPage + 1 }} to
           {{ (page * itemsPerPage) > length ? length : (page * itemsPerPage) }} of <span
             class="text-bold-700">{{length}}</span>
