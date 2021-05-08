@@ -5,7 +5,6 @@ import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IdentifiedpartService } from '../services/identifiedpart.service';
 import { PartimageService } from '../services/partimage.service';
-import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { PartdataService } from '../services/partdata.service';
 import { IdentifiedPartDBModel } from '../models/identifiedpartdb-model';
@@ -41,6 +40,8 @@ export class LabelpartsComponent implements OnInit {
   public identifiedpartsData: any;
   public defaultPartsCount = 300;
   public partCountsRange = [100,300,500,1000,2000];
+  public filterColorsByPart = true
+  public partColorFilter = [];
 
   constructor(
     private overlayContainer: OverlayContainer,
@@ -67,9 +68,15 @@ export class LabelpartsComponent implements OnInit {
     this.selectedPartCount = 300;
     this.disablePartCount = true;
 
-
     this.partdataService.rowData.subscribe((data) => {
-      this.selectedPart = data;
+      this.selectedPart = {
+        partno : data.no,
+        partname : data.name
+      }
+
+      this.partColorFilter = data.color_ids;
+      this.updateSelectedImage();
+      this.filterByPartCount();
     });
   }
 
@@ -349,6 +356,10 @@ export class LabelpartsComponent implements OnInit {
     this.colorsList = JSON.parse(JSON.stringify(this.colorsListCopy));
     const xcopy = this.colorsList;
     xcopy.forEach((element,i) => {
+      console.log("element.props", element.props)
+      console.log("this.partColorFilter", this.partColorFilter)
+      if(this.filterColorsByPart)
+        element.props = element.props.filter(f => (this.partColorFilter.includes(f.color_id)));
       this.colorsList[i].props = this.sortBy(element.props, this.defaultPartsCount);
     });
     this.hideColorTabs();
