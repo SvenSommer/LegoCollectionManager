@@ -66,6 +66,7 @@
                                 </div>
                                 {{selectedColor?.color_name}} ({{selectedColor?.color_id}})
                               </div>
+                              <button class="btn btn-sm btn-secondary" *ngIf="selectedPart" (click)="onDownloadColorsClick()">GetColors</button>
 
                               <div *ngIf="selectedPart">
                                 <div class="d-flex"><label class="font-weight-bold m-r-10">Part </label> {{selectedPart?.partname}} ({{selectedPart?.partno}})</div>

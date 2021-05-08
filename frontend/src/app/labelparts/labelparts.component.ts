@@ -8,6 +8,8 @@ import { PartimageService } from '../services/partimage.service';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { PartdataService } from '../services/partdata.service';
 import { IdentifiedPartDBModel } from '../models/identifiedpartdb-model';
+import { TaskModel } from '../models/task-model';
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-labelparts',
@@ -40,7 +42,7 @@ export class LabelpartsComponent implements OnInit {
   public identifiedpartsData: any;
   public defaultPartsCount = 300;
   public partCountsRange = [100,300,500,1000,2000];
-  public filterColorsByPart = true
+  public filterColorsByPart = false
   public partColorFilter = [];
 
   constructor(
@@ -48,6 +50,7 @@ export class LabelpartsComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private identifiedpartsService: IdentifiedpartService,
     private partimageService: PartimageService,
+    private taskService: TaskService,
     private router: Router,
     private toastr: ToastrService,
     private partdataService: PartdataService,
@@ -73,8 +76,9 @@ export class LabelpartsComponent implements OnInit {
         partno : data.no,
         partname : data.name
       }
-
+      console.log("data",data)
       this.partColorFilter = data.color_ids;
+      this.filterColorsByPart = true;
       this.updateSelectedImage();
       this.filterByPartCount();
     });
@@ -124,6 +128,34 @@ export class LabelpartsComponent implements OnInit {
     if (this.currentpart_of_run > 0)
     this.currentpart_of_run--;
     this.refreshCurrentPartid();
+  }
+
+  onDownloadColorsClick() {
+    const new_task: TaskModel = {
+      type_id: 4,
+      origin: JSON.stringify({run_id: this.runid}),
+      information: JSON.stringify({run_id: this.runid, partno : this.selectedPart.partno})
+    };
+    this.taskService.createNewTask(new_task).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 201) {
+            this.toastr.success(data.body.message);
+           //TODO: monitor and show download progress. After download finshed, update color list.
+           this.getAllScreenedpartsByRunid();
+          }
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
+          }
+          else if (data.body && data.body.message) {
+            this.toastr.error(data.body.message);
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
   }
 
   HandleKeyInput(key) {
@@ -242,7 +274,6 @@ export class LabelpartsComponent implements OnInit {
   }
 
   updateSelectedImage() {
- //   this.selectedPart = { partno : "3020"};
     this.selectedImagePath = this.calculatePartImagePath(this.selectedPart.partno, this.selectedColor.color_id);
   }
 
@@ -277,10 +308,6 @@ export class LabelpartsComponent implements OnInit {
           score : 100,
           identifier : "human"
       }
-
-
-      console.log("identifiedpart to save",identifiedpart)
-
       this.identifiedpartsService.updatetIdentifiedpart(identifiedpart).subscribe(
         (data) => {
           if (data.body.code == 201 || data.body.code == 200) {
@@ -356,8 +383,6 @@ export class LabelpartsComponent implements OnInit {
     this.colorsList = JSON.parse(JSON.stringify(this.colorsListCopy));
     const xcopy = this.colorsList;
     xcopy.forEach((element,i) => {
-      console.log("element.props", element.props)
-      console.log("this.partColorFilter", this.partColorFilter)
       if(this.filterColorsByPart)
         element.props = element.props.filter(f => (this.partColorFilter.includes(f.color_id)));
       this.colorsList[i].props = this.sortBy(element.props, this.defaultPartsCount);
@@ -500,7 +525,6 @@ export class LabelpartsComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            // console.log( data.body.result[0])
             this.identifiedpartsData = data.body.result;
             this.refreshCurrentPartid();
           } else if (data.body && data.body.code == 403) {
@@ -573,5 +597,6 @@ export class LabelpartsComponent implements OnInit {
         this.labelbuttoncaption = "Update Part"
       }
       this.setLabeledPartInfo();
+      this.filterColorsByPart = false;
   }
 }
