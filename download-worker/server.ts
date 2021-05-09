@@ -46,10 +46,10 @@ if (cluster.isWorker) {
     var performSideTasks = function () {
         return GetTaskData(1).then(async data => {
             // After 1 round of Task Download it will call for second round after 2 seconds.
-            await snooze(2000);
+            await snooze(200);
             return GetTaskData(4).then(async data => {
                 // After 1 round of Task Download it will call for second round after 2 seconds.
-                await snooze(2000);
+                await snooze(200);
                 performSideTasks();
             }).catch(error => {
                 console.log(error);

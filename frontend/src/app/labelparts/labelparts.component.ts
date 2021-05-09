@@ -80,7 +80,7 @@ export class LabelpartsComponent implements OnInit {
       this.partColorFilter = data.color_ids;
       this.filterColorsByPart = true;
       this.updateSelectedImage();
-      this.filterByPartCount();
+      this.filterColors();
     });
   }
 
@@ -342,6 +342,11 @@ export class LabelpartsComponent implements OnInit {
         color_id : currentpart.color_id
       };
 
+      console.log("currentpart.color_ids",currentpart.color_ids)
+      this.partColorFilter = currentpart.color_ids;
+      this.filterColorsByPart = true;
+      this.filterColors();
+
       this.updateSelectedImage();
       if(currentpart?.partinfo?.name != null) {
         this.selectedPart['partname'] =  currentpart.partinfo.name
@@ -368,7 +373,7 @@ export class LabelpartsComponent implements OnInit {
     this.selectedMaxYear = '';
 
     this.defaultPartsCount = this.selectedPartCount;
-    this.filterByPartCount();
+    this.filterColors();
   }
 
   onChangePartCount(event) {
@@ -378,7 +383,7 @@ export class LabelpartsComponent implements OnInit {
     this.selectDateRange();
   }
 
-  filterByPartCount(){
+  filterColors(){
     this.colorsList = [];
     this.colorsList = JSON.parse(JSON.stringify(this.colorsListCopy));
     const xcopy = this.colorsList;
@@ -569,7 +574,7 @@ export class LabelpartsComponent implements OnInit {
             });
             this.colorsListCopy = JSON.parse(JSON.stringify(this.colorsList));
             this.filterYears();
-            this.filterByPartCount();
+            this.filterColors();
           } else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl('/login');
           }
