@@ -71,7 +71,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AdvancedSearchComponent } from './shared/components/advanced-search/advanced-search.component';
-
+import {MatChipsModule} from '@angular/material/chips';
 
 
 
@@ -149,6 +149,7 @@ import { AdvancedSearchComponent } from './shared/components/advanced-search/adv
     MatSelectModule,
     MatIconModule,
     MatCheckboxModule,
+    MatChipsModule,
     NgxChartsModule,
   ],
   providers: [AuthGuardService,CollectionService, NgFilterPipe],

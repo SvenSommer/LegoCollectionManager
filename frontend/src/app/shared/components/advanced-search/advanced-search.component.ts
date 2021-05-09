@@ -4,6 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
+
 
 @Component({
   selector: 'app-advanced-search',
@@ -31,12 +34,66 @@ export class AdvancedSearchComponent implements OnInit {
   ];
 
 
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  partsArray: any[] = [];
+
+
   constructor(private partdataService: PartdataService,
     private toastr: ToastrService,
    private router: Router) { }
 
   ngOnInit(): void {
     this.getPartdataAggegratedByPartnumber();
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    let value = event.value;
+    let typedText;
+    this.removeFromSearchwords("none");
+
+    if(value.indexOf(' ') >= 0){
+      typedText = value.split(" ");
+    }
+
+    if(typedText && typedText.length > 0){
+      typedText.forEach(ele => {
+        this.partsArray.push(ele);
+      });
+    }
+    else{
+      if ((value || '').trim()) {
+        this.partsArray.push(value);
+      }
+    }
+    this.searchwords = [];
+    this.partsArray.forEach(ele => {
+      this.searchwords.push(ele);
+    });
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+    this.getPartdataAggegratedByPartnumber();
+  }
+
+  remove(fruit): void {
+    const index = this.partsArray.indexOf(fruit);
+
+    if (index >= 0) {
+      this.partsArray.splice(index, 1);
+      this.searchwords.splice(index, 1);
+    }
+
+    if(this.searchwords.length == 0){
+      this.searchwords = ['none'];
+    }
+
+    this.getPartdataAggegratedByPartnumber()
   }
 
   showNextNames(clickedword: any){
@@ -296,6 +353,7 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   private RefreshSearch(newword: any) {
+    this.partsArray.push(newword);
     this.searchwords.push(newword);
     this.removeFromSearchwords("none");
     this.getFilteredRestaurants(this.searchwords);

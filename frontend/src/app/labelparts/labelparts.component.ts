@@ -159,7 +159,7 @@ export class LabelpartsComponent implements OnInit {
   }
 
   HandleKeyInput(key) {
-    console.log(key);
+    // console.log(key);
 
     switch (key) {
       case 'ArrowRight':
