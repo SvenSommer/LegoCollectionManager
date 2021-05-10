@@ -82,6 +82,12 @@ export class LabelpartsComponent implements OnInit {
       this.updateSelectedImage();
       this.filterColors();
     });
+
+    this.partdataService.downloadData.subscribe((data) => {
+      if(data){
+        this.onDownloadColorsClick();
+      }
+    });
   }
 
   public identifiedpartsColumns = [

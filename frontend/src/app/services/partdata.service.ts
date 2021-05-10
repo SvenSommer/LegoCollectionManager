@@ -10,6 +10,7 @@ import { PartnameFrequencyCachingModel } from '../models/partnamefrequency-model
 export class PartdataService {
 
     rowData : EventEmitter<any> = new EventEmitter<any>();
+    downloadData : EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private http: HttpClient) {
     }

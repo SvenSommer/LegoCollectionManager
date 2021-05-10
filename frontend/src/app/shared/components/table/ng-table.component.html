@@ -33,7 +33,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of rows;let i = index;" (click)="onRowClick(row)">
+      <tr *ngFor="let row of rows;let i = index;" (click)="onRowClick($event,row)">
         <ng-container *ngFor="let column of columns">
           <ng-container [ngSwitch]="column?.datatype?.type">
             <td *ngSwitchCase="'image'"
@@ -69,6 +69,9 @@
         <td *ngIf="isActionVisible">
           <a class="primary p-0" [title]="editButtonText" (click)="onRowEditClick(row)" *ngIf="isEditVisible">
             <i class="font-medium-3" [ngClass]="editClass"></i>
+          </a>
+          <a class="primary p-0" [title]="downloadButtonText" (click)="onDownloadClick(row)" *ngIf="isDownloadVisible">
+            <i class="font-medium-3" [ngClass]="downloadClass"></i>
           </a>
           <a *ngIf="isDeleteVisible" (click)="rowDeleteClick.emit(row)" class="pl-1 text-danger" title="Change status" popoverTitle="Confirm?">
             <i class="fas fa-trash-alt"></i>

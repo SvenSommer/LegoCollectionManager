@@ -38,7 +38,7 @@
 
       </div>
       <div class="row">
-          <div *ngIf="activeButtonsWords" id="serach_tabs">
+          <div *ngIf="activeButtonsWords" id="color_codes">
               <!-- Words
               <ng-container *ngFor="let data of activeButtonsWords">
                   <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
@@ -65,7 +65,7 @@
       </div>
       <div class="row">
           <div class="col-sm-12" *ngIf="partdataAggregated && partcolumns">
-              <ng-table [allowSearch]="true" [isActionVisible]="true" [columns]="partcolumns" [data]="partdataAggregated">
+              <ng-table [allowSearch]="true" [isActionVisible]="true" [isEditVisible]="false" [isDownloadVisible]="true" [columns]="partcolumns" [data]="partdataAggregated">
           </ng-table>
           </div>
       </div>
