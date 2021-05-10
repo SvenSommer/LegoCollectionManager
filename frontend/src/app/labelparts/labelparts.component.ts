@@ -43,6 +43,7 @@ export class LabelpartsComponent implements OnInit {
   public defaultPartsCount = 300;
   public partCountsRange = [100,300,500,1000,2000];
   public filterColorsByPart = false
+  public selectedColorByPart = false
   public partColorFilter = [];
 
   constructor(
@@ -443,6 +444,10 @@ export class LabelpartsComponent implements OnInit {
     this.colorsList = this.colorsList.filter(e => {
       return e.props.length != 0;
     })
+  }
+
+  changeFilterColorsByPart(){
+    this.filterColorsByPart = this.selectedColorByPart;
   }
 
   changeSelection(){
