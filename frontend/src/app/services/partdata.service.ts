@@ -22,10 +22,22 @@ export class PartdataService {
         return this.http.get<any>(`${environment.baseUrl}partdata`, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
+    getPartdataDetail(partno): Observable<any> {
+        let httpHeader = new HttpHeaders();
+        httpHeader.set("Access-Control-Allow-Origin", "*");
+        return this.http.get<any>(`${environment.baseUrl}partdata/` + partno, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
+
     getPartdataAggegratedByPartnumber(reqSearchwords): Observable<any> {
         let httpHeader = new HttpHeaders();
         httpHeader.set("Access-Control-Allow-Origin", "*");
         return this.http.get<any>(`${environment.baseUrl}partdata/aggregatedbypartno/` + reqSearchwords, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
+
+    getPartdataAggegratedByPartnumberDetails(): Observable<any> {
+        let httpHeader = new HttpHeaders();
+        httpHeader.set("Access-Control-Allow-Origin", "*");
+        return this.http.get<any>(`${environment.baseUrl}partdata/aggregatedbypartnoDetails`, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
     createCacheEntry(model: PartnameFrequencyCachingModel): Observable<any> {

@@ -72,6 +72,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AdvancedSearchComponent } from './shared/components/advanced-search/advanced-search.component';
 import {MatChipsModule} from '@angular/material/chips';
+import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
 
 
 
@@ -127,6 +128,7 @@ import {MatChipsModule} from '@angular/material/chips';
     AccountsComponent,
     PartnamefrequencyComponent,
     AdvancedSearchComponent,
+    PartdataDetailComponent,
   ],
   imports: [
     BrowserModule,

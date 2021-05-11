@@ -192,7 +192,7 @@ export class RunDetailComponent implements OnInit {
         if (data) {
           console.log(data)
           if (data.body && data.body.code == 200) {
-            console.log(data.body.result)
+            console.log("identifiedpartsData", data.body.result)
             this.identifiedpartsData = data.body.result;
           }
           else if (data.body && data.body.code == 403) {

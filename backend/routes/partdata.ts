@@ -2,6 +2,7 @@ import CreatePartnameFrequencyCache from '../controllers/partdata/partnamefreque
 import ShowAllPartData from '../controllers/partdata/show';
 import ShowAllPartNameFrequencyCache from '../controllers/partdata/partnamefrequencycache/show';
 import ShowAllPartDataAggregatedbypartno from '../controllers/partdata/showAggregatedByNo';
+import ShowAllPartDataDetailsAggregatedbypartno from '../controllers/partdata/showAggregatedDetailByNo';
 import GetSinglePartDataById from '../controllers/partdata/single';
 import DeleteSinglePartDataById from '../controllers/partdata/delete';
 import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
@@ -12,6 +13,7 @@ const route = Router();
 //List all setDetails
 route.get(``, UserAuthMiddleware, ShowAllPartData);
 route.get(`/aggregatedbypartno/:searchwords`, UserAuthMiddleware, ShowAllPartDataAggregatedbypartno);
+route.get(`/aggregatedbypartnoDetails`, UserAuthMiddleware, ShowAllPartDataDetailsAggregatedbypartno);
 //Get all cached entries for searchwords
 route.get(`/partnamefrequencycache/:searchwords`, UserAuthMiddleware, ShowAllPartNameFrequencyCache);
 //SaveData from Name analysis

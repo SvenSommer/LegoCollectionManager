@@ -148,7 +148,6 @@ export class AdvancedSearchComponent implements OnInit {
           if (data.body && data.body.code == 200) {
 
             if(data.body.result[0]){
-              console.log("Found Cache for searchwords " + this.searchwords);
               let buttons = data.body.result[0];
               let words = JSON.parse(buttons.activeButtonsWords)
               let numbers = JSON.parse(buttons.activeButtonsNumbers)
@@ -156,7 +155,6 @@ export class AdvancedSearchComponent implements OnInit {
               this.activeButtonsWords = words;
             }  else
             {
-              console.log("No Cache Found for searchwords " + this.searchwords);
               this.calculateActiveButtons();
             }
           }

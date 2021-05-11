@@ -21,6 +21,7 @@ import { OfferDetailComponent } from './offer/offer-detail/offer-detail.componen
 import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
+import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
 
 const routes: Routes = [
 
@@ -31,6 +32,7 @@ const routes: Routes = [
   {path:'setdata',component:SetdataComponent,canActivate:[AuthenticationGuard]},
   {path:'setdetail/:id',component:SetDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'partdata',component:PartdataComponent,canActivate:[AuthenticationGuard]},
+  {path:'partdetail/:partno',component:PartdataDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'run',component:RunComponent,canActivate:[AuthenticationGuard]},
   {path:'addRun',component:RunAddEditComponent,canActivate:[AuthenticationGuard]},
   {path:'rundetail/:id',component:RunDetailComponent,canActivate:[AuthenticationGuard]},
@@ -42,6 +44,7 @@ const routes: Routes = [
   {path:'categories',component:CategoriesComponent,canActivate:[AuthenticationGuard]},
   {path:'prices',component:PricesComponent,canActivate:[AuthenticationGuard]},
   {path:'labelparts/:runid',component:LabelpartsComponent,canActivate:[AuthenticationGuard]},
+  {path:'labelparts/:runid/:partid',component:LabelpartsComponent,canActivate:[AuthenticationGuard]},
   {path:'offer',component:OfferComponent,canActivate:[AuthenticationGuard]},
   {path:'offerdetail/:id',component:OfferDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'offeruser/:id',component:UserDetailComponent,canActivate:[AuthenticationGuard]},

@@ -77,7 +77,6 @@ export class LabelpartsComponent implements OnInit {
         partno : data.no,
         partname : data.name
       }
-      console.log("data",data)
       this.partColorFilter = data.color_ids;
       this.filterColorsByPart = true;
       this.updateSelectedImage();
@@ -300,7 +299,8 @@ export class LabelpartsComponent implements OnInit {
     this.selectedColor = {
       color_id : partimage.colorid,
       color_name : partimage.colorname,
-      color_code : partimage.color_code
+      color_type : partimage.colortype,
+      color_code : partimage.colorcode
     };
     this.updateSelectedImage();
   }
@@ -339,17 +339,16 @@ export class LabelpartsComponent implements OnInit {
     let currentpart = this.identifiedpartsData[
       this.currentpart_of_run
     ];
-    console.log("currentpart",currentpart)
     if(currentpart.partno != null) {
       this.selectedPart = {
         partno : currentpart.partno
       };
-
       this.selectedColor = {
-        color_id : currentpart.color_id
+        color_id : currentpart.colorinfo.color_id,
+        color_name : currentpart.colorinfo.colorname,
+        color_type : currentpart.colorinfo.color_type,
+        color_code : currentpart.colorinfo.color_code
       };
-
-      console.log("currentpart.color_ids",currentpart.color_ids)
       this.partColorFilter = currentpart.color_ids;
       this.filterColorsByPart = true;
       this.filterColors();
@@ -501,7 +500,6 @@ export class LabelpartsComponent implements OnInit {
   onToggleDeleted(partimage) {
     this.imagePath = partimage.path;
     if (partimage.deleted == null) {
-      console.log('delete');
       this.partimageService.markPartimageAsDeletedById(partimage.id).subscribe(
         (data) => {
           this.refreshImages(data);
@@ -511,7 +509,6 @@ export class LabelpartsComponent implements OnInit {
         }
       );
     } else {
-      console.log('undelete');
       this.partimageService
         .markPartimageAsNotDeletedById(partimage.id)
         .subscribe(
