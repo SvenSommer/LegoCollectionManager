@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { ModalPopupComponent } from '../popup/modal-popup/modal-popup.component';
 import { NgbdSortableHeader, SortColumn, SortEvent } from './sortable.directive';
 import { PartdataService } from 'src/app/services/partdata.service';
+import { PartimageService } from 'src/app/services/partimage.service';
 declare var $: any;
 
 @Component({
@@ -44,8 +45,11 @@ export class NgTableComponent implements OnInit, OnChanges {
   @Input() public isHeaderVisible = true;
   @Input() public visibleWhenData = false;
   @Input() public isEditVisible = true;
+  @Input() public isDownloadVisible = false;
   @Input() public editButtonText = 'Edit';
+  @Input() public downloadButtonText = 'Download';
   @Input() public editClass = 'fas fa-edit';
+  @Input() public downloadClass = 'fas fa-download';
 
   //1-Page Complete
   @Input() public isDeleteVisible = false;
@@ -58,6 +62,7 @@ export class NgTableComponent implements OnInit, OnChanges {
   // Outputs (Events)
   @Output() public rowEditClick: EventEmitter<any> = new EventEmitter();
   @Output() public rowCellClick: EventEmitter<any> = new EventEmitter();
+  @Output() public rowDownloadClick: EventEmitter<any> = new EventEmitter();
   @Output() public rowDeleteClick: EventEmitter<any> = new EventEmitter();
 
   public imgPopupURL = '';
@@ -177,8 +182,15 @@ export class NgTableComponent implements OnInit, OnChanges {
     this.rowEditClick.emit(event);
   }
 
-  public onRowClick(event: any): void {
-    this.partdataService.rowData.emit(event);
+  public onRowClick($event, ev: any): void {
+    // console.log('$event:::::::::::::::::',$event.srcElement.nodeName.toLowerCase())
+    if($event.srcElement.nodeName.toLowerCase() == 'td'){
+      this.partdataService.rowData.emit(ev);
+    }
+  }
+
+  public onDownloadClick(event: any): void {
+    this.partdataService.downloadData.emit(event);
   }
 
   public onImgPopupClose() {
