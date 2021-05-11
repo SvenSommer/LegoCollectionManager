@@ -76,3 +76,7 @@ input[type="checkbox"] {
   align-items: start;
   margin: 5px;
 }
+
+.chart-container {
+  height: 335px;
+}
