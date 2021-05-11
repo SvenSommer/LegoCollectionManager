@@ -75,7 +75,7 @@ RUN pip3 install pycocotools
 
 RUN pip3 install gdown
 WORKDIR setrecognizer/
-RUN gdown "https://drive.google.com/uc?id=1CJZ2WvmZSLQfOFx5DAmRuL9ezK8M_r5a"
+RUN gdown "https://drive.google.com/uc?id=1crszr_QgR_3JR84Z273CMnRgzwH6oq2R"
 RUN unzip -o lego_project_data.zip
 RUN rm lego_project_data.zip
 
