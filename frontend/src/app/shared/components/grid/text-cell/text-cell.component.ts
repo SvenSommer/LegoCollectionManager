@@ -3,10 +3,10 @@ import {ICellRendererAngularComp} from 'ag-grid-angular';
 
 @Component({
   selector: 'app-text-cell',
-  templateUrl: './title-cell.component.html',
-  styleUrls: ['./title-cell.component.css']
+  templateUrl: './text-cell.component.html',
+  styleUrls: ['./text-cell.component.css']
 })
-export class TitleCellComponent implements ICellRendererAngularComp {
+export class TextCellComponent implements ICellRendererAngularComp {
   public params: any;
 
   agInit(params: any): void {

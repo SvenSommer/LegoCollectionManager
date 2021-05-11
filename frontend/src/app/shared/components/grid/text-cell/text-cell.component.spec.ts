@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OfferGridComponent } from './offer-grid.component';
+import { TextCellComponent } from './text-cell.component';
 
-describe('OfferGridComponent', () => {
-  let component: OfferGridComponent;
-  let fixture: ComponentFixture<OfferGridComponent>;
+describe('TextCellComponent', () => {
+  let component: TextCellComponent;
+  let fixture: ComponentFixture<TextCellComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OfferGridComponent ]
+      declarations: [ TextCellComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OfferGridComponent);
+    fixture = TestBed.createComponent(TextCellComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

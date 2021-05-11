@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColorService } from '../services/color.service';
+import {TextCellComponent} from "../shared/components/grid/text-cell/text-cell.component";
 
 @Component({
   selector: 'app-colors',
@@ -12,34 +13,117 @@ export class ColorsComponent implements OnInit {
 
   constructor(private colorService: ColorService,
     private router: Router) { }
+  public columns = [
+    {
+      headerName: 'Id',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'color_id',
+      filter: 'agNumberColumnFilter',
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Name',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'color_name',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Code',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'color_code',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Type',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'color_type',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Parts Count',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'parts_count',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Year From',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'year_from',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Year to',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'year_to',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Created',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'created',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    }
+  ];
 
-    public colorColumns = [
-      { title: 'Id', name: 'color_id', size: '50', minSize: '50', datatype: { type: 'number' } },
-      { title: 'Name', name: 'color_name', size: '5%', minSize: '50'},
-      { title: 'Code', name: 'color_code', size: '30%', minSize: '120' , datatype: { type: 'color' }},
-      { title: 'Type', name: 'color_type', size: '30', minSize: '120' },
-      { title: 'Parts Count', name: 'parts_count', size: '30', minSize: '50', datatype: { type: 'number' } },
-      { title: 'Year From', name: 'year_from', size: '40', minSize: '40', datatype: { type: 'number' } },
-      { title: 'Year to', name: 'year_to', size: '80', minSize: '80' , datatype: { type: 'number' }},
-      { title: 'Created', name: 'created', size: '50', minSize: '50' , datatype: { type: 'date' }}
-    ]
-  
-  
+  public rows: Array<any> = [];
+
+
     public colorData: any;
 
     ngOnInit(): void {
       this.bindData();
     }
-  
+
     bindData() {
       this.colorService.getColors().subscribe(
         (data) => {
           if (data) {
-            if (data.body && data.body.code == 200) {
+            if (data.body && data.body.code === 200) {
               this.colorData = data.body.result;
+              this.rows = this.colorData;
+
             }
-            else if (data.body && data.body.code == 403) {
-              this.router.navigateByUrl("/login");
+            else if (data.body && data.body.code === 403) {
+              this.router.navigateByUrl('/login');
             }
           }
         },
@@ -48,6 +132,6 @@ export class ColorsComponent implements OnInit {
         }
       );
     }
-  
+
 
 }

@@ -1,0 +1,12 @@
+<ag-grid-angular
+  #offerGrid
+  style="height: 100%;"
+  class="ag-theme-material"
+  [rowData]="rows"
+  [columnDefs]="columnDef"
+  [pagination]="true"
+  [paginationPageSize]="10"
+  [context]="this"
+  (cellClicked)="onRowClick($event)"
+>
+</ag-grid-angular>

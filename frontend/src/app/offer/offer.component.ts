@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { ToastrService } from 'ngx-toastr';
 import { OfferService } from '../services/offer.service';
+import {ImagesCellComponent} from '../shared/components/grid/images-cell/images-cell.component';
+import {TextCellComponent} from '../shared/components/grid/text-cell/text-cell.component';
+import {DescriptionCellComponent} from '../shared/components/grid/description-cell/description-cell.component';
+import {DeleteCellComponent} from '../shared/components/grid/delete-cell/delete-cell.component';
 
 @Component({
   selector: 'app-offer',
@@ -12,27 +16,155 @@ import { OfferService } from '../services/offer.service';
 })
 export class OfferComponent implements OnInit {
 
-  constructor(private offerService: OfferService,
-    private router: Router, private toastr: ToastrService,
-    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
-
-
+  public rows: Array<any> = [];
   public columns = [
-    { title: 'Images', name: 'offerinfo.images', size: '100', minSize: '100', datatype: { type: 'imagesoffers'}},
-    { title: 'Title', name: 'offerinfo.title', size: '30', minSize: '30' },
-    { title: 'Description2', name: 'offerinfo.description', size: '120', minSize: '120' },
-    { title: 'Price', name: 'offerinfo.price', size: '10', minSize: '20', datatype: { type: 'price' } },
-    { title: 'Price Type', name: 'offerinfo.pricetype', size: '10', minSize: '20' },
-    { title: 'Zipcode', name: 'offerinfo.zipcode', size: '25', minSize: '25', datatype: { type: 'number' } },
-    { title: 'Locality', name: 'offerinfo.locality', size: '25', minSize: '25' },
-    { title: 'Shipping', name: 'offerinfo.shipping', size: '40', minSize: '40' },
-    { title: 'Seller', name: 'userinfo.name', size: '40', minSize: '40' },
-    { title: 'Category', name: 'userinfo.category', size: '40', minSize: '40' },
-    { title: 'Offers', name: 'userinfo.sumOffersRecorded', size: '40', minSize: '40' },
-    { title: 'Offer Date', name: 'offerinfo.datecreated', size: '80', minSize: '80', datatype: { type: 'date' } },
-    { title: 'created', name: 'created', size: '80', minSize: '80', datatype: { type: 'datetime' } },
-    { title: 'deletedbyUser', name: 'deletedByExtUser', size: '80', minSize: '80', datatype: { type: 'datetime' } },
+    {
+      headerName: 'Images', field: 'imageUrls',
+      autoHeight: true,
+      resizable: true,
+      cellRendererFramework: ImagesCellComponent,
+      flex: 1,
+      minWidth: '200'
+    },
+    {
+      headerName: 'Title',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'offerinfo.title',
+      filter: true,
+      flex: 1,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Description',
+      field: 'offerinfo.description',
+      autoHeight: true,
+      sortable: true,
+      filter: true,
+      resizable: true,
+      cellRendererFramework: DescriptionCellComponent,
+      flex: 1,
+      minWidth: '120'
+    },
+    {
+      headerName: 'Price',
+      cellRendererFramework: TextCellComponent,
+      field: 'offerinfo.price',
+      flex: 1,
+      sortable: true,
+      resizable: true,
+      filter: 'agNumberColumnFilter',
+      minWidth: '50'
+    },
+    {
+      headerName: 'Price Type',
+      cellRendererFramework: TextCellComponent,
+      field: 'offerinfo.pricetype',
+      resizable: true,
+      sortable: true,
+      filter: true,
+      flex: 1,
+      minWidth: '70'
+    },
+    {
+      headerName: 'Zip code',
+      field: 'offerinfo.zipcode',
+      cellRendererFramework: TextCellComponent,
+      filter: 'agNumberColumnFilter',
+      resizable: true,
+      sortable: true,
+      flex: 1,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Locality',
+      cellRendererFramework: TextCellComponent,
+      field: 'offerinfo.locality',
+      filter: true,
+      resizable: true,
+      sortable: true,
+      flex: 1,
+      minWidth: '90'
+    },
+    {
+      headerName: 'Shipping',
+      cellRendererFramework: TextCellComponent,
+      field: 'offerinfo.shipping',
+      resizable: true,
+      filter: true,
+      sortable: true,
+      flex: 1,
+      minWidth: '100'
+    },
+    {
+      headerName: 'Seller',
+      cellRendererFramework: TextCellComponent,
+      field: 'userinfo.name',
+      resizable: true,
+      filter: true,
+      sortable: true,
+      flex: 1, minWidth: '40'
+    },
+    {
+      headerName: 'Category',
+      cellRendererFramework: TextCellComponent,
+      field: 'userinfo.category',
+      resizable: true,
+      filter: true,
+      sortable: true,
+      flex: 1,
+      minWidth: '100'
+    },
+    {
+      headerName: 'Offers',
+      cellRendererFramework: TextCellComponent,
+      field: 'userinfo.sumOffersRecorded',
+      resizable: true,
+      filter: 'agNumberColumnFilter',
+      sortable: true,
+      flex: 1,
+      minWidth: '75'
+    },
+    {
+      headerName: 'Offer Date',
+      field: 'offerinfo.datecreated',
+      resizable: true,
+      filter: true,
+      sortable: true,
+      flex: 1,
+      minWidth: '95'
+    },
+    {
+      headerName: 'Created',
+      field: 'created',
+      minWidth: '95',
+      filter: true,
+      resizable: true,
+      sortable: true,
+      flex: 1
+    },
+    {
+      headerName: 'Deleted by user',
+      field: 'deletedByExtUser',
+      resizable: true,
+      flex: 1,
+      filter: true,
+      minWidth: '90'
+    },
+    {
+      headerName: 'Action',
+      field: 'action',
+      cellRendererFramework: DeleteCellComponent,
+      resizable: false,
+      width: '60'
+    }
   ];
+
+  constructor(private offerService: OfferService,
+              private router: Router, private toastr: ToastrService,
+              private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   public data: any;
 
@@ -40,15 +172,26 @@ export class OfferComponent implements OnInit {
     this.bindData();
   }
 
-  bindData() {
+  public bindData() {
     this.offerService.getOffers().subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200) {
+          if (data.body && data.body.code === 200) {
             this.data = data.body.result;
-          }
-          else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+            this.rows = this.data;
+            this.rows.forEach(
+              row => {
+                row.created = this.formatDate(row.created);
+                row.offerinfo.datecreated = this.formatDate(row.offerinfo.datecreated);
+                row.imageUrls = [];
+                row.images.forEach(
+                    image => row.imageUrls.push(image.imageurl)
+                  );
+                console.log(row.imageUrls);
+              }
+            );
+          } else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
           }
         }
       },
@@ -58,17 +201,17 @@ export class OfferComponent implements OnInit {
     );
   }
 
-  onRowDeleteClick(model) {
-      this.offerService.deleteOffer(model.id).subscribe(
+  onRowDeleteClick(id) {
+      this.offerService.deleteOffer(id).subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200) {
+          if (data.body && data.body.code === 200) {
             // Message should be data.body.message
-            this.toastr.success("Record Deleted Successfully.");
+            this.toastr.success('Record Deleted Successfully.');
             this.bindData();
           }
-          else if (data.body && data.body.code == 403) {
-            this.router.navigateByUrl("/login");
+          else if (data.body && data.body.code === 403) {
+            this.router.navigateByUrl('/login');
           }
         }
       },
@@ -78,9 +221,15 @@ export class OfferComponent implements OnInit {
     );
   }
 
-  onRowClick(data) {
-    this.router.navigateByUrl("/offerdetail/" + data.id).then((bool) => { }).catch()
+  onRowClick(id: number) {
+    this.router.navigateByUrl('/offerdetail/' + id);
   }
 
+  private formatDate(date: string): string {
+    const year = date.substring(0, 4);
+    const month = date.substring(5, 7);
+    const day = date.substring(8, 10);
+    return `${month}/${day}/${year}`;
+  }
 
 }

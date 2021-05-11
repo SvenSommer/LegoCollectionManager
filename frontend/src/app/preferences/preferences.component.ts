@@ -11,6 +11,8 @@ import { UsergroupModel } from '../models/usergroup-model';
 import { StatusEditComponent } from './status/status-edit/status-edit.component';
 import { StatusModel } from '../models/status-model';
 import { TypeModel } from '../models/type-model';
+import {TextCellComponent} from "../shared/components/grid/text-cell/text-cell.component";
+import {DeleteCellComponent} from "../shared/components/grid/delete-cell/delete-cell.component";
 
 @Component({
   selector: 'app-preferences',
@@ -21,41 +23,206 @@ export class PreferencesComponent implements OnInit {
 
   constructor(private preferencesService: PreferencesService,
     private router: Router, private toastr: ToastrService,
-    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) {} 
+    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) {}
 
-  public userColums = [
-    { title: 'User Name', name: 'username', size: '20', minSize: '50'},
-    { title: 'Full Name', name: 'full_name', size: '50', minSize: '50'},
-    { title: 'User Group', name: 'usergroup', size: '5%', minSize: '50', datatype: { type: 'number' }},
-    { title: 'Created', name: 'created', size: '50', minSize: '50', datatype: { type: 'date' } }
-  ]
+
+  public userColumns = [
+    {
+      headerName: 'User Name',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'username',
+      filter: true,
+      flex: 3,
+      minWidth: '50'
+    },
+    {
+      headerName: 'Full Name',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'full_name',
+      filter: true,
+      flex: 3,
+      minWidth: '50'
+    },
+    {
+      headerName: 'User Group',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'usergroup',
+      filter: true,
+      flex: 3,
+      minWidth: '40'
+    },
+    {
+      headerName: 'Created',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'created',
+      filter: true,
+      flex: 3,
+      minWidth: '50'
+    },
+    {
+      headerName: 'Action',
+      field: 'action',
+      cellRendererFramework: DeleteCellComponent,
+      resizable: true,
+      flex: 1,
+      minWidth: '60'
+    }
+  ];
+
+  public userRows: Array<any> = [];
+
   public userdata: any;
 
-  public usergroupcolumns = [
-    { title: 'id', name: 'id', size: '5%', minSize: '50'},
-    { title: 'Group Name', name: 'groupname', size: '50', minSize: '50'}
-  ]
+  public userGroupsColumns = [
+    {
+      headerName: 'id',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'id',
+      filter: true,
+      flex: 3,
+      minWidth: '30'
+    },
+    {
+      headerName: 'Group Name',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'groupname',
+      filter: true,
+      flex: 3,
+      minWidth: '50'
+    },
+    {
+      headerName: 'Action',
+      field: 'action',
+      cellRendererFramework: DeleteCellComponent,
+      resizable: true,
+      flex: 1,
+      minWidth: '60'
+    }
+  ];
+
+  public userGroupsRows: Array<any> = [];
+
+
   public usergroupdata: any;
 
   public statusColumns = [
-    { title: 'Type', name: 'type_name', size: '50', minSize: '50'},
-    { title: 'Code', name: 'code', size: '50', minSize: '50'}, 
-    { title: 'Name', name: 'name', size: '50', minSize: '50'},
-    { title: 'Description', name: 'description', size: '50', minSize: '50'},
-  ]
+    {
+      headerName: 'Type',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'type_name',
+      filter: true,
+      flex: 3,
+      minWidth: '40'
+    },
+    {
+      headerName: 'Code',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'code',
+      filter: true,
+      flex: 3,
+      minWidth: '40'
+    },
+    {
+      headerName: 'Name',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'name',
+      filter: true,
+      flex: 3,
+      minWidth: '50'
+    },
+    {
+      headerName: 'Description',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'description',
+      filter: true,
+      flex: 3,
+      minWidth: '50'
+    },
+    {
+      headerName: 'Action',
+      field: 'action',
+      cellRendererFramework: DeleteCellComponent,
+      resizable: true,
+      flex: 1,
+      minWidth: '60'
+    }
+  ];
+
+  public statusRows: Array<any> = [];
+
   public statusdata: any;
 
   public typeColumns = [
-    { title: 'id', name: 'id', size: '5%', minSize: '50'},
-    { title: 'Name', name: 'name', size: '50', minSize: '50'},
-  ]
+    {
+      headerName: 'id',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'id',
+      filter: true,
+      flex: 3,
+      minWidth: '30'
+    },
+    {
+      headerName: 'Name',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'name',
+      filter: true,
+      flex: 3,
+      minWidth: '50'
+    },
+    {
+      headerName: 'Action',
+      field: 'action',
+      cellRendererFramework: DeleteCellComponent,
+      resizable: true,
+      flex: 1,
+      minWidth: '60'
+    }
+  ];
+
+  public typeRows: Array<any> = [];
   public typedata: any;
 
   @ViewChild('userEdit') userEdit: UserEditComponent;
   @ViewChild('usergroupEdit') usergroupEdit: UsergroupEditComponent;
   @ViewChild('statusEdit') statusEdit: StatusEditComponent;
   @ViewChild('typeEdit') typeEdit: StatusEditComponent;
-  
+
   ngOnInit(): void {
     this.GetAllUsers();
     this.getAllUserGroups();
@@ -69,6 +236,7 @@ export class PreferencesComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.userdata = data.body.result;
+            this.userRows = this.userdata;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -85,14 +253,15 @@ export class PreferencesComponent implements OnInit {
     this.GetAllUsers();
   }
 
-  editUser(id) {
+  editUser() {
     this.userEdit.open();
   }
-  
-  onEditUserClick(data) {
+
+  onEditUserClick(id) {
+    const data = this.userdata.find(type => type.id === id);
     this.userEdit.open(data);
   }
-  
+
   onRowDeleteUserClick(model) {
     let options = {
       title: 'Are you sure you want to delete this?',
@@ -131,6 +300,7 @@ export class PreferencesComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.usergroupdata = data.body.result;
+            this.userGroupsRows = this.usergroupdata;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -142,15 +312,16 @@ export class PreferencesComponent implements OnInit {
       }
     );
   }
-  
-  editUsergroup(id) {
+
+  editUsergroup() {
     this.usergroupEdit.open();
   }
-  
-  onEditUsergroupClick(data) {
+
+  onEditUsergroupClick(id) {
+    const data = this.usergroupdata.find(type => type.id === id);
     this.usergroupEdit.open(data);
   }
-  
+
   onRowDeleteUsergroupClick(model) {
     let options = {
       title: 'Are you sure you want to delete this?',
@@ -182,11 +353,11 @@ export class PreferencesComponent implements OnInit {
       }
     });
   }
-  
+
   addNewUsergroup(newData: UsergroupModel) {
     this.getAllUserGroups();
   }
-  
+
   onRowEditUsergroupClick(data) {
     this.usergroupEdit.open();
   }
@@ -197,6 +368,7 @@ export class PreferencesComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.statusdata = data.body.result;
+            this.statusRows = this.statusdata;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -213,14 +385,15 @@ export class PreferencesComponent implements OnInit {
     this.getAllStatus();
   }
 
-  editStatus(id) {
+  editStatus() {
     this.statusEdit.open();
   }
-  
-  onEditStatusClick(data) {
+
+  onEditStatusClick(id) {
+    const data = this.statusdata.find(type => type.id === id);
     this.statusEdit.open(data);
   }
-  
+
   onRowDeleteStatusClick(model) {
     let options = {
       title: 'Are you sure you want to delete this?',
@@ -259,6 +432,7 @@ export class PreferencesComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.typedata = data.body.result;
+            this.typeRows = this.typedata;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -275,14 +449,15 @@ export class PreferencesComponent implements OnInit {
     this.getAllTypes();
   }
 
-  editType(id) {
+  editType() {
     this.typeEdit.open();
   }
-  
-  onEditTypeClick(data) {
+
+  onEditTypeClick(id) {
+    const data = this.typedata.find(type => type.id === id);
     this.typeEdit.open(data);
   }
-  
+
   onRowDeleteTypeClick(model) {
     let options = {
       title: 'Are you sure you want to delete this?',
@@ -314,6 +489,6 @@ export class PreferencesComponent implements OnInit {
       }
     });
   }
-  
+
 
 }

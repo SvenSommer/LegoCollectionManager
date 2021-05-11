@@ -71,11 +71,11 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AgGridModule } from 'ag-grid-angular';
-import { OfferGridComponent } from './offer/offer-grid/offer-grid.component';
-import { ImagesCellComponent } from './offer/offer-grid/images-cell/images-cell.component';
-import { TitleCellComponent } from './offer/offer-grid/title-cell/title-cell.component';
-import { DescriptionCellComponent } from './offer/offer-grid/description-cell/description-cell.component';
-import { DeleteCellComponent } from './offer/offer-grid/delete-cell/delete-cell.component';
+import { GridComponent } from './shared/components/grid/grid.component';
+import { ImagesCellComponent } from './shared/components/grid/images-cell/images-cell.component';
+import { TextCellComponent } from './shared/components/grid/text-cell/text-cell.component';
+import { DescriptionCellComponent } from './shared/components/grid/description-cell/description-cell.component';
+import { DeleteCellComponent } from './shared/components/grid/delete-cell/delete-cell.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { AdvancedSearchComponent } from './shared/components/advanced-search/advanced-search.component';
 import {MatChipsModule} from '@angular/material/chips';
@@ -134,11 +134,11 @@ import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-det
     CardTableComponent,
     AccountsComponent,
     PartnamefrequencyComponent,
+    GridComponent,
     AdvancedSearchComponent,
     PartdataDetailComponent,
-    OfferGridComponent,
     ImagesCellComponent,
-    TitleCellComponent,
+    TextCellComponent,
     DescriptionCellComponent,
     DeleteCellComponent
   ],
@@ -167,7 +167,7 @@ import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-det
     NgxChartsModule,
     AgGridModule.withComponents([
       ImagesCellComponent,
-      TitleCellComponent,
+      TextCellComponent,
       DescriptionCellComponent,
       DeleteCellComponent
     ])

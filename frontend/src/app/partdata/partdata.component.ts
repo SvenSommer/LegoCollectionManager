@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PartdataService } from '../services/partdata.service';
+import {ImagesCellComponent} from '../shared/components/grid/images-cell/images-cell.component';
+import {TextCellComponent} from '../shared/components/grid/text-cell/text-cell.component';
 
 @Component({
   selector: 'app-partdata',
@@ -10,28 +12,158 @@ import { PartdataService } from '../services/partdata.service';
 })
 export class PartdataComponent implements OnInit {
 
+  public rows: Array<any> = [];
+  public columns = [
+    {
+      headerName: 'Image', field: 'partinfo.thumbnail_url',
+      autoHeight: true,
+      resizable: true,
+      cellRendererFramework: ImagesCellComponent,
+      flex: 1,
+      minWidth: '140'
+    },
+    {
+      headerName: 'Number',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partno',
+      filter: 'agNumberColumnFilter',
+      flex: 1,
+      minWidth: '95'
+    },
+    {
+      headerName: 'Colorid',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'color_id',
+      filter: 'agNumberColumnFilter',
+      flex: 1,
+      minWidth: '95'
+    },
+    {
+      headerName: 'Type',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'type',
+      filter: true,
+      flex: 1,
+      minWidth: '75'
+    },
+    {
+      headerName: 'Name',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.name',
+      filter: true,
+      flex: 1,
+      minWidth: '75'
+    },
+    {
+      headerName: 'Category',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.category_name',
+      filter: true,
+      flex: 1,
+      minWidth: '105'
+    },
+    {
+      headerName: 'Year',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.year',
+      filter: true,
+      flex: 1,
+      minWidth: '70'
+    },
+    {
+      headerName: 'Weight(g)',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.weight_g',
+      filter: 'agNumberColumnFilter',
+      flex: 1,
+      minWidth: '100'
+    },
+    {
+      headerName: 'Size',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.size',
+      filter: true,
+      flex: 1,
+      minWidth: '75'
+    },
+    {
+      headerName: 'Obsolete',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.is_obsolete',
+      filter: 'agNumberColumnFilter',
+      flex: 1,
+      minWidth: '105'
+    },
+    {
+      headerName: 'avg Price (stock)',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.qty_avg_price_stock',
+      filter: 'agNumberColumnFilter',
+      flex: 1,
+      minWidth: '80'
+    },
+    {
+      headerName: 'avg Price (sold)',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.qty_avg_price_sold',
+      filter: 'agNumberColumnFilter',
+      flex: 1,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Avg Price',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'partinfo.avg_price',
+      filter: 'agNumberColumnFilter',
+      flex: 1,
+      minWidth: '80'
+    }
+  ];
+
   constructor(private partdataService: PartdataService,
-    private router: Router) { }
+              private router: Router) { }
 
-
-    public partcolumns = [
-      { title: 'Image', name: 'thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
-      { title: 'Number', name: 'partno', size: '5%', minSize: '50'},
-      { title: 'Colors', name: 'colorvariants', size: '5%', minSize: '50'},
-      { title: 'Used', name: 'usecount', size: '5%', minSize: '50'},
-      { title: 'Type', name: 'type', size: '5%', minSize: '50'},
-      { title: 'Name', name: 'name', size: '30%', minSize: '120' },
-      { title: 'Category', name: 'category_name', size: '30', minSize: '120' },
-      { title: 'Year', name: 'year', size: '30', minSize: '50' },
-      { title: 'Weight(g)', name: 'weight_g', size: '40', minSize: '40' },
-      { title: 'Size', name: 'size', size: '80', minSize: '80' },
-      { title: 'Obsolete', name: 'is_obsolete', size: '50', minSize: '50' }
-    ]
     public partdata: any;
 
   ngOnInit(): void {
     this.bindData();
-    
+
   }
 
   bindData() {
@@ -40,6 +172,7 @@ export class PartdataComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.partdata = data.body.result;
+            this.rows = this.partdata;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -53,10 +186,9 @@ export class PartdataComponent implements OnInit {
   }
 
   onRowClick(data) {
-
-    this.router.navigateByUrl("/partdetail/" + data.partno).then((bool) => { }).catch()
+    this.router.navigateByUrl('/partdetail/' + data.partno).then((bool) => { }).catch()
   }
-  
+
 
 
 }

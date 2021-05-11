@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { CollectionModel } from '../models/collection-model';
 import { CollectionService } from '../services/collection.service';
 import { CollectionEditComponent } from './edit/collection-edit.component';
+import {ImagesCellComponent} from '../shared/components/grid/images-cell/images-cell.component';
+import {TextCellComponent} from '../shared/components/grid/text-cell/text-cell.component';
+import {DeleteCellComponent} from '../shared/components/grid/delete-cell/delete-cell.component';
 
 @Component({
   selector: 'app-collection',
@@ -14,22 +17,121 @@ import { CollectionEditComponent } from './edit/collection-edit.component';
 })
 export class CollectionComponent implements OnInit {
 
-  constructor(private collectionService: CollectionService,
-    private router: Router, private toastr: ToastrService,
-    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
-
+  public rows: Array<any> = [];
   public columns = [
-    { title: 'Image', name: 'collectioninfo.thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' }},
-    { title: 'Name', name: 'collectioninfo.name', size: '20%', minSize: '120' },
-    { title: 'Description', name: 'collectioninfo.description', size: '20%', minSize: '120' },
-    { title: 'Weight(kg)', name: 'collectioninfo.weight_kg', size: '25', minSize: '25', datatype: { type: 'number' } },
-    { title: 'Cost', name: 'collectioninfo.cost', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'Cost per Kilo', name: 'collectioninfo.cost_per_kilo', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'Seller', name: 'collectioninfo.seller', size: '80', minSize: '80' },
-    { title: 'Sugegsted Sets', name: 'suggested_sets.sumSet', size: '80', minSize: '80' },
-    { title: 'Expected Sets', name: 'expected_sets.sumSet', size: '80', minSize: '80' },
-    { title: 'Purchase Date', name: 'collectioninfo.purchase_date', size: '100', minSize: '100', datatype: { type: 'date' } },
+    {
+      headerName: 'Images', field: 'collectioninfo.thumbnail_url',
+      autoHeight: true,
+      resizable: true,
+      cellRendererFramework: ImagesCellComponent,
+      flex: 1,
+      minWidth: '160'
+    },
+    {
+      headerName: 'Name',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'collectioninfo.name',
+      filter: true,
+      flex: 1,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Description',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'collectioninfo.description',
+      filter: true,
+      flex: 2,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Weight (kg)',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'collectioninfo.weight_kg',
+      filter: 'agNumberColumnFilter',
+      flex: 1,
+      minWidth: '45'
+    },
+    {
+      headerName: 'Cost',
+      field: 'collectioninfo.cost',
+      cellRendererFramework: TextCellComponent,
+      flex: 1,
+      sortable: true,
+      resizable: true,
+      filter: 'agNumberColumnFilter',
+      minWidth: '40'
+    },
+    {
+      headerName: 'Cost per Kilo',
+      field: 'collectioninfo.cost_per_kilo',
+      cellRendererFramework: TextCellComponent,
+      flex: 1,
+      sortable: true,
+      resizable: true,
+      filter: 'agNumberColumnFilter',
+      minWidth: '60'
+    },
+    {
+      headerName: 'Seller',
+      field: 'collectioninfo.seller',
+      cellRendererFramework: TextCellComponent,
+      flex: 1,
+      sortable: true,
+      resizable: true,
+      filter: true,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Suggested Sets',
+      field: 'suggested_sets.sumSet',
+      cellRendererFramework: TextCellComponent,
+      flex: 1,
+      sortable: true,
+      resizable: true,
+      filter: 'agNumberColumnFilter',
+      minWidth: '80'
+    },
+    {
+      headerName: 'Expected Sets',
+      field: 'expected_sets.sumSet',
+      cellRendererFramework: TextCellComponent,
+      flex: 1,
+      sortable: true,
+      resizable: true,
+      filter: 'agNumberColumnFilter',
+      minWidth: '80'
+    },
+    {
+      headerName: 'Purchase Date',
+      field: 'collectioninfo.purchase_date',
+      cellRendererFramework: TextCellComponent,
+      minWidth: '60',
+      filter: true,
+      resizable: true,
+      sortable: true,
+      flex: 1
+    },
+    {
+      headerName: 'Action',
+      field: 'action',
+      cellRendererFramework: DeleteCellComponent,
+      resizable: false,
+      width: '60'
+    },
   ];
+
+  constructor(private collectionService: CollectionService,
+              private router: Router, private toastr: ToastrService,
+              private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
   public data: any;
 
@@ -42,8 +144,14 @@ export class CollectionComponent implements OnInit {
     this.collectionService.getCollections().subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200) {
+          if (data.body && data.body.code === 200) {
             this.data = data.body.result;
+            this.rows = this.data;
+            this.rows.forEach(
+              row => {
+                row.collectioninfo.purchase_date = this.formatDate(row.collectioninfo.purchase_date);
+              }
+            );
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -64,29 +172,29 @@ export class CollectionComponent implements OnInit {
     this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
   }
 
-  onRowClick(data) {
-    this.router.navigateByUrl("/collectiondetail/" + data.id).then((bool) => { }).catch()
+  onRowClick(id) {
+    this.router.navigateByUrl('/collectiondetail/' + id);
   }
 
-  onRowDeleteClick(model) {
-    let options = {
+  onRowDeleteClick(id) {
+    const options = {
       title: 'Are you sure you want to delete this?',
       confirmLabel: 'Okay',
       declineLabel: 'Cancel'
-    }
+    };
     this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
       if (res) {
         console.log('Okay');
-        this.collectionService.deleteCollection(model.id).subscribe(
+        this.collectionService.deleteCollection(id).subscribe(
           (data) => {
             if (data) {
-              if (data.body && data.body.code == 200) {
+              if (data.body && data.body.code === 200) {
                // Message should be data.body.message
-               this.toastr.success("Record Deleted Successfully.");
+               this.toastr.success('Record Deleted Successfully.');
                this.bindData();
               }
-              else if (data.body && data.body.code == 403) {
-                this.router.navigateByUrl("/login");
+              else if (data.body && data.body.code === 403) {
+                this.router.navigateByUrl('/login');
               }
             }
           },
@@ -104,5 +212,12 @@ export class CollectionComponent implements OnInit {
     // this.data.push(newData);
     // this.data = Object.assign([],this.data);
     this.bindData();
+  }
+
+  private formatDate(date: string): string {
+    const year = date.substring(0, 4);
+    const month = date.substring(5, 7);
+    const day = date.substring(8, 10);
+    return `${month}/${day}/${year}`;
   }
 }

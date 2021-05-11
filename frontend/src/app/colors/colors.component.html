@@ -1,20 +1,12 @@
 <div class="container-fluid pt-4">
-    <div class="card shadow mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h6 class="text-primary font-weight-bold m-0">Color data</h6>
-            <div class="dropdown no-arrow">
-                <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" >
+                <button class="btn btzn-link btn-sm float-right mt-3 mr-3 btn-outline-secondary" aria-expanded="false"  type="button" >
                     <i class="fas fa-plus text-gray-400"></i>
                 </button>
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-12" *ngIf="colorData && colorColumns">
-                    <ng-table [isActionVisible]="false" [columns]="colorColumns" [data]="colorData">
-                </ng-table>
-                </div>
-            </div>
-        </div>
-    </div>
+      <div class="card shadow mb-4">
+        <app-offer-grid class="offer-grid"
+                        [columnDef]="columns"
+                        [rows]="rows">
+
+        </app-offer-grid>
+      </div>
 </div>

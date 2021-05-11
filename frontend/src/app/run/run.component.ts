@@ -6,6 +6,8 @@ import { RunService } from '../services/run.service';
 import { RunEditComponent } from './run-edit/run-edit.component';
 import { ToastrService } from 'ngx-toastr';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
+import {ImagesCellComponent} from "../shared/components/grid/images-cell/images-cell.component";
+import {TextCellComponent} from "../shared/components/grid/text-cell/text-cell.component";
 
 @Component({
   selector: 'app-run',
@@ -18,15 +20,87 @@ export class RunComponent implements OnInit {
     private router: Router, private toastr: ToastrService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) {}
 
+  public rows: Array<any> = [];
   public columns = [
-  { title: 'Run #', name: 'run_no', size: '5%', minSize: '50'},
-  { title: 'Collection', name: 'name', size: '50', minSize: '50'},
-  { title: 'Collectionid', name: 'collection_id', size: '50', minSize: '50'},
-  { title: 'Sorter', name: 'sorterinfo.name', size: '5%', minSize: '50'},
-  { title: 'Status', name: 'status.name', size: '80', minSize: '80' },
-  { title: 'Updated', name: 'status.created', size: '50', minSize: '50', datatype: { type: 'datetime' } },
-  { title: 'Created', name: 'created', size: '50', minSize: '50', datatype: { type: 'date' } }
-]
+    {
+      headerName: 'Run #',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'run_no',
+      filter: 'agNumberColumnFilter',
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Collection',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'name',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Collectionid',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'collection_id',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Sorter',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'sorterinfo.name',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Status',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'status.name',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Updated',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'status.created',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    },
+    {
+      headerName: 'Created',
+      cellRendererFramework: TextCellComponent,
+      autoHeight: true,
+      sortable: true,
+      resizable: true,
+      field: 'created',
+      filter: true,
+      flex: 3,
+      minWidth: '80'
+    }
+  ];
+
 public data: any;
 
 @ViewChild('runEdit') runEdit: RunEditComponent;
@@ -40,6 +114,7 @@ bindData() {
       if (data) {
         if (data.body && data.body.code == 200) {
           this.data = data.body.result;
+          this.rows = this.data;
         }
         else if (data.body && data.body.code == 403) {
           this.router.navigateByUrl("/login");
@@ -57,11 +132,11 @@ editRun(id) {
   this.router.navigateByUrl("/addRun");
 }
 
-onEditClick(data) {
-  this.router.navigateByUrl("/rundetail/" + data.run_id).then((bool) => { }).catch()
+onEditClick(id) {
+  this.router.navigateByUrl('/rundetail/' + id).then((bool) => { }).catch()
 }
 
-onRowDeleteClick(model) {
+onRowDeleteClick(id) {
   let options = {
     title: 'Are you sure you want to delete this?',
     confirmLabel: 'Okay',
@@ -70,7 +145,7 @@ onRowDeleteClick(model) {
   this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
     if (res) {
       console.log('Okay');
-      this.runService.deleteRun(model.id).subscribe(
+      this.runService.deleteRun(id).subscribe(
         (data) => {
           if (data) {
             if (data.body && data.body.code == 200) {

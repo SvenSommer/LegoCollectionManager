@@ -1,0 +1,49 @@
+.ag-theme-alpine .ag-cell {
+  padding: 0 7px;
+}
+
+.ag-theme-alpine .ag-header-cell {
+  padding: 0 4px;
+}
+
+.ag-theme-material .ag-header {
+  border-bottom: solid 2px  rgba(0, 0, 0, 0.125);
+}
+.ag-header-cell-text {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #858796;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.ag-cell {
+  color: #858796;
+  font-size: 1rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.ag-theme-material .ag-center-cols-container .ag-row-hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
+
+.ag-theme-material .ag-center-cols-container .ag-row-hover .ag-cell {
+  color: #212529;
+}
+
+.ag-theme-material .ag-center-cols-container .ag-cell-focus {
+  border: none !important;
+}
+
+.ag-theme-material .ag-header-cell, .ag-theme-material .ag-cell {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.ag-header-cell-text {
+  white-space: break-spaces;
+  word-break: break-word;
+}
+
+.ag-header-cell-label {
+  height: auto;
+}

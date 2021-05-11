@@ -11,6 +11,10 @@ export class ImagesCellComponent implements ICellRendererAngularComp {
 
   agInit(params: any): void {
     this.params = params;
+    if (params.value instanceof Array) {
+    } else {
+      params.value = [params.value];
+    }
   }
 
   refresh(): boolean {

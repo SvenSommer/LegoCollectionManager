@@ -1,4 +1,4 @@
-<ng-container *ngFor="let image of params.data.images">
+<ng-container *ngFor="let image of params.value">
   <img class="img-thumbnail rounded float-left" [style.height.px]="80" *ngIf="image != null"
-       [src]="image.imageurl" />
+       [src]="image" />
 </ng-container>
