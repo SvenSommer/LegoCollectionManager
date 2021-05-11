@@ -178,11 +178,6 @@ export class LabelpartsComponent implements OnInit {
       case 'Delete':
         this.onDeleteIdentifiedPartClick(this.current_partid);
         break;
-      case '0':
-        this.onToogleAllDeleted(
-          this.identifiedpartsData[this.currentpart_of_run]
-        );
-        break;
 
       default:
         break;
