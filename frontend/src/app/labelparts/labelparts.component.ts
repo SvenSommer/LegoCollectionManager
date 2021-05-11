@@ -356,9 +356,9 @@ export class LabelpartsComponent implements OnInit {
   }
 
   clearPartInfo() {
-    this.selectedPart = null;
-    this.selectedColor = null;
-    this.selectedImagePath = null;
+    this.selectedPart = [];
+    this.selectedColor = [];
+    this.selectedImagePath = "";
   }
 
   clearColorSelection() {
