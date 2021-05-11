@@ -8,17 +8,20 @@ import { Router } from '@angular/router';
 })
 export class CardTableComponent implements OnInit {
   @Input() cardColumns: any;
-  @Input() cardData: any;
+  @Input() set cardData(data) {
+    this._cardData = data;
+    this.buildTableData(data);
+  }
   @Input() selectOptionList: any;
 
   @Output() onSelctionChange = new EventEmitter<any>();
 
+  public _cardData: any;
   purchaseInfo: any;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.buildTableData(this.cardData);
   }
 
   public onExternalClick(origin_url) {

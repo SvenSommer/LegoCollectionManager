@@ -553,7 +553,18 @@ export class OfferDetailComponent implements OnInit {
     this.isPopupOpen = false;
   }
 
+  disableDetections() {
+    if (this.selectedImage && this.selectedImage.detections) {
+      this.selectedImage.detections.forEach(
+        detection => {
+          detection.selected = false;
+        }
+      );
+    }
+  }
+
   public onImgClick(image, index: number) {
+    this.disableDetections();
     this.selectedImage = image;
     this.imgPopupURL = image.imageurl;
     this.imgPopupName = image.path;
@@ -601,45 +612,51 @@ export class OfferDetailComponent implements OnInit {
     img.src = this.imgPopupURL;
 
 
-    this.canvas.nativeElement.addEventListener('click', (e)  => {
-      let hasSelected = false;
-      const canvasPos = this.canvas.nativeElement.getBoundingClientRect();
-      if (i.detections) {
-        i.detections.forEach(
-          detection => {
-            const x = detection.box.left * this.canvas.nativeElement.width;
-            const y = detection.box.top * this.canvas.nativeElement.height;
-            const w = detection.box.width * this.canvas.nativeElement.width;
-            const h = detection.box.height * this.canvas.nativeElement.height;
+    this.canvas.nativeElement.removeEventListener('click',  this.onCanvasClick, false);
+    this.canvas.nativeElement.addEventListener('click', this.onCanvasClick, false);
+  }
 
-            if (x <= e.clientX - canvasPos.left &&
-              e.clientX - canvasPos.left <= x + w &&
-              y <= e.clientY - canvasPos.top &&
-              e.clientY - canvasPos.top <= y + h) {
-              if (!detection.selected && !hasSelected) {
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = '#28a745';
-                ctx.strokeRect(x, y, w, h);
-                detection.selected = true;
-                hasSelected = true;
-              } else {
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = 'grey';
-                ctx.strokeRect(x, y, w, h);
-                detection.selected = false;
-              }
+  onCanvasClick = (e) => {
+    let hasSelected = false;
+    const i = this.imageData.images.find(im => im.imageurl === this.imgPopupURL);
+    const ctx = this.canvas.nativeElement.getContext('2d');
+
+
+    if (i.detections) {
+      i.detections.forEach(
+        detection => {
+          const x = detection.box.left * this.canvas.nativeElement.width;
+          const y = detection.box.top * this.canvas.nativeElement.height;
+          const w = detection.box.width * this.canvas.nativeElement.width;
+          const h = detection.box.height * this.canvas.nativeElement.height;
+          const canvasPos = this.canvas.nativeElement.getBoundingClientRect();
+
+          if (x <= e.clientX - canvasPos.left &&
+            e.clientX - canvasPos.left <= x + w &&
+            y <= e.clientY - canvasPos.top &&
+            e.clientY - canvasPos.top <= y + h) {
+            if (!detection.selected && !hasSelected) {
+              ctx.lineWidth = 3;
+              ctx.strokeStyle = '#28a745';
+              ctx.strokeRect(x, y, w, h);
+              detection.selected = true;
+              hasSelected = true;
             } else {
               ctx.lineWidth = 3;
               ctx.strokeStyle = 'grey';
               ctx.strokeRect(x, y, w, h);
               detection.selected = false;
             }
+          } else {
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = 'grey';
+            ctx.strokeRect(x, y, w, h);
+            detection.selected = false;
           }
-        );
-      }
-    });
+        }
+      );
+    }
   }
-
 
   onSaveProperties(propertiesForm: NgForm) {
     this.properties.offer_id = this.offerid;
@@ -714,6 +731,8 @@ export class OfferDetailComponent implements OnInit {
   }
 
   onArrowClick(isLeft: boolean) {
+    this.disableDetections();
+
     const nextIndex = this.selectedImageIndex + (isLeft ?  -1 : 1);
     const images = this.imageData.images;
 

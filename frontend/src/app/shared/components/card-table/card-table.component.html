@@ -36,12 +36,12 @@
                       (click)="onExternalClick(cardInfo.target)">
                           {{cardInfo.value}}
                       </a> -->
-                      <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{cardData?.user_id}}">
+                      <a href="https://www.ebay-kleinanzeigen.de/s-bestandsliste.html?userId={{_cardData?.user_id}}">
                           {{cardInfo.value}}
                       </a>
                   </td>
                   <td *ngSwitchCase="'set_detail_link'">
-                      <a href="https://www.bricklink.com/v2/catalog/catalogitem.page?S={{cardData.no}}#T=S&O={%22ss%22:%22DE%22,%22cond%22:%22U%22,%22ii%22:0,%22is%22:0,%22iconly%22:0}" (click)="onExternalClick(cardInfo.target)">
+                      <a href="https://www.bricklink.com/v2/catalog/catalogitem.page?S={{_cardData.no}}#T=S&O={%22ss%22:%22DE%22,%22cond%22:%22U%22,%22ii%22:0,%22is%22:0,%22iconly%22:0}" (click)="onExternalClick(cardInfo.target)">
                           {{cardInfo.value}}
                       </a>
                   </td>
@@ -57,7 +57,7 @@
                   <td *ngSwitchCase="'select'">
                     <select ngModel name="usercategory_id" id="usercategory_id"
                         class="form-control input-group" #status="ngModel"
-                        [(ngModel)]="cardData.usercategory.id" #t
+                        [(ngModel)]="_cardData.usercategory.id" #t
                         (change)="onOptionChange(cardInfo?.dataType?.target, t.value)">
                         <option *ngFor="let category of selectOptionList" [value]="category.id">
                             {{ category.category }}
@@ -65,7 +65,7 @@
                     </select>
                   </td>
                   <td *ngSwitchCase="'price'">
-                    <span *ngIf="cardData?.offerinfo?.pricetype">{{cardData?.offerinfo?.pricetype}} <br></span>
+                    <span *ngIf="_cardData?.offerinfo?.pricetype">{{_cardData?.offerinfo?.pricetype}} <br></span>
                     <span [innerHtml]="cardInfo.value"></span> &#8364;
                   </td>
                   <td *ngSwitchCase="'price_per_kilo'">
@@ -76,16 +76,16 @@
                   </td>
                 </ng-container>
 
-                <ng-container *ngIf="cardInfo?.dataType?.type == 'sumAmount' && cardData?.expectedSets?.sumAmount > 0">
+                <ng-container *ngIf="cardInfo?.dataType?.type == 'sumAmount' && _cardData?.expectedSets?.sumAmount > 0">
                   <td>
                     {{cardInfo.name}}
                   </td>
                   <td>
-                      {{cardData.expectedSets.sumAmount}} <br>
-                      Min price {{cardData.expectedSets.sumMin_price}} € <br>
-                      Avg_price {{cardData.expectedSets.sumAvg_price}} € <br>
-                      Parts {{cardData.expectedSets.sumComplete_part_count}} <br>
-                      Minifigs {{cardData.expectedSets.sumComplete_minifigs_count}} <br>
+                      {{_cardData.expectedSets.sumAmount}} <br>
+                      Min price {{_cardData.expectedSets.sumMin_price}} € <br>
+                      Avg_price {{_cardData.expectedSets.sumAvg_price}} € <br>
+                      Parts {{_cardData.expectedSets.sumComplete_part_count}} <br>
+                      Minifigs {{_cardData.expectedSets.sumComplete_minifigs_count}} <br>
                   </td>
                 </ng-container>
               </tr>
