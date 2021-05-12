@@ -8,7 +8,7 @@ export default (req: Request, res: Response) => {
         var names = "'%" + searchwords.split( "," ).join( "%') AND NAME LIKE ('%" ) + "%'";
         var numbers = "'%" + searchwords.split( "," ).join( "%') OR NO LIKE ('%" ) + "%'";
         showAll = `SELECT * FROM LegoSorterDB.partdata_parts_perPartno
-        WHERE NAME LIKE (${names}) OR NO LIKE (${numbers})`
+        WHERE NAME LIKE (${names})`
     }
     connection.query(showAll, (err, result) => {
     if (err) {
