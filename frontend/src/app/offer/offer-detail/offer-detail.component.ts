@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild, HostListener} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
@@ -19,6 +19,12 @@ import { MessageTextModel } from 'src/app/models/messagetext-model';
   styleUrls: ['./offer-detail.component.css']
 })
 export class OfferDetailComponent implements OnInit {
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    this.HandleKeyInput(event.key);
+  }
+
+
 
   public imgPopupURL = '';
   public imgPopupName = '';
@@ -195,6 +201,31 @@ export class OfferDetailComponent implements OnInit {
     );
   }
 
+  HandleKeyInput(key: string) {
+    console.log(key);
+    switch (key) {
+      case 'ArrowRight':
+        if(this.isPopupOpen)
+          this.onArrowClick(false);
+        else
+          this.getOffer(true);
+        break;
+      case 'ArrowLeft':
+        if(this.isPopupOpen)
+          this.onArrowClick(true);
+        else
+          this.getOffer(false);
+        break;
+
+      case 'Delete':
+        this.onDeleteClick();
+        break;
+
+      default:
+        break;
+    }
+  }
+
   public onDeleteClick() {
     const options = {
       title: 'Are you sure you want to delete this?',
@@ -210,7 +241,7 @@ export class OfferDetailComponent implements OnInit {
               if (data.body && data.body.code == 200) {
                 // Message should be data.body.message
                 this.toastr.success('Record Deleted Successfully.');
-                this.router.navigateByUrl('/offer');
+                this.getOffer(true);
               }
               else if (data.body && data.body.code == 403) {
                 this.router.navigateByUrl('/login');
