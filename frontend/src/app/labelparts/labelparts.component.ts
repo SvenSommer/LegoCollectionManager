@@ -64,6 +64,9 @@ export class LabelpartsComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.runid = params['runid'];
+      if(params['partid']){
+        this.currentpart_of_run = params['partid'] - 1;
+      }
       if (this.runid > 0) {
         this.getAllScreenedpartsByRunid();
         this.getAllColordata();

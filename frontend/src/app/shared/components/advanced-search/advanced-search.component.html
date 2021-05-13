@@ -49,13 +49,13 @@
               </ng-container> -->
 
               <mat-tab-group animationDuration="0ms">
-                <mat-tab label="Words">
-                  <ng-container *ngFor="let data of activeButtonsWords">
+                <mat-tab label="Numbers">
+                  <ng-container *ngFor="let data of activeButtonsNumbers">
                     <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
                   </ng-container>
                 </mat-tab>
-                <mat-tab label="Numbers">
-                  <ng-container *ngFor="let data of activeButtonsNumbers">
+                <mat-tab label="Words">
+                  <ng-container *ngFor="let data of activeButtonsWords">
                     <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
                   </ng-container>
                 </mat-tab>

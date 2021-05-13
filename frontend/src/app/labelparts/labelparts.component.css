@@ -21,3 +21,12 @@
   margin-top: -2px;
   margin-right: 5px;
 }
+
+.no-image {
+  border-style: dotted;
+  height: 150px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

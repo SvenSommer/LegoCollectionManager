@@ -183,7 +183,6 @@ export class NgTableComponent implements OnInit, OnChanges {
   }
 
   public onRowClick($event, ev: any): void {
-    // console.log('$event:::::::::::::::::',$event.srcElement.nodeName.toLowerCase())
     if($event.srcElement.nodeName.toLowerCase() == 'td'){
       this.partdataService.rowData.emit(ev);
     }

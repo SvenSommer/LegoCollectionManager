@@ -54,23 +54,28 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div class="d-table">
-                              <img *ngIf="selectedImagePath" class="img-thumbnail rounded float-left m-r-10" [style.height.px]="150"
+                            <div class="d-flex">
+                              <div class="m-r-10">
+                                <img *ngIf="selectedImagePath" class="img-thumbnail rounded float-left" [style.height.px]="150" [style.width.px]="150"
                                   [src]="selectedImagePath" alt="Selected Part Image"
                                   />
 
-                              <div class="d-flex" *ngIf="selectedColor">
-                                <label class="font-weight-bold m-r-10">Color: </label>
-
-                                <div class="example-small-box mat-elevation-z4 color-pos" [title]="selectedColor?.color_name" [ngStyle]="{'background-color': '#' + selectedColor?.color_code}">
-                                </div>
-                                <i>{{selectedColor?.color_type}}</i>&nbsp;{{selectedColor?.color_name}} ({{selectedColor?.color_id}})
+                                  <div *ngIf="!selectedImagePath" class="no-image m-r-10"><i><b>No Image</b></i></div>
                               </div>
-                              <div *ngIf="selectedPart">
-                                <div class="d-flex"><label class="font-weight-bold m-r-10">Part </label> {{selectedPart?.partname}} ({{selectedPart?.partno}})</div>
+                              <div>
+                                <div class="d-flex" *ngIf="selectedColor">
+                                  <label class="font-weight-bold m-r-10">Color: </label>
+
+                                  <div class="example-small-box mat-elevation-z4 color-pos" [title]="selectedColor?.color_name" [ngStyle]="{'background-color': '#' + selectedColor?.color_code}">
+                                  </div>
+                                  <i>{{selectedColor?.color_type}}</i>&nbsp;{{selectedColor?.color_name}} <div *ngIf="selectedColor?.color_id">({{selectedColor?.color_id}})</div>
+                                </div>
+                                <div *ngIf="selectedPart">
+                                  <div class="d-flex"><label class="font-weight-bold m-r-10">Part: </label> <div>{{selectedPart?.partname}} <p style="display: contents;" *ngIf="selectedPart?.partno">&nbsp;({{selectedPart?.partno}})</p></div></div>
+                                </div>
                               </div>
                             </div>
-                            <button class="btn btn-sm btn-primary" *ngIf="selectedColor && selectedPart" (click)="onLabelPartClick()">{{labelbuttoncaption}}</button>
+                            <button class="btn btn-sm btn-primary m-t-10" *ngIf="selectedColor && selectedPart" (click)="onLabelPartClick()">{{labelbuttoncaption}}</button>
                         </div>
                     </div>
                 </div>
@@ -151,7 +156,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                  <app-advanced-search></app-advanced-search>
+                <app-advanced-search></app-advanced-search>
               </div>
           </div>
     </div>
