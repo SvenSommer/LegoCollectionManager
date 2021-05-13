@@ -69,12 +69,14 @@ export class LabelpartsComponent implements OnInit {
       this.runid = params['runid'];
       if(params['partid']){
         this.partIdIndex = params['partid'];
+       
       }
       if (this.runid > 0) {
         this.getAllScreenedpartsByRunid();
         this.getAllColordata();
       }
     });
+
     this.selectedPartCount = 300;
     this.disablePartCount = true;
 
@@ -376,6 +378,13 @@ export class LabelpartsComponent implements OnInit {
           color_type : currentpart.colorinfo.color_type,
           color_code : currentpart.colorinfo.color_code
         };
+      }else
+      {
+        this.selectedColor = {
+          color_id : 0,
+          color_name : "unknown",
+          color_code : 0
+        }
       }
       this.partColorFilter = currentpart.color_ids;
       this.filterColorsByPart = true;
@@ -567,8 +576,9 @@ export class LabelpartsComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.identifiedpartsData = data.body.result;
-            console.log("this.identifiedpartsData", this.identifiedpartsData)
             this.totalpartscount = this.identifiedpartsData.length;
+            //TODO: Only fire this on inital loading
+        //    this.currentpart_of_run = this.identifiedpartsData.findIndex(x => x.id == this.partIdIndex);  
             this.refreshCurrentPartid();
           } else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl('/login');
