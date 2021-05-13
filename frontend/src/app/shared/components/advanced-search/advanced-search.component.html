@@ -15,7 +15,6 @@
               <button class="btn btn-danger btn-sm mr-1" (click)="clearsearchterm()">clear</button>
           </div> -->
 
-
           <mat-form-field class="example-chip-list">
             <mat-label>Enter searchterm</mat-label>
             <mat-chip-list #chipList aria-label="Enter searchterm">
@@ -27,11 +26,24 @@
                 </mat-chip>
               </ng-container>
               <input placeholder="New part..."
+                      #partInput
                      [matChipInputFor]="chipList"
+                     [formControl]="termCtrl"
+                     [matAutocomplete]="auto"
                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                      [matChipInputAddOnBlur]="addOnBlur"
                      (matChipInputTokenEnd)="add($event)">
             </mat-chip-list>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+              <!-- <mat-option *ngFor="let fruit of filteredPartsArray | async" [value]="fruit.word">
+                {{fruit.word}}
+              </mat-option> -->
+              <mat-optgroup *ngFor="let group of filteredPartsArray | async" [label]="group.letter">
+                <mat-option *ngFor="let name of group.termsList"  [value]="name.word">
+                  {{ name.word }}
+                </mat-option>
+              </mat-optgroup>
+            </mat-autocomplete>
           </mat-form-field>
 
 

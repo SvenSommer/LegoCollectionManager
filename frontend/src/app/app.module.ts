@@ -8,7 +8,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { CollectionComponent } from './collection/collection.component';
 import { NgTableComponent } from './shared/components/table/ng-table.component';
 import { NgbModule, NgbPaginationModule, NgbPopoverModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgTableFilteringDirective } from './shared/components/table/ng-table-filtering.directive';
 import { NgTablePagingDirective } from './shared/components/table/ng-table-paging.directive';
 import { NgTableSortingDirective } from './shared/components/table/ng-table-sorting.directive';
@@ -80,6 +80,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { AdvancedSearchComponent } from './shared/components/advanced-search/advanced-search.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 
@@ -157,6 +158,7 @@ import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-det
     DragDropModule,
     MatExpansionModule,
     MatInputModule,
+    ReactiveFormsModule,
     MatTabsModule,
     MatSlideToggleModule,
     MatMenuModule,
@@ -164,6 +166,7 @@ import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-det
     MatIconModule,
     MatCheckboxModule,
     MatChipsModule,
+    MatAutocompleteModule,
     NgxChartsModule,
     AgGridModule.withComponents([
       ImagesCellComponent,

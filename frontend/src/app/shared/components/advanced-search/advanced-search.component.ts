@@ -1,11 +1,16 @@
+import { async } from '@angular/core/testing';
 import { PartnameFrequencyModel, PartnameFrequencyCachingModel } from './../../../models/partnamefrequency-model';
 import { PartdataService } from './../../../services/partdata.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {B, COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { FormControl } from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
+import { Observable } from 'rxjs/internal/Observable';
+import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 
 @Component({
@@ -24,6 +29,11 @@ export class AdvancedSearchComponent implements OnInit {
   public partNameFrequencyData : Array<PartnameFrequencyModel> = [];
 
   public selectedValue: any;
+  public combinedTerms: any;
+  termCtrl = new FormControl();
+
+  @ViewChild('partInput') partInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
   public partcolumns = [
     { title: 'Image', name: 'image_url', size: '5%', minSize: '65', datatype: { type: 'image' } },
@@ -40,6 +50,7 @@ export class AdvancedSearchComponent implements OnInit {
   addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   partsArray: any[] = [];
+  filteredPartsArray: Observable<any[]>;
 
 
   constructor(private partdataService: PartdataService,
@@ -78,6 +89,7 @@ export class AdvancedSearchComponent implements OnInit {
     if (input) {
       input.value = '';
     }
+    console.log('this.searchwords:::::::::::',this.searchwords)
     this.getPartdataAggegratedByPartnumber();
   }
 
@@ -153,6 +165,7 @@ export class AdvancedSearchComponent implements OnInit {
               let numbers = JSON.parse(buttons.activeButtonsNumbers)
               this.activeButtonsNumbers = numbers;
               this.activeButtonsWords = words;
+              this.filterLabelTerms();
             }  else
             {
               this.calculateActiveButtons();
@@ -172,6 +185,48 @@ export class AdvancedSearchComponent implements OnInit {
   exists(arr, search) {
     return arr.some(row => row.includes(search));
   }
+
+  filterLabelTerms(){
+    this.combinedTerms = [
+      {
+        letter : 'Numbers',
+        termsList: []
+      },
+      {
+        letter : 'Words',
+        termsList: []
+      }
+    ];
+
+    this.combinedTerms[0].termsList = this.activeButtonsNumbers;
+    this.combinedTerms[1].termsList = this.activeButtonsWords;
+
+    this.filteredPartsArray = this.termCtrl.valueChanges.pipe(
+      startWith(''),
+      map((fruit: any | null) => fruit ? this._filterGroup(fruit) : this.combinedTerms.slice()));
+  }
+  
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.partsArray.push(event.option.viewValue);
+    this.partInput.nativeElement.value = '';
+    this.termCtrl.setValue(null);
+  }
+
+  private _filterGroup(value: string) {
+    if (value) {
+      return this.combinedTerms
+        .map(group => ({letter: group.letter, termsList: this._filter(group.termsList, value)}))
+        .filter(group => group.termsList.length > 0);
+    }
+
+    return this.combinedTerms;
+  }
+
+  private _filter(opt: any, value: string) {
+    const filterValue = value.toLowerCase();
+  
+    return opt.filter(item => item.word.toLowerCase().indexOf(filterValue) === 0);
+  };
 
   getPartdataAggegratedByPartnumber() {
     this.partdataService.getPartdataAggegratedByPartnumber(this.searchwords.join(",")).subscribe(
