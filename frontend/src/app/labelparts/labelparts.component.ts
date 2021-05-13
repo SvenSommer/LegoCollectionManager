@@ -61,6 +61,7 @@ export class LabelpartsComponent implements OnInit {
 
   public runid = 0;
   public currentpart_of_run = 0;
+  public totalpartscount = 0;
   public current_partid = 1;
   ngOnInit(): void {
     
@@ -131,6 +132,7 @@ export class LabelpartsComponent implements OnInit {
   public colorsListCopy = [];
 
   onNextPartClick() {
+    if(this.currentpart_of_run+1 < this.totalpartscount)
     this.currentpart_of_run++;
     this.refreshCurrentPartid();
   }
@@ -198,10 +200,12 @@ export class LabelpartsComponent implements OnInit {
   }
 
   styleImage(partimage): Object {
-    if (partimage.deleted != null) {
+    if (partimage && partimage.deleted != null) {
       return {
         opacity: '0.4',
         'background-color': '#ad0303',
+        'border': `2px solid red`,
+        'border-radius': '2px',
         filter: 'alpha(opacity=40)',
       };
     }
@@ -563,7 +567,8 @@ export class LabelpartsComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.identifiedpartsData = data.body.result;
-            this.currentpart_of_run = this.identifiedpartsData.findIndex(x => x.id == this.partIdIndex);
+            console.log("this.identifiedpartsData", this.identifiedpartsData)
+            this.totalpartscount = this.identifiedpartsData.length;
             this.refreshCurrentPartid();
           } else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl('/login');

@@ -18,16 +18,16 @@
                     <div class="card-body">
                         <div class="row" *ngIf="identifiedpartsData && identifiedpartsData.length > 0">
                             <ng-container *ngFor='let index of [1,2,3,4,5,6,7,9,10]'>
-                                <img class="img-thumbnail rounded float-left" [style.height.px]="50"
-                                [src]="identifiedpartsData[currentpart_of_run+index].partimages[0].path"
-                                [ngStyle]="styleImage(identifiedpartsData[currentpart_of_run+index].partimages[0].path)"
+                                <img *ngIf="currentpart_of_run+index < totalpartscount" class="img-thumbnail rounded float-left" [style.height.px]="50"
+                                [src]="identifiedpartsData[currentpart_of_run+index]?.partimages[0]?.path"
+                                [ngStyle]="styleImage(identifiedpartsData[currentpart_of_run+index]?.partimages[0]?.path)"
 
                                 />
                             </ng-container>
                         </div>
                         <hr>
                         <div class="row" *ngIf="identifiedpartsData && identifiedpartsData.length > 0">
-                            <ng-container *ngFor="let partimage of identifiedpartsData[currentpart_of_run].partimages">
+                            <ng-container *ngFor="let partimage of identifiedpartsData[currentpart_of_run]?.partimages">
                                 <div class="img-thumbnail rounded float-left">
                                   <img class="float-left" [style.height.px]="150" [src]="partimage.path" (click)="onToggleDeleted(partimage)" [ngStyle]="styleImage(partimage)"/>
                                   <img *ngIf="partimage.partno" class="float-left" [style.height.px]="150" [src]="calculatePartImagePath(partimage.partno, partimage.colorid)" (click)="onPredictionClicked(partimage)" [ngStyle]="styleImagePrediction(partimage)"/>
@@ -45,6 +45,7 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h6 class="text-primary font-weight-bold m-0">Label</h6>
                             <div>
+                                {{currentpart_of_run+1}} / {{totalpartscount}}
                               <button  *ngIf="currentpart_of_run!=0" class="btn btzn-link btn-sm no-border" aria-expanded="false"  type="button" (click)="onPrevoiusPartClick()">
                                 <i class="fas fa-arrow-left text-gray-400"></i>
                               </button>
