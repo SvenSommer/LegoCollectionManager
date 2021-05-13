@@ -222,7 +222,7 @@ export class RunDetailComponent implements OnInit {
 
   onEditIdentifiedpartClick(data) {
     // this.identifiedpartEdit.open(data);
-    const labelPath = '/labelparts'
+    const labelPath = '/labelparts';
     this.router.navigateByUrl(`${labelPath}/${data.run_id}/${data.id}`).then((bool) => { }).catch()
   }
 

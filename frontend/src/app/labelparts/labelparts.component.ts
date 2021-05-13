@@ -40,6 +40,7 @@ export class LabelpartsComponent implements OnInit {
   selectedPart: any;
 
   public identifiedpartsData: any;
+  public partIdIndex: any;
   public defaultPartsCount = 300;
   public partCountsRange = [100,300,500,1000,2000];
   public filterColorsByPart = false
@@ -62,10 +63,11 @@ export class LabelpartsComponent implements OnInit {
   public currentpart_of_run = 0;
   public current_partid = 1;
   ngOnInit(): void {
+    
     this.activatedRoute.params.subscribe((params) => {
       this.runid = params['runid'];
       if(params['partid']){
-        this.currentpart_of_run = params['partid'] - 1;
+        this.partIdIndex = params['partid'];
       }
       if (this.runid > 0) {
         this.getAllScreenedpartsByRunid();
@@ -341,12 +343,14 @@ export class LabelpartsComponent implements OnInit {
       this.selectedPart = {
         partno : currentpart.partno
       };
-      this.selectedColor = {
-        color_id : currentpart.colorinfo.color_id,
-        color_name : currentpart.colorinfo.colorname,
-        color_type : currentpart.colorinfo.color_type,
-        color_code : currentpart.colorinfo.color_code
-      };
+      if((currentpart && currentpart.colorinfo)){
+        this.selectedColor = {
+          color_id : currentpart.colorinfo.color_id,
+          color_name : currentpart.colorinfo.colorname,
+          color_type : currentpart.colorinfo.color_type,
+          color_code : currentpart.colorinfo.color_code
+        };
+      }
       this.partColorFilter = currentpart.color_ids;
       this.filterColorsByPart = true;
       this.filterColors();
@@ -537,6 +541,7 @@ export class LabelpartsComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.identifiedpartsData = data.body.result;
+            this.currentpart_of_run = this.identifiedpartsData.findIndex(x => x.id == this.partIdIndex);
             this.refreshCurrentPartid();
           } else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl('/login');
