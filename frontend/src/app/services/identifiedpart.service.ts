@@ -44,6 +44,13 @@ export class IdentifiedpartService {
         })
         return this.http.put<IdentifiedPartDBModel>(`${environment.baseUrl}identifiedparts/` + model.id, model, { withCredentials: true, headers: headers, observe: 'response' });
     }
+
+    deleteLabelInformation(id): Observable<any> {
+        let headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+        })
+        return this.http.delete<any>(`${environment.baseUrl}identifiedparts/` + id + `/unlabel`, { withCredentials: true, headers: headers, observe: 'response' });
+    }
   
     deleteIdentifiedpart(id): Observable<any> {
         let headers = new HttpHeaders({

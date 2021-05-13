@@ -8,6 +8,7 @@ import UpdateIdentifiedPartById from '../controllers/identifiedparts/update';
 import GetSingleIdentifiedPartById from '../controllers/identifiedparts/single';
 import DeleteSingleIdentifiedPartById from '../controllers/identifiedparts/delete';
 import MarkAsDeletedIdentifiedPartById from '../controllers/identifiedparts/markasdeleted';
+import UnlabelPartById from '../controllers/identifiedparts/unlabel';
 import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
 import UserAuthMiddleware from '../controllers/middleware/UserAuth.middleware';
 import {Router} from "express";
@@ -31,4 +32,5 @@ route.put(`/:id`, AdminAuthMiddleware, UpdateIdentifiedPartById);
 //Mark IdentifiedPart as deleted
 route.patch(`/:id`, AdminAuthMiddleware, MarkAsDeletedIdentifiedPartById);
 route.delete(`/:id`, AdminAuthMiddleware, MarkAsDeletedIdentifiedPartById);
+route.delete(`/:id/unlabel`, AdminAuthMiddleware, UnlabelPartById);
 export default route;

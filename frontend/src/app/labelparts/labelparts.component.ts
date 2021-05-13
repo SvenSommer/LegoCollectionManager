@@ -335,6 +335,28 @@ export class LabelpartsComponent implements OnInit {
 
   }
 
+  onDeleteLabelInformationClick(id) {
+    let options = {
+      title: 'Are you sure you want to delete labeled information?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel',
+    };
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+        this.identifiedpartsService
+          .deleteLabelInformation(id)
+          .subscribe(
+            (data) => {
+              this.refreshImages(data);
+            },
+            (error: HttpErrorResponse) => {
+              console.log(error.name + ' ' + error.message);
+            }
+          );
+        }
+    });
+  }
+
   setLabeledPartInfo(){
     let currentpart = this.identifiedpartsData[
       this.currentpart_of_run
