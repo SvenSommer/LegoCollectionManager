@@ -5,16 +5,6 @@
   </div>
   <div class="card-body">
       <div class="row">
-          <!-- <input type="text"  [(ngModel)]="newsearchword"
-          name="searchterm" class="form-group form-control"
-          id="searchterm" placeholder="Enter searchterm" (keyup.enter)="onSearchtermEnter()">
-          <div *ngIf="searchwords[0] != 'none'">
-              <ng-container  *ngFor="let word of searchwords">
-                  <label class="mr-1">{{word}}</label>
-              </ng-container>
-              <button class="btn btn-danger btn-sm mr-1" (click)="clearsearchterm()">clear</button>
-          </div> -->
-
           <mat-form-field class="example-chip-list">
             <mat-label>Enter searchterm</mat-label>
             <mat-chip-list #chipList aria-label="Enter searchterm">
@@ -35,9 +25,6 @@
                      (matChipInputTokenEnd)="add($event)">
             </mat-chip-list>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-              <!-- <mat-option *ngFor="let fruit of filteredPartsArray | async" [value]="fruit.word">
-                {{fruit.word}}
-              </mat-option> -->
               <mat-optgroup *ngFor="let group of filteredPartsArray | async" [label]="group.letter">
                 <mat-option *ngFor="let name of group.termsList"  [value]="name.word">
                   {{ name.word }}

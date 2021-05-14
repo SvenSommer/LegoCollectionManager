@@ -308,7 +308,7 @@ export class AdvancedSearchComponent implements OnInit {
       { "search": " on ", "replace": " ", "undo": false },
       { "search": "Minifigure", "replace": "", "undo": false },
       { "search": "-", "replace": " ", "undo": false },
-      { "search": " x", "replace": "_x", "undo": true },
+      { "search": " x ", "replace": "_x_", "undo": true },
       { "search": " Side", "replace": "_Side", "undo": true },
       { "search": " Hole", "replace": "_Hole", "undo": true },
       { "search": "(", "replace": " ", "undo": false },
@@ -320,7 +320,7 @@ export class AdvancedSearchComponent implements OnInit {
       { "search": "'", "replace": " ", "undo": false },
     ];
     let numberofnamesToWork = 100000;
-    let numberofSuggestions = 30;
+    let numberofSuggestions = 1000;
     let namecounter = 1;
     //  console.log("Calculating words of "+    this.partdataAggregated.length  + " part names. Limit " + numberofnamesToWork );
     this.partdataAggregated.forEach(part => {
@@ -334,7 +334,7 @@ export class AdvancedSearchComponent implements OnInit {
       const splitpartname = partname.split(/[\s,]+/);
       let wordposition = 1;
 
-      splitpartname.forEach((word, index) => {
+      splitpartname.forEach((word) => {
 
         if (!this.isEmpty(word) && !this.isSetnumber(word)) {
 
@@ -364,7 +364,7 @@ export class AdvancedSearchComponent implements OnInit {
     });
     // console.log( this.partNameFrequencyData)
     let partNameFrequencyDataWords = this.partNameFrequencyData.sort(this.sortByCount).slice(0, numberofSuggestions);
-    let partNameFrequencyNumbers = this.partNameFrequencyData.sort(this.sortByCount).slice(0, 40);
+    let partNameFrequencyNumbers = this.partNameFrequencyData.sort(this.sortByCount).slice(0, numberofSuggestions);
     this.activeButtonsWords = [];
     this.activeButtonsNumbers = [];
     partNameFrequencyDataWords.forEach(element => {
