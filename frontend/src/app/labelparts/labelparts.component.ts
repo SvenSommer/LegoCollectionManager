@@ -31,6 +31,10 @@ export class LabelpartsComponent implements OnInit {
   selectedMinYear: any;
   selectedMaxYear: any;
 
+  prevPartCount: any;
+  prevMinYear: any;
+  prevMaxYear: any;
+
   yearFromList: any;
   yearToList: any;
 
@@ -470,6 +474,13 @@ export class LabelpartsComponent implements OnInit {
           });
         }
       }
+      else if(!this.selectedMinYear && !this.selectedMaxYear && this.selectedPartCount) {
+        xcopy.forEach((element,i) => {
+          if(this.filterColorsByPart)
+            element.props = element.props.filter(f => (this.partColorFilter.includes(f.color_id)));
+          this.colorsList[i].props = this.sortBy(element.props, this.selectedPartCount);
+        });
+      }
     }
 
 
@@ -488,15 +499,27 @@ export class LabelpartsComponent implements OnInit {
 
   changeSelection(){
     if(!this.disablePartCount){
+      this.prevPartCount = this.selectedPartCount;
       this.selectedPartCount = '';
-      // this.defaultPartsCount = 0;
     }
-    else if(!this.disableMinYear){
-      // this.selectedMinYear = '';
+    else {
+      this.selectedPartCount = this.prevPartCount;
     }
-    else if(!this.disableMaxYear){
-      // this.selectedMaxYear = '';
+    if(!this.disableMinYear){
+      this.prevMinYear = this.selectedMinYear;
+      this.selectedMinYear = '';
     }
+    else{
+      this.selectedMinYear = this.prevMinYear;
+    }
+    if(!this.disableMaxYear){
+      this.prevMaxYear = this.selectedMaxYear;
+      this.selectedMaxYear = '';
+    }
+    else{
+      this.selectedMaxYear = this.prevMaxYear;
+    }
+
 
     if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
       this.defaultPartsCount = 0;

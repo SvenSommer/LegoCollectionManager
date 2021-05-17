@@ -30,6 +30,7 @@ export class AdvancedSearchComponent implements OnInit {
 
   public selectedValue: any;
   public combinedTerms: any;
+  private searchVal: any;
   termCtrl = new FormControl();
 
   @ViewChild('partInput') partInput: ElementRef<HTMLInputElement>;
@@ -64,6 +65,7 @@ export class AdvancedSearchComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const input = event.input;
     let value = event.value;
+    this.searchVal = input.value;
     let typedText;
     this.removeFromSearchwords("none");
 
@@ -85,12 +87,15 @@ export class AdvancedSearchComponent implements OnInit {
     this.partsArray.forEach(ele => {
       this.searchwords.push(ele);
     });
-    // Reset the input value
+    //Reset the input value
     if (input) {
       input.value = '';
     }
-    console.log('this.searchwords:::::::::::',this.searchwords)
     this.getPartdataAggegratedByPartnumber();
+  }
+
+  selectOption(){
+    this.partsArray.splice(this.partsArray.indexOf(this.searchVal), 1);
   }
 
   remove(fruit): void {
