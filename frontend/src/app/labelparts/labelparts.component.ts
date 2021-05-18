@@ -524,7 +524,50 @@ export class LabelpartsComponent implements OnInit {
     if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
       this.defaultPartsCount = 0;
     }
-    // this.filterByPartCount();
+    this.selectDateRange();
+  }
+
+  changePartSelection(){
+    if(!this.disablePartCount){
+      this.prevPartCount = this.selectedPartCount;
+      this.selectedPartCount = '';
+      this.defaultPartsCount = 0;
+    }
+    else {
+      this.selectedPartCount = this.prevPartCount;
+      this.defaultPartsCount = this.prevPartCount;
+    }
+    if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
+      this.defaultPartsCount = 0;
+    }
+    this.selectDateRange();
+  }
+
+  changeMinYearSelection(){
+    if(!this.disableMinYear){
+      this.prevMinYear = this.selectedMinYear;
+      this.selectedMinYear = '';
+    }
+    else{
+      this.selectedMinYear = this.prevMinYear;
+    }
+    if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
+      this.defaultPartsCount = 0;
+    }
+    this.selectDateRange();
+  }
+
+  changeMaxYearSelection(){
+    if(!this.disableMaxYear){
+      this.prevMaxYear = this.selectedMaxYear;
+      this.selectedMaxYear = '';
+    }
+    else{
+      this.selectedMaxYear = this.prevMaxYear;
+    }
+    if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
+      this.defaultPartsCount = 0;
+    }
     this.selectDateRange();
   }
 
