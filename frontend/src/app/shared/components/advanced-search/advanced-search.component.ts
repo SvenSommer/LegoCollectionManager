@@ -95,7 +95,10 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   selectOption(){
-    this.partsArray.splice(this.partsArray.indexOf(this.searchVal), 1);
+    const index = this.partsArray.indexOf(this.searchVal);
+    if (index > -1) {
+      this.partsArray.splice(index, 1);
+    }
   }
 
   remove(fruit): void {

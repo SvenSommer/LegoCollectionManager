@@ -130,7 +130,7 @@
                                 </div>
 
                                 <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="m-t-10">
-                                  <mat-checkbox [(ngModel)]="selectedColorByPart" (change)="changeFilterColorsByPart()" class="example-margin">Show Partcolors</mat-checkbox>
+                                  <mat-checkbox [(ngModel)]="filterColorsByPart" (change)="changeFilterColorsByPart()" class="example-margin">Show Partcolors</mat-checkbox>
                                 </div>
 
                                 <div *ngIf="errorMsg">
