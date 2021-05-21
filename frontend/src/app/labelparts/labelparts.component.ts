@@ -497,37 +497,9 @@ export class LabelpartsComponent implements OnInit {
   }
 
   changeFilterColorsByPart(){
-    this.filterColorsByPart = this.selectedColorByPart;
-  }
-
-  changeSelection(){
-    if(!this.disablePartCount){
-      this.prevPartCount = this.selectedPartCount;
-      this.selectedPartCount = '';
+    if(!this.filterColorsByPart){
+      this.selectDateRange();
     }
-    else {
-      this.selectedPartCount = this.prevPartCount;
-    }
-    if(!this.disableMinYear){
-      this.prevMinYear = this.selectedMinYear;
-      this.selectedMinYear = '';
-    }
-    else{
-      this.selectedMinYear = this.prevMinYear;
-    }
-    if(!this.disableMaxYear){
-      this.prevMaxYear = this.selectedMaxYear;
-      this.selectedMaxYear = '';
-    }
-    else{
-      this.selectedMaxYear = this.prevMaxYear;
-    }
-
-
-    if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
-      this.defaultPartsCount = 0;
-    }
-    this.selectDateRange();
   }
 
   changePartSelection(){
@@ -595,6 +567,12 @@ export class LabelpartsComponent implements OnInit {
 
     this.yearFromList =  this.yearFromList.filter((v,i) => this.yearFromList.findIndex(item => item.year_from == v.year_from) === i);
     this.yearToList =  this.yearToList.filter((v,i) => this.yearToList.findIndex(item => item.year_to == v.year_to) === i);
+
+    this.prevMinYear = this.yearFromList[0].year_from;
+    this.prevMaxYear = this.yearToList[0].year_to;
+
+    this.selectedMinYear = this.prevMinYear;
+    this.selectedMaxYear = this.prevMaxYear;
   }
 
   onToogleAllDeleted(part) {

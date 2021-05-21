@@ -70,7 +70,7 @@
                                 <div class="d-flex" *ngIf="selectedColor">
                                   <label class="font-weight-bold m-r-10">Color: </label>
 
-                                  <div *ngIf="selectedColor?.color_code != 0" class="example-small-box mat-elevation-z4 color-pos" [title]="selectedColor?.color_name" [ngStyle]="{'background-color': '#' + selectedColor?.color_code}">
+                                  <div *ngIf="selectedColor && selectedColor?.color_code != 0" class="mat-elevation-z4 color-pos" [class.example-small-box] = "selectedColor && selectedColor?.color_code" [title]="selectedColor?.color_name" [ngStyle]="{'background-color': '#' + selectedColor?.color_code}">
                                   </div>
                                   <i>{{selectedColor?.color_type}}</i>&nbsp;{{selectedColor?.color_name}} <div *ngIf="selectedColor?.color_id">({{selectedColor?.color_id}})</div>
                                 </div>
