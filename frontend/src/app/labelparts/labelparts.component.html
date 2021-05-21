@@ -101,7 +101,7 @@
                                     <mat-checkbox (change)="changePartSelection()" [(ngModel)]="disablePartCount" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedPartCount"
                                     (change)='onChangePartCount($event.target.value)' [disabled]="!disablePartCount" class="full-width border">
-                                      <!-- <option value=""></option> -->
+                                      <option value="" disabled="true" [selected]="!disablePartCount">{{prevPartCount}}</option>
                                       <option *ngFor="let partcount of partCountsRange" [value]="partcount">{{partcount}}</option>
                                     </select>
                                   </div>
@@ -112,7 +112,7 @@
                                   <div class="d-flex">
                                     <mat-checkbox (change)="changeMinYearSelection()" [(ngModel)]="disableMinYear" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedMinYear" (change)="selectDateRange()" [disabled]="!disableMinYear" class="full-width border">
-                                      <!-- <option value=""></option> -->
+                                      <option value="" disabled="true" [selected]="!disableMinYear">{{prevMinYear}}</option>
                                       <option *ngFor="let dt of yearFromList" [value]="dt.year_from">{{dt.year_from}}</option>
                                     </select>
                                   </div>
@@ -123,7 +123,7 @@
                                   <div class="d-flex">
                                     <mat-checkbox (change)="changeMaxYearSelection()" [(ngModel)]="disableMaxYear" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedMaxYear" (change)="selectDateRange()" [disabled]="!disableMaxYear" class="full-width border">
-                                      <!-- <option value=""></option> -->
+                                      <option value="" disabled="true" [selected]="!disableMaxYear">{{prevMaxYear}}</option>
                                       <option *ngFor="let dt of yearToList" [value]="dt.year_to">{{dt.year_to}}</option>
                                     </select>
                                   </div>
