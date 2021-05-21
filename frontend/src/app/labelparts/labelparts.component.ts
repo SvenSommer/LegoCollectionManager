@@ -27,6 +27,8 @@ export class LabelpartsComponent implements OnInit {
   disableMinYear = false;
   disableMaxYear = false;
 
+  clearFilters: boolean;
+
   selectedPartCount: any;
   selectedMinYear: any;
   selectedMaxYear: any;
@@ -141,6 +143,7 @@ export class LabelpartsComponent implements OnInit {
     if(this.currentpart_of_run+1 < this.totalpartscount)
     this.currentpart_of_run++;
     this.refreshCurrentPartid();
+    this.clearFilters = true;
   }
 
   onPrevoiusPartClick() {
