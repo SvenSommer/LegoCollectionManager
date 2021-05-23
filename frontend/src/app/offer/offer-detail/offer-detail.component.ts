@@ -93,6 +93,7 @@ export class OfferDetailComponent implements OnInit {
     rowData: [
       { key: 'userinfo.user_id', name: 'External User Id', dataType: {type: 'external_link', target: 'offerinfo.url'}},
       { key: 'userinfo.name', name: 'Seller', title: 'See details', dataType: {type: 'no_link', target: 'userinfo.id'}},
+      { key: 'userinfo.phone', name: 'Phone'},
       { key: 'userinfo.type', name: 'Type'},
       { key: 'usercategory.id', name: 'Category',  dataType: {type: 'select', target: 'SELLER_INFO'}},
       { key: 'userinfo.offerscount', name: 'Available Offers'},
