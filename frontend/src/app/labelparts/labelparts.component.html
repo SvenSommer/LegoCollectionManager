@@ -70,7 +70,7 @@
                                 <div class="d-flex" *ngIf="selectedColor">
                                   <label class="font-weight-bold m-r-10">Color: </label>
 
-                                  <div *ngIf="selectedColor?.color_code != 0" class="example-small-box mat-elevation-z4 color-pos" [title]="selectedColor?.color_name" [ngStyle]="{'background-color': '#' + selectedColor?.color_code}">
+                                  <div *ngIf="selectedColor && selectedColor?.color_code != 0" class="mat-elevation-z4 color-pos" [class.example-small-box] = "selectedColor && selectedColor?.color_code" [title]="selectedColor?.color_name" [ngStyle]="{'background-color': '#' + selectedColor?.color_code}">
                                   </div>
                                   <i>{{selectedColor?.color_type}}</i>&nbsp;{{selectedColor?.color_name}} <div *ngIf="selectedColor?.color_id">({{selectedColor?.color_id}})</div>
                                 </div>
@@ -98,10 +98,10 @@
                                 <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" >
                                   <label class="select-label">Min Partcount:</label>
                                   <div class="d-flex">
-                                    <mat-checkbox (change)="changeSelection()" [(ngModel)]="disablePartCount" class="example-margin"></mat-checkbox>
+                                    <mat-checkbox (change)="changePartSelection()" [(ngModel)]="disablePartCount" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedPartCount"
                                     (change)='onChangePartCount($event.target.value)' [disabled]="!disablePartCount" class="full-width border">
-                                      <!-- <option value=""></option> -->
+                                      <option value="" disabled="true" [selected]="!disablePartCount">{{prevPartCount}}</option>
                                       <option *ngFor="let partcount of partCountsRange" [value]="partcount">{{partcount}}</option>
                                     </select>
                                   </div>
@@ -110,9 +110,9 @@
                                 <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="m-t-10">
                                   <label class="select-label">Min Year:</label>
                                   <div class="d-flex">
-                                    <mat-checkbox (change)="changeSelection()" [(ngModel)]="disableMinYear" class="example-margin"></mat-checkbox>
+                                    <mat-checkbox (change)="changeMinYearSelection()" [(ngModel)]="disableMinYear" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedMinYear" (change)="selectDateRange()" [disabled]="!disableMinYear" class="full-width border">
-                                      <!-- <option value=""></option> -->
+                                      <option value="" disabled="true" [selected]="!disableMinYear">{{prevMinYear}}</option>
                                       <option *ngFor="let dt of yearFromList" [value]="dt.year_from">{{dt.year_from}}</option>
                                     </select>
                                   </div>
@@ -121,16 +121,16 @@
                                 <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="m-t-10">
                                   <label class="select-label">Max Year:</label>
                                   <div class="d-flex">
-                                    <mat-checkbox (change)="changeSelection()" [(ngModel)]="disableMaxYear" class="example-margin"></mat-checkbox>
+                                    <mat-checkbox (change)="changeMaxYearSelection()" [(ngModel)]="disableMaxYear" class="example-margin"></mat-checkbox>
                                     <select mat-menu-item [(ngModel)]="selectedMaxYear" (change)="selectDateRange()" [disabled]="!disableMaxYear" class="full-width border">
-                                      <!-- <option value=""></option> -->
+                                      <option value="" disabled="true" [selected]="!disableMaxYear">{{prevMaxYear}}</option>
                                       <option *ngFor="let dt of yearToList" [value]="dt.year_to">{{dt.year_to}}</option>
                                     </select>
                                   </div>
                                 </div>
 
                                 <div (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()" class="m-t-10">
-                                  <mat-checkbox [(ngModel)]="selectedColorByPart" (change)="changeFilterColorsByPart()" class="example-margin">Show Partcolors</mat-checkbox>
+                                  <mat-checkbox [(ngModel)]="filterColorsByPart" (change)="changeFilterColorsByPart()" class="example-margin">Show Partcolors</mat-checkbox>
                                 </div>
 
                                 <div *ngIf="errorMsg">
@@ -160,7 +160,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                <app-advanced-search></app-advanced-search>
+                <app-advanced-search [clearFilter]="clearFilters"></app-advanced-search>
               </div>
           </div>
     </div>

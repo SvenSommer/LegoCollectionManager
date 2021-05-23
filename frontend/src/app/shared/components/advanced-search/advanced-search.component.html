@@ -26,8 +26,8 @@
             </mat-chip-list>
             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
               <mat-optgroup *ngFor="let group of filteredPartsArray | async" [label]="group.letter">
-                <mat-option *ngFor="let name of group.termsList"  [value]="name.word">
-                  {{ name.word }}
+                <mat-option *ngFor="let term of group.termsList" (click)="selectOption()"  [value]="term.word">
+                  {{ term.word }}
                 </mat-option>
               </mat-optgroup>
             </mat-autocomplete>

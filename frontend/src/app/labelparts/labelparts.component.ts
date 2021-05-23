@@ -27,9 +27,15 @@ export class LabelpartsComponent implements OnInit {
   disableMinYear = false;
   disableMaxYear = false;
 
+  clearFilters: boolean;
+
   selectedPartCount: any;
   selectedMinYear: any;
   selectedMaxYear: any;
+
+  prevPartCount: any;
+  prevMinYear: any;
+  prevMaxYear: any;
 
   yearFromList: any;
   yearToList: any;
@@ -137,6 +143,7 @@ export class LabelpartsComponent implements OnInit {
     if(this.currentpart_of_run+1 < this.totalpartscount)
     this.currentpart_of_run++;
     this.refreshCurrentPartid();
+    this.clearFilters = true;
   }
 
   onPrevoiusPartClick() {
@@ -470,6 +477,13 @@ export class LabelpartsComponent implements OnInit {
           });
         }
       }
+      else if(!this.selectedMinYear && !this.selectedMaxYear && this.selectedPartCount) {
+        xcopy.forEach((element,i) => {
+          if(this.filterColorsByPart)
+            element.props = element.props.filter(f => (this.partColorFilter.includes(f.color_id)));
+          this.colorsList[i].props = this.sortBy(element.props, this.selectedPartCount);
+        });
+      }
     }
 
 
@@ -483,25 +497,52 @@ export class LabelpartsComponent implements OnInit {
   }
 
   changeFilterColorsByPart(){
-    this.filterColorsByPart = this.selectedColorByPart;
+    if(!this.filterColorsByPart){
+      this.selectDateRange();
+    }
   }
 
-  changeSelection(){
+  changePartSelection(){
     if(!this.disablePartCount){
+      this.prevPartCount = this.selectedPartCount;
       this.selectedPartCount = '';
-      // this.defaultPartsCount = 0;
+      this.defaultPartsCount = 0;
     }
-    else if(!this.disableMinYear){
-      // this.selectedMinYear = '';
+    else {
+      this.selectedPartCount = this.prevPartCount;
+      this.defaultPartsCount = this.prevPartCount;
     }
-    else if(!this.disableMaxYear){
-      // this.selectedMaxYear = '';
-    }
-
     if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
       this.defaultPartsCount = 0;
     }
-    // this.filterByPartCount();
+    this.selectDateRange();
+  }
+
+  changeMinYearSelection(){
+    if(!this.disableMinYear){
+      this.prevMinYear = this.selectedMinYear;
+      this.selectedMinYear = '';
+    }
+    else{
+      this.selectedMinYear = this.prevMinYear;
+    }
+    if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
+      this.defaultPartsCount = 0;
+    }
+    this.selectDateRange();
+  }
+
+  changeMaxYearSelection(){
+    if(!this.disableMaxYear){
+      this.prevMaxYear = this.selectedMaxYear;
+      this.selectedMaxYear = '';
+    }
+    else{
+      this.selectedMaxYear = this.prevMaxYear;
+    }
+    if(!this.disablePartCount && !this.disableMinYear && !this.disableMaxYear){
+      this.defaultPartsCount = 0;
+    }
     this.selectDateRange();
   }
 
@@ -526,6 +567,12 @@ export class LabelpartsComponent implements OnInit {
 
     this.yearFromList =  this.yearFromList.filter((v,i) => this.yearFromList.findIndex(item => item.year_from == v.year_from) === i);
     this.yearToList =  this.yearToList.filter((v,i) => this.yearToList.findIndex(item => item.year_to == v.year_to) === i);
+
+    this.prevMinYear = this.yearFromList[0].year_from;
+    this.prevMaxYear = this.yearToList[0].year_to;
+
+    this.selectedMinYear = this.prevMinYear;
+    this.selectedMaxYear = this.prevMaxYear;
   }
 
   onToogleAllDeleted(part) {

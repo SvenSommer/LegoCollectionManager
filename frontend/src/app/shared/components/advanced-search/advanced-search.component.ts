@@ -1,7 +1,7 @@
 import { async } from '@angular/core/testing';
 import { PartnameFrequencyModel, PartnameFrequencyCachingModel } from './../../../models/partnamefrequency-model';
 import { PartdataService } from './../../../services/partdata.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -18,8 +18,9 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material
   templateUrl: './advanced-search.component.html',
   styleUrls: ['./advanced-search.component.css']
 })
-export class AdvancedSearchComponent implements OnInit {
+export class AdvancedSearchComponent implements OnInit, OnChanges  {
 
+  @Input() clearFilter: boolean;
   public newsearchword: string;
   public partdataAggregated: any;
   public searchwords : Array<string> = ['none'];
@@ -30,6 +31,7 @@ export class AdvancedSearchComponent implements OnInit {
 
   public selectedValue: any;
   public combinedTerms: any;
+  private searchVal: any;
   termCtrl = new FormControl();
 
   @ViewChild('partInput') partInput: ElementRef<HTMLInputElement>;
@@ -58,12 +60,22 @@ export class AdvancedSearchComponent implements OnInit {
    private router: Router) { }
 
   ngOnInit(): void {
+    
     this.getPartdataAggegratedByPartnumber();
+  }
+
+  ngOnChanges() {
+    if(this.clearFilter){
+      this.partsArray = [];
+      this.searchwords = ['none'];
+      this.getPartdataAggegratedByPartnumber();
+    }
   }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
     let value = event.value;
+    this.searchVal = input.value;
     let typedText;
     this.removeFromSearchwords("none");
 
@@ -85,12 +97,18 @@ export class AdvancedSearchComponent implements OnInit {
     this.partsArray.forEach(ele => {
       this.searchwords.push(ele);
     });
-    // Reset the input value
+    //Reset the input value
     if (input) {
       input.value = '';
     }
-    console.log('this.searchwords:::::::::::',this.searchwords)
     this.getPartdataAggegratedByPartnumber();
+  }
+
+  selectOption(){
+    const index = this.partsArray.indexOf(this.searchVal);
+    if (index > -1) {
+      this.partsArray.splice(index, 1);
+    }
   }
 
   remove(fruit): void {
