@@ -497,9 +497,7 @@ export class LabelpartsComponent implements OnInit {
   }
 
   changeFilterColorsByPart(){
-    if(!this.filterColorsByPart){
-      this.selectDateRange();
-    }
+    this.filterColors();
   }
 
   changePartSelection(){
