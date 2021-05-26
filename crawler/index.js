@@ -249,8 +249,8 @@ const main = async () => {
 			}, [emailSelector, passwordSelector])
 
 			console.log("* Fullfilling the credentials");
-			await page.type(emailSelector, taskinfo.account.email, { delay: 150 })
-			await page.type(passwordSelector, taskinfo.account.password, { delay: 150 })
+			await page.type(emailSelector, email, { delay: 150 })
+			await page.type(passwordSelector, password, { delay: 150 })
 			console.log("* Sending creds");
 			await page.$eval(submitLoginSelector, el => el.click())
 		}
