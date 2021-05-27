@@ -221,8 +221,8 @@ export class OfferComponent implements OnInit {
     );
   }
 
-  onRowClick(id: number) {
-    this.router.navigateByUrl('/offerdetail/' + id);
+  onRowClick(data) {
+    this.router.navigateByUrl('/offerdetail/' + data.data.id);
   }
 
   private formatDate(date: string): string {

@@ -172,6 +172,11 @@ addNewRun(newData: RunModel) {
   this.bindData();
 }
 
+onRowClick(data) {
+  console.log("data",data)
+  this.router.navigateByUrl('/rundetail/' + data.data.run_id);
+}
+
 onRowEditClick(data) {
   this.runEdit.open();
 }
