@@ -207,7 +207,8 @@ export class SetdataComponent implements OnInit {
     );
   }
 
-  onRowClick(id) {
-    this.router.navigateByUrl('/setdetail/' + id).then((bool) => { }).catch();
+  onRowClick(data) {
+    console.log("data",data)
+    this.router.navigateByUrl('/setdetail/' + data.data.id).then((bool) => { }).catch();
   }
 }

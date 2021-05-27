@@ -153,8 +153,8 @@ export class SorterComponent implements OnInit {
       this.sorterEdit.open();
     }
 
-    onEditClick(id) {
-      this.router.navigateByUrl("/sortersdetail/" + id).then((bool) => { }).catch()
+    onEditClick(data) {
+      this.router.navigateByUrl("/sortersdetail/" + data.data.id).then((bool) => { }).catch()
     }
 
     onRowDeleteClick(id) {

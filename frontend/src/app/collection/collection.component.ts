@@ -172,8 +172,9 @@ export class CollectionComponent implements OnInit {
     this.router.navigateByUrl("/rundetail/" + data.id).then((bool) => { }).catch()
   }
 
-  onRowClick(id) {
-    this.router.navigateByUrl('/collectiondetail/' + id);
+  onRowClick(data) {
+    console.log("data.collectioninfo",data.data.collectioninfo)
+    this.router.navigateByUrl('/collectiondetail/' + data.data.collectioninfo.id);
   }
 
   onRowDeleteClick(id) {

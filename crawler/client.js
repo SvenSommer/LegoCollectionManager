@@ -128,7 +128,7 @@ const main = async () => {
 	for (const task of tasks.data.result) {
 
 		const task_id = task.id;
-		const taskinfo = JSON.parse(task.information)
+		consttaskinfo = JSON.parse(task.information)
 		// const {url, account, messagetext} = taskinfo;
 		// const {email, password, userName, userPhone} = account;
 		//* Starting the process
