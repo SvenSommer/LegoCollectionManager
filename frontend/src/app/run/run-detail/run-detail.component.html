@@ -41,56 +41,6 @@
                 </div>
             </div>
             <app-card-table *ngIf="runDetails" [cardColumns]="overviewInfo" [cardData]="runDetails"></app-card-table>
-            <!-- <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Overview</h4>
-                        <table *ngIf="runDetails" class="div2 table table-hover table-sm datatable" role="grid">
-                            <tr>
-                                <td>
-                                    Collection
-                                </td>
-                                <td>
-                                        {{runDetails.name}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Sorter
-                                </td>
-                                <td>
-                                        {{runDetails.sorterinfo.name}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Status
-                                </td>
-                                <td>
-                                        {{runDetails.status.name}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Parts identified By Cnn
-                                </td>
-                                <td>
-                                        {{runDetails.parts_identified_by_cnn}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Parts identified By Human
-                                </td>
-                                <td>
-                                        {{runDetails.parts_identified_by_human}}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-
-            </div> -->
         </div>
     </div>
     <div class="col-lg-8">
@@ -108,7 +58,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12" *ngIf="sortedsetsData && sortedsetsColumns">
-                                <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="sortedsetsColumns" [data]="sortedsetsData" (rowEditClick)="onEditSortedsetClick($event)">
+                                <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="sortedsetsColumns" [data]="sortedsetsData" (rowEditClick)="onEditSortedsetClick($event)" (rowCellClick)="onSortedSetClick($event)">
                                 </ng-table>
                             </div>
                     </div>

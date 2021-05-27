@@ -39,7 +39,7 @@ export default (req: Request, res: Response) => {
                     else {
                         const {id: userid} = result[0];
                         const Valves = `INSERT INTO Valves(
-                            sorterid,
+                            sorter_id,
                             number,
                             name,
                             ip,

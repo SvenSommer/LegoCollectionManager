@@ -173,7 +173,6 @@ export class CollectionComponent implements OnInit {
   }
 
   onRowClick(data) {
-    console.log("data.collectioninfo",data.data.collectioninfo)
     this.router.navigateByUrl('/collectiondetail/' + data.data.collectioninfo.id);
   }
 

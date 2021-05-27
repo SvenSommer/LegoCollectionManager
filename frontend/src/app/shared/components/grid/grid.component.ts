@@ -24,7 +24,7 @@ export class GridComponent implements OnInit, AfterViewInit {
   @Output() deleteClick = new EventEmitter<number>();
 
   ngOnInit(): void {
-    console.log('init');
+    //console.log('init');
   }
 
   ngAfterViewInit(): void {

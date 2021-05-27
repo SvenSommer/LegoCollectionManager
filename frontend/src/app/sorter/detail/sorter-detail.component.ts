@@ -33,11 +33,11 @@ export class SorterDetailComponent implements OnInit {
   public scaleDetails;
 
   public pushersColumns = [
-    { title: '#', name: 'number', size: '30', minSize: '30' },
-    { title: 'Valve', name: 'valve_name', size: '60', minSize: '60' },
-    { title: 'Scale', name: 'scale_name', size: '60', minSize: '60' },
-    { title: 'Distance From Origin (mm)', name: 'distanceFromOrigin_mm', size: '25', minSize: '25', datatype:{ type: 'number' } },
-    { title: 'Status', name: 'status', size: '60', minSize: '120' },
+    { title: '#', name: 'pusherinfo.number', size: '30', minSize: '30' },
+    { title: 'Valve', name: 'pusherinfo.Valve', size: '60', minSize: '60' },
+    { title: 'Scale', name: 'pusherinfo.Scale', size: '60', minSize: '60' },
+    { title: 'Distance From Origin (mm)', name: 'pusherinfo.Distace', size: '25', minSize: '25', datatype:{ type: 'number' } },
+    { title: 'Status', name: 'status.code', size: '60', minSize: '120' },
     { title: 'Created', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } },
   ];
 
@@ -59,7 +59,7 @@ export class SorterDetailComponent implements OnInit {
   ];
 
   public litferInfo = {
-    title: 'Litfer',
+    title: 'Lifter',
     rowData: [
       { key: 'sorterinfo.lifter_status_url', name: 'Status',dataType:{type:'status_link', target: 'sorterinfo.lifter_status_url'}},
       { key: 'sorterinfo.lifter_update_url', name: 'Update',dataType:{type:'status_link'}},

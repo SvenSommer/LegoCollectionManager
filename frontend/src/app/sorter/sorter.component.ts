@@ -37,7 +37,7 @@ export class SorterComponent implements OnInit {
       autoHeight: true,
       sortable: true,
       resizable: true,
-      field: 'name',
+      field: 'sorterinfo.name',
       filter: true,
       flex: 3,
       minWidth: '80'
@@ -47,57 +47,18 @@ export class SorterComponent implements OnInit {
       autoHeight: true,
       sortable: true,
       resizable: true,
-      field: 'current_run_name',
+      field: 'current_run_id',
       filter: true,
       flex: 3,
       minWidth: '80'
-    }, {
-      headerName: 'Pusher Total Count',
+    },
+    {
+      headerName: 'Current Collection',
       cellRendererFramework: TextCellComponent,
       autoHeight: true,
       sortable: true,
       resizable: true,
-      field: 'pusher_total',
-      filter: true,
-      flex: 3,
-      minWidth: '80'
-    }, {
-      headerName: 'Pusher Planned',
-      cellRendererFramework: TextCellComponent,
-      autoHeight: true,
-      sortable: true,
-      resizable: true,
-      field: 'pusher_planned',
-      filter: true,
-      flex: 3,
-      minWidth: '80'
-    }, {
-      headerName: 'Pusher Ready',
-      cellRendererFramework: TextCellComponent,
-      autoHeight: true,
-      sortable: true,
-      resizable: true,
-      field: 'pusher_ready',
-      filter: true,
-      flex: 3,
-      minWidth: '80'
-    }, {
-      headerName: 'Pusher damaged',
-      cellRendererFramework: TextCellComponent,
-      autoHeight: true,
-      sortable: true,
-      resizable: true,
-      field: 'pusher_damaged',
-      filter: true,
-      flex: 3,
-      minWidth: '80'
-    }, {
-      headerName: 'Pusher removed',
-      cellRendererFramework: TextCellComponent,
-      autoHeight: true,
-      sortable: true,
-      resizable: true,
-      field: 'pusher_removed',
+      field: 'sorterinfo.current_collection_id',
       filter: true,
       flex: 3,
       minWidth: '80'

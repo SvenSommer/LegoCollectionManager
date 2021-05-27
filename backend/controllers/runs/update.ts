@@ -35,7 +35,8 @@ export default (req: Request, res: Response) => {
                     else {
                         res.json({
                             code: 200,
-                            message: 'Run updated!'
+                            message: 'Run updated!',
+                            run_id: id
                         });
                     }
                 })

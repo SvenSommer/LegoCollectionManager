@@ -29,7 +29,7 @@ export default (req: Request, res: Response) => {
             status) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const updatePusher = `UPDATE Valves SET sorterid = ${sorterid},
+                const updatePusher = `UPDATE Valves SET sorter_id = ${sorterid},
                                         number = ${number},
                                         name = '${name}',
                                         ip = '${ip}',

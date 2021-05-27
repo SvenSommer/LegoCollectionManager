@@ -42,12 +42,15 @@ export default (req: Request, res: Response) => {
                                                           ${pusher_id},
                                                           ${userid})`;
                         connection.query(createSortedSet, (err) => {
-                            if (err) res.json({
+                            if (err) {
+                                console.log("createSortedSet",createSortedSet)
+                                console.log(err)
+                                res.json({
                                 code: 500,
                                 message: 'Couldn\'t create the SortedSets',
                                 errorMessage: process.env.DEBUG && err
                             });
-                            else {
+                        } else {
                                 res.json({
                                     code: 201,
                                     message: 'new SortedSet created!'

@@ -185,6 +185,11 @@ export class RunDetailComponent implements OnInit {
     this.sortedsetEdit.open(data);
   }
 
+  onSortedSetClick(data) {
+    console.log("data",data)
+    this.router.navigateByUrl('/sortedsetdetail/' + data.id).then((bool) => { }).catch();
+  }
+
   getAllIdentifiedparts() {
 
     this.identifiedpartsService.getIdentifiedpartByRunid(this.id).subscribe(
