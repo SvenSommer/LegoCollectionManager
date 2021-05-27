@@ -134,6 +134,14 @@ label {
   padding-right: 18px;
 }
 
+.p-l-0 {
+  padding-left: 0 !important;
+}
+
+.p-r-0 {
+  padding-right: 0 !important;
+}
+
 //::::::::::::: Margins ::::::::::::::::::::::
 .ml-18 {
   margin-left: 18px;
@@ -147,6 +155,10 @@ label {
 }
 .m-t-20 {
   margin-top: 20px;
+}
+
+.m-b-0 {
+  margin-bottom: 0;
 }
 
 .m-r-10 {
@@ -238,4 +250,21 @@ label {
 
 .d-table {
   display: table;
+}
+
+#labels_page {
+  .align_label_center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .align_label_right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .align_arrows {
+    text-align: center;
+    margin-top: -24px;
+  }
 }

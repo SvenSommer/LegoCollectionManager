@@ -81,6 +81,7 @@ import { AdvancedSearchComponent } from './shared/components/advanced-search/adv
 import {MatChipsModule} from '@angular/material/chips';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { LabelsComponent } from './labels/labels/labels.component';
 
 
 
@@ -141,7 +142,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     ImagesCellComponent,
     TextCellComponent,
     DescriptionCellComponent,
-    DeleteCellComponent
+    DeleteCellComponent,
+    LabelsComponent
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,7 @@ import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
+import { LabelsComponent } from './labels/labels/labels.component';
 
 const routes: Routes = [
 
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path:'offer',component:OfferComponent,canActivate:[AuthenticationGuard]},
   {path:'offerdetail/:id',component:OfferDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'offeruser/:id',component:UserDetailComponent,canActivate:[AuthenticationGuard]},
+  {path:'labels',component:LabelsComponent,canActivate:[AuthenticationGuard]},
 ];
 
 @NgModule({
