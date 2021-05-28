@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TaskModel } from 'src/app/models/task-model';
 import { IdentifiedpartService } from 'src/app/services/identifiedpart.service';
 import { PartdataService } from 'src/app/services/partdata.service';
+import { PartimageService } from 'src/app/services/partimage.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class LabelsComponent implements OnInit {
   public selectedImagePath : string;
   public filterColorsByPart = false
   public disablePartCount = false;
+  public imagePath: string;
 
   public identifiedpartsData: any;
   public selectedPart: any;
@@ -59,6 +61,7 @@ export class LabelsComponent implements OnInit {
     private router: Router, 
     private activatedRoute: ActivatedRoute,
     private taskService: TaskService,
+    private partimageService: PartimageService,
     private toastr: ToastrService,
     private partdataService: PartdataService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
@@ -98,8 +101,6 @@ export class LabelsComponent implements OnInit {
       }
     });
   }
-
- 
 
   onNextPartClick() {
     if(this.currentpart_of_run+1 < this.totalpartscount)
@@ -150,6 +151,87 @@ export class LabelsComponent implements OnInit {
       };
     }
     return {};
+  }
+
+  onToogleAllDeleted(part) {
+    part.partimages.forEach((image) => {
+      this.onToggleDeleted(image);
+    });
+  }
+
+  onToggleDeleted(partimage) {
+    this.imagePath = partimage.path;
+    if (partimage.deleted == null) {
+      this.partimageService.markPartimageAsDeletedById(partimage.id).subscribe(
+        (data) => {
+          this.refreshImages(data);
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + ' ' + error.message);
+        }
+      );
+    } else {
+      this.partimageService
+        .markPartimageAsNotDeletedById(partimage.id)
+        .subscribe(
+          (data) => {
+            this.refreshImages(data);
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + ' ' + error.message);
+          }
+        );
+    }
+  }
+
+  calculatePartImagePath(partno, colorid){
+    if(colorid != 0)
+      return `//img.bricklink.com/P/${colorid}/${partno}.jpg`;
+      else
+      return `//img.bricklink.com/PL/${partno}.jpg`
+  }
+
+  onPredictionClicked(partimage){
+    this.selectedPart = {
+      partno : partimage.partno,
+      partname : partimage.partname
+    };
+    this.selectedColor = {
+      color_id : partimage.colorid,
+      color_name : partimage.colorname,
+      color_type : partimage.colortype,
+      color_code : partimage.colorcode
+    };
+    this.updateSelectedImage();
+  }
+
+  styleImagePrediction(partimage): Object {
+    if (partimage.deleted != null) {
+      return {
+        opacity: '0.4',
+        'background-color': '#ad0303',
+        filter: 'alpha(opacity=40)',
+      };
+    }
+    let borderpixel = Math.floor((partimage.score/25))
+    if ( borderpixel < 1) borderpixel = 1;
+    if (partimage.score < 50){
+      return {
+        'border': `${borderpixel}px solid blue`,
+        'border-radius': '3px'
+      }
+    }
+    else if (partimage.score > 90){
+      return {
+        'border': `${borderpixel}px solid green`,
+        'border-radius': '3px'
+      }
+    }
+    else
+      return {
+        'border': `${borderpixel}px solid yellow`,
+        'border-radius': '3px'
+      }
   }
 
   private handleKeyInput(key) {
@@ -391,12 +473,7 @@ export class LabelsComponent implements OnInit {
     })
   }
 
-  private calculatePartImagePath(partno, colorid){
-    if(colorid != 0)
-      return `//img.bricklink.com/P/${colorid}/${partno}.jpg`;
-      else
-      return `//img.bricklink.com/PL/${partno}.jpg`
-  }
+  
 
   private getColorsByPartCount(colorList, limit) {
     return colorList.filter((item) => item.parts_count >= limit);

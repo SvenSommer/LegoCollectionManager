@@ -2,11 +2,30 @@
   width: 10px;
   height: 8px !important;
   position: relative;
-  top: 37px;
-  left: -23px;
+  top: 38px;
+  left: -12px;
 }
 
 img:active,
 img:focus {
   border: 2px solid #3d8bfd;
+}
+
+.part_bg {
+  width: 60px;
+  height: 90px;
+  transform: rotate(-90deg);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 0px;
+}
+
+.part_no_bg {
+  width: 60px;
+  height: 60px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 0px;
 }

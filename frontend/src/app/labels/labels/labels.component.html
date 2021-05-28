@@ -23,7 +23,7 @@
             <div class="col-lg-8">
                 <div *ngIf="identifiedpartsData && identifiedpartsData.length > 0" class="d-flex parts_border">
                     <ng-container *ngFor='let index of [1,2,3,4,5,6,7,9,10]'>
-                        <img *ngIf="currentpart_of_run+index < totalpartscount" class="float-left m-r-20 sm_part m-l-10" [style.width.px]="44" [style.height.px]="66"
+                        <img *ngIf="currentpart_of_run+index < totalpartscount" class="float-left m-r-10 sm_part m-l-10" [style.width.px]="44" [style.height.px]="66"
                         [src]="identifiedpartsData[currentpart_of_run+index]?.partimages[0]?.path"
                         [ngStyle]="styleImage(identifiedpartsData[currentpart_of_run+index]?.partimages[0]?.path)"
 
@@ -63,9 +63,20 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                        </div>
+                    <div><small><b>High confidence</b></small></div>
+                    <hr/>
+                    <div class="row m-t-10" *ngIf="identifiedpartsData && identifiedpartsData.length > 0">
+                        
+                        <ng-container *ngFor="let partimage of identifiedpartsData[currentpart_of_run]?.partimages">
+                            <div class="img_part col-4 d-table">
+                                <div class="full-width d-t-cell">
+                                    <img class="part_bg" [src]="partimage.path" (click)="onToggleDeleted(partimage)" [ngStyle]="styleImage(partimage)"/>
+                                </div>
+                                <div class="full-width m-l-20">
+                                    <img *ngIf="partimage.partno" class="part_no_bg" [src]="calculatePartImagePath(partimage.partno, partimage.colorid)" (click)="onPredictionClicked(partimage)" [ngStyle]="styleImagePrediction(partimage)"/>
+                                </div>
+                            </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>
