@@ -150,6 +150,10 @@ label {
   margin-right: 18px;
 }
 
+.m-l-10{
+  margin-left: 10px;
+}
+
 .m-t-10 {
   margin-top: 10px;
 }
@@ -161,11 +165,17 @@ label {
   margin-bottom: 0;
 }
 
+.m-r-5 {
+  margin-right: 5px;
+}
 .m-r-10 {
   margin-right: 10px;
 }
 .m-r-20 {
   margin-right: 20px;
+}
+.m-r-30 {
+  margin-right: 30px;
 }
 
 #color_codes{
@@ -267,4 +277,23 @@ label {
     text-align: center;
     margin-top: -24px;
   }
+  .sm_part{
+    opacity: 0.5;
+    border-radius: 3px;
+    transform: rotate(-90deg);
+    position: relative;
+    top: -5px;
+  }
+  .parts_border {
+    border: 1px solid #DEE2E6;
+    height: 58px;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
 }

@@ -1,0 +1,12 @@
+.vector_icon {
+  width: 10px;
+  height: 8px !important;
+  position: relative;
+  top: 37px;
+  left: -23px;
+}
+
+img:active,
+img:focus {
+  border: 2px solid #3d8bfd;
+}
