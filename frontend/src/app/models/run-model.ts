@@ -4,6 +4,7 @@ export class RunModel {
     public collection_id: number;
     public sorter_id: number;
     public imagefolder: string;
+    public sortedsets: any;
 
     constructor(data = null) {
         if (data) {
@@ -12,6 +13,7 @@ export class RunModel {
             this.collection_id = data.collection_id;
             this.sorter_id = data.sorter_id;
             this.imagefolder = data.imagefolder;
+            this.sortedsets = data.sortedsets;
         }
     }
 }

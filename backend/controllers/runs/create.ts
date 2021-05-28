@@ -52,7 +52,8 @@ export default (req: Request, res: Response) => {
                             else {
                                 res.json({
                                     code: 201,
-                                    message: 'new Run created'
+                                    message: 'new Run created',
+                                    run_id: result.insertId
                                 });
                             }
                         })

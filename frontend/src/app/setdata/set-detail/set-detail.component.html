@@ -15,69 +15,6 @@
                 <h6 class="text-primary font-weight-bold m-0">Properties</h6>
             </div>
             <app-card-table [cardColumns]="purchaseInfo" [cardData]="setdataDetails"></app-card-table>
-            <!-- <div class="card-body">
-                <div class="card">
-                    <div class="card-body">
-                        <h4>Purchase Information</h4>
-                        <table *ngIf="setdataDetails" class="div2 table table-hover table-sm datatable" role="grid">
-                            <tr>
-                                <td>
-                                    Setno
-                                </td>
-                                <td>
-                                    <a href="https://www.bricklink.com/v2/catalog/catalogitem.page?S={{setdataDetails.no}}#T=S&O={%22ss%22:%22DE%22,%22cond%22:%22U%22,%22ii%22:0,%22is%22:0,%22iconly%22:0}" (click)="onExternalClick(setdataDetails)">
-                                        {{setdataDetails.setinfo.no}}
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Year
-                                </td>
-                                <td>
-                                    {{setdataDetails.setinfo.year}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Weight
-                                </td>
-                                <td>
-                                        {{setdataDetails.setinfo.weight_g}} g
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Size
-                                </td>
-                                <td>
-                                        {{setdataDetails.setinfo.size}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Min / Max Price<br>
-                                    (avg Price)
-                                </td>
-                                <td>
-                                    {{setdataDetails.setinfo.min_price}}&#8364; {{setdataDetails.setinfo.max_price}}&#8364; <br>
-                                    {{setdataDetails.setinfo.avg_price}}         &#8364;
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Created
-                                </td>
-                                <td>
-                                    {{setdataDetails.created | date:'dd.MM.yyyy' }}
-                                </td>
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
-            </div> -->
          </div>
          <div class="row" *ngIf="minifigData">
             <div class="col-lg-12">

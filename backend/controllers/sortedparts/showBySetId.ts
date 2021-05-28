@@ -3,8 +3,8 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {setid: setid} = req.params;
-    const showsortedsetByCollectionid = `SELECT * FROM sortedparts_overview
-                                            WHERE id =  ${setid} `
+    const showsortedsetByCollectionid = `SELECT * FROM LegoSorterDB.sorted_parts_basis
+                                            WHERE sortedset_id =  ${setid} `
     connection.query(showsortedsetByCollectionid, (err, result) => {
         if (err) res.json({
             code: 500,

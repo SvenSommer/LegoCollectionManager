@@ -23,6 +23,8 @@ import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
 import { LabelsComponent } from './labels/labels/labels.component';
+import { SortedsetDetailComponent } from './setdata/sortedset/sortedset-detail/sortedset-detail.component';
+import { SortedsetComponent } from './setdata/sortedset/sortedset.component';
 
 const routes: Routes = [
 
@@ -32,6 +34,8 @@ const routes: Routes = [
   {path:'collectiondetail/:id',component:CollectionDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'setdata',component:SetdataComponent,canActivate:[AuthenticationGuard]},
   {path:'setdetail/:id',component:SetDetailComponent,canActivate:[AuthenticationGuard]},
+  {path:'sortedsets',component:SortedsetComponent,canActivate:[AuthenticationGuard]},
+  {path:'sortedsetdetail/:id',component:SortedsetDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'partdata',component:PartdataComponent,canActivate:[AuthenticationGuard]},
   {path:'partdetail/:partno',component:PartdataDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'run',component:RunComponent,canActivate:[AuthenticationGuard]},

@@ -1,13 +1,17 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { C } from '@angular/cdk/keycodes';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { runInThisContext } from 'node:vm';
 import { RunModel } from 'src/app/models/run-model';
+import { SortedSetModel } from 'src/app/models/sortedset-model';
 import { CollectionService } from 'src/app/services/collection.service';
 import { RunService } from 'src/app/services/run.service';
+import { SortedSetService } from 'src/app/services/sortedset.service';
 import { SorterService } from 'src/app/services/sorter.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 
@@ -28,8 +32,12 @@ export class RunAddEditComponent implements OnInit {
   public pusherSearch:string;
   public showDragDrop:boolean;
 
-  constructor(private runSer: RunService, private router: Router, private toastr: ToastrService, private collectionService: CollectionService,
-    private sorterService: SorterService) {}
+  constructor(private runSer: RunService, 
+    private router: Router, 
+    private toastr: ToastrService, 
+    private collectionService: CollectionService,
+    private sorterService: SorterService,
+    private sortedSetService : SortedSetService) {}
 
   @ViewChild('modalPopup') modal: ModalPopupComponent;
 
@@ -50,7 +58,13 @@ export class RunAddEditComponent implements OnInit {
     const runData = this.runSer.getData();
     if(runData){
       this.run = new RunModel(runData);
+      this.pageTitle = "Edit Run " + runData.runinfo.title; 
       this.run.imagefolder = runData.runinfo.imagefolder;
+      this.run.id = runData.run_id;
+      this.run.no = runData.run_no;
+      
+      this.isForEdit = true;
+
     }
   }, 1000);
   }
@@ -198,14 +212,14 @@ export class RunAddEditComponent implements OnInit {
   }
 
   onSubmit(runForm: NgForm) {
-    let obj = {
-      collection_id: null,
-      sorter_id: null,
-      sortedsets: []
-    };
-    obj.collection_id = this.run.collection_id;
-    obj.sorter_id = this.run.sorter_id;
-
+    // let obj = {
+    //   collection_id: null,
+    //   sorter_id: null,
+    //   sortedsets: []
+    // };
+    // obj.collection_id = this.run.collection_id;
+    // obj.sorter_id = this.run.sorter_id;
+    this.run.sortedsets = [];
     for (var i=0; i<this.pusherList.length; i++){
       let pushedSet = {
         expectedset_id: null,
@@ -214,10 +228,10 @@ export class RunAddEditComponent implements OnInit {
       if (this.pusherList[i] && this.pusherList[i].sets && this.pusherList[i].sets.length > 0) {
           pushedSet.expectedset_id = this.pusherList[i].sets[0].id;
           pushedSet.pusher_id = this.pusherList[i].id;
-          obj.sortedsets.push(pushedSet);
+          this.run.sortedsets.push(pushedSet);
       }
     }
-    console.log('obj:::::::::::',obj)
+    console.log('this.run:::::::::::',this.run)
     this.isFormSubmitted = true;
     if (!runForm.valid) {
       return;
@@ -226,13 +240,28 @@ export class RunAddEditComponent implements OnInit {
     if (this.isForEdit) {
       method = "updateRun";
     }
+    console.log("method",method)
     this.runSer[method](this.run).subscribe(
       (data) => {
+        console.log("data",data)
         if (data.body.code == 201 || data.body.code == 200) {
+          this.run.sortedsets.forEach(sset => {
+            sset["run_id"] = data.body.run_id
+            console.log("saving set to sort", sset)
+            this.sortedSetService.createSortedSet(sset).subscribe(
+              (dataset) => {
+                if (dataset.body.code == 201 || dataset.body.code == 200) {
+                  this.toastr.success(dataset.body.message);
+                }
+                else{
+                  this.toastr.error(dataset.body.message);
+                }
+              });
+          });
           this.toastr.success(data.body.message);
           this.runAdded.emit(this.run);
           // this.modal.close();
-          this.router.navigateByUrl("/run");
+          this.router.navigateByUrl("/rundetail/" + data.body.run_id);
         }
         else {
           this.toastr.error(data.body.message);

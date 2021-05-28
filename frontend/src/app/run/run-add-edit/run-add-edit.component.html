@@ -5,7 +5,7 @@
       <div
         class="card-header d-flex justify-content-between align-items-center"
       >
-        <h6 class="text-primary font-weight-bold m-0">General</h6>
+        <h6 class="text-primary font-weight-bold m-0">{{pageTitle}}</h6>
       </div>
       <div class="card-body" style="display: flex">
         <div class="col-md-3" *ngIf="isFromCollection == false">
@@ -24,20 +24,6 @@
               </option>
             </select>
           </div>
-          <!-- <div class="form-group col-md-4" [hidden]="true">
-              <label>No</label>
-              <div class="input-group">
-                <input
-                  type="number"
-                  required
-                  #name="ngModel"
-                  [(ngModel)]="run.no"
-                  class="form-control"
-                  id="No"
-                  name="No"
-                />
-              </div>
-            </div> -->
         </div>
         <div *ngIf="isFromCollection == true">
           <div class="form-group col-md-3">
@@ -56,28 +42,13 @@
               </option>
             </select>
           </div>
-          <!-- <div class="form-group col-md-4" [hidden]="true">
-              <label>No</label>
-              <div class="input-group">
-                <input
-                  disabled
-                  type="number"
-                  required
-                  #name="ngModel"
-                  [(ngModel)]="run.no"
-                  class="form-control"
-                  id="No"
-                  name="No"
-                />
-              </div>
-            </div> -->
         </div>
         <div class="form-group col-md-3">
           <label>Sorter id</label>
           <select
             ngModel
-            name="id"
-            id="id"
+            name="sorter_id"
+            id="sorter_id"
             class="form-control input-group"
             #status="ngModel"
             [(ngModel)]="run.sorter_id"
