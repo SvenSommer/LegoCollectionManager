@@ -53,7 +53,7 @@ const routes: Routes = [
   {path:'offer',component:OfferComponent,canActivate:[AuthenticationGuard]},
   {path:'offerdetail/:id',component:OfferDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'offeruser/:id',component:UserDetailComponent,canActivate:[AuthenticationGuard]},
-  {path:'labels',component:LabelsComponent,canActivate:[AuthenticationGuard]},
+  {path:'label/:runid',component:LabelsComponent,canActivate:[AuthenticationGuard]},
 ];
 
 @NgModule({

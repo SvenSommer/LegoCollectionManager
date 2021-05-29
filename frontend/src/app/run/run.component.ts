@@ -173,7 +173,8 @@ addNewRun(newData: RunModel) {
 }
 
 onRowClick(data) {
-  this.router.navigateByUrl('/rundetail/' + data.data.run_id);
+  // this.router.navigateByUrl('/rundetail/' + data.data.run_id);
+  this.router.navigateByUrl('/label/' + data.data.run_id);
 }
 
 onRowEditClick(data) {

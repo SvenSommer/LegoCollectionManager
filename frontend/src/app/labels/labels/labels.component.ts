@@ -69,8 +69,7 @@ export class LabelsComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe((params) => {
-      console.log('parmas::::::::::::::',params)
-      this.runid = 1; //params['runid'];
+      this.runid = params['runid'];
       if(params['partid']){
         this.partIdIndex = params['partid'];
        
@@ -232,6 +231,10 @@ export class LabelsComponent implements OnInit {
         'border': `${borderpixel}px solid yellow`,
         'border-radius': '3px'
       }
+  }
+  pickColor(col) {
+    this.selectedColor = col;
+    this.updateSelectedImage();
   }
 
   private handleKeyInput(key) {

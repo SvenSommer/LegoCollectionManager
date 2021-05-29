@@ -108,7 +108,29 @@
                 </div>
                 <div class="card-body colors-picker">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" *ngIf="colorData">
+                            <div class="row m-b-20">
+                                <div class="col p-r-0">
+                                    <small><b>Search</b></small><br>
+                                    <button class="btn btn-color-primary">By Part</button>
+                                    <button class="btn btn-color-primary">By Collection</button>
+                                </div>
+                                <div class="col p-r-0">
+                                    <small><b>Min Count</b></small><br>
+                                    <button class="btn btn-color-outline">300</button>
+                                    <button class="btn btn-color-outline">1000</button>
+                                    <button class="btn btn-color-outline">2000</button>
+                                    <button class="btn btn-color-outline">3000</button>
+                                </div>
+                            </div>
+                            <div *ngFor="let color of colorsList">
+                                <div><small><b>{{color.label}}</b></small></div> <hr/>
+                                <div class="row d-flex m-t-5" style="margin-left: -5px;">
+                                    <ng-container *ngFor="let col of color.props">
+                                        <div (click)="pickColor(col)" class="example-small-box mat-elevation-z4" [title]="col.color_name" [ngStyle]="{'background-color': '#' + col.color_code}"></div>
+                                    </ng-container>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
