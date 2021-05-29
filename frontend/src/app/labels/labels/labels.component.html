@@ -1,5 +1,5 @@
 <div id="labels_page" class="container-fluid m-t-20">
-    <div class="justify-content-between align-items-center mb-4 pt-2">
+    <div class="justify-content-between align-items-center mb-4">
         <div class="row">
             <div class="col-lg-4 d-flex">
                 <div class=" col-4 p-l-0">
@@ -38,11 +38,11 @@
     </div>
     <div class="row">
         <div class="col-lg-4">
-            <div class="card shadow mb-4">
+            <div class="card shadow m-b-21">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6 class="font-weight-bold m-0">Applied label for part 3</h6>
                 </div>
-                <div class="card-body">
+                <div class="card-body applied-label">
                     <div class="row">
                         <div class="col-sm-12">
                         </div>
@@ -62,7 +62,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body recorded-img">
                     <div><small><b>High confidence</b></small></div>
                     <hr/>
                     <div class="row m-t-10" *ngIf="identifiedpartsData && identifiedpartsData.length > 0">
@@ -89,9 +89,10 @@
                         <a class="text-secondary" href=""><small>clear filters</small></a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body parts-picker">
                     <div class="row">
                         <div class="col-sm-12">
+                            <app-advanced-search [clearFilter]="clearFilters"></app-advanced-search>
                         </div>
                     </div>
                 </div>
@@ -105,7 +106,7 @@
                         <a class="text-secondary" href=""><small>reset to default</small></a>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body colors-picker">
                     <div class="row">
                         <div class="col-sm-12">
                         </div>

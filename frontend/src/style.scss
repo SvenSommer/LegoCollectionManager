@@ -149,6 +149,9 @@ label {
 .m5 {
   margin: 5px;
 }
+.m-b-21 {
+  margin-bottom: 21px;
+}
 .ml-18 {
   margin-left: 18px;
 }
@@ -282,6 +285,7 @@ label {
 .d-t-cell {
   display: table-cell;
 }
+#labels_page.container-fluid{ height: calc(100% - 80px) !important;}
 #labels_page {
   .align_label_center {
     display: flex;
@@ -317,12 +321,32 @@ label {
   .img_part {
     border: 1px solid #DEE2E6;
   }
-  // .col-4 {
-  //   max-width: 30% !important;
-  // }
+  .parts-picker, .colors-picker{
+    height: 670px;
+    overflow-y: auto;
+  }
+  .recorded-img{
+    height: 450px;
+    overflow-y: auto;
+  }
+  .applied-label{
+    height: 141px;
+    overflow-y: auto;
+  }
+  .card-header{
+    height: 55px;
+  }
+  .p-l-r-17 {
+    padding-left: 17px;
+    padding-right: 17px;
+  }
 }
 
 .nopadding {
   padding: 0 !important;
   margin: 0 !important;
+}
+
+.overflow-y-scroll{
+  overflow-y: auto;
 }

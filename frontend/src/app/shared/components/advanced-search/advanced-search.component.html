@@ -1,5 +1,60 @@
 
-<div class="card shadow mb-4">
+<div class="row p-l-r-17">
+  <mat-form-field class="example-chip-list">
+    <mat-label>Enter searchterm</mat-label>
+    <mat-chip-list #chipList aria-label="Enter searchterm">
+      <ng-container  *ngFor="let word of partsArray">
+        <mat-chip *ngIf="word != 'none'" [selectable]="selectable"
+                [removable]="removable" (removed)="remove(word)">
+          {{word}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+      </ng-container>
+      <input placeholder="New part..."
+              #partInput
+             [matChipInputFor]="chipList"
+             [formControl]="termCtrl"
+             [matAutocomplete]="auto"
+             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+             [matChipInputAddOnBlur]="addOnBlur"
+             (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-optgroup *ngFor="let group of filteredPartsArray | async" [label]="group.letter">
+        <mat-option *ngFor="let term of group.termsList" (click)="selectOption()"  [value]="term.word">
+          {{ term.word }}
+        </mat-option>
+      </mat-optgroup>
+    </mat-autocomplete>
+  </mat-form-field>
+</div>
+<div class="row p-l-r-17">
+  <div *ngIf="activeButtonsWords" id="color_codes">
+      <mat-tab-group animationDuration="0ms">
+        <mat-tab label="Numbers">
+          <ng-container *ngFor="let data of activeButtonsNumbers">
+            <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
+          </ng-container>
+        </mat-tab>
+        <mat-tab label="Words">
+          <ng-container *ngFor="let data of activeButtonsWords">
+            <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
+          </ng-container>
+        </mat-tab>
+      </mat-tab-group>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12" *ngIf="partdataAggregated && partcolumns">
+      <ng-table [allowSearch]="false" [isActionVisible]="true" [isEditVisible]="false" [isDownloadVisible]="true" [columns]="partcolumns" [data]="partdataAggregated">
+  </ng-table>
+  </div>
+</div>
+
+
+<!-------------- commented for new screen---------------- -->
+
+<!-- <div class="card shadow mb-4">
   <div class="card-header d-flex justify-content-between align-items-center">
       <h6 class="text-primary font-weight-bold m-0">Part Names</h6>
   </div>
@@ -32,21 +87,9 @@
               </mat-optgroup>
             </mat-autocomplete>
           </mat-form-field>
-
-
-
       </div>
       <div class="row">
           <div *ngIf="activeButtonsWords" id="color_codes">
-              <!-- Words
-              <ng-container *ngFor="let data of activeButtonsWords">
-                  <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
-              </ng-container>
-              Numbers
-              <ng-container *ngFor="let data of activeButtonsNumbers">
-                  <button class="badge badge-light badge-sm" (click)="showNextNames(data)">{{data.word}}</button>
-              </ng-container> -->
-
               <mat-tab-group animationDuration="0ms">
                 <mat-tab label="Numbers">
                   <ng-container *ngFor="let data of activeButtonsNumbers">
@@ -69,5 +112,5 @@
           </div>
       </div>
   </div>
-</div>
+</div> -->
 
