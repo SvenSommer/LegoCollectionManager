@@ -45,7 +45,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12" *ngIf="expectedPartData && expectedPartColumns">
-                                <ng-table [isActionVisible]="false" [columns]="expectedPartColumns" [data]="expectedPartData">
+                                <ng-table [isActionVisible]="true" [isAddPartVisible]="true" (rowAddeSortedPartClick)="onAddSortedPartClick($event)" [isRemovePartVisible]="true" (rowRemoveSortedPartClick)="onRemoveSortedPartClick($event)" [isEditVisible]="false" [columns]="expectedPartColumns" [data]="expectedPartData">
                                 </ng-table>
                             </div>
                         </div>

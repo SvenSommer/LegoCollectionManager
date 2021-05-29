@@ -1,7 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { IdentifiedPartDBModel } from 'src/app/models/identifiedpartdb-model';
+import { SortedPartModel } from 'src/app/models/sortedpart-model';
+import { IdentifiedpartService } from 'src/app/services/identifiedpart.service';
 import { SetdataService } from 'src/app/services/setdata.service';
 import { SortedPartService } from 'src/app/services/sortedpart.service';
 import { SortedSetService } from 'src/app/services/sortedset.service';
@@ -77,6 +81,7 @@ export class SortedsetDetailComponent implements OnInit {
 
 
   constructor(private activatedRoute: ActivatedRoute,
+    private identifiedpartService: IdentifiedpartService,
     private sortedsetdataService: SortedSetService,
     private sortedpartsService: SortedPartService,
     private setdataService: SetdataService,
@@ -171,6 +176,61 @@ export class SortedsetDetailComponent implements OnInit {
         console.log(error.name + ' ' + error.message);
       }
     );
+  }
+
+  onRemoveSortedPartClick(rowdata){
+    // Make new REcognised Part for partinfo
+    console.log(rowdata.partinfo)
+    // Store with sortedset_id
+    console.log("sortedsetid:", this.id)
+  } 
+  
+  onAddSortedPartClick(rowdata){
+    let part: IdentifiedPartDBModel = new IdentifiedPartDBModel();
+     part.run_id =  this.setdataDetails.run_id;
+     part.no = rowdata.partinfo.no;
+     part.color_id = rowdata.partinfo.color_id;
+     part.score = 100;
+     part.identifier = "manual";
+    console.log("part",part)
+    this.identifiedpartService.createIdentifiedpart(part).subscribe(
+      (data) => {
+        
+        if (data) {
+          if (data.body && data.body.code == 201) {
+            let sortedpart : SortedPartModel = new SortedPartModel
+            sortedpart.identifiedpart_id = data.body.identifiedparts_id;
+            sortedpart.sortedset_id = this.id;
+            sortedpart.detected = 1;
+            this.sortedpartsService.createSortedPart(sortedpart).subscribe(
+              (data) => {
+                if (data) {
+                  if (data.body && data.body.code == 201) {
+                  
+                   this.toastr.success("Added Sorted Part successfully.");
+                   this.getAllPartdataSorted()
+                  }
+                  else if (data.body && data.body.code == 403) {
+                    this.router.navigateByUrl("/login");
+                  }
+                }
+              },
+              (error: HttpErrorResponse) => {
+                console.log(error.name + ' ' + error.message);
+              }
+            );
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+    console.log(rowdata.partinfo)
+    console.log("sortedsetid:", this.id)
   }
 
   getAllMinifigsExpected(setid) {

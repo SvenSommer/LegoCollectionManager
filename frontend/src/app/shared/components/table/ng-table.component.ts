@@ -45,6 +45,8 @@ export class NgTableComponent implements OnInit, OnChanges {
   @Input() public isHeaderVisible = true;
   @Input() public visibleWhenData = false;
   @Input() public isEditVisible = true;
+  @Input() public isAddPartVisible = false;
+  @Input() public isRemovePartVisible = false;
   @Input() public isDownloadVisible = false;
   @Input() public editButtonText = 'Edit';
   @Input() public downloadButtonText = 'Download';
@@ -60,6 +62,8 @@ export class NgTableComponent implements OnInit, OnChanges {
   @Input() public ActionWidth = '';
 
   // Outputs (Events)
+  @Output() public rowAddeSortedPartClick: EventEmitter<any> = new EventEmitter();
+  @Output() public rowRemoveSortedPartClick: EventEmitter<any> = new EventEmitter();
   @Output() public rowEditClick: EventEmitter<any> = new EventEmitter();
   @Output() public rowCellClick: EventEmitter<any> = new EventEmitter();
   @Output() public rowDownloadClick: EventEmitter<any> = new EventEmitter();
@@ -190,6 +194,14 @@ export class NgTableComponent implements OnInit, OnChanges {
 
   public onDownloadClick(event: any): void {
     this.partdataService.downloadData.emit(event);
+  }
+
+  public rowRemovePart(event: any): void {
+    this.rowRemoveSortedPartClick.emit(event);
+  } 
+
+  public rowAddPart(event: any): void {
+    this.rowAddeSortedPartClick.emit(event);
   }
 
   public onImgPopupClose() {

@@ -48,16 +48,22 @@ export default (req: Request, res: Response) => {
                                                           ${score},
                                                           '${identifier}',
                                                           ${userid})`;
-                        connection.query(createIdentifiedparts, (err) => {
-                            if (err) res.json({
-                                code: 500,
-                                message: 'Couldn\'t create the identified parts',
-                                errorMessage: process.env.DEBUG && err
-                            });
+                        connection.query(createIdentifiedparts, (err, result:any) => {
+                            if (err) {
+                                console.log(createIdentifiedparts)
+                                console.log(err)
+                                res.json({
+                                    code: 500,
+                                    message: 'Couldn\'t create the identified parts',
+                                    errorMessage: process.env.DEBUG && err
+                                });
+                            } 
                             else {
                                 res.json({
                                     code: 201,
-                                    message: 'Identified part created!'
+                                    message: 'Identified part '  + result.insertId +' created!',
+                                    identifiedparts_id : result.insertId
+
                                 });
                             }
                         })

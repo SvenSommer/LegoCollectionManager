@@ -65,17 +65,24 @@
             </td>
           </ng-container>
         </ng-container>
-
         <td *ngIf="isActionVisible">
-          <a class="primary p-0" [title]="editButtonText" (click)="onRowEditClick(row)" *ngIf="isEditVisible">
+         
+          <a *ngIf="isRemovePartVisible" (click)="rowRemovePart(row)" class="pl-1 text-primary" title="Remove last sorted Part">
+            <i class="fa fa-minus"></i>
+          </a>
+          <a *ngIf="isAddPartVisible" (click)="rowAddPart(row)" class="pl-1 text-primary" title="Add to sorted Parts">
+            <i class="fa fa-plus"></i>
+          </a>
+          <a *ngIf="isEditVisible" class="primary p-0" [title]="editButtonText" (click)="onRowEditClick(row)" >
             <i class="font-medium-3" [ngClass]="editClass"></i>
           </a>
-          <a class="primary p-0" [title]="downloadButtonText" (click)="onDownloadClick(row)" *ngIf="isDownloadVisible">
+          <a *ngIf="isDownloadVisible" class="primary p-0" [title]="downloadButtonText" (click)="onDownloadClick(row)" >
             <i class="font-medium-3" [ngClass]="downloadClass"></i>
           </a>
           <a *ngIf="isDeleteVisible" (click)="rowDeleteClick.emit(row)" class="pl-1 text-danger" title="Change status" popoverTitle="Confirm?">
             <i class="fas fa-trash-alt"></i>
           </a>
+          
         </td>
       </tr>
     </tbody>

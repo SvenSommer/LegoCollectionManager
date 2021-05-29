@@ -31,6 +31,13 @@ export class IdentifiedpartService {
         return this.http.get<any>(`${environment.baseUrl}identifiedparts/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
+    createIdentifiedpart(model: IdentifiedPartDBModel): Observable<any> {
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+          })
+          return this.http.post<IdentifiedPartDBModel>(`${environment.baseUrl}identifiedparts`, model, { withCredentials: true, headers: headers, observe: 'response' });
+    }
+
     saveIdentifiedpart(model: IdentifiedPartDBModel): Observable<any> {
         let headers = new HttpHeaders({
           'Content-Type': 'application/json',

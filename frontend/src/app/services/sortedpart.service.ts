@@ -17,7 +17,7 @@ export class SortedPartService {
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       })
-      return this.http.post<SortedPartModel>(`${environment.baseUrl}sortedsets`, model, { withCredentials: true, headers: headers, observe: 'response' });
+      return this.http.post<SortedPartModel>(`${environment.baseUrl}sortedparts`, model, { withCredentials: true, headers: headers, observe: 'response' });
   }
     getSortedPartsBySetId(id): Observable<any> {
         let httpHeader = new HttpHeaders();
