@@ -1,0 +1,43 @@
+.vector_icon {
+  width: 10px;
+  height: 8px !important;
+  position: relative;
+  top: 38px;
+  left: -12px;
+}
+
+img:active,
+img:focus {
+  border: 2px solid #3d8bfd;
+}
+
+.part_bg {
+  width: 60px;
+  height: 90px;
+  transform: rotate(-90deg);
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  margin: 0px 0px;
+}
+
+.part_no_bg {
+  width: 60px;
+  height: 60px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  margin: 0px 0px;
+}
+
+.example-small-box{
+  margin: 6px;
+  border: 1px solid #DEE2E6;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.example-small-box {
+  height: 24px;
+  width: 24px;
+}

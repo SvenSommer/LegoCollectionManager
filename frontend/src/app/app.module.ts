@@ -80,6 +80,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { AdvancedSearchComponent } from './shared/components/advanced-search/advanced-search.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
+import { LabelsComponent } from './labels/labels/labels.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SortedsetComponent } from './setdata/sortedset/sortedset.component';
 import { SortedsetDetailComponent } from './setdata/sortedset/sortedset-detail/sortedset-detail.component';
@@ -144,6 +145,7 @@ import { SortedsetDetailComponent } from './setdata/sortedset/sortedset-detail/s
     TextCellComponent,
     DescriptionCellComponent,
     DeleteCellComponent,
+    LabelsComponent,
     SortedsetComponent,
     SortedsetDetailComponent
   ],

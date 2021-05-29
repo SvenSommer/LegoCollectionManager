@@ -22,6 +22,7 @@ import { RunAddEditComponent } from './run/run-add-edit/run-add-edit.component';
 import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
+import { LabelsComponent } from './labels/labels/labels.component';
 import { SortedsetDetailComponent } from './setdata/sortedset/sortedset-detail/sortedset-detail.component';
 import { SortedsetComponent } from './setdata/sortedset/sortedset.component';
 
@@ -52,6 +53,7 @@ const routes: Routes = [
   {path:'offer',component:OfferComponent,canActivate:[AuthenticationGuard]},
   {path:'offerdetail/:id',component:OfferDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'offeruser/:id',component:UserDetailComponent,canActivate:[AuthenticationGuard]},
+  {path:'label/:runid',component:LabelsComponent,canActivate:[AuthenticationGuard]},
 ];
 
 @NgModule({
