@@ -2,7 +2,7 @@
     <div class="justify-content-between align-items-center mb-4">
         <div class="row">
             <div class="col-lg-4 d-flex">
-                <div class=" col-4 p-l-0">
+                <div class=" col-4 p-l-0 align_label_start">
                     <h3 class="text-dark mb-0">Label Parts</h3>
                 </div>
                 <div class="col-4 d-flex align_label_center">
@@ -13,24 +13,31 @@
                     <h6 class="m-b-0 text-secondary">PART</h6> &nbsp;&nbsp;
                     <div >
                         <div class="align_arrows">
-                            <i class="fas fa-arrow-left text-gray-400"></i>&nbsp;&nbsp;
-                            <i class="fas fa-arrow-right text-gray-400"></i>
+                            <button [disabled]="currentpart_of_run==0" class="btn btzn-link btn-sm no-border" aria-expanded="false"  type="button" (click)="onPrevoiusPartClick()">
+                                <i class="fas fa-arrow-left text-gray-400"></i>
+                            </button>&nbsp;&nbsp;
+                            <button class="btn btzn-link btn-sm  no-border " aria-expanded="false"  type="button" (click)="onNextPartClick()">
+                                <i class="fas fa-arrow-right text-gray-400"></i>
+                            </button>
+                            <!-- <i *ngIf="currentpart_of_run!=0"  class="fas fa-arrow-left text-gray-400" (click)="onPrevoiusPartClick()"></i>&nbsp;&nbsp;
+                            <i class="fas fa-arrow-right text-gray-400" (click)="onNextPartClick()"></i> -->
                         </div>
-                        <h6 class="m-b-0">145/155</h6>
+                        <h6 class="m-b-0">{{currentpart_of_run+1}} / {{totalpartscount}}</h6>
                     </div>
                 </div>
             </div>
             <div class="col-lg-8">
                 <div *ngIf="identifiedpartsData && identifiedpartsData.length > 0" class="d-flex parts_border">
                     <ng-container *ngFor='let index of [1,2,3,4,5,6,7,9,10]'>
-                        <img *ngIf="currentpart_of_run+index < totalpartscount" class="float-left m-r-10 sm_part m-l-10" [style.width.px]="44" [style.height.px]="66"
+                        <img imgCrop *ngIf="currentpart_of_run+index < totalpartscount" class="float-left m-r-15 sm_part m-l-10" 
                         [src]="identifiedpartsData[currentpart_of_run+index]?.partimages[0]?.path"
                         [ngStyle]="styleImage(identifiedpartsData[currentpart_of_run+index]?.partimages[0]?.path)"
-
                         />
-                        <svg class="vector_icon" width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M5.61356 0.97872C5.5517 0.870947 5.46249 0.781407 5.35494 0.71914C5.2474 0.656873 5.12533 0.624084 5.00106 0.624084C4.8768 0.624084 4.75473 0.656873 4.64718 0.71914C4.53964 0.781407 4.45043 0.870947 4.38856 0.97872L0.102939 8.27059C-0.182686 8.75684 0.159814 9.37497 0.715439 9.37497H9.28606C9.84169 9.37497 10.1848 8.75622 9.89856 8.27059L5.61356 0.97872ZM4.99981 3.12497C4.92082 3.12501 4.84271 3.14161 4.77051 3.17367C4.69832 3.20574 4.63365 3.25258 4.58065 3.31116C4.52766 3.36975 4.48753 3.43879 4.46284 3.51382C4.43815 3.58886 4.42946 3.66824 4.43731 3.74684L4.65606 5.93872C4.66341 6.02483 4.70281 6.10504 4.76647 6.16349C4.83012 6.22194 4.91339 6.25438 4.99981 6.25438C5.08623 6.25438 5.16951 6.22194 5.23316 6.16349C5.29682 6.10504 5.33621 6.02483 5.34356 5.93872L5.56231 3.74684C5.57017 3.66824 5.56147 3.58886 5.53679 3.51382C5.5121 3.43879 5.47197 3.36975 5.41897 3.31116C5.36598 3.25258 5.30131 3.20574 5.22911 3.17367C5.15692 3.14161 5.07881 3.12501 4.99981 3.12497ZM5.00106 6.87497C4.8353 6.87497 4.67633 6.94082 4.55912 7.05803C4.44191 7.17524 4.37606 7.33421 4.37606 7.49997C4.37606 7.66573 4.44191 7.8247 4.55912 7.94191C4.67633 8.05912 4.8353 8.12497 5.00106 8.12497C5.16682 8.12497 5.3258 8.05912 5.44301 7.94191C5.56022 7.8247 5.62606 7.66573 5.62606 7.49997C5.62606 7.33421 5.56022 7.17524 5.44301 7.05803C5.3258 6.94082 5.16682 6.87497 5.00106 6.87497Z" fill="#E5735C"/>
-                        </svg>
+                        <span *ngIf="labelledImg" class="vector_icon">
+                            <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.61356 0.97872C5.5517 0.870947 5.46249 0.781407 5.35494 0.71914C5.2474 0.656873 5.12533 0.624084 5.00106 0.624084C4.8768 0.624084 4.75473 0.656873 4.64718 0.71914C4.53964 0.781407 4.45043 0.870947 4.38856 0.97872L0.102939 8.27059C-0.182686 8.75684 0.159814 9.37497 0.715439 9.37497H9.28606C9.84169 9.37497 10.1848 8.75622 9.89856 8.27059L5.61356 0.97872ZM4.99981 3.12497C4.92082 3.12501 4.84271 3.14161 4.77051 3.17367C4.69832 3.20574 4.63365 3.25258 4.58065 3.31116C4.52766 3.36975 4.48753 3.43879 4.46284 3.51382C4.43815 3.58886 4.42946 3.66824 4.43731 3.74684L4.65606 5.93872C4.66341 6.02483 4.70281 6.10504 4.76647 6.16349C4.83012 6.22194 4.91339 6.25438 4.99981 6.25438C5.08623 6.25438 5.16951 6.22194 5.23316 6.16349C5.29682 6.10504 5.33621 6.02483 5.34356 5.93872L5.56231 3.74684C5.57017 3.66824 5.56147 3.58886 5.53679 3.51382C5.5121 3.43879 5.47197 3.36975 5.41897 3.31116C5.36598 3.25258 5.30131 3.20574 5.22911 3.17367C5.15692 3.14161 5.07881 3.12501 4.99981 3.12497ZM5.00106 6.87497C4.8353 6.87497 4.67633 6.94082 4.55912 7.05803C4.44191 7.17524 4.37606 7.33421 4.37606 7.49997C4.37606 7.66573 4.44191 7.8247 4.55912 7.94191C4.67633 8.05912 4.8353 8.12497 5.00106 8.12497C5.16682 8.12497 5.3258 8.05912 5.44301 7.94191C5.56022 7.8247 5.62606 7.66573 5.62606 7.49997C5.62606 7.33421 5.56022 7.17524 5.44301 7.05803C5.3258 6.94082 5.16682 6.87497 5.00106 6.87497Z" fill="#E5735C"/>
+                            </svg>
+                        </span>
                     </ng-container>
                 </div>
             </div>

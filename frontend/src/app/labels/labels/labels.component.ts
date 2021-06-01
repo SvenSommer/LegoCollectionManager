@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { TaskModel } from 'src/app/models/task-model';
 import { IdentifiedpartService } from 'src/app/services/identifiedpart.service';
 import { PartdataService } from 'src/app/services/partdata.service';
@@ -21,7 +22,9 @@ export class LabelsComponent implements OnInit {
     this.handleKeyInput(event.key);
   }
 
+
   public clearFilters: boolean;
+  public labelledImg: boolean;
   public selectedImagePath : string;
   public filterColorsByPart = false
   public disablePartCount = false;
@@ -141,6 +144,7 @@ export class LabelsComponent implements OnInit {
 
   styleImage(partimage): Object {
     if (partimage && partimage.deleted != null) {
+      this.labelledImg = true;
       return {
         opacity: '0.4',
         'background-color': '#ad0303',
@@ -148,6 +152,9 @@ export class LabelsComponent implements OnInit {
         'border-radius': '2px',
         filter: 'alpha(opacity=40)',
       };
+    }
+    else{
+      this.labelledImg = false;
     }
     return {};
   }
@@ -481,5 +488,4 @@ export class LabelsComponent implements OnInit {
   private getColorsByPartCount(colorList, limit) {
     return colorList.filter((item) => item.parts_count >= limit);
   }
-
 }
