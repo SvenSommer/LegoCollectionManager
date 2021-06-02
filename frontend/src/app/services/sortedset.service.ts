@@ -25,10 +25,10 @@ export class SortedSetService {
         return this.http.get<any>(`${environment.baseUrl}sortedsets`, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
-    getSortedSetdataById(id): Observable<any> {
+     getSortedSetdataById(id): Observable<any> {
         let httpHeader = new HttpHeaders();
         httpHeader.set("Access-Control-Allow-Origin", "*");
         return this.http.get<any>(`${environment.baseUrl}sortedsets/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
-      }
+      } 
 
 }

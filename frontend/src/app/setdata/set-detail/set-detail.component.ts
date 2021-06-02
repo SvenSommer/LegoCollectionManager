@@ -69,8 +69,8 @@ export class SetDetailComponent implements OnInit {
         this.id = params['id'];
         if (this.id > 0) {
           this.bindData();
-          this.getAllPartdata();
-          this.getAllMinifigs();
+          this.getAllSubsetPartdata();
+          this.getAllSubsetMinifigs();
         }
       });
     }
@@ -117,8 +117,8 @@ export class SetDetailComponent implements OnInit {
     this.imagePopup.open();
   }
 
-  getAllPartdata() {
-    this.setdataService.getPartdataBySetid(this.id).subscribe(
+  getAllSubsetPartdata() {
+    this.setdataService.getSubsetPartdataBySetid(this.id).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
@@ -135,8 +135,8 @@ export class SetDetailComponent implements OnInit {
     );
   }
 
-  getAllMinifigs() {
-    this.setdataService.getMinifigdataBySetid(this.id).subscribe(
+  getAllSubsetMinifigs() {
+    this.setdataService.getSubsetMinifigdataBySetid(this.id).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200 && data.body.result.length > 0) {

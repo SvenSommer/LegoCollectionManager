@@ -2,13 +2,12 @@ import {Request, Response} from 'express';
 import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
-    const {setid: setid} = req.params;
-    const showsortedsetByCollectionid = `SELECT * FROM LegoSorterDB.sorted_parts_basis
-                                            WHERE sortedset_id =  ${setid} `
-    connection.query(showsortedsetByCollectionid, (err, result) => {
+    const {id} = req.params;
+    const deletePart = `DELETE FROM Expectedparts WHERE id=${id};`
+    connection.query(deletePart, (err, result) => {
         if (err) res.json({
             code: 500,
-            message: 'Some error occurred while fetching sortedparts by collectionid',
+            message: 'Some error occurred while deleting expected part',
             errorMessage: process.env.DEBUG && err
         });
         else {

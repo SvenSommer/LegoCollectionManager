@@ -9,19 +9,22 @@ export default (req: Request, res: Response) => {
         const {token} = req.cookies;
         const {
             id,
+            expectedpart_id,
             identifiedpart_id,
-            sortedset_id,
+            run_id,
             detected
         } = req.body;
 
         if (id &&
-            identifiedpart_id && 
-            sortedset_id &&
+            expectedpart_id && 
+            identifiedpart_id &&
+            run_id &&
             detected ) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const updateSortedSet = `UPDATE SortedParts SET identifiedpart_id = ${identifiedpart_id},
-                                            sortedset_id = ${sortedset_id},
+                const updateSortedSet = `UPDATE SortedParts SET expectedpart_id = ${expectedpart_id},
+                                            identifiedpart_id = ${identifiedpart_id},
+                                            run_id = ${run_id},
                                             detected = ${detected}
                                             WHERE id= ${id}`;
 
@@ -43,7 +46,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'id, identifiedpart_id, sortedset_id and detected are required!'
+                message: 'id, expectedpart_id, identifiedpart_id, run_id and detected are required!'
             });
         }
     } catch (e) {

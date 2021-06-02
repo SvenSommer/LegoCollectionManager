@@ -12,11 +12,13 @@ export default (req: Request, res: Response) => {
         const {
             run_id,
             expectedset_id,
+            setno,
             pusher_id
         } = req.body;
 
         if (run_id && 
             expectedset_id && 
+            setno &&
             pusher_id) {
             //@ts-ignore
             jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
@@ -34,11 +36,13 @@ export default (req: Request, res: Response) => {
                         const createSortedSet = `INSERT INTO SortedSets (
                                                   run_id,
                                                   expectedset_id,
+                                                  setNo,
                                                   pusher_id,
                                                   createdBy)
                                                   VALUES(
                                                           ${run_id},
                                                           ${expectedset_id},
+                                                          ${setno},
                                                           ${pusher_id},
                                                           ${userid})`;
                         connection.query(createSortedSet, (err) => {
@@ -51,10 +55,24 @@ export default (req: Request, res: Response) => {
                                 errorMessage: process.env.DEBUG && err
                             });
                         } else {
-                                res.json({
-                                    code: 201,
-                                    message: 'new SortedSet created!'
-                                });
+                                //Create SortedParts for this expectedset_id if the entry for this set was not yet placed (expectedset_id entries available)
+                               const callSP = `CALL AddExpectedPartsForSetno(${expectedset_id},${setno})`;
+                               connection.query(callSP, (err) => {
+                                    if (err) {
+                                        console.log("callSP",callSP)
+                                        console.log(err)
+                                        res.json({
+                                        code: 500,
+                                        message: 'Couldn\'t create ExpectedParts for SortedSets',
+                                        errorMessage: process.env.DEBUG && err
+                                    });
+                                    } else {
+                                        res.json({
+                                            code: 201,
+                                            message: 'new SortedSet created!'
+                                        });
+                                    }
+                                })
                             }
                         })
                     }
@@ -63,7 +81,7 @@ export default (req: Request, res: Response) => {
         } else {
             res.json({
                 code: 400,
-                message: 'run_id, expectedset_id and pusher_id are required!'
+                message: 'run_id, expectedset_id, setno and pusher_id are required!'
             });
         }
     } catch (e) {

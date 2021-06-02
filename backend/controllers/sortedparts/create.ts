@@ -1,53 +1,53 @@
-import { Console } from 'console';
 import {Request, Response} from 'express';
-//@ts-ignore
-import jwt from 'jsonwebtoken';
 import connection from "../../database_connection";
-import {Token_encodeInterface} from '../middleware/token_encode.interface';
 
 
 export default (req: Request, res: Response) => {
     try {
         const {token} = req.cookies;
-        const {
+        let {
+            expectedpart_id,
             identifiedpart_id,
-            sortedset_id,
+            run_id,
             detected
         } = req.body;
 
-        if (identifiedpart_id && 
-            sortedset_id && 
+        if (expectedpart_id && 
+            run_id &&
             detected) {
-            //@ts-ignore
-            jwt.verify(token, process.env.PRIVATE_KEY, (err, decoded: Token_encodeInterface) => {
-                const {username} = decoded;
-                const findUserInDB = `SELECT * FROM Users WHERE username='${username}'`;
-                connection.query(findUserInDB, (err, result: any) => {
-                    if (err) res.json({
-                        code: 500,
-                        message: 'Some Error Occurred!',
-                        //@ts-ignore
-                        errorMessage: process.env.DEBUG && err
-                    });
+                if(identifiedpart_id === undefined) identifiedpart_id = "NULL";
+                const createSortedParts = `INSERT INTO SortedParts (
+                                            expectedpart_id,
+                                            identifiedpart_id,
+                                            run_id,
+                                            detected)
+                                            VALUES(
+                                                    ${expectedpart_id},
+                                                    ${identifiedpart_id},
+                                                    ${run_id},
+                                                    ${detected})`;
+                connection.query(createSortedParts, (err) => {
+                    if (err) {
+                        console.log(createSortedParts)
+                        console.log(err)
+                        res.json({
+                            code: 500,
+                            message: 'Couldn\'t create new SortedPart',
+                            errorMessage: process.env.DEBUG && err
+                        });
+                    }
                     else {
-                        const {id:userid} = result[0];
-                        const createSortedParts = `INSERT INTO SortedParts (
-                                                    identifiedpart_id,
-                                                    sortedset_id,
-                                                    detected,
-                                                  createdBy)
-                                                  VALUES(
-                                                          ${identifiedpart_id},
-                                                          ${sortedset_id},
-                                                          ${detected},
-                                                          ${userid})`;
-                        connection.query(createSortedParts, (err) => {
-                            if (err) res.json({
+                        const callSP = `CALL IncreaseSortedPartCountInExpectedParts(${expectedpart_id})`;
+                        connection.query(callSP, (err) => {
+                            if (err) {
+                                console.log("callSP",callSP)
+                                console.log(err)
+                                res.json({
                                 code: 500,
-                                message: 'Couldn\'t create new SortedPart',
+                                message: 'Couldn\'t Increase sortedPartCount',
                                 errorMessage: process.env.DEBUG && err
                             });
-                            else {
+                            } else {
                                 res.json({
                                     code: 201,
                                     message: 'new SortedPart created!'
@@ -56,11 +56,11 @@ export default (req: Request, res: Response) => {
                         })
                     }
                 })
-            })
         } else {
+            console.log("sortedpart.create: expectedpart_id, identifiedpart_id, run_id and detected are required!");
             res.json({
                 code: 400,
-                message: 'identifiedpart_id, sortedset_id and detected are required!'
+                message: 'expectedpart_id, identifiedpart_id, run_id and detected are required!'
             });
         }
     } catch (e) {

@@ -70,3 +70,4 @@ tools/gulp-tasks/cldr/cldr-data/
 
 environment.ts
 environment.prod.ts
+/backend/sqldatabase/*.sql

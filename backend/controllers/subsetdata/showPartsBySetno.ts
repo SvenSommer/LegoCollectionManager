@@ -3,10 +3,9 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {setnumber: setnumber} = req.params;
-    const showAll = `SELECT * FROM LegoSorterDB.expected_parts_perSetId
+    const showAll = `SELECT * FROM LegoSorterDB.subset_parts_perSetId
     WHERE setno = '${setnumber}' 
     AND type != 'MINIFIG'`
-    console.log(showAll)
     connection.query(showAll, (err, result) => {
         if (err) {
             console.log(showAll)
