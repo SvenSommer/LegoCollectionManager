@@ -43,7 +43,7 @@ export default (req: Request, res: Response) => {
                                                           ${userid}
                                                         )`;
                         console.log(createRun);
-                        connection.query(createRun, (err) => {
+                        connection.query(createRun, (err, result:any) => {
                             if (err) res.json({
                                 code: 500,
                                 message: 'Couldn\'t create new Run',

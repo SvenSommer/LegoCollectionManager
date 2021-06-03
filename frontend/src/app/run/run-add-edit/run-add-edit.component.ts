@@ -220,11 +220,14 @@ export class RunAddEditComponent implements OnInit {
     for (var i=0; i<this.pusherList.length; i++){
       let pushedSet = {
         expectedset_id: null,
-        pusher_id: null
+        pusher_id: null,
+        setno: null
       }
+      console.log("this.pusherList[i].sets[0]",this.pusherList[i].sets[0]);
       if (this.pusherList[i] && this.pusherList[i].sets && this.pusherList[i].sets.length > 0) {
           pushedSet.expectedset_id = this.pusherList[i].sets[0].id;
           pushedSet.pusher_id = this.pusherList[i].id;
+          pushedSet.setno = this.pusherList[i].sets[0].setNo;
           this.run.sortedsets.push(pushedSet);
       }
     }

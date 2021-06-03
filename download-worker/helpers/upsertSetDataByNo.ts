@@ -81,6 +81,9 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, task_id:
         let infObj = JSON.parse(information);
         infObj["name"] = setinfo.name
         infObj["image_url"] = setinfo.image_url
+        infObj["min_price"] = setinfo.min_price
+        infObj["max_price"] = setinfo.max_price
+        infObj["avg_price"] = setinfo.avg_price 
         information = JSON.stringify(infObj);
     }
 }

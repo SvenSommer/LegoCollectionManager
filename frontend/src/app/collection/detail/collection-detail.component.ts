@@ -34,11 +34,13 @@ export class CollectionDetailComponent implements OnInit {
 
   public runsColumns = [
     { title: 'Run #', name: 'run_no', size: '30', minSize: '30' },
-    { title: 'Status', name: 'status.name', size: '25%', minSize: '90' },
+    { title: 'Sorter', name: 'sorterinfo.name', size: '25%', minSize: '90' },
+    { title: 'Expected Parts', name: 'expected_parts.sumPartsQuantity', size: '25%', minSize: '90' },
+    { title: 'Sorted Parts', name: 'sorted_parts.detected_parts', size: '50', minSize: '50' },
     { title: 'Parts identified', name: 'identified_parts.sumTotal', size: '25%', minSize: '80' },
     { title: 'Parts unidentified', name: 'unlabeled_parts.sumPartUnlabeled', size: '25', minSize: '25' },
     { title: 'Colors unidentified', name: 'unlabeled_parts.sumColorUnlabeled', size: '25', minSize: '25' },
-    { title: 'Sorted Parts', name: 'sorted_parts.detected_parts', size: '50', minSize: '50' },
+
     { title: 'Sorted (undetected)', name: 'sorted_parts.undetected_parts', size: '50', minSize: '50' },
     { title: 'Created', name: 'created', size: '25%', minSize: '100', datatype: { type: 'date' } },
   ];
@@ -79,7 +81,6 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'Total Quantity', name: 'total_quantity', size: '30', minSize: '30' },
     { title: 'Status', name: 'status_name', size: '30', minSize: '30' },
     { title: 'Avg € (sold)', name: 'qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
-
   ];
 
   public UnsettedPartsColumns = [
@@ -90,8 +91,6 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'Downloaded Sets', name: 'downloaded_sets', size: '25%', minSize: '90' },
     { title: 'Part in Sets', name: 'part_in_sets_of_collection', size: '90', minSize: '90' },
     { title: 'Super Set Count', name: 'super_set_count', size: '90', minSize: '90' },
-
-
   ];
 
   public ExpMinifigsColumns = [

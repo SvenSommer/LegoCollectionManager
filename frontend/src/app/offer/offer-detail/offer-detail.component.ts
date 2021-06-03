@@ -528,6 +528,9 @@ export class OfferDetailComponent implements OnInit {
             this.setDownloadingRequestData[i].setNo = info.setno;
             this.setDownloadingRequestData[i].name = info.name;
             this.setDownloadingRequestData[i].image_url = info.image_url;
+            this.setDownloadingRequestData[i].min_price = info.min_price;
+            this.setDownloadingRequestData[i].max_price = info.max_price;
+            this.setDownloadingRequestData[i].avg_price = info.avg_price;
             const task_id = this.setDownloadingRequestData[i].task_id;
             if (this.setDownloadingRequestData[i].progress == 100) {
               // Message should be data.body.message

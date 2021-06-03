@@ -25,6 +25,11 @@ export function GetAndUpdateSetData(no: any, userid: any, setid: any): Promise<a
                                             createdBy = ${userid}
                                             WHERE id = ${setid}
                                             `;
+                        if(priceinfo) {
+                            setinfo["min_price"] = priceinfo.min_price;
+                            setinfo["max_price"] = priceinfo.max_price;
+                            setinfo["avg_price"] = priceinfo.avg_price;
+                        }
 
                         connection.query(updateSetData, (err: any) => {
                             if (err) {

@@ -317,6 +317,15 @@
                                             Name
                                         </th>
                                         <th>
+                                            min Price
+                                        </th>
+                                        <th>
+                                            max Price
+                                        </th>
+                                        <th>
+                                            Avg Price
+                                        </th>
+                                        <th>
                                             Status
                                         </th>
                                         <th>
@@ -332,6 +341,15 @@
                                         </td>
                                         <td>
                                             {{item.name}}
+                                        </td>
+                                        <td>
+                                            {{item.min_price | currency: 'EUR'}}
+                                        </td>
+                                        <td>
+                                            {{item.max_price | currency: 'EUR'}}
+                                        </td>
+                                        <td>
+                                            {{item.avg_price | currency: 'EUR'}}
                                         </td>
                                         <td>
                                             {{item.status}}
