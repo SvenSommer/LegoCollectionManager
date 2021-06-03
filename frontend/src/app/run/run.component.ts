@@ -8,6 +8,8 @@ import { ToastrService } from 'ngx-toastr';
 import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 import {ImagesCellComponent} from "../shared/components/grid/images-cell/images-cell.component";
 import {TextCellComponent} from "../shared/components/grid/text-cell/text-cell.component";
+import { LabelCellComponent } from '../shared/components/grid/label-cell/label-cell.component';
+import { DeleteCellComponent } from '../shared/components/grid/delete-cell/delete-cell.component';
 
 @Component({
   selector: 'app-run',
@@ -98,6 +100,13 @@ export class RunComponent implements OnInit {
       filter: true,
       flex: 3,
       minWidth: '80'
+    },
+    {
+      headerName: 'Action',
+      field: 'action',
+      cellRendererFramework: LabelCellComponent,
+      resizable: false,
+      width: '60'
     }
   ];
 
@@ -134,6 +143,10 @@ editRun(id) {
 
 onEditClick(id) {
   this.router.navigateByUrl('/rundetail/' + id).then((bool) => { }).catch()
+}
+
+onRowLabelIconClick(data) {
+  this.router.navigateByUrl('/label/' + data.run_id);
 }
 
 onRowDeleteClick(id) {
@@ -173,8 +186,7 @@ addNewRun(newData: RunModel) {
 }
 
 onRowClick(data) {
-  // this.router.navigateByUrl('/rundetail/' + data.data.run_id);
-  this.router.navigateByUrl('/label/' + data.data.run_id);
+  this.router.navigateByUrl('/rundetail/' + data.data.run_id);
 }
 
 onRowEditClick(data) {

@@ -197,6 +197,9 @@ label {
 .m-r-10 {
   margin-right: 10px;
 }
+.m-r-15 {
+  margin-right: 15px;
+}
 .m-r-20 {
   margin-right: 20px;
 }
@@ -297,6 +300,11 @@ label {
     align-items: center;
     justify-content: center;
   }
+  .align_label_start {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+  }
   .align_label_right {
     display: flex;
     align-items: center;
@@ -306,11 +314,15 @@ label {
     text-align: center;
     margin-top: -24px;
   }
+ 
   .sm_part{
     opacity: 0.5;
     border-radius: 3px;
     transform: rotate(-90deg);
     position: relative;
+    width: 44px;
+    height: 66px;
+    object-fit: cover;
     top: -5px;
   }
   .parts_border {
@@ -364,6 +376,9 @@ label {
     color: #0A58CA;
     background: #FFFFFF;
     border: 1px solid #DEE2E6;
+  }
+  .btzn-link {
+    padding: 0;
   }
 }
 

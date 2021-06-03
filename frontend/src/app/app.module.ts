@@ -84,6 +84,7 @@ import { LabelsComponent } from './labels/labels/labels.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { SortedsetComponent } from './setdata/sortedset/sortedset.component';
 import { SortedsetDetailComponent } from './setdata/sortedset/sortedset-detail/sortedset-detail.component';
+import { LabelCellComponent } from './shared/components/grid/label-cell/label-cell.component';
 
 
 
@@ -147,7 +148,8 @@ import { SortedsetDetailComponent } from './setdata/sortedset/sortedset-detail/s
     DeleteCellComponent,
     LabelsComponent,
     SortedsetComponent,
-    SortedsetDetailComponent
+    SortedsetDetailComponent,
+    LabelCellComponent
   ],
   imports: [
     BrowserModule,

@@ -21,10 +21,10 @@ export class GridComponent implements OnInit, AfterViewInit {
   @ViewChild('offerGrid') offerGrid;
   @Output() rowClick = new EventEmitter<number>();
   @Output() rowClickid = new EventEmitter<any>();
+  @Output() labelIconClick = new EventEmitter<any>();
   @Output() deleteClick = new EventEmitter<number>();
 
   ngOnInit(): void {
-    //console.log('init');
   }
 
   ngAfterViewInit(): void {
@@ -33,6 +33,10 @@ export class GridComponent implements OnInit, AfterViewInit {
 
   public onRowDeleteClick = (id) => {
     this.deleteClick.emit(id);
+  }
+
+  public onRowLabelIconClick = (item) => {
+    this.labelIconClick.emit(item);
   }
 
   onRowClick(data) {
