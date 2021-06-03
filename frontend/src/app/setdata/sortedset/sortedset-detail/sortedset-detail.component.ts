@@ -212,21 +212,27 @@ export class SortedsetDetailComponent implements OnInit {
   }
 
   onRemoveSortedPartClick(rowdata){
-    this.sortedpartsService.markSortedPartasDeleted(rowdata.expectedpart_id).subscribe(
-      (data) => {
-        if (data) {
-          if (data.body && data.body.code == 201) {
-            this.toastr.success("Removed Sorted Part successfully.");
-            this.getAllPartdataExpected();
-            this.getAllPartdataSorted();
-            this.getAllPartdataMissing();
+    if(rowdata.sorted_quantity > 0) {  
+      this.sortedpartsService.markSortedPartasDeleted(rowdata.expectedpart_id).subscribe(
+        (data) => {
+          if (data) {
+            if (data.body && data.body.code == 201) {
+              this.toastr.success("Removed Sorted Part successfully.");
+              this.getAllPartdataExpected();
+              this.getAllPartdataSorted();
+              this.getAllPartdataMissing();
+            }
           }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + ' ' + error.message);
         }
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + ' ' + error.message);
-      }
-    );
+      );
+    }
+    else
+    {
+      this.toastr.info("sorted quantity alreday 0.");
+    }
   }
 
   createBricklinkWishlistFile(){
@@ -262,6 +268,7 @@ export class SortedsetDetailComponent implements OnInit {
     
   onAddSortedPartClick(rowdata){
     if(rowdata.sorted_quantity < rowdata.quantity) {  
+      rowdata.sorted_quantity = rowdata.sorted_quantity + 1
       let sortedpart : SortedPartModel = new SortedPartModel
       sortedpart.expectedpart_id = rowdata.expectedpart_id;
       sortedpart.run_id = this.setdataDetails.run_id;
@@ -293,7 +300,7 @@ export class SortedsetDetailComponent implements OnInit {
     }
     else
     {
-      this.toastr.error("needed quantity already sorted");
+      this.toastr.info("needed quantity already sorted");
     }
   }
 
