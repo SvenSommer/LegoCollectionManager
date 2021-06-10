@@ -1,9 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SortedSetService } from '../../services/sortedset.service';
-import {ImagesCellComponent} from '../../shared/components/grid/images-cell/images-cell.component';
-import {TextCellComponent} from '../../shared/components/grid/text-cell/text-cell.component';
+import { SortedSetService } from '../services/sortedset.service';
+import {ImagesCellComponent} from '../shared/components/grid/images-cell/images-cell.component';
+import {TextCellComponent} from '../shared/components/grid/text-cell/text-cell.component';
 
 @Component({
   selector: 'app-sortedset',

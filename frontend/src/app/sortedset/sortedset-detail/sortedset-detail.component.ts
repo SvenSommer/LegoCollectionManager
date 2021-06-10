@@ -8,6 +8,7 @@ import { SetdataService } from 'src/app/services/setdata.service';
 import { SortedPartService } from 'src/app/services/sortedpart.service';
 import { SortedSetService } from 'src/app/services/sortedset.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
+import { NgxBootstrapConfirmService } from 'ngx-bootstrap-confirm';
 
 @Component({
   selector: 'app-sortedset-detail',
@@ -31,6 +32,7 @@ export class SortedsetDetailComponent implements OnInit {
     { title: 'Avg € (stock)', name: 'partinfo.qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
     { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
     { title: 'Expecting', name: 'quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
+    { title: 'Purchased', name: 'purchased_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
     { title: 'Sorted', name: 'sorted_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
     { title: 'Missing', name: 'missing_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
 
@@ -45,7 +47,6 @@ export class SortedsetDetailComponent implements OnInit {
     { title: 'Name', name: 'partinfo.name', size: '25%', minSize: '90' },
     { title: 'Avg € (stock)', name: 'partinfo.qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
     { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
-    { title: 'Deleted', name: 'deleted', size: '30', minSize: '30',  datatype: { type: 'date' }  },
 
   ];
 
@@ -53,13 +54,15 @@ export class SortedsetDetailComponent implements OnInit {
   public missingPartData: any;
   public sum_missingPartData: any;
   public missingPartColumns = [
+    { title: 'exp id', name: 'expectedpart_id', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'Image', name: 'partinfo.thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
     { title: 'Partno - Color Id', name: 'partinfo.partnocolid', size: '30', minSize: '30' },
     { title: 'Color', name: 'partinfo.color_name', size: '30', minSize: '30' },
     { title: 'Name', name: 'partinfo.name', size: '25%', minSize: '90' },
     { title: 'Avg € (stock)', name: 'partinfo.qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
     { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
-    { title: 'Missing', name: '', size: '30', minSize: '30' , datatype: { type: 'number' }},
+    { title: 'Missing', name: 'missing_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
+    { title: 'Purchased', name: 'purchased_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
     { title: 'Sum € Stock', name: 'all_qty_avg_price_stock', size: '30', minSize: '30' , datatype: { type: 'price' }},
     { title: 'Sum € Sold', name: 'all_qty_avg_price_sold', size: '30', minSize: '30' , datatype: { type: 'price' }},
   ];
@@ -68,7 +71,7 @@ export class SortedsetDetailComponent implements OnInit {
   public expectedMinifigData: any;
   public expectedMinifigColumns = [
     { title: 'Image', name: 'partinfo.thumbnail_url', size: '80', minSize: '80', datatype: { type: 'image' } },
-    { title: 'Part', name: 'partinfo.part_no', size: '30', minSize: '30' },
+    { title: 'Part', name: 'partinfo.partnocolid', size: '30', minSize: '30' },
     { title: 'Name', name: 'partinfo.name', size: '25%', minSize: '90' },
     { title: 'Avg € (stock)', name: 'partinfo.qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
     { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
@@ -89,13 +92,16 @@ export class SortedsetDetailComponent implements OnInit {
       { key: 'created', name: 'Created', dataType: { type: 'date' }}
     ]
   };
+  collectionService: any;
 
   constructor(private activatedRoute: ActivatedRoute,
     private missingpartsService: MissingPartService,
     private sortedsetdataService: SortedSetService,
     private sortedpartsService: SortedPartService,
     private setdataService: SetdataService,
-    private router: Router, private toastr: ToastrService) { }
+    private router: Router, 
+    private toastr: ToastrService,
+    private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
 
     public id = 0;
   ngOnInit(): void {
@@ -211,31 +217,7 @@ export class SortedsetDetailComponent implements OnInit {
     );
   }
 
-  onRemoveSortedPartClick(rowdata){
-    if(rowdata.sorted_quantity > 0) {  
-      this.sortedpartsService.markSortedPartasDeleted(rowdata.expectedpart_id).subscribe(
-        (data) => {
-          if (data) {
-            if (data.body && data.body.code == 201) {
-              this.toastr.success("Removed Sorted Part successfully.");
-              this.getAllPartdataExpected();
-              this.getAllPartdataSorted();
-              this.getAllPartdataMissing();
-            }
-          }
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + ' ' + error.message);
-        }
-      );
-    }
-    else
-    {
-      this.toastr.info("sorted quantity alreday 0.");
-    }
-  }
-
-  createBricklinkWishlistFile(){
+   createBricklinkWishlistFile(){
     var doc  = document.implementation.createDocument("", "", null);
     var inventoryElem = doc.createElement("INVENTORY");
     for (var i = 0; i < this.missingPartData.length; i++) {
@@ -265,9 +247,42 @@ export class SortedsetDetailComponent implements OnInit {
     console.log("https://www.bricklink.com/v2/wanted/upload.page", new XMLSerializer().serializeToString(doc))
     //document.open('data:Application/octet-stream,' + encodeURIComponent(doc));
   }
+
+  checkallExpectedParts(){
+
+    const options = {
+      title: 'Are you sure you want add all parts as sorted parts?',
+      confirmLabel: 'Okay',
+      declineLabel: 'Cancel'
+    };
+    this.ngxBootstrapConfirmService.confirm(options).then((res: boolean) => {
+      if (res) {
+        this.expectedPartData.forEach(part => {
+          var i;
+          for (i = 1; i <= (part.quantity - part.sorted_quantity); i++) {
+            let sortedpart : SortedPartModel = new SortedPartModel
+            sortedpart.expectedpart_id = part.expectedpart_id;
+            sortedpart.run_id = this.setdataDetails.run_id;
+            sortedpart.detected = 1;
+            console.log("sortedpart",sortedpart);
+            this.sortedpartsService.createSortedPart(sortedpart).subscribe( (data) => {
+              if (data) {
+                if (data.body && data.body.code != 201) {
+                  this.toastr.error(data.body.message);
+                }}});
+            }
+        });
+        this.getAllPartdataExpected();
+        this.getAllPartdataSorted();
+        this.getAllPartdataMissing();
+      } else {
+        console.log('Cancel');
+      }
+    });
+  }
     
   onAddSortedPartClick(rowdata){
-    if(rowdata.sorted_quantity < rowdata.quantity) {  
+    if((rowdata.sorted_quantity + rowdata.purchased_quantity) < rowdata.quantity) {  
       rowdata.sorted_quantity = rowdata.sorted_quantity + 1
       let sortedpart : SortedPartModel = new SortedPartModel
       sortedpart.expectedpart_id = rowdata.expectedpart_id;
@@ -300,7 +315,31 @@ export class SortedsetDetailComponent implements OnInit {
     }
     else
     {
-      this.toastr.info("needed quantity already sorted");
+      this.toastr.info("needed quantity already sorted/purchased");
+    }
+  }
+
+  onRemoveSortedPartClick(rowdata){
+    if(rowdata.sorted_quantity > 0) {  
+      this.sortedpartsService.DeleteSortedPart(rowdata.expectedpart_id).subscribe(
+        (data) => {
+          if (data) {
+            if (data.body && data.body.code == 201) {
+              this.toastr.success("Removed Sorted Part successfully.");
+              this.getAllPartdataExpected();
+              this.getAllPartdataSorted();
+              this.getAllPartdataMissing();
+            }
+          }
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + ' ' + error.message);
+        }
+      );
+    }
+    else
+    {
+      this.toastr.info("sorted/purchased quantity alreday 0.");
     }
   }
 

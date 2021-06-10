@@ -6,7 +6,7 @@ import ShowAllSortedPartsByExpectedSetId from '../controllers/sortedparts/showBy
 import ShowAllSortedPartsByRunId from '../controllers/sortedparts/showByRunId';
 import UpdateSortedPartById from '../controllers/sortedparts/update';
 import GetSingleSortedPartById from '../controllers/sortedparts/single';
-import MarkSingleSortedPartAsDeletedById from '../controllers/sortedparts/markAsDeleted';
+import DeleteSingleSortedPartAsDeletedById from '../controllers/sortedparts/delete';
 import UserAuthMiddleware from '../controllers/middleware/UserAuth.middleware';
 import AdminAuthMiddleware from "../controllers/middleware/AdminAuth.middleware";
 import {Router} from "express";
@@ -30,5 +30,5 @@ route.get(`/:id`, UserAuthMiddleware, GetSingleSortedPartById);
 //Update a particular SortedPart
 route.put(`/:id`, AdminAuthMiddleware, UpdateSortedPartById);
 //Delete a particular SortedPart
-route.delete(`/expectedpartid/:expectedpartid`, AdminAuthMiddleware, MarkSingleSortedPartAsDeletedById);
+route.delete(`/expectedpartid/:expectedpartid`, AdminAuthMiddleware, DeleteSingleSortedPartAsDeletedById);
 export default route;

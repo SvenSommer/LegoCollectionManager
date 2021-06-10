@@ -21,7 +21,7 @@ export class SortedPartService {
       return this.http.post<SortedPartModel>(`${environment.baseUrl}sortedparts`, model, { withCredentials: true, headers: headers, observe: 'response' });
   }
 
-    markSortedPartasDeleted(expectedpart_id): Observable<any> {
+    DeleteSortedPart(expectedpart_id): Observable<any> {
       let headers = new HttpHeaders({
         'Content-Type': 'application/json',
       })

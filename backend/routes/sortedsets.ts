@@ -2,6 +2,7 @@ import CreateSortedSet from '../controllers/sortedsets/create';
 import ShowAllSortedSets from '../controllers/sortedsets/show';
 import ShowAllSortedSetsByCollectionId from '../controllers/sortedsets/showByCollectionId';
 import ShowAllSortedSetsByRunId from '../controllers/sortedsets/showByRunId';
+import ShowAllSortedSetsBySetno from '../controllers/sortedsets/showBySetno';
 import UpdateSortedSetById from '../controllers/sortedsets/update';
 import GetSingleSortedSetById from '../controllers/sortedsets/single';
 import DeleteSingleSortedSetById from '../controllers/sortedsets/delete';
@@ -16,6 +17,8 @@ route.get(``, UserAuthMiddleware, ShowAllSortedSets);
 route.get(`/collection/:collectionid`, UserAuthMiddleware, ShowAllSortedSetsByCollectionId);
 //List all SortedSets by Runid
 route.get(`/run/:runid`, UserAuthMiddleware, ShowAllSortedSetsByRunId);
+//List all SortedSets by setno
+route.get(`/setno/:setno`, UserAuthMiddleware, ShowAllSortedSetsBySetno);
 //Create a new SortedSet
 route.post(``, AdminAuthMiddleware, CreateSortedSet);
 //Show info about a specific SortedSet

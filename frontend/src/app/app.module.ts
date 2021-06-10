@@ -82,9 +82,11 @@ import {MatChipsModule} from '@angular/material/chips';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
 import { LabelsComponent } from './labels/labels/labels.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { SortedsetComponent } from './setdata/sortedset/sortedset.component';
-import { SortedsetDetailComponent } from './setdata/sortedset/sortedset-detail/sortedset-detail.component';
+import { SortedsetComponent } from './sortedset/sortedset.component';
+import { SortedsetDetailComponent } from './sortedset/sortedset-detail/sortedset-detail.component';
 import { LabelCellComponent } from './shared/components/grid/label-cell/label-cell.component';
+import { ExpectedsetComponent } from './expectedset/expectedset.component';
+import { ExpectedsetDetailComponent } from './expectedset/expectedset-detail/expectedset-detail.component';
 
 
 
@@ -149,7 +151,9 @@ import { LabelCellComponent } from './shared/components/grid/label-cell/label-ce
     LabelsComponent,
     SortedsetComponent,
     SortedsetDetailComponent,
-    LabelCellComponent
+    LabelCellComponent,
+    ExpectedsetComponent,
+    ExpectedsetDetailComponent
   ],
   imports: [
     BrowserModule,

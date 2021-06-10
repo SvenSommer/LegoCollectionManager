@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SetdataService } from 'src/app/services/setdata.service';
+import { SortedSetService } from 'src/app/services/sortedset.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 
 @Component({
@@ -18,6 +19,13 @@ export class SetDetailComponent implements OnInit {
 
   public setdataDetails;
 
+  public sortedsetsColumns = [
+    { title: 'Collection', name: 'collection_id', size: '65', minSize: '65', datatype: { type: 'number' } },
+    { title: 'Run', name: 'runinfo.title', size: '65', minSize: '65' },
+    { title: 'Expectedset ', name: 'expectedset_id', size: '65', minSize: '65', datatype: { type: 'number' } },
+  ];
+  public sortedSetsData: any;
+
   public partColumns = [
     { title: 'Image', name: 'partinfo.thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
     { title: 'Partno - Color Id', name: 'partinfo.partnocolid', size: '30', minSize: '30' },
@@ -25,10 +33,8 @@ export class SetDetailComponent implements OnInit {
     { title: 'Name', name: 'partinfo.name', size: '25%', minSize: '90' },
     { title: 'Quantity', name: 'quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
     { title: 'Extra Quantity', name: 'partinfo.extra_quantity', size: '30', minSize: '30' , datatype: { type: 'number' }},
-
     { title: 'Avg € (stock)', name: 'partinfo.qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
     { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
-
   ];
   public partData: any;
 
@@ -61,6 +67,7 @@ export class SetDetailComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private setdataService: SetdataService,
+    private sortedSetService : SortedSetService,
     private router: Router, private toastr: ToastrService) { }
 
     public id = 0;
@@ -71,6 +78,7 @@ export class SetDetailComponent implements OnInit {
           this.bindData();
           this.getAllSubsetPartdata();
           this.getAllSubsetMinifigs();
+         
         }
       });
     }
@@ -81,6 +89,7 @@ export class SetDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.setdataDetails = data.body.result[0];
+            this.getAllSortedSets();
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -92,6 +101,31 @@ export class SetDetailComponent implements OnInit {
       }
     );
   }
+
+  getAllSortedSets() {
+    this.sortedSetService.getSetSortedSetsBySetno(this.setdataDetails.setinfo.no).subscribe(
+      (data) => {
+        if (data) {
+          if (data.body && data.body.code == 200) {
+            this.sortedSetsData = data.body.result;
+            console.log("this.sortedSetsData",this.sortedSetsData)
+          }
+          else if (data.body && data.body.code == 403) {
+            this.router.navigateByUrl("/login");
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + ' ' + error.message);
+      }
+    );
+  }
+
+  onSortedSetCellClick(data){
+    this.router.navigateByUrl("/sortedsetdetail/" + data.id).then((bool) => { }).catch()
+  }
+
+
 
   public onExternalClick(data) {
     if(data && data.origin_url)

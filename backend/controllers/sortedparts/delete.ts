@@ -3,10 +3,8 @@ import connection from "../../database_connection";
 
 export default (req: Request, res: Response) => {
     const {expectedpartid} = req.params;
-    const markDeleted = `UPDATE SortedParts SET deleted = NOW() 
-    WHERE expectedpart_id = ${expectedpartid} 
-    AND created = (
-    SELECT created FROM (SELECT MAX(created) as created FROM SortedParts WHERE deleted IS NULL AND expectedpart_id = ${expectedpartid} ) t1 );`
+    const markDeleted = `DELETE FROM SortedParts WHERE expectedpart_id = ${expectedpartid} 
+    AND created = (SELECT created FROM (SELECT MAX(created) as created FROM SortedParts WHERE deleted IS NULL AND expectedpart_id = ${expectedpartid} ) t1 ) LIMIT 1;`
     connection.query(markDeleted, (err, result) => {
         if (err) { 
             console.log("markDeleted",markDeleted)
