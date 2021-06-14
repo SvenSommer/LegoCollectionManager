@@ -1,0 +1,16 @@
+<app-modal-popup [title]="pageTitle" #modalPopup>
+    <form (ngSubmit)="onSubmit(collectionForm)" #collectionForm="ngForm">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Quantity</label>
+                    <input type="text" required #name="ngModel" [(ngModel)]="purchasedPart.quantity" class="form-control"
+                    id="quantity" name="quantity">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</app-modal-popup>

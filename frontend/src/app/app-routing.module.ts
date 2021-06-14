@@ -27,6 +27,9 @@ import { SortedsetDetailComponent } from './sortedset/sortedset-detail/sortedset
 import { SortedsetComponent } from './sortedset/sortedset.component';
 import { ExpectedsetComponent } from './expectedset/expectedset.component';
 import { ExpectedsetDetailComponent } from './expectedset/expectedset-detail/expectedset-detail.component';
+import { OrderComponent } from './order/order.component';
+import { OrderDetailComponent } from './order/order-detail/order-detail.component';
+import { OrderitemDetailComponent } from './orderitem/orderitem-detail/orderitem-detail.component';
 
 const routes: Routes = [
 
@@ -58,6 +61,9 @@ const routes: Routes = [
   {path:'offerdetail/:id',component:OfferDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'offeruser/:id',component:UserDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'label/:runid',component:LabelsComponent,canActivate:[AuthenticationGuard]},
+  {path:'order',component:OrderComponent,canActivate:[AuthenticationGuard]},
+  {path:'orderdetail/:id',component:OrderDetailComponent,canActivate:[AuthenticationGuard]},
+  {path:'orderitemdetail/:id',component:OrderitemDetailComponent,canActivate:[AuthenticationGuard]},
 ];
 
 @NgModule({

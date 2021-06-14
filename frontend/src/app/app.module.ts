@@ -76,7 +76,6 @@ import { ImagesCellComponent } from './shared/components/grid/images-cell/images
 import { TextCellComponent } from './shared/components/grid/text-cell/text-cell.component';
 import { DescriptionCellComponent } from './shared/components/grid/description-cell/description-cell.component';
 import { DeleteCellComponent } from './shared/components/grid/delete-cell/delete-cell.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
 import { AdvancedSearchComponent } from './shared/components/advanced-search/advanced-search.component';
 import {MatChipsModule} from '@angular/material/chips';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
@@ -87,6 +86,10 @@ import { SortedsetDetailComponent } from './sortedset/sortedset-detail/sortedset
 import { LabelCellComponent } from './shared/components/grid/label-cell/label-cell.component';
 import { ExpectedsetComponent } from './expectedset/expectedset.component';
 import { ExpectedsetDetailComponent } from './expectedset/expectedset-detail/expectedset-detail.component';
+import { OrderComponent } from './order/order.component';
+import { OrderDetailComponent } from './order/order-detail/order-detail.component';
+import { OrderitemDetailComponent } from './orderitem/orderitem-detail/orderitem-detail.component';
+import { PurchasedPartEditComponent } from './orderitem/purchasedpart-edit/purchasedpart-edit.component';
 
 
 
@@ -153,7 +156,11 @@ import { ExpectedsetDetailComponent } from './expectedset/expectedset-detail/exp
     SortedsetDetailComponent,
     LabelCellComponent,
     ExpectedsetComponent,
-    ExpectedsetDetailComponent
+    ExpectedsetDetailComponent,
+    OrderComponent,
+    OrderDetailComponent,
+    OrderitemDetailComponent,
+    PurchasedPartEditComponent
   ],
   imports: [
     BrowserModule,

@@ -17,4 +17,11 @@ export class MissingPartService {
         return this.http.get<any>(`${environment.baseUrl}missingparts/expectedsetid/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
       }
 
+      getMissingitemsByPartNoAndColor(no: any, color_id: any) : Observable<any> {
+        let httpHeader = new HttpHeaders();
+        httpHeader.set("Access-Control-Allow-Origin", "*");
+        console.log(`${environment.baseUrl}missingparts/partno/` + no +`/colorid/` + color_id)
+        return this.http.get<any>(`${environment.baseUrl}missingparts/partno/` + no +`/colorid/` + color_id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+      }
+
 }

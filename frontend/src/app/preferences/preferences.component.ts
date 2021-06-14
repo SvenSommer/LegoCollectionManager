@@ -13,6 +13,7 @@ import { StatusModel } from '../models/status-model';
 import { TypeModel } from '../models/type-model';
 import {TextCellComponent} from "../shared/components/grid/text-cell/text-cell.component";
 import {DeleteCellComponent} from "../shared/components/grid/delete-cell/delete-cell.component";
+import { TypesEditComponent } from './types/types-edit/types-edit.component';
 
 @Component({
   selector: 'app-preferences',
@@ -221,7 +222,7 @@ export class PreferencesComponent implements OnInit {
   @ViewChild('userEdit') userEdit: UserEditComponent;
   @ViewChild('usergroupEdit') usergroupEdit: UsergroupEditComponent;
   @ViewChild('statusEdit') statusEdit: StatusEditComponent;
-  @ViewChild('typeEdit') typeEdit: StatusEditComponent;
+  @ViewChild('typeEdit') typeEdit: TypesEditComponent;
 
   ngOnInit(): void {
     this.GetAllUsers();

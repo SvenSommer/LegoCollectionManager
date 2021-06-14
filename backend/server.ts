@@ -54,6 +54,9 @@ import offers_messages from "./routes/offers_messages";
 import offers_messagetexts from "./routes/offers_messagetexts";
 import offers_blacklist from "./routes/offers_blacklist";
 import task from "./routes/task";
+import orders from "./routes/order";
+import orderitems from "./routes/orderitem";
+import purchasedparts from "./routes/purchasedpart";
 
 import progress_routes from './routes/progressdetails';
 
@@ -132,6 +135,9 @@ app.use('/offers_messages', offers_messages);
 app.use('/offers_messagetexts', offers_messagetexts);
 app.use('/offers_blacklist', offers_blacklist);
 app.use('/tasks', task);
+app.use('/orders', orders);
+app.use('/orderitems', orderitems);
+app.use('/purchasedparts', purchasedparts);
 
 app.use('/progressdetails', progress_routes);
 
