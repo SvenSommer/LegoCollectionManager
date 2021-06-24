@@ -1,7 +1,11 @@
-FROM mysql:latest
+# Backend-app
+FROM node:alpine
 
-ENV MYSQL_ROOT_PASSWORD=1234
+RUN npm install -g npm@7.18.1
+WORKDIR /home/robert/LegoCollectionManager/backend/
+COPY ./package.json ./
 
-COPY ./sqldatabase/legosorter_dumb_20210513.sql /docker-entrypoint-initdb.d/
+RUN npm install
+COPY ./ ./
 
-EXPOSE 3306
+CMD ["npm", "start"]

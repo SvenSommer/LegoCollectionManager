@@ -25,7 +25,7 @@ export async function UpsertPriceData(partnumber: any, colorid: any, type: any, 
             else {
                 if (priceresult !== 'undefined' && priceresult.length > 0) {
                     const { id: priceid } = priceresult[0];
-                    console.log(`Price already in Price-Table with id ${priceid}`)
+                    if(process.env.DEBUG == "True") console.log(`Price already in Price-Table with id ${priceid}`)
                     ArchiveAndUpdatePriceData(priceid, priceresult, userid).then(function (data) {
                         if (data) {
                             resolve(data);
@@ -35,7 +35,7 @@ export async function UpsertPriceData(partnumber: any, colorid: any, type: any, 
                     });
 
                 } else {
-                    console.log(`Price not existend in Price Table yet type:${type}, partnumber:${partnumber}, colorid:${colorid}, condition:${condition}, region:${region}, guide_type:${guide_type}, userid: ${userid}`)
+                    if(process.env.DEBUG == "True") console.log(`Price not existend in Price Table yet type:${type}, partnumber:${partnumber}, colorid:${colorid}, condition:${condition}, region:${region}, guide_type:${guide_type}, userid: ${userid}`)
                     const delay = process.env.DELAY_TIME || 100;
                     setTimeout(async () => {
                         GetAndInsertPriceData(condition, type, partnumber, colorid, region, guide_type, userid).then(function (data) {

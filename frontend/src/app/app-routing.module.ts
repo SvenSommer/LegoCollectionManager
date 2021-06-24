@@ -23,8 +23,8 @@ import { UserDetailComponent } from './offer/user-detail/user-detail.component';
 import { PartnamefrequencyComponent } from './preferences/partnamefrequency/partnamefrequency.component';
 import { PartdataDetailComponent } from './partdata/partdata-detail/partdata-detail.component';
 import { LabelsComponent } from './labels/labels/labels.component';
-import { SortedsetDetailComponent } from './sortedset/sortedset-detail/sortedset-detail.component';
-import { SortedsetComponent } from './sortedset/sortedset.component';
+import { RunnedSetDetailComponent } from './runnedset/runnedset-detail/runnedset-detail.component';
+import { RunnedSetComponent } from './runnedset/runnedset.component';
 import { ExpectedsetComponent } from './expectedset/expectedset.component';
 import { ExpectedsetDetailComponent } from './expectedset/expectedset-detail/expectedset-detail.component';
 import { OrderComponent } from './order/order.component';
@@ -41,8 +41,8 @@ const routes: Routes = [
   {path:'setdetail/:id',component:SetDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'expectedset',component:ExpectedsetComponent,canActivate:[AuthenticationGuard]},
   {path:'expectedsetdetail/:id',component:ExpectedsetDetailComponent,canActivate:[AuthenticationGuard]},
-  {path:'sortedset',component:SortedsetComponent,canActivate:[AuthenticationGuard]},
-  {path:'sortedsetdetail/:id',component:SortedsetDetailComponent,canActivate:[AuthenticationGuard]},
+  {path:'runnedset',component:RunnedSetComponent,canActivate:[AuthenticationGuard]},
+  {path:'runnedsetdetail/:id',component:RunnedSetDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'partdata',component:PartdataComponent,canActivate:[AuthenticationGuard]},
   {path:'partdetail/:partno',component:PartdataDetailComponent,canActivate:[AuthenticationGuard]},
   {path:'run',component:RunComponent,canActivate:[AuthenticationGuard]},

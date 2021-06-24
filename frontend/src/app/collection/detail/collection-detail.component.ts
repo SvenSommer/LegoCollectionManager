@@ -56,7 +56,10 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'Parts Identified(%)', name: 'partsidentified_percentage', size: '25', minSize: '25' },
     { title: 'Minifigs', name: 'setinfo.complete_minifigs_count', size: '25', minSize: '25' },
     { title: 'Min price(€)', name: 'setinfo.min_price', size: '35', minSize: '35', datatype: { type: 'price' } },
-    { title: 'Avg price(€)', name: 'setinfo.avg_price', size: '35', minSize: '35', datatype: { type: 'price' } }
+    { title: 'Avg price(€)', name: 'setinfo.avg_price', size: '35', minSize: '35', datatype: { type: 'price' } },
+    { title: 'Parts Price Sold', name: 'setinfo.sumPartsAndMinifigs.sumPart_Qty_avg_price_sold', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Minifigs Price Sold', name: 'setinfo.sumPartsAndMinifigs.sumMinifig_Qty_avg_price_sold', size: '40', minSize: '40', datatype: { type: 'price' } },
+   
   ];
 
   public suggSetsColumns = [
@@ -71,6 +74,9 @@ export class CollectionDetailComponent implements OnInit {
     { title: 'Minifigs', name: 'complete_minifigs_count', size: '25', minSize: '25' },
     { title: 'Min price (€)', name: 'min_price', size: '25', minSize: '25', datatype: { type: 'price' } },
     { title: 'Max price (€)', name: 'max_price', size: '25', minSize: '25', datatype: { type: 'price' } },
+    { title: 'Parts Price Sold', name: 'setinfo.sumPartsAndMinifigs.sumPart_Qty_avg_price_sold', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Minifigs Price Sold', name: 'setinfo.sumPartsAndMinifigs.sumMinifig_Qty_avg_price_sold', size: '40', minSize: '40', datatype: { type: 'price' } },
+   
   ];
 
   public ExpPartsColumns = [
@@ -248,7 +254,7 @@ export class CollectionDetailComponent implements OnInit {
 
   onExpectedSetCellClick(data){
     console.log(data)
-    this.router.navigateByUrl("/setdetail/" + data.setinfo.id).then((bool) => { }).catch()
+    this.router.navigateByUrl("/expectedsetdetail/" + data.id).then((bool) => { }).catch()
   }
 
   getExpectedSets() {

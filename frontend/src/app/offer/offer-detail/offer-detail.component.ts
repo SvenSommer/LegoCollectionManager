@@ -66,7 +66,9 @@ export class OfferDetailComponent implements OnInit {
     { title: 'min Price', name: 'setinfo.min_price', size: '40', minSize: '40', datatype: { type: 'price' } },
     { title: 'max Price', name: 'setinfo.max_price', size: '40', minSize: '40', datatype: { type: 'price' } },
     { title: 'Avg Price', name: 'setinfo.avg_price', size: '40', minSize: '40', datatype: { type: 'price' } },
-    { title: 'Identified', name: 'created', size: '100', minSize: '100', datatype: { type: 'date' } }
+    { title: 'Parts Price Sold', name: 'setinfo.sumPartsAndMinifigs.sumPart_Qty_avg_price_sold', size: '40', minSize: '40', datatype: { type: 'price' } },
+    { title: 'Minifigs Price Sold', name: 'setinfo.sumPartsAndMinifigs.sumMinifig_Qty_avg_price_sold', size: '40', minSize: '40', datatype: { type: 'price' } },
+   
   ];
 
   public offerInfo = {

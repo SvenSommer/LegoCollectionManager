@@ -11,6 +11,7 @@ export class CardComponent implements OnInit {
   @Input() public showIcon: boolean;
   @Input() public title: string;
   @Input() public data: any
+  @Input() public price: boolean
 
   constructor() { }
 

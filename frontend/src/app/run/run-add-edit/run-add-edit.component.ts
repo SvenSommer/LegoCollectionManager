@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RunModel } from 'src/app/models/run-model';
 import { CollectionService } from 'src/app/services/collection.service';
 import { RunService } from 'src/app/services/run.service';
-import { SortedSetService } from 'src/app/services/sortedset.service';
+import { RunnedSetService } from 'src/app/services/runnedset.service';
 import { SorterService } from 'src/app/services/sorter.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 
@@ -34,7 +34,7 @@ export class RunAddEditComponent implements OnInit {
     private toastr: ToastrService, 
     private collectionService: CollectionService,
     private sorterService: SorterService,
-    private sortedSetService : SortedSetService) {}
+    private runnedSetService : RunnedSetService) {}
 
   @ViewChild('modalPopup') modal: ModalPopupComponent;
 
@@ -248,7 +248,7 @@ export class RunAddEditComponent implements OnInit {
           this.run.sortedsets.forEach(sset => {
             sset["run_id"] = data.body.run_id
             console.log("saving set to sort", sset)
-            this.sortedSetService.createSortedSet(sset).subscribe(
+            this.runnedSetService.createRunnedSet(sset).subscribe(
               (dataset) => {
                 if (dataset.body.code == 201 || dataset.body.code == 200) {
                   this.toastr.success(dataset.body.message);

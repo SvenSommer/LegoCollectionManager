@@ -12,10 +12,16 @@ export class PurchasedPartService {
     constructor(private http: HttpClient) {
     }
 
-    getPurchasedPartsOrderItembyId(id: number) : Observable<any> {
+    getPurchasedPartsbyOrderItemId(id: number) : Observable<any> {
       let httpHeader = new HttpHeaders();
       httpHeader.set("Access-Control-Allow-Origin", "*");
       return this.http.get<any>(`${environment.baseUrl}purchasedparts/orderitemid/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+    }
+
+    getPurchasedPartsbyExpectedSetid(id: number) : Observable<any> {
+      let httpHeader = new HttpHeaders();
+      httpHeader.set("Access-Control-Allow-Origin", "*");
+      return this.http.get<any>(`${environment.baseUrl}purchasedparts/expectedset/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
     }
 
     UpsertPurchasedPart(model: PurchasedPartModel): Observable<any> {

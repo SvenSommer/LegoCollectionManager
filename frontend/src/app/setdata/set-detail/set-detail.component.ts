@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SetdataService } from 'src/app/services/setdata.service';
-import { SortedSetService } from 'src/app/services/sortedset.service';
+import { RunnedSetService } from 'src/app/services/runnedset.service';
 import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup/modal-popup.component';
 
 @Component({
@@ -18,14 +18,44 @@ export class SetDetailComponent implements OnInit {
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
 
   public setdataDetails;
+  public setInfo = {
+    title: 'Set Information',
+    rowData: [
+      { key: 'setinfo.no', name: 'Setno',dataType:{type:'set_detail_link', target: 'no'}},
+      { key: 'setinfo.name', name: 'Name',dataType:{type:'set_detail_link', target: 'no'}},
+      { key: 'setinfo.year', name: 'Year'},
+      { key: 'setinfo.size', name: 'Size'},
+      { key: 'setinfo.category_name', name: 'Category'},
+      { key: 'setinfo.weight_g', name: 'Weight',dataType:{type:'weight', unit:"g"}},
+      { key: 'setinfo.complete_part_count', name: 'Part Count'},
+      { key: 'setinfo.complete_minifigs_count', name: 'Minifig Count'},
+    ]
+  }; 
+   public priceInfo = {
+    title: 'Price Information',
+    rowData: [
+      { key: 'setinfo.min_price', name: 'BL Min Price', dataType: { type: 'price' }},
+      { key: 'setinfo.avg_price', name: 'BL avg Price', dataType: { type: 'price' }},
+      { key: 'setinfo.max_price', name: 'BL Max Price', dataType: { type: 'price' }},
+      { key: 'setinfo.sumPartsAndMinifigs.sumPartsAndMinifigs_Qty_avg_price_sold', name: 'All Price Sold', dataType: { type: 'price' }},
+      { key: 'setinfo.sumPartsAndMinifigs.sumPartsAndMinifigs_Qty_avg_price_stock', name: 'All Price Stock', dataType: { type: 'price' }},
+      { key: 'setinfo.sumPartsAndMinifigs.sumPart_Qty_avg_price_sold', name: 'Parts Price Sold', dataType: { type: 'price' }},
+      { key: 'setinfo.sumPartsAndMinifigs.sumPart_Qty_avg_price_stock', name: 'Parts Price Stock', dataType: { type: 'price' }},
+      { key: 'setinfo.sumPartsAndMinifigs.sumMinifig_Qty_avg_price_sold', name: 'Minifigs Price Sold', dataType: { type: 'price' }},
+      { key: 'setinfo.sumPartsAndMinifigs.sumMinifig_Qty_avg_price_stock', name: 'Minifigs Price Stock', dataType: { type: 'price' }},
+    ]
+  }; 
 
-  public sortedsetsColumns = [
+   public runnedSetsData: any;
+  public runnedSetsColumns = [
     { title: 'Collection', name: 'collection_id', size: '65', minSize: '65', datatype: { type: 'number' } },
     { title: 'Run', name: 'runinfo.title', size: '65', minSize: '65' },
     { title: 'Expectedset ', name: 'expectedset_id', size: '65', minSize: '65', datatype: { type: 'number' } },
   ];
-  public sortedSetsData: any;
+ 
 
+  public partData: any;
+  public partSumData: any;
   public partColumns = [
     { title: 'Image', name: 'partinfo.thumbnail_url', size: '65', minSize: '65', datatype: { type: 'image' } },
     { title: 'Partno - Color Id', name: 'partinfo.partnocolid', size: '30', minSize: '30' },
@@ -36,8 +66,9 @@ export class SetDetailComponent implements OnInit {
     { title: 'Avg € (stock)', name: 'partinfo.qty_avg_price_stock', size: '30', minSize: '30', datatype: { type: 'price' } },
     { title: 'Avg € (sold)', name: 'partinfo.qty_avg_price_sold', size: '30', minSize: '30', datatype: { type: 'price' } },
   ];
-  public partData: any;
 
+  public minifigData: any;
+  public minifigSumData: any;
   public minifigColumns = [
     { title: 'Image', name: 'partinfo.thumbnail_url', size: '80', minSize: '80', datatype: { type: 'image' } },
     { title: 'Part', name: 'partinfo.part_no', size: '30', minSize: '30' },
@@ -63,11 +94,11 @@ export class SetDetailComponent implements OnInit {
   };
 
 
-  public minifigData: any;
+
 
   constructor(private activatedRoute: ActivatedRoute,
     private setdataService: SetdataService,
-    private sortedSetService : SortedSetService,
+    private runnedSetService : RunnedSetService,
     private router: Router, private toastr: ToastrService) { }
 
     public id = 0;
@@ -89,7 +120,7 @@ export class SetDetailComponent implements OnInit {
         if (data) {
           if (data.body && data.body.code == 200) {
             this.setdataDetails = data.body.result[0];
-            this.getAllSortedSets();
+            this.getAllRunnedSets();
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -102,13 +133,13 @@ export class SetDetailComponent implements OnInit {
     );
   }
 
-  getAllSortedSets() {
-    this.sortedSetService.getSetSortedSetsBySetno(this.setdataDetails.setinfo.no).subscribe(
+  getAllRunnedSets() {
+    this.runnedSetService.getRunnedSetsBySetno(this.setdataDetails.setinfo.no).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.sortedSetsData = data.body.result;
-            console.log("this.sortedSetsData",this.sortedSetsData)
+            this.runnedSetsData = data.body.result;
+            console.log("this.runnedSetsData",this.runnedSetsData)
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -121,8 +152,8 @@ export class SetDetailComponent implements OnInit {
     );
   }
 
-  onSortedSetCellClick(data){
-    this.router.navigateByUrl("/sortedsetdetail/" + data.id).then((bool) => { }).catch()
+  onRunnedSetCellClick(data){
+    this.router.navigateByUrl("/runnedsetdetail/" + data.id).then((bool) => { }).catch()
   }
 
 
@@ -156,7 +187,8 @@ export class SetDetailComponent implements OnInit {
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.partData = data.body.result;
+            this.partData = data.body.parts;
+            this.partSumData = data.body.sum_parts;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -173,8 +205,9 @@ export class SetDetailComponent implements OnInit {
     this.setdataService.getSubsetMinifigdataBySetid(this.id).subscribe(
       (data) => {
         if (data) {
-          if (data.body && data.body.code == 200 && data.body.result.length > 0) {
-            this.minifigData = data.body.result;
+          if (data.body && data.body.code == 200 && data.body.minifigs.length > 0) {
+            this.minifigData = data.body.minifigs;
+            this.minifigSumData = data.body.sum_minifigs;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");

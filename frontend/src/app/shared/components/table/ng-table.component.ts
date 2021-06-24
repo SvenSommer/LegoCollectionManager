@@ -145,7 +145,7 @@ export class NgTableComponent implements OnInit, OnChanges {
       return Number(cellData);
     }
     else if (column.datatype.type == 'price') {
-      return cellData + ' €';
+      return parseFloat(cellData).toFixed(2).replace(".",",") + ' €';
     }
     else if (column.datatype.type == 'date' && cellData) {
       // return this.datePipe.transform(new Date(cellData), this.sharedService.variables.dateFormat);

@@ -163,7 +163,7 @@ export class OrderitemDetailComponent implements OnInit {
   }
 
   getPurchasedandSortedParts() {
-    this.purchasedPartService.getPurchasedPartsOrderItembyId(this.id).subscribe(
+    this.purchasedPartService.getPurchasedPartsbyOrderItemId(this.id).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {

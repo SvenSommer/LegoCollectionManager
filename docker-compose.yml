@@ -1,0 +1,21 @@
+version: '3'
+services:
+    mysql-server:
+        build: database/.
+        environment:
+            MYSQL_ROOT_PASSWORD: 1234
+            MYSQL_USER: WebDBUser
+            MYSQL_PASSWORD: qF2J%9a84zU
+        cap_add:
+            - SYS_NICE  # CAP_SYS_NICE
+    backend-app:
+        restart: always
+        build: backend/.
+        ports:
+            - "3001:3001"
+    downloadworker-app:
+        build: download-worker/.
+        ports:
+            - "3002:3002"
+#    crawler-app:
+ #       build: crawler/.

@@ -79,7 +79,7 @@ export function GetAndUpsertSubSetData(setnumber: any, userid: any, task_id: any
                     }
                     else {
                         InsertProgressDetail(task_id, 96, "Part Data Downloaded.", information);
-                        console.log("Updating the set part count and minifig count");
+                        if(process.env.DEBUG == "True") console.log("Updating the set part count and minifig count");
                         UpdateSetPartCount(setnumber).then(function (data) {
                             if (data) {
                                 UpdateSetMinifigCount(setnumber).then(function (data) {

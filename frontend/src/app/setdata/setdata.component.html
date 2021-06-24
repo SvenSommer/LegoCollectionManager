@@ -1,15 +1,21 @@
 <div class="container-fluid">
   <h3 class="text-dark mb-4 pt-2">Sets</h3>
-  <button class="btn btzn-link btn-sm float-right mt-3 mr-3 btn-outline-secondary" aria-expanded="false" type="button">
-    <i class="fas fa-plus text-gray-400"></i>
-  </button>
-
   <div class="card shadow mb-4">
-    <app-offer-grid class="offer-grid"
-                    [columnDef]="columns"
-                    [rows]="rows"
-                    (rowClick)="onRowClick($event)">
-
-    </app-offer-grid>
+      <div class="card-header d-flex justify-content-between align-items-center">
+          <h6 class="text-primary font-weight-bold m-0">Set data</h6>
+          <div class="dropdown no-arrow">
+              <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" >
+                  <i class="fas fa-plus text-gray-400"></i>
+              </button>
+          </div>
+      </div>
+      <div class="card-body">
+          <div class="row">
+              <div class="col-sm-12" *ngIf="data && columns">
+                  <ng-table (rowCellClick)="onRowClick($event)" [isActionVisible]="false" [columns]="columns" [data]="data">
+              </ng-table>
+              </div>
+          </div>
+      </div>
   </div>
 </div>

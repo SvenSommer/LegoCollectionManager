@@ -16,7 +16,7 @@ export async function UpsertPartDataByNo(partnumber: any, colorid: any, type: an
             else {
                 if (partresult !== 'undefined' && partresult.length > 0) {
                     const { id: partid } = partresult[0];
-                    console.log(`Part already in Parts Table with id ${partid}`);
+                    if(process.env.DEBUG == "True") console.log(`Part already in Parts Table with id ${partid}`);
                     resolve(true)
                    /*  getAndUpdatePartAndPriceData(type, partnumber, colorid, userid, partid).then(function (data) {
                         if (data) {
@@ -27,7 +27,7 @@ export async function UpsertPartDataByNo(partnumber: any, colorid: any, type: an
                     }); */
                 }
                 else {
-                    console.log(`Part not existend in Part Table yet type: ${type} partnumber: ${partnumber} colorid:${colorid} userid: ${userid}`)
+                    if(process.env.DEBUG == "True") console.log(`Part not existend in Part Table yet type: ${type} partnumber: ${partnumber} colorid:${colorid} userid: ${userid}`)
                     getAndInsertPartAndPriceData(type, partnumber, colorid, userid).then(function (data) {
                         if (data) {
                             resolve(data);

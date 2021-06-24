@@ -34,7 +34,7 @@ import suggestedset from "./routes/suggestedset";
 import supersetdata from "./routes/supersetdata";
 import types from "./routes/types";
 import usergroups from "./routes/usergroups";
-import sortedsets from "./routes/sortedsets";
+import runnedsets from "./routes/runnedsets";
 import sortedparts from "./routes/sortedparts";
 import missingparts from "./routes/missingparts";
 import expectedparts from "./routes/expectedpart";
@@ -57,11 +57,10 @@ import task from "./routes/task";
 import orders from "./routes/order";
 import orderitems from "./routes/orderitem";
 import purchasedparts from "./routes/purchasedpart";
-
 import progress_routes from './routes/progressdetails';
 
 const corsOpts = {
-    origin: ['http://localhost:3001', 'http://localhost:4200', 'http://localhost:3002','http://localhost:5000','http://192.168.178.52:4200','http://legosorter:4200'],
+    origin: ['127.0.0.1:80','http://localhost:3001', 'http://localhost:4200', 'http://localhost:3002','http://localhost:5000','http://192.168.178.52:4200','http://legosorter:4200'],
     credentials: true,
     methods: [
         'GET',
@@ -77,7 +76,7 @@ const corsOpts = {
 };
 
 /*
-* Initializing Middlewares
+* Initializing Middlewares 
 */
 dotenv.config();
 app.use(cors(corsOpts));
@@ -115,7 +114,7 @@ app.use('/suggestedsets', suggestedset);
 app.use('/supersetdata', supersetdata);
 app.use('/types', types);
 app.use('/usergroups', usergroups);
-app.use('/sortedsets', sortedsets);
+app.use('/runnedsets', runnedsets);
 app.use('/sortedparts', sortedparts);
 app.use('/missingparts', missingparts);
 app.use('/expectedparts', expectedparts);
@@ -140,6 +139,7 @@ app.use('/orderitems', orderitems);
 app.use('/purchasedparts', purchasedparts);
 
 app.use('/progressdetails', progress_routes);
+
 
 
 const PORT = process.env.PORT || 4000;

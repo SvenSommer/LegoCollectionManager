@@ -60,43 +60,5 @@ export class RunService {
         return this.http.delete<any>(`${environment.baseUrl}runs/` + id, { withCredentials: true, headers: headers, observe: 'response' });
     }
 
-    getSortedsets(): Observable<any> {
-        let httpHeader = new HttpHeaders();
-        httpHeader.set("Access-Control-Allow-Origin", "*");
-        return this.http.get<any>(`${environment.baseUrl}runs`, { withCredentials: true, headers: httpHeader, observe: 'response' });
-    }
-
-    getSortedsetsByRunid(id): Observable<any> {
-
-        let httpHeader = new HttpHeaders();
-        httpHeader.set("Access-Control-Allow-Origin", "*");
-        return this.http.get<any>(`${environment.baseUrl}sortedsets/run/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
-    }
-
-    getSortedsetById(id): Observable<any> {
-        let httpHeader = new HttpHeaders();
-        httpHeader.set("Access-Control-Allow-Origin", "*");
-        return this.http.get<any>(`${environment.baseUrl}sortedsets/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
-    }
-
-    saveSortedset(model: RunModel): Observable<any> {
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        })
-        return this.http.post<RunModel>(`${environment.baseUrl}sortedsets`, model, { withCredentials: true, headers: headers, observe: 'response' });
-    }
-
-    updateSortedset(model: RunModel): Observable<any> {
-        let headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-        })
-        return this.http.put<RunModel>(`${environment.baseUrl}sortedsets/` + model.id, model, { withCredentials: true, headers: headers, observe: 'response' });
-    }
-
-    deleteSortedset(id): Observable<any> {
-        let headers = new HttpHeaders({
-          'Content-Type': 'application/json',
-        })
-        return this.http.delete<any>(`${environment.baseUrl}sortedsets/` + id, { withCredentials: true, headers: headers, observe: 'response' });
-    }
+    
 }

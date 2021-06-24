@@ -1,0 +1,3 @@
+USE LegoSorterDB;
+CREATE USER 'WebDBUser'@'localhost' IDENTIFIED BY 'qF2J%9a84zU';
+GRANT ALL PRIVILEGES ON *.* TO 'WebDBUser'@'localhost' WITH GRANT OPTION;

@@ -7,11 +7,12 @@ import { ModalPopupComponent } from 'src/app/shared/components/popup/modal-popup
 import { RunEditComponent } from '../run-edit/run-edit.component';
 import { RunService } from 'src/app/services/run.service';
 import { RunModel } from 'src/app/models/run-model';
-import { SortedsetEditComponent } from '../sortedset-edit/sortedset-edit.component';
-import { SortedSetModel } from 'src/app/models/sortedset-model';
+import { RunnedSetEditComponent } from '../runnedset-edit/runnedset-edit.component';
+import { RunnedSetModel } from 'src/app/models/runnedset-model';
 import { IdentifiedpartEditComponent } from '../identifiedpart-edit/identifiedpart-edit.component';
 import { IdentifiedpartService } from 'src/app/services/identifiedpart.service';
 import { IdentifiedPartModel } from 'src/app/models/identifiedpart-model';
+import { RunnedSetService } from 'src/app/services/runnedset.service';
 
 @Component({
   selector: 'app-run-detail',
@@ -24,13 +25,13 @@ export class RunDetailComponent implements OnInit {
   @ViewChild('imagePopup') public imagePopup: ModalPopupComponent;
 
   @ViewChild('runEdit') runEdit: RunEditComponent;
-  @ViewChild('sortedsetEdit') sortedsetEdit: SortedsetEditComponent;
+  @ViewChild('runnedsetEdit') runnedSetEdit: RunnedSetEditComponent;
   @ViewChild('identifiedpartEdit') identifiedpartEdit: IdentifiedpartEditComponent
   public runDetails;
-  public sortedsetDetails;
+  public runnedSetDetails;
   public identifiedpartDetails;
 
-  public sortedsetsColumns = [
+  public runnedSetsColumns = [
     { title: 'Pusher', name: 'pusherinfo.name', size: '60', minSize: '60' },
     { title: 'Image', name: 'setinfo.image_url', size: '80', minSize: '80', datatype:{ type: 'image' } },
     { title: 'Set No', name: 'setinfo.no', size: '30', minSize: '30' , datatype:{ type: 'number' }},
@@ -65,16 +66,17 @@ export class RunDetailComponent implements OnInit {
     ]
   };
 
-  public newSortedSetDetail = {
+  public newRunnedSetDetail = {
     "id":0,
     "run_id":0,
     "expectedset_id":1,
     "pusher_id":1
   }
-  public sortedsetsData: any;
+  public runnedSetsData: any;
   public identifiedpartsData: any;
   constructor(private activatedRoute: ActivatedRoute,
     private runService: RunService,
+    private runnedSetService: RunnedSetService,
     private identifiedpartsService: IdentifiedpartService,
     private router: Router, private toastr: ToastrService,
     private ngxBootstrapConfirmService: NgxBootstrapConfirmService) { }
@@ -85,9 +87,9 @@ export class RunDetailComponent implements OnInit {
       this.id = params['id'];
 
       if (this.id > 0) {
-        this.newSortedSetDetail.run_id = this.id;
+        this.newRunnedSetDetail.run_id = this.id;
         this.bindData();
-        this.getAllSortedsets();
+        this.getAllRunnedsets();
         this.getAllIdentifiedparts();
       }
     });
@@ -153,13 +155,13 @@ export class RunDetailComponent implements OnInit {
     });
   }
 
-  getAllSortedsets() {
+  getAllRunnedsets() {
 
-    this.runService.getSortedsetsByRunid(this.id).subscribe(
+    this.runnedSetService.getRunnedSetsByRunid(this.id).subscribe(
       (data) => {
         if (data) {
           if (data.body && data.body.code == 200) {
-            this.sortedsetsData = data.body.result;
+            this.runnedSetsData = data.body.result;
           }
           else if (data.body && data.body.code == 403) {
             this.router.navigateByUrl("/login");
@@ -172,22 +174,22 @@ export class RunDetailComponent implements OnInit {
     );
   }
 
-  editSortedset(id) {
-    this.sortedsetEdit.open(this.newSortedSetDetail);
+  editRunnedSet(id) {
+    this.runnedSetEdit.open(this.newRunnedSetDetail);
   }
 
-  addNewSortedset(newData: SortedSetModel) {
+  addNewRunnedSet(newData: RunnedSetModel) {
     this.bindData();
-    this.getAllSortedsets();
+    this.getAllRunnedsets();
   }
 
-  onEditSortedsetClick(data) {
-    this.sortedsetEdit.open(data);
+  onEditRunnedSetClick(data) {
+    this.runnedSetEdit.open(data);
   }
 
-  onSortedSetClick(data) {
+  onRunnedSetClick(data) {
     console.log("data",data)
-    this.router.navigateByUrl('/sortedsetdetail/' + data.id).then((bool) => { }).catch();
+    this.router.navigateByUrl('/runnedsetdetail/' + data.id).then((bool) => { }).catch();
   }
 
   getAllIdentifiedparts() {
@@ -220,7 +222,7 @@ export class RunDetailComponent implements OnInit {
     this.router.navigateByUrl("/labelparts/" + id).then((bool) => { }).catch()
   }
 
-  addNewIdentifiedpart(newData: SortedSetModel) {
+  addNewIdentifiedpart(newData: RunnedSetModel) {
     this.bindData();
     this.getAllIdentifiedparts();
   }

@@ -1,1 +1,200 @@
-<p>expectedset-detail works!</p>
+<div class="container-fluid" *ngIf="setdataDetails">
+    <div class="d-sm-flex justify-content-between align-items-center mb-4 pt-2">
+        <h3 class="text-dark mb-0">Expected Set {{setdataDetails.setinfo.no}} - {{setdataDetails.setinfo.name}}</h3>
+    </div>
+</div>
+<div class="row mb-3" *ngIf="setdataDetails">
+    <div class="col-lg-2">
+
+            <div class="card mb-3">
+                <div class="card-body text-center shadow">
+                    <img (click)="onImgClick(setdataDetails)" height="160px" [src]="setdataDetails.setinfo.image_url" />
+                </div>
+            </div>
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Properties</h6>
+                </div>
+                <app-card-table [cardColumns]="setInfo" [cardData]="setdataDetails"></app-card-table>
+                <app-card-table [cardColumns]="priceInfo" [cardData]="setdataDetails"></app-card-table>
+            </div>
+
+            <div class="card shadow mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Set in Runs</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12" *ngIf="runnedSetsData && runnedSetsColumns">
+                                    <ng-table [allowSearch]="true" [allowPaging]="false" [isActionVisible]="false"
+                                        [columns]="runnedSetsColumns" [data]="runnedSetsData" (rowCellClick)="onRowRunnedSetClick($event)" >
+                                    </ng-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </div>
+    <div class="col-lg-10">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    <div class="card shadow mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="dropdown btn-group pr-2">
+                                <button type="button" class="btn text-primary font-weight-bold dropdown-toggle"
+                                    data-toggle="dropdown">
+                                    {{currentTabExpected}}
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" (click)="getAllPartdataExpected()">Parts</a>
+                                    <a class="dropdown-item" (click)="getAllMinifigsExpected()">Minifigs</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body"  *ngIf="expectedPartData && expectedPartColumns && currentTabExpected == 'Expected Parts'" >
+                            <div class="row" *ngIf="expectedPartSumData">
+                                <div class="col-md mb-4">
+                                    <app-card [title]="'Parts Value (Sold)'" [showProgressbar]="true"
+                                    [price]="true" [data]="{color: 'primary',current: setdataDetails.setinfo.sumPartsAndMinifigs.sumPart_Qty_avg_price_sold, total: setdataDetails.setinfo.sumPartsAndMinifigs.sumPartsAndMinifigs_Qty_avg_price_sold}"></app-card>
+                                </div>
+                                <div class="col-md mb-4">
+                                    <app-card [title]="'Expected Parts / All Pieces'" [showProgressbar]="true"
+                                   [data]="{color: 'info',current: setdataDetails.setinfo.complete_part_count, total:setdataDetails.setinfo.sumPartsAndMinifigs.sumPartsAndMinifigsQuantity }"></app-card>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ng-table [columns]="expectedPartColumns" [data]="expectedPartData">
+                                    </ng-table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body" *ngIf="expectedMinifigData && expectedMinifigColumns  && currentTabExpected == 'Expected Minifigs'">
+                            <div class="row" *ngIf="expectedMinifigSumData">
+                                <div class="col-md mb-4">
+                                    <app-card [title]="'Minifigs Value (Sold)'" [showProgressbar]="true"
+                                    [price]="true" [data]="{color: 'secondary',current: setdataDetails.setinfo.sumPartsAndMinifigs.sumMinifig_Qty_avg_price_sold, total: setdataDetails.setinfo.sumPartsAndMinifigs.sumPartsAndMinifigs_Qty_avg_price_sold}"></app-card>
+                                </div>
+                                <div class="col-md mb-4">
+                                    <app-card [title]="'Expected Minifigs / All Pieces'" [showProgressbar]="true"
+                                     [data]="{color: 'info',current: setdataDetails.setinfo.complete_minifigs_count, total:setdataDetails.setinfo.sumPartsAndMinifigs.sumPartsAndMinifigsQuantity }"></app-card>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12" >
+                                    <ng-table [columns]="expectedMinifigColumns" [data]="expectedMinifigData">
+                                    </ng-table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Missing Parts</h6>
+                        <div class="dropdown no-arrow" *ngIf="sum_missingPartData">
+                            <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button"  (click)="createBricklinkWishlistFile()">
+                                <i class="fas fa-file-export text-gray-400"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" *ngIf="sum_missingPartData">
+                            <div class="col-md mb-4">
+                                <app-card [title]="'Parts Missing'" [showProgressbar]="true"
+                                [data]="{color: 'danger',current: sum_missingPartData.sum_missing_quantity, total: setdataDetails.setinfo.sumPartsAndMinifigs.sumPartsAndMinifigsQuantity}"></app-card>
+                            </div>
+                            <div class="col-md mb-4">
+                                <app-card [title]="'Expected Prices Stock / Sold'" [showProgressbar]="false"
+                                [price]="true" [data]="{color: 'info',current: sum_missingPartData.sum_all_qty_avg_price_stock, total:sum_missingPartData.sum_all_qty_avg_price_sold }"></app-card>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="missingPartData">
+                            <div class="col-sm-12" *ngIf="missingPartData && missingPartColumns">
+                                <ng-table [isActionVisible]="false" [columns]="missingPartColumns" [data]="missingPartData">
+                                </ng-table>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!missingPartData" >
+                            <label class="btn btn-success">No Missing Parts. Set is Complete!</label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <h6 class="text-primary font-weight-bold m-0">Sorted Parts</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" *ngIf="sum_sortedPartData">
+                            <div class="col-md mb-4">
+                                <app-card [title]="'Parts Sorted'" [showProgressbar]="true"
+                                [data]="{color: 'primary',current: sum_sortedPartData.count_parts, total: setdataDetails.setinfo.sumPartsAndMinifigs.sumPartsAndMinifigsQuantity}"></app-card>
+                            </div>
+                            <div class="col-md mb-4">
+                                <app-card [title]="'Parts Prices Stock / Sold'" [showProgressbar]="false"
+                                [price] = "true" [data]="{color: 'info',current: sum_sortedPartData.sum_qty_avg_price_sold, total:sum_sortedPartData.sum_qty_avg_price_stock }"></app-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" *ngIf="sortedPartData && sortedPartColumns">
+                                <ng-table [isActionVisible]="false" [columns]="sortedPartColumns" [data]="sortedPartData">
+                                </ng-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary font-weight-bold m-0">Purchased Parts</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" *ngIf="purchasedPartsSumData && purchasedPartsSumData">
+
+                            <div class="col-md mb-4">
+                                <app-card [title]="'Parts Purchased'" [showProgressbar]="true"
+                                [data]="{color: 'danger',current: purchasedPartsSumData.SumQuantity, total: setdataDetails.setinfo.sumPartsAndMinifigs.sumPartsAndMinifigsQuantity}"></app-card>
+                            </div>
+                            <div class="col-md mb-4">
+                                <app-card [title]="'Expected Part Sold  / Stock'" [showProgressbar]="false"
+                                [price]="true" [data]="{color: 'info',current: purchasedPartsSumData.SumQty_avg_price_sold, total:purchasedPartsSumData.SumQty_avg_price_stock }"></app-card>
+                            </div>
+                            <div class="col-md mb-4">
+                                <app-card [title]="'Paid Part Prices  / Total'" [showProgressbar]="false"
+                                [price]="true" [data]="{color: 'info',current: purchasedPartsSumData.SumUnit_price, total:purchasedPartsSumData.SumUnit_price_final}"></app-card>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="purchasedPartsData">
+                            <div class="col-sm-12" *ngIf="purchasedPartsData && purchasedPartsColumns">
+                                <ng-table [isActionVisible]="false" [columns]="purchasedPartsColumns" [data]="purchasedPartsData">
+                                </ng-table>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!purchasedPartsData" >
+                            <label class="btn btn-success">No Purchased Parts.</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<app-modal-popup [title]="imgPopupName" size="lg" (closeEvent)="onImgPopupClose()" #imagePopup>
+    <img [src]="imgPopupURL" width="100%"/>
+  </app-modal-popup>

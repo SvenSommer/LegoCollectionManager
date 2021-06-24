@@ -22,7 +22,7 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, task_id:
             else {
                 if (setresult !== 'undefined' && setresult.length > 0) {
                     const { id: setid, complete_part_count : partcount } = setresult[0];
-                    console.log(`Set already in Set Table with id ${setid}`)
+                    if(process.env.DEBUG == "True") console.log(`Set already in Set Table with id ${setid}`)
                     GetAndUpdateSetData(setnumber, userid, setid).then(function (setinfo) {
                         enrichInformationWithSetinfo(setinfo);
                         InsertProgressDetail(task_id, 10, "Set Data already existed", information);
@@ -51,7 +51,7 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, task_id:
                     });
                 }
                 else {
-                    console.log(`Set not existend in Set Table yet setnumber: ${setnumber}, userid: ${userid}`)
+                    if(process.env.DEBUG == "True") console.log(`Set not existend in Set Table yet setnumber: ${setnumber}, userid: ${userid}`)
                     GetAndInsertSetData(setnumber, userid).then(function (setinfo) {
                         enrichInformationWithSetinfo(setinfo);
                         InsertProgressDetail(task_id, 10, "Starting Set Data Download", information);

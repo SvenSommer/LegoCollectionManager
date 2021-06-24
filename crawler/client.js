@@ -16,7 +16,7 @@ const CREDENTIALS = {
 	username: USERNAME,
 	password: PASSWORD
 }
-const API_URL = "http://localhost:3001"
+const API_URL = "backend-app:3001"
 const API_REQUEST = {
 	AUTH: "/users/login",
 	OPEN_TAKS: "/tasks/type/3/open"

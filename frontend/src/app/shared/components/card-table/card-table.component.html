@@ -5,7 +5,7 @@
           <table *ngIf="cardColumns" class="div2 table table-hover table-sm datatable" role="grid">
               <tr *ngFor="let cardInfo of cardColumns.rowData">
                 <ng-container  *ngIf="showProperty(cardInfo)" [ngSwitch]="cardInfo?.dataType?.type">
-                  <td>
+                  <td style="width: 50%;">
                     {{cardInfo.name}}
                   </td>
                   <td *ngSwitchCase="'link'">
@@ -65,8 +65,8 @@
                     </select>
                   </td>
                   <td *ngSwitchCase="'price'">
-                    <span *ngIf="_cardData?.offerinfo?.pricetype">{{_cardData?.offerinfo?.pricetype}} <br></span>
-                    <span [innerHtml]="cardInfo.value"></span> &#8364;
+                    <span *ngIf="_cardData?.offerinfo?.pricetype">{{_cardData?.offerinfo?.pricetype  | currency: 'EUR':'symbol':undefined:'de-DE'}} <br></span>
+                    <span >{{cardInfo.value | currency: 'EUR':'symbol':undefined:'de-DE' }}</span>
                   </td>
                   <td *ngSwitchCase="'price_per_kilo'">
                     <span [innerHtml]="cardInfo.value"></span> &#8364;/kg

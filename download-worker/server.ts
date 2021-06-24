@@ -27,6 +27,7 @@ if (cluster.isWorker) {
         console.log(`Server started, PORT:` + process.env.PORT);
         console.log(`Connected to DB`);
         Login("admin", "adminpass").then(data => {
+            if(process.env.DEBUG == "True") console.log("Login Successful.")
             performSideTasks().then(data => {
 
             });
@@ -38,7 +39,7 @@ if (cluster.isWorker) {
     process.on('uncaughtException', async err => {
         // To DO :: Here we can check err and call the delete functions.
         ReInitAfterError();
-        console.error('There was an uncaught error' + err);
+        console.error('There was an uncaught error: "' + err+ '"');
         await snooze(2000);
         process.exit(1) //mandatory (as per the Node.js docs)
     });

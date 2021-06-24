@@ -1,15 +1,15 @@
 {
-  "name": "collection-backend",
+  "name": "LegoCollectionManager-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.ts",
     "start2": "node dist/server.js",
     "dev": "nodemon server.ts",
     "build": "tsc -p ."
   },
-  "author": "",
+  "author": "SvenSommer",
   "license": "ISC",
   "dependencies": {
     "async": "^3.2.0",

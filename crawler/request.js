@@ -1,6 +1,6 @@
 const getToken = response => response.headers["set-cookie"][0].split(";")[0];
 
-const urlBase = "http://localhost:3001/"
+const urlBase = "backend-app:3001/"
 const axios = require("axios").default
 const username = "scraper";
 const password = "pw"

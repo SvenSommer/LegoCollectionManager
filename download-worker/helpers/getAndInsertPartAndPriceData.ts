@@ -9,7 +9,7 @@ export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid
     return new Promise(function (resolve, reject) {
         blApi.bricklinkClient.getCatalogItem(type, partnumber, colorid)
             .then(function (partinfo: any) {
-                console.log(type + ' getAndInsertPartAndPriceData ' + partnumber);
+                if(process.env.DEBUG == "True") console.log(type + ' getAndInsertPartAndPriceData ' + partnumber);
                 setTimeout(() => {
                     blApi.bricklinkClient.getPriceGuide(type, partnumber,
                         {
@@ -18,7 +18,7 @@ export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid
                             region: 'europe',
                             guide_type: 'stock'
                         }).then(function (priceinfoStock: PriceInfo) {
-                            console.log('getPriceGuide stock' + new Date());
+                            if(process.env.DEBUG == "True") console.log('getPriceGuide stock' + new Date());
                             setTimeout(() => {
                                 blApi.bricklinkClient.getPriceGuide(type, partnumber,
                                     {
@@ -27,7 +27,7 @@ export function getAndInsertPartAndPriceData(type: any, partnumber: any, colorid
                                         region: 'europe',
                                         guide_type: 'sold'
                                     }).then(function (priceinfoSold: PriceInfo) {
-                                        console.log('getPriceGuide sold ' + new Date());
+                                        if(process.env.DEBUG == "True") console.log('getPriceGuide sold ' + new Date());
                                         const createPartData = `INSERT INTO Partdata (
                                             no,
                                             name,

@@ -6,17 +6,19 @@ export function Login(username: any, password: any): Promise<any> {
     const transport = axios.create({
       withCredentials: true,
     });
-    transport.post<any>(process.env.API_URL + 'users/login', {
+    let baseurl = 'http://' + process.env.API_URL + ':' + process.env.API_PORT  
+    if(process.env.DEBUG == "True") console.log("making post request to " + baseurl + '/users/login')
+    transport.post<any>(baseurl + '/users/login', {
       "username": username,
       "password": password
     }, { withCredentials: true, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(data => {
-      console.log(data.data);
       if (data.data.code == 200) {
-        console.log(data.data.message);
+        if(process.env.DEBUG == "True") console.log(data.data.message);
         GlobalVariable.cookie = data.headers['set-cookie'][0];
         resolve(true);
       }
       else {
+        console.log(data)
         reject(false);
       }
     });

@@ -12,7 +12,9 @@ export function GetTaskData(tasknummer:number) {
       withCredentials: true,
     });
 
-    transport.get<any>(process.env.API_URL + `tasks/type/${tasknummer}/open`, { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(async res => {
+    let baseurl = 'http://' + process.env.API_URL + ':' + process.env.API_PORT  
+    if(process.env.DEBUG == "True") console.log("making post request to " + baseurl + `/tasks/type/${tasknummer}/open`)
+    transport.get<any>(baseurl + `/tasks/type/${tasknummer}/open`, { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(async res => {
       //console.log(res.data);
       if (res.data.code == 200) {
         if(tasknummer == 1) {
@@ -28,6 +30,7 @@ export function GetTaskData(tasknummer:number) {
         }
       }
       else {
+        console.log(res)
         reject(false);
       }
     });
@@ -101,7 +104,7 @@ export function RequestKnownColors(entry: any, callback: any) {
 
 export function ReInitAfterError() {
   if (GlobalVariable.currentSetData) {
-    console.log("Making all download set to open " + GlobalVariable.currentSetData.length);
+    if(process.env.DEBUG == "True") console.log("Making all download set to open " + GlobalVariable.currentSetData.length);
     GlobalVariable.currentSetData.forEach(function (element: any) {
       UpdateTaskStatus(element.id, 1, element.information);
     });
@@ -110,10 +113,10 @@ export function ReInitAfterError() {
 
 function AddSetToCallingInstance(req_origin: any, req_information: any) {
   if(req_origin && req_origin.collection_id > 0){
-    console.log("Adding Set to collection_id: " + req_origin.collection_id)
+    if(process.env.DEBUG == "True") console.log("Adding Set to collection_id: " + req_origin.collection_id)
     addNewSetForEntity(JSON.stringify(req_information), 'expectedsets');
   } else if(req_origin && req_origin.offer_id > 0){
-    console.log("Adding Set to offer_id" + req_origin.offer_id)
+    if(process.env.DEBUG == "True") console.log("Adding Set to offer_id" + req_origin.offer_id)
     addNewSetForEntity(JSON.stringify(req_information), 'offers_possiblesets');
   } else {
     console.log("Error: Unable to parse origin of Set!")
@@ -121,10 +124,11 @@ function AddSetToCallingInstance(req_origin: any, req_information: any) {
 }
 
 export function addNewSetForEntity(req_information: any, endpoint:string) {
-  const url = process.env.API_URL + endpoint;
+  
+  const url = 'http://' + process.env.API_URL + ':' + process.env.API_PORT + '/' + endpoint;
   axios.post<any>(url, req_information, 
   { withCredentials: true, headers: { Cookie: GlobalVariable.cookie, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': "*" } }).then(data => {
-      console.log(data.data);
+    if(process.env.DEBUG == "True") console.log(data.data);
       if (data.data.code != 200) {
         console.log(data.data.message);
       }

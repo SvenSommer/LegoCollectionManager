@@ -48,17 +48,17 @@
             <div class="col-lg-12">
                 <div class="card shadow mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="text-primary font-weight-bold m-0">Sorted Sets</h6>
+                        <h6 class="text-primary font-weight-bold m-0">Runned Sets</h6>
                         <div class="dropdown no-arrow">
-                            <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editSortedset(0)">
+                            <button class="btn btzn-link btn-sm " aria-expanded="false"  type="button" (click)="editRunnedSet(0)">
                                 <i class="fas fa-plus text-gray-400"></i>
                             </button>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-12" *ngIf="sortedsetsData && sortedsetsColumns">
-                                <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="sortedsetsColumns" [data]="sortedsetsData" (rowEditClick)="onEditSortedsetClick($event)" (rowCellClick)="onSortedSetClick($event)">
+                            <div class="col-sm-12" *ngIf="runnedSetsData && runnedSetsColumns">
+                                <ng-table [isActionVisible]="true" [isEditVisible]="true" [columns]="runnedSetsColumns" [data]="runnedSetsData" (rowEditClick)="onEditRunnedSetClick($event)" (rowCellClick)="onRunnedSetClick($event)">
                                 </ng-table>
                             </div>
                     </div>
@@ -92,5 +92,5 @@
 </div>
 
 <app-run-edit (runAdded)="addNewRun($event)" #runEdit></app-run-edit>
-<app-sortedset-edit (sortedsetAdded)="addNewSortedset($event)" #sortedsetEdit></app-sortedset-edit>
+<app-runnedset-edit (runnedSetAdded)="addNewRunnedSet($event)" #runnedSetEdit></app-runnedset-edit>
 <app-identifiedpart-edit (identifiedpartAdded)="addNewIdentifiedpart($event)" #identifiedpartEdit></app-identifiedpart-edit>

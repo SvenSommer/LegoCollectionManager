@@ -2,7 +2,8 @@ import CreateSortedPart from '../controllers/sortedparts/create';
 import CreatePartsOfSet from '../controllers/expectedparts/createPartsOfSortedSet';
 import ShowAllSortedParts from '../controllers/sortedparts/show';
 import ShowAllSortedPartsByCollectionId from '../controllers/sortedparts/showByCollectionId';
-import ShowAllSortedPartsByExpectedSetId from '../controllers/sortedparts/showByExpectedSetId';
+import ShowAllSortedPartsByExpectedSetId from '../controllers/sortedparts/showPartsByExpectedSetId';
+import ShowAllSortedMinifgsByExpectedSetId from '../controllers/sortedparts/showMinifigsByExpectedSetId';
 import ShowAllSortedPartsByRunId from '../controllers/sortedparts/showByRunId';
 import UpdateSortedPartById from '../controllers/sortedparts/update';
 import GetSingleSortedPartById from '../controllers/sortedparts/single';
@@ -17,7 +18,8 @@ route.get(``, UserAuthMiddleware, ShowAllSortedParts);
 //List all SortedParts by Collectionid
 route.get(`/collection/:collectionid`, UserAuthMiddleware, ShowAllSortedPartsByCollectionId);
 //List all SortedParts by sortedSetid
-route.get(`/expectedsetid/:expectedsetid`, UserAuthMiddleware, ShowAllSortedPartsByExpectedSetId);
+route.get(`/expectedsetid/:expectedsetid/parts`, UserAuthMiddleware, ShowAllSortedPartsByExpectedSetId);
+route.get(`/expectedsetid/:expectedsetid/minifigs`, UserAuthMiddleware, ShowAllSortedMinifgsByExpectedSetId);
 //List all SortedParts by sortedRunid
 route.get(`/run/:runid`, UserAuthMiddleware, ShowAllSortedPartsByRunId);
 

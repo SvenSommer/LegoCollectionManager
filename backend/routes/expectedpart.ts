@@ -1,6 +1,6 @@
 import CreateExpectedPartsOfSet from '../controllers/expectedparts/createPartsOfSortedSet';
 import ShowAllExpectedParts from '../controllers/expectedparts/show';
-import ShowAllExpectedPartDataBySetid from '../controllers/expectedparts/showPartsBySetid';
+import ShowAllExpectedPartDataBySetid from '../controllers/expectedparts/showPartsByExpectedSetid';
 import ShowAllExpectedMinifigDataBySetid from '../controllers/expectedparts/showMinifigsBySetid';
 import DeleteSingleExpectedPartById from '../controllers/expectedparts/delete';
 import UserAuthMiddleware from '../controllers/middleware/UserAuth.middleware';

@@ -5,12 +5,24 @@
               <div class="text-uppercase text-{{data?.color ? data?.color : ''}} font-weight-bold text-xs mb-1">
                   <span>{{title}}</span>
               </div>
-              <ngb-progressbar *ngIf="showProgressbar" type="{{data?.color ? data?.color : ''}}" [value]="(data?.current / data?.total) * 100" [animated]="true">{{data?.current / data?.total * 100}} % </ngb-progressbar>
+              <ngb-progressbar *ngIf="showProgressbar" type="{{data?.color ? data?.color : ''}}" [value]="(data?.current / data?.total) * 100" [animated]="true">{{(data?.current / data?.total * 100) | number:'1.0-0'}} % </ngb-progressbar>
               <div *ngIf="showProgressbar" class="text-dark font-weight-bold h5 mb-0">
-                  {{data?.current}} of {{data?.total}}
+                <div *ngIf="price" >
+                    {{data?.current | currency: 'EUR':'symbol':undefined:'de-DE'}} of {{data?.total | currency: 'EUR':'symbol':undefined:'de-DE'}}
+                </div>
+                <div *ngIf="!price" >
+                    {{data?.current}} of {{data?.total}}
+                </div>
+                  
               </div>
-              <div *ngIf="!showProgressbar" class="text-dark font-weight-bold h5 mb-0">
-                {{data?.current}} / {{data?.total}}
+              <div *ngIf="!showProgressbar" class="text-dark font-weight-bold h5 mb-3">
+                <div *ngIf="price" >
+                    {{data?.current | currency: 'EUR':'symbol':undefined:'de-DE'}} / {{data?.total | currency: 'EUR':'symbol':undefined:'de-DE'}}
+                </div>
+                <div *ngIf="!price" >
+                    {{data?.current }} / {{data?.total }}
+                </div>
+               
             </div>
           </div>
           <div *ngIf="showIcon" class="col-auto">

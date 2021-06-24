@@ -31,7 +31,13 @@ export class SortedPartService {
     getSortedPartsBySetId(id): Observable<any> {
         let httpHeader = new HttpHeaders();
         httpHeader.set("Access-Control-Allow-Origin", "*");
-        return this.http.get<any>(`${environment.baseUrl}sortedparts/expectedsetid/` + id, { withCredentials: true, headers: httpHeader, observe: 'response' });
+        return this.http.get<any>(`${environment.baseUrl}sortedparts/expectedsetid/` + id+ `/parts`, { withCredentials: true, headers: httpHeader, observe: 'response' });
+      }   
+      
+    getSortedMinifigsBySetId(id): Observable<any> {
+        let httpHeader = new HttpHeaders();
+        httpHeader.set("Access-Control-Allow-Origin", "*");
+        return this.http.get<any>(`${environment.baseUrl}sortedparts/expectedsetid/` + id + `/minifigs`, { withCredentials: true, headers: httpHeader, observe: 'response' });
       }
 
 }

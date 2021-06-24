@@ -9,7 +9,7 @@ const CREDENTIALS = {
 }
 let LOGLEVEL = "INFO"
 exports.LOGLEVEL = LOGLEVEL
-const API_URL = "http://localhost:3001"
+const API_URL = "backend-app:3001"
 exports.API_URL = API_URL
 const API_REQUEST = {
 	AUTH: "/users/login",
