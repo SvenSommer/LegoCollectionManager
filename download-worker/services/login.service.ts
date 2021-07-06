@@ -7,6 +7,7 @@ export function Login(username: any, password: any): Promise<any> {
       withCredentials: true,
     });
     let baseurl = 'http://' + process.env.API_URL + ':' + process.env.API_PORT  
+    console.log("Will login to backend at ",baseurl)
     if(process.env.DEBUG == "True") console.log("making post request to " + baseurl + '/users/login')
     transport.post<any>(baseurl + '/users/login', {
       "username": username,

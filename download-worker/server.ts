@@ -3,6 +3,7 @@ import Express from "express";
 import { Login } from "./services/login.service";
 import { GetTaskData, ReInitAfterError } from "./services/offer.service";
 import { snooze } from "./config/GlobalVariable";
+import { CheckExternalIp } from "./services/ip.service";
 
 var cluster = require('cluster');
 if (cluster.isMaster) {
@@ -26,9 +27,10 @@ if (cluster.isWorker) {
     app.listen(process.env.PORT, () => {
         console.log(`Server started, PORT:` + process.env.PORT);
         console.log(`Connected to DB`);
-        Login("admin", "adminpass").then(data => {
+        Login("admin", "adminpass").then(() => {
             if(process.env.DEBUG == "True") console.log("Login Successful.")
-            performSideTasks().then(data => {
+
+            performSideTasks().then(() => {
 
             });
         }).catch(error => {
@@ -46,19 +48,28 @@ if (cluster.isWorker) {
 
     var performSideTasks = function () {
         return GetTaskData(1).then(async data => {
-            // After 1 round of Task Download it will call for second round after 2 seconds.
+            // After 1 round of Task Download it will call for second round after 0.2 seconds.
             await snooze(200);
             return GetTaskData(4).then(async data => {
-                // After 1 round of Task Download it will call for second round after 2 seconds.
+                // After 1 round of Task Download it will call for second round after 0.2 seconds.
                 await snooze(200);
                 performSideTasks();
             }).catch(error => {
                 console.log(error);
+                return CheckExternalIp().then(async data => {
+                    console.log("external IP", data);
+                });
             });
         }).catch(error => {
             console.log(error);
+            return CheckExternalIp().then(async data => {
+               
+                console.log("external IP2", data);
+            });
         });
+
     }
+
 
 }
 

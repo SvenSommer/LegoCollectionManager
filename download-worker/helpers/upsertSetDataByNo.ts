@@ -35,15 +35,15 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, task_id:
                                     resolve(data);
                                 }
                             }, function (err) {
-                                console.log(err)
+                                console.log("err2",err)
                                 reject(err);
                             });
                         }
                     }, function (err) {
-                        console.log(err)
+                        console.log("err3", err)
                         reject(err);
                     }).catch(function () {
-                        console.log(err)
+                        console.log("err4", err)
                         reject({
                             code: 500,
                             message: 'Couldn\'t download the SetData',
@@ -60,11 +60,11 @@ export function GetAndUpsertSetDataByNo(setnumber: any, userid: number, task_id:
                                 resolve(data);
                             }
                         }, function (err) {
-                            console.log(err)
+                            console.log("err5",err)
                             reject(err);
                         });
                     }, function (err) {
-                        console.log(err)
+                        console.log("err6",err)
                         reject(err);
                     }).catch(function () {
                         reject({
